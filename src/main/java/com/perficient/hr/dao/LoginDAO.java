@@ -1,5 +1,7 @@
 package com.perficient.hr.dao;
 
+import com.perficient.hr.model.User;
+
 public interface LoginDAO{    
-       public boolean checkLogin(String userName, String userPassword);
+       public User checkLogin(String userName, String userPassword);
 }

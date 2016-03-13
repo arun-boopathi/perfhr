@@ -5,12 +5,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Perficient HR</title>
+
 </head>
+
 <body ng-app="perficientHr">
-	
+	<div ng-include="'html/header.html'"/></div>
+	<ng-view></ng-view>	
 </body>
-<ng-view></ng-view>
 <script src="js/jquery.js"></script>
 <script src="js/angular.js"></script>
 <script src="js/angular-route.min.js"></script>
+<script src="js/home.js"></script>
+<script src="js/controller/profileController.js"></script>
+<script src="js/service/profileServices.js"></script>
 </html>

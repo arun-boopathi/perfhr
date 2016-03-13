@@ -9,6 +9,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/common.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
 </head>
 
 <body>
@@ -38,19 +39,7 @@
         <!-- /.container -->
     </nav>
 
-    <!-- Image Background Page Header -->
-    <!-- Note: The background image is set within the business-casual.css file. -->
-    <header class="business-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="tagline">Perficient HR India</h1>
-                </div>
-            </div>
-        </div>
-    </header>
-
-	<div class="col-sm-4 col-sm-push-4 form-login" >
+	<!-- <div class="col-sm-4 col-sm-push-4 form-login" >
 	    <form name="loginForm" novalidate method="post" action="login" modelAttribute="loginBean">
 	        <div class="form-group">
 	            <label for="username">Username</label>
@@ -67,6 +56,40 @@
 				<a href="#" tabindex="5" class="forgot-password">Forgot Password?</a>
 			</div>
 	    </form>
+	</div> -->
+	
+	
+	<div class="login-body">
+	    <article class="container-login center-block">
+			<section>
+				<div class="tab-content tabs-login col-lg-12 col-md-12 col-sm-12 cols-xs-12">
+					<div id="login-access" class="tab-pane fade active in">
+						<h2><i class="glyphicon glyphicon-log-in"></i> Perficient</h2>						
+						<form name="loginForm" method="post" action="login" modelAttribute="loginBean" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal">
+							<div class="form-group ">
+								<label for="login" class="sr-only">Email</label>
+									<input type="text" class="form-control" id="username" name="username" 
+										placeholder="Email" tabindex="1" value="" />
+							</div>
+							<div class="form-group ">
+								<label for="password" class="sr-only">Password</label>
+									<input type="password" class="form-control" name="password" id="password"
+										placeholder="Password" value="" tabindex="2" />
+							</div>
+							<div class="checkbox">
+									<label class="control-label" for="remember_me">
+										<input type="checkbox" name="remember_me" id="remember_me" value="1" class="" tabindex="3" /> Remember Me
+									</label>
+							</div>
+							<br/>
+							<div class="form-group ">				
+									<button type="submit" name="log-me-in" id="submit" tabindex="5" class="btn btn-lg btn-primary">Login</button>
+							</div>
+						</form>			
+					</div>
+				</div>
+			</section>
+		</article>
 	</div>
 
     <!-- Page Content -->

@@ -1,13 +1,16 @@
 package com.perficient.hr.dao.impl;
 
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.LoginDAO;
+import com.perficient.hr.model.User;
 
 @Repository("loginDAO")
 public class LoginDAOImpl implements LoginDAO{
@@ -16,29 +19,29 @@ public class LoginDAOImpl implements LoginDAO{
        protected SessionFactory sessionFactory;
 
        public void setSessionFactory(SessionFactory sessionFactory) {
-              this.sessionFactory = sessionFactory;
+          this.sessionFactory = sessionFactory;
        }
       
        protected Session getSession(){
-              return sessionFactory.openSession();
+          return sessionFactory.openSession();
        }
 
-       public boolean checkLogin(String userName, String userPassword){
+       public User checkLogin(String userName, String userPassword){
 			System.out.println("In Check login");
 			Session session = sessionFactory.openSession();
-			boolean userFound = false;
+			User user = null;
 			//Query using Hibernate Query Language
-			String SQL_QUERY =" from Users as o where o.userName=?";
+			String SQL_QUERY =" from User as o where o.login_id=? and o.password=?";
 			Query query = session.createQuery(SQL_QUERY);
 			query.setParameter(0,userName);
-//			query.setParameter(1,userPassword);
+			query.setParameter(1,userPassword);
 			List list = query.list();
-
 			if ((list != null) && (list.size() > 0)) {
-				userFound= true;
+				System.out.println("user found!");
+				user = (User)list.get(0);
 			}
-
+	
 			session.close();
-			return userFound;              
+			return user;              
        }
 }

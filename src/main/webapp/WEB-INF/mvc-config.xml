@@ -16,6 +16,7 @@
     <mvc:annotation-driven />
    
     <mvc:view-controller path="/" view-name="login" />
+    <mvc:view-controller path="/home" view-name="home" />
 
 	<bean id="jspViewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">

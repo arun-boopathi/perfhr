@@ -4,7 +4,6 @@ angular.module('perficientHr', [
   'ngRoute'
 ]).config(['$routeProvider', function($routeProvider) {
 	  $routeProvider.
-		when("/drivers", {templateUrl: "app/partials/drivers.html", controller: "driversController"}).
-		when("/drivers/:id", {templateUrl: "app/partials/driver.html", controller: "driverController"}).
-		otherwise({redirectTo: '/drivers'});
+		when("/", {templateUrl: "html/employee.html", controller: "employeeController"}).
+		otherwise({redirectTo: '/employee'});
 }]);
