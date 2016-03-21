@@ -1,10 +1,12 @@
 
 body {
-    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 50px;
+    background-color: #EDEDED;
+    font-family: 'Roboto', sans-serif;
 }
 
 .navbar-inverse{
-	background-color: #990000;	
+	background-color: #2A3F54;	
 }
 
 .navbar-inverse .navbar-brand {
@@ -12,7 +14,11 @@ body {
 }
 
 .navbar-inverse .navbar-nav>li>a {
-    color: #d4d4d4;
+    color: #fff;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover{
+	color: #d4d4d4;
 }
 
 .form-login {
@@ -48,4 +54,71 @@ body {
 
 footer {
     margin: 10px 0;
+}
+
+.divContainer {
+    border: 3px solid #3C948B;
+    border-radius: 25px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.dashboardContainer {
+    border: 3px solid #3C948B;
+    border-radius: 25px;
+    margin: 10px;
+    padding: 10px;
+    width: 47%;
+    height: 100%;
+}
+
+table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc,
+    table.dataTable thead .sorting, table.dataTable thead .sorting_disabled{
+	background-color: #729f98 !important;
+	color: #FFF !important;
+	font-size: 13px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, 
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+	background: #F79F79;
+}	
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+	background-color: #F76C5E;
+}
+
+table.dataTable thead th {
+	text-align: center;
+}
+
+table.dataTable tbody td {
+	text-align: left;
+}
+
+table.dataTable tbody td:last-child {
+	text-align: center;
+}
+
+.ngdialog.ngdialog-theme-default.custom-width-800 .ngdialog-content {
+    width: 800px;
+}
+
+.ngdialog.ngdialog-theme-default.custom-width-900 .ngdialog-content {
+    width: 900px;
+}
+
+/* =============================================================
+   FOOTER SECTION STYLES
+ ============================================================ */
+footer {
+    padding: 10px;
+    color: #fff;
+    font-size: 12px;
+    background-color: #2A3F54;
+}
+
+footer a, footer a:hover {
+    color: #fff;
+    text-decoration: none;
 }

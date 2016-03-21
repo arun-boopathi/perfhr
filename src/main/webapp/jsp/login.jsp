@@ -38,81 +38,85 @@
         </div>
         <!-- /.container -->
     </nav>
-
-	<!-- <div class="col-sm-4 col-sm-push-4 form-login" >
-	    <form name="loginForm" novalidate method="post" action="login" modelAttribute="loginBean">
-	        <div class="form-group">
-	            <label for="username">Username</label>
-	            <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" autofocus="true" autocomplete="off" required>
-	        </div>
-	        <div class="form-group">
-	            <label for="password">Password</label>
-	            <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required>
-	        </div>
-	        <div class="form-group text-center">
-	            <input type="submit" class="btn btn-primary" value="Log In"/>
-	        </div>
-	        <div class="form-group  text-center">
-				<a href="#" tabindex="5" class="forgot-password">Forgot Password?</a>
-			</div>
-	    </form>
-	</div> -->
 	
-	
-	<div class="login-body">
-	    <article class="container-login center-block">
-			<section>
-				<div class="tab-content tabs-login col-lg-12 col-md-12 col-sm-12 cols-xs-12">
-					<div id="login-access" class="tab-pane fade active in">
-						<h2><i class="glyphicon glyphicon-log-in"></i> Perficient</h2>						
-						<form name="loginForm" method="post" action="login" modelAttribute="loginBean" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal">
-							<div class="form-group ">
-								<label for="login" class="sr-only">Email</label>
-									<input type="text" class="form-control" id="username" name="username" 
-										placeholder="Email" tabindex="1" value="" />
-							</div>
-							<div class="form-group ">
-								<label for="password" class="sr-only">Password</label>
-									<input type="password" class="form-control" name="password" id="password"
-										placeholder="Password" value="" tabindex="2" />
-							</div>
-							<div class="checkbox">
-									<label class="control-label" for="remember_me">
-										<input type="checkbox" name="remember_me" id="remember_me" value="1" class="" tabindex="3" /> Remember Me
-									</label>
-							</div>
-							<br/>
-							<div class="form-group ">				
-									<button type="submit" name="log-me-in" id="submit" tabindex="5" class="btn btn-lg btn-primary">Login</button>
-							</div>
-						</form>			
-					</div>
-				</div>
-			</section>
-		</article>
-	</div>
-
-    <!-- Page Content -->
-    <div class="container navbar-fixed-bottom">
-        <hr>
-        <!-- Footer -->
-        <footer>
+	<div class="content-wrapper">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Perficient 2016</p>
+                <div class="col-md-12">
+                    <h4 class="page-head-line">Please Login To Enter </h4>
                 </div>
             </div>
-            <!-- /.row -->
-        </footer>
+            <div class="row">
+            	<div  class="col-md-6">
+	                <div class="divContainer">
+	                	<form name="loginForm" method="post" action="login" modelAttribute="loginBean" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal">
+		                    <br />
+		                     <label>Enter Email ID : </label>
+		                     <input type="text" name="username" class="form-control" />
+		                     <label>Enter Password :  </label>
+		                     <input type="password" name="password" class="form-control" />
+		                     <hr />
+		                     <button style="width: 100%;" type="submit" name="log-me-in" id="submit" tabindex="5" class="btn btn-lg btn-primary">Login</button>
+	                     </form>
+	                </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert alert-info">
+                        This is a free bootstrap admin template with basic pages you need to craft your project. 
+                        Use this template for free to use for personal and commercial use.
+                        <br />
+                         <strong> Some of its features are given below :</strong>
+                        <ul>
+                            <li>
+                                Responsive Design Framework Used
+                            </li>
+                            <li>
+                                Easy to use and customize
+                            </li>
+                            <li>
+                                Font awesome icons included
+                            </li>
+                            <li>
+                                Clean and light code used.
+                            </li>
+                        </ul>
+                       
+                    </div>
+                    <div class="alert alert-success">
+                         <strong> Instructions To Use:</strong>
+                        <ul>
+                            <li>
+                               Lorem ipsum dolor sit amet ipsum dolor sit ame
+                            </li>
+                            <li>
+                                 Aamet ipsum dolor sit ame
+                            </li>
+                            <li>
+                               Lorem ipsum dolor sit amet ipsum dolor
+                            </li>
+                            <li>
+                                 Cpsum dolor sit ame
+                            </li>
+                        </ul>
+                       
+                    </div>
+                </div>
 
+            </div>
+        </div>
     </div>
+    <!-- CONTENT-WRAPPER SECTION END-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    &copy; 2016  | By : <a href="http://www.perficient.com/" target="_blank">Perficient</a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
     <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
 </body>
 
 </html>

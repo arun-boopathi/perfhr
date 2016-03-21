@@ -11,12 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.model.Employee;
-import com.perficient.hr.model.User;
 
 @Repository("employeeDAO")
 public class EmployeeDAOImpl implements EmployeeDAO{
 
 	@Resource(name="sessionFactory")
+	
     protected SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -27,12 +27,13 @@ public class EmployeeDAOImpl implements EmployeeDAO{
        return sessionFactory.openSession();
     }
 	
-	public Employee loadEmployeeById(String employeeId) {
+	@SuppressWarnings("unchecked")
+	public Employee loadEmployeeById(String employeePk) {
 		Session session = sessionFactory.openSession();
 		Employee employee = null;
-		String SQL_QUERY =" from Employee as o where o.employee_id='"+employeeId+"'";
+		String SQL_QUERY =" from Employee as o where o.pk='"+employeePk+"'";
 		Query query = session.createQuery(SQL_QUERY);
-		List list = query.list();
+		List<Employee> list = query.list();
 		if ((list != null) && (list.size() > 0)) {
 			employee = (Employee)list.get(0);
 		}
@@ -40,7 +41,13 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		return employee;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Employee> loadEmployees() {
-		return null;
+		Session session = sessionFactory.openSession();
+		String SQL_QUERY =" from Employee";
+		Query query = session.createQuery(SQL_QUERY);
+		List<Employee> list = query.list();
+		session.close();
+		return list;
 	}
 }

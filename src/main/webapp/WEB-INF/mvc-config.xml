@@ -11,6 +11,7 @@
 	<mvc:resources location="/resources/css/" mapping="/css/**" />
 	<mvc:resources location="/resources/js/" mapping="/js/**" />
 	<mvc:resources location="/resources/fonts/" mapping="/fonts/**" />
+	<mvc:resources location="/resources/images/" mapping="/images/**" />
 	<mvc:resources location="/html/" mapping="/html/**" />
 
     <mvc:annotation-driven />

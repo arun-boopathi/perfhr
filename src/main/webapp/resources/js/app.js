@@ -1,9 +1,17 @@
-angular.module('perficientHr', [
-  'perficientHr.controllers',
-  'perficientHr.services',
-  'ngRoute'
-]).config(['$routeProvider', function($routeProvider) {
-	  $routeProvider.
-		when("/", {templateUrl: "html/employee.html", controller: "employeeController"}).
-		otherwise({redirectTo: '/employee'});
-}]);
+var mainApp = angular.module("perficientHr", 
+		['profile.controller','profile.services','employee.controller',		 
+		 'employee.services','ngRoute', 'datatables', 'ngDialog']);
+ 
+mainApp.config(function($routeProvider) {
+    $routeProvider
+        .when('/home', {
+            templateUrl: 'html/dashboard.html'
+        })
+        .when('/employees', {
+            templateUrl: 'html/employees.html',
+            controller: 'employeeController'
+        })
+        .otherwise({
+            redirectTo: '/home'
+        });
+});

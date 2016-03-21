@@ -5,17 +5,44 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Perficient HR</title>
-
+<link rel="stylesheet" href="css/jquery.dataTables.css">
+<link rel="stylesheet" href="css/angular-datatables.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/ngDialog-theme-default.min.css">
+<link rel="stylesheet" href="css/ngDialog.min.css">
 </head>
 
 <body ng-app="perficientHr">
 	<div ng-include="'html/header.html'"/></div>
-	<ng-view></ng-view>	
+	<div class="divContainer">
+		<ng-view></ng-view>
+	</div>
 </body>
-<script src="js/jquery.js"></script>
-<script src="js/angular.js"></script>
-<script src="js/angular-route.min.js"></script>
-<script src="js/home.js"></script>
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/angular.js"></script>
+<script src="js/lib/angular-route.min.js"></script>
+<script src="js/lib/jquery.dataTables.min.js"></script>
+<script src="js/lib/angular-datatables.js"></script>
+<script src="js/lib/angular-datatables.util.js"></script>
+<script src="js/lib/angular-datatables.options.js"></script>
+<script src="js/lib/angular-datatables.instances.js"></script>
+<script src="js/lib/angular-datatables.factory.js"></script>
+<script src="js/lib/angular-datatables.renderer.js"></script>
+<script src="js/lib/angular-datatables.directive.js"></script>
+<script src="js/lib/ngDialog.min.js"></script>
+<script src="js/app.js"></script>
 <script src="js/controller/profileController.js"></script>
 <script src="js/service/profileServices.js"></script>
+<script src="js/controller/employeeController.js"></script>
+<script src="js/service/employeeServices.js"></script>
+<footer>
+   <div class="container">
+       <div class="row">
+           <div class="col-md-12">
+               &copy; 2016  | By : <a href="http://www.perficient.com/" target="_blank">Perficient</a>
+           </div>
+
+       </div>
+   </div>
+</footer>
 </html>

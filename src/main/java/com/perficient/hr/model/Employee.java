@@ -31,7 +31,7 @@ public class Employee implements Serializable {
 	private String middleName;
 	
 	@Column(name = "contact_no")
-	private int contactNo;
+	private String contactNo;
 	
 	@Column(name = "email")
 	private String email;
@@ -46,7 +46,7 @@ public class Employee implements Serializable {
 	private String city;
 	
 	@Column(name = "pincode")
-	private int pincode;
+	private String pincode;
 	
 	@Column(name = "nationality")
 	private String nationality;
@@ -124,14 +124,14 @@ public class Employee implements Serializable {
 	/**
 	 * @return the contactNo
 	 */
-	public int getContactNo() {
+	public String getContactNo() {
 		return contactNo;
 	}
 
 	/**
 	 * @param contactNo the contactNo to set
 	 */
-	public void setContactNo(int contactNo) {
+	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
 	}
 
@@ -194,14 +194,14 @@ public class Employee implements Serializable {
 	/**
 	 * @return the pincode
 	 */
-	public int getPincode() {
+	public String getPincode() {
 		return pincode;
 	}
 
 	/**
 	 * @param pincode the pincode to set
 	 */
-	public void setPincode(int pincode) {
+	public void setPincode(String pincode) {
 		this.pincode = pincode;
 	}
 
