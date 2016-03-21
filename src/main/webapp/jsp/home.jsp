@@ -35,6 +35,8 @@
 <script src="js/service/profileServices.js"></script>
 <script src="js/controller/employeeController.js"></script>
 <script src="js/service/employeeServices.js"></script>
+<script src="js/controller/dashboardController.js"></script>
+<script src="js/service/dashboardServices.js"></script>
 <footer>
    <div class="container">
        <div class="row">

@@ -7,6 +7,5 @@ angular.module('employee.services', []).
           url: 'employee/loadEmployeeById?employeeId='+empId
         });
     };
-    
     return employeeAPI; 
 });

@@ -14,35 +14,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.model.Employee;
-import com.perficient.hr.service.EmployeeService;
 
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
 
 	@Autowired
-	private EmployeeService employeeService;
+	private EmployeeDAO employeeDAO;
 	
 	@RequestMapping(value="/loadEmployee",method=RequestMethod.GET)
 	@Produces("application/json")
 	public @ResponseBody Employee loadEmployee(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession();
-		Employee employee = employeeService.loadEmployeeById(session.getAttribute("userId").toString());
+		Employee employee = employeeDAO.loadEmployeeById(session.getAttribute("userId").toString());
 		return employee;
 	}
 	
 	@RequestMapping(value="/loadEmployeeById",method=RequestMethod.GET)
 	@Produces("application/json")
 	public @ResponseBody Employee loadEmployeeById(@RequestParam(value="employeeId") String employeeId, HttpServletRequest request, HttpServletResponse response){
-		Employee employee = employeeService.loadEmployeeById(employeeId);
+		Employee employee = employeeDAO.loadEmployeeById(employeeId);
 		return employee;
 	}
 	
 	@RequestMapping(value="/loadAllEmployee",method=RequestMethod.GET)
 	@Produces("application/json")
 	public @ResponseBody List<Employee> loadAllEmployee(HttpServletRequest request, HttpServletResponse response){
-		List<Employee> employees = employeeService.loadEmployees();
+		List<Employee> employees = employeeDAO.loadEmployees();
 		return employees;
 	}
 }

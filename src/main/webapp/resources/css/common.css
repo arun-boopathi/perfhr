@@ -1,7 +1,6 @@
 
 body {
     padding-top: 50px;
-    background-color: #EDEDED;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -18,7 +17,7 @@ body {
 }
 
 .navbar-inverse .navbar-nav>li>a:hover{
-	color: #d4d4d4;
+	font-weight: bold;
 }
 
 .form-login {
@@ -74,7 +73,7 @@ footer {
 
 table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc,
     table.dataTable thead .sorting, table.dataTable thead .sorting_disabled{
-	background-color: #729f98 !important;
+	background-color: #677077 !important;
 	color: #FFF !important;
 	font-size: 13px;
 }
@@ -116,6 +115,8 @@ footer {
     color: #fff;
     font-size: 12px;
     background-color: #2A3F54;
+    bottom: 5px;
+    width: 100%;
 }
 
 footer a, footer a:hover {

@@ -43,62 +43,63 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="page-head-line">Please Login To Enter </h4>
+                    <h4 class="page-head-line">Perficient Login</h4>
                 </div>
             </div>
+            <p class="text-danger"><strong>${msg}</strong></p>
             <div class="row">
-            	<div  class="col-md-6">
-	                <div class="divContainer">
-	                	<form name="loginForm" method="post" action="login" modelAttribute="loginBean" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal">
-		                    <br />
-		                     <label>Enter Email ID : </label>
-		                     <input type="text" name="username" class="form-control" />
-		                     <label>Enter Password :  </label>
-		                     <input type="password" name="password" class="form-control" />
-		                     <hr />
-		                     <button style="width: 100%;" type="submit" name="log-me-in" id="submit" tabindex="5" class="btn btn-lg btn-primary">Login</button>
-	                     </form>
-	                </div>
+            	<div class="col-md-6" style="border: 1px solid #101010; border-radius: 25px; padding: 20px;">
+                	<form name="loginForm" method="post" action="login" modelAttribute="loginBean" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal">
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+					    <div class="col-sm-10">
+					      <input type="text" name="username" class="form-control" id="inputEmail3" placeholder="Email">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+					    <div class="col-sm-10">
+					      <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      <div class="checkbox">
+					        <label>
+					          <input type="checkbox"> Remember me
+					        </label>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-2 col-sm-10">
+					      <button type="submit" class="btn btn-success" style="width: 100%;">Sign in</button>
+					    </div>
+					  </div>
+					</form>
                 </div>
                 <div class="col-md-6">
                     <div class="alert alert-info">
-                        This is a free bootstrap admin template with basic pages you need to craft your project. 
-                        Use this template for free to use for personal and commercial use.
-                        <br />
-                         <strong> Some of its features are given below :</strong>
+                        <strong> Some of its features are given below :</strong>
                         <ul>
                             <li>
-                                Responsive Design Framework Used
+                                Perficient HR Services
                             </li>
                             <li>
-                                Easy to use and customize
+                                Perficient Referral Services
                             </li>
                             <li>
-                                Font awesome icons included
-                            </li>
-                            <li>
-                                Clean and light code used.
+                                Perficient Recruitment Services
                             </li>
                         </ul>
-                       
                     </div>
                     <div class="alert alert-success">
                          <strong> Instructions To Use:</strong>
                         <ul>
                             <li>
-                               Lorem ipsum dolor sit amet ipsum dolor sit ame
-                            </li>
-                            <li>
-                                 Aamet ipsum dolor sit ame
-                            </li>
-                            <li>
-                               Lorem ipsum dolor sit amet ipsum dolor
-                            </li>
-                            <li>
-                                 Cpsum dolor sit ame
+                               Provide Perficient email to login.
                             </li>
                         </ul>
-                       
                     </div>
                 </div>
 

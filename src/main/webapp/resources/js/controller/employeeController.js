@@ -3,7 +3,7 @@ var employee;
 angular.module('employee.controller', ['showcase.bindAngularDirective']).
     controller('employeeController', function($scope, employeeAPIservice) {
 	console.log('in employeeController employeeAPIservice: ',employeeAPIservice);
-}).controller('formCtrl', ['$scope', function($scope) {
+}).controller('updateEmployeeCtrl', ['$scope', function($scope) {
 	$scope.list = [];
     $scope.submit = function() {
       if ($scope.firstName) {
@@ -30,7 +30,7 @@ angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).cont
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name'),
         DTColumnBuilder.newColumn('email').withTitle('Email'),
-//                    DTColumnBuilder.newColumn('address').withTitle('Address'),
+//      DTColumnBuilder.newColumn('address').withTitle('Address'),
         DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
         	.renderWith(actionsHtml)
     ];
