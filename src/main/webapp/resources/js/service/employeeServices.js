@@ -4,7 +4,7 @@ angular.module('employee.services', []).
 	employeeAPI.getEmployeesDetails = function(empId) {
         return $http({
           method: 'get', 
-          url: 'employee/loadEmployeeById?employeeId='+empId
+          url: perfUrl['loadEmployeeById']+empId
         });
     };
     return employeeAPI; 

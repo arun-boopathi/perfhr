@@ -18,7 +18,7 @@ import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.model.Employee;
 
 @Controller
-@RequestMapping("/employee")
+@RequestMapping("/v-employee")
 public class EmployeeController {
 
 	@Autowired

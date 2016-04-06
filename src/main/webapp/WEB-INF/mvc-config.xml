@@ -17,7 +17,14 @@
     <mvc:annotation-driven />
    
     <mvc:view-controller path="/" view-name="login" />
-    <mvc:view-controller path="/home" view-name="home" />
+    <mvc:view-controller path="/home" view-name="home"/>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/v-*/*"/>
+       		<bean class="com.perficient.hr.interceptor.SessionInterceptor" />
+   		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<bean id="jspViewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">

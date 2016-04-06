@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +20,8 @@ import com.perficient.hr.model.User;
 @Controller
 public class LoginController {
 
+	protected Logger logger = LoggerFactory.getLogger(LoginController.class);
+	
 	@Autowired
 	public LoginDAO loginDao;
 	
@@ -32,12 +36,13 @@ public class LoginController {
 			@ModelAttribute("loginBean")LoginForm loginForm) {
 		ModelAndView model = null;
 		try {
-			System.out.println("user "+loginForm.getUsername());
+			logger.debug("Authenticating User :"+loginForm.getUsername());
 			User userExists = loginDao.checkLogin(loginForm.getUsername(),loginForm.getPassword());
 			if(userExists != null){
 				HttpSession session = request.getSession();
 				session.setAttribute("userId", userExists.getEmployeePk());
-				model = new ModelAndView("redirect:home");
+//				logger.info("Authentication successful. Redirecting to home page.");
+				model = new ModelAndView("redirect:/home");
 			}else{
 				model = new ModelAndView("login");
 				model.addObject("msg", "Invalid UserName/Password!");
@@ -52,6 +57,7 @@ public class LoginController {
 	public ModelAndView doLogut(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession();
 		session.invalidate();
+//		logger.debug("User logged out successfully");
 		ModelAndView model = new ModelAndView("login");
 		model.addObject("msg", "Logged out Successfully!");
 		return model;

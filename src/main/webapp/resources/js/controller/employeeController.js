@@ -1,16 +1,19 @@
 var employee;
+var scope;
 /* Employee controller */
 angular.module('employee.controller', ['showcase.bindAngularDirective']).
     controller('employeeController', function($scope, employeeAPIservice) {
 	console.log('in employeeController employeeAPIservice: ',employeeAPIservice);
-}).controller('updateEmployeeCtrl', ['$scope', function($scope) {
+}).controller('updateEmployeeCtrl', function($scope, employeeAPIservice) {
+	scope = $scope;
 	$scope.list = [];
     $scope.submit = function() {
-      if ($scope.firstName) {
-        console.log('val: ', $scope.firstName);
+      if ($scope.employee.firstName) {
+         console.log('val: ', $scope.employee.firstName);
       }
+      $('#updateEmployee').hide();
     };
-}]);
+});
 
 angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).controller('BindAngularDirectiveCtrl', 
 		function($scope, $compile, DTOptionsBuilder, DTColumnBuilder, ngDialog, employeeAPIservice){
@@ -20,11 +23,12 @@ angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).cont
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.employees = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('employee/loadAllEmployee')
+    vm.dtOptions = DTOptionsBuilder.fromSource(perfUrl['loadAllEmployee'])
         .withDisplayLength(7)
         .withDOM('pitrfl')
         .withPaginationType('full_numbers')
-        .withOption('createdRow', createdRow);
+        .withOption('createdRow', createdRow).withOption('aaSorting', [1, 'asc']);
+    
     vm.dtColumns = [
         DTColumnBuilder.newColumn('employee_id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
@@ -35,31 +39,24 @@ angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).cont
         	.renderWith(actionsHtml)
     ];
     console.log('in module employeeAPIservice: ',employeeAPIservice);
+    DTOptionsBuilder.newOptions().withOption('aaSorting', [2, 'asc']);
     function edit(employee) {
         //vm.message = 'You are trying to edit the row: ' + JSON.stringify(employee);
         // Edit some data and call server to make changes...
         // Then reload the data so that DT is refreshed
         //vm.dtInstance.reloadData();
         var employeeId = employee.pk;
-        console.log('employeeId: ',employeeId);
-        ngDialog.open({
-            template: 'html/employee.html',
-            showClose : true,
-            closeByDocument : false,
-            className: 'ngdialog-theme-default custom-width-800',
-            controller: ['$scope','employeeAPIservice', function($scope, employeeAPIservice) {
-                // controller logic
-            	$scope.employee = null;
-            	console.log('employeeAPIservice: ',employeeAPIservice);
-            	employeeAPIservice.getEmployeesDetails(employeeId).success(function (response) {
-            		$scope.employee = response;
-      	        });
-            }]
+        
+        employeeAPIservice.getEmployeesDetails(employeeId).success(function (response) {
+        	console.log('getEmployeesDetails response ', response);
+    		scope.employee = response;
+    		$('#updateEmployee').show();
         });
-               
     }
+    
     function deleteRow(employee) {
-        vm.message = 'You are trying to remove the row: ' + JSON.stringify(employee);
+    	console.log('Delete employee ', employee.firstName);
+        vm.message = 'You are trying to remove Employee:  ' + employee.lastName+', '+employee.firstName ;
         // Delete some data and call server to make changes...
         // Then reload the data so that DT is refreshed
         vm.dtInstance.reloadData();

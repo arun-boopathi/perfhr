@@ -4,7 +4,7 @@ angular.module('profile.services', []).
 	profileAPI.getProfileDetails = function() {
         return $http({
           method: 'get', 
-          url: 'employee/loadEmployee'
+          url: perfUrl['loadEmployee']
         });
     };
     return profileAPI; 

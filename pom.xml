@@ -24,7 +24,7 @@
 		<hibernate.version>4.2.1.Final</hibernate.version>
 
 		<!-- Logging -->
-		<logback.version>1.0.13</logback.version>
+		<logback.version>1.1.3</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
 
 		<!-- Test -->
@@ -111,9 +111,8 @@
 		<!-- Logging with SLF4J & LogBack -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>compile</scope>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.12</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -151,6 +150,17 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.30</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+				
+		<dependency>
+		    <groupId>org.tuckey</groupId>
+		    <artifactId>urlrewritefilter</artifactId>
+		    <version>4.0.4</version>
 		</dependency>
 		
 		<!-- Test Artifacts -->

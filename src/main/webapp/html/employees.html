@@ -2,3 +2,30 @@
     <p class="text-danger"><strong>{{ showCase.message }}</strong></p>
     <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
 </div>
+
+<div class="modal fade in" id="updateEmployee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Update Employee Details</h4>
+            </div>
+            <form role="form" ng-submit="submit()" class="form-inline" ng-controller="updateEmployeeCtrl">
+	            <div class="modal-body">
+	              <div class="form-group">
+			    	<div class="col-sm-5"><label>Employee Id</label><input type="text" ng-model="employee.employee_id" class="form-control" placeholder="First" value="{{employee.employee_id}}" disabled></div>
+			    	<div class="col-sm-5"><label>Email</label><input type="text" ng-model="employee.email" class="form-control" placeholder="Last" value="{{employee.email}}"></div>
+				  </div>
+				  <div class="form-group">
+			    	<div class="col-sm-5"><label>First name</label><input type="text" ng-model="employee.firstName" class="form-control" placeholder="First" value="{{employee.firstName}}"></div>
+			    	<div class="col-sm-5"><label>Last name</label><input type="text" ng-model="employee.lastName" class="form-control" placeholder="Last" value="{{employee.lastName}}"></div>
+				  </div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="">Close</button>
+	                <button type="submit" class="btn btn-primary">Save changes</button>
+	            </div>
+            </form>
+        </div>
+    </div>
+</div>

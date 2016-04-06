@@ -1,0 +1,176 @@
+<style>
+.btn-input {
+	display: block;
+}
+.btn-input .btn.form-control {
+	text-align: left;
+}
+.btn-input .btn.form-control span:first-child {
+	left: 10px;
+	overflow: hidden;
+	position: absolute;
+	right: 25px;
+}
+.btn-input .btn.form-control .caret {
+	margin-top: -1px;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+}
+
+.approvalActions .btn{
+	margin-left: 5px !important;
+}
+
+.ptosTaken a{
+   background-color : Green !important;
+   background-image :none !important;
+   color: White !important;
+   font-weight:bold !important;
+   font-size: 12pt;
+}
+
+.pushRight{
+	margin-left: 4% ;
+}
+
+.open{
+	display: block !important;
+}
+
+.open li{
+  width: 275px;
+}
+</style>
+<div style="padding: 25px;">
+<div class="panel panel-info">
+  <div class="panel-heading">Upload</div>
+  <div class="panel-body">
+    <div style="position:relative;"> <a class='btn btn-primary' href='javascript:;'> Choose File...
+      <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
+      </a> &nbsp; <span class='label label-info' id="upload-file-info"></span> </div>
+  </div>
+</div>
+<div class="panel panel-warning">
+  <div class="panel-heading">Leave Details</div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="form-horizontal">
+        <div class="control-group col-md-2">
+          <label for="dropdown" class="control-label">&nbsp</label>
+          <div class="input-group bootstrap-timepicker timepicker">
+            <input type="text" ng-model="ptoTimeFrame" class="form-control input-small"> 
+            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span> </div>
+        </div>
+        <div class="control-group col-md-2">
+          <label for="date" class="control-label">Leaves Taken:</label>
+          <div class="controls">
+            <div class="input-group">
+              <input ng-model="ptoLeavetaken" type="text" class="date-picker form-control"/>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="control-group col-md-2">
+          <label for="date" class="control-label">Leaves Left:</label>
+          <div class="controls">
+            <div class="input-group">
+              <input ng-model="ptoLeavebalance" type="text" class="date-picker form-control"/>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="control-group col-md-2">
+          <div style="margin-top:20px;"> <a class="btn btn-info btn-lg" ng-click="toggleSplLeaves()"> <span class="glyphicon glyphicon-plus"></span> </a> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default" ng-show="isSplLeavesPanel">
+  <div class="panel-heading">Special Leaves</div>
+  <div class="panel-body">
+    <div class="col-md-12">
+      <div class="form-horizontal">
+        <div class="control-group col-md-3">
+          <label for="dropdown" class="control-label">Type</label>
+          <div class="panel panel-default">
+            <div class="btn-group btn-input clearfix">
+              <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown" aria-expanded="false"> <span data-bind="label">Select One</span>&nbsp;<span class="caret"></span> </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Maternity Leave</a></li>
+                <li><a href="#">Sick Leave</a></li>
+                <li><a href="#">Others</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="control-group col-md-2">
+          <label for="date-picker-1" class="control-label">From</label>
+          <div class="controls">
+            <div class="input-group">
+              <input id="date-picker-1" type="text" ng-model="ptoFromDt" class="date-picker form-control" datepicker/>
+              <label for="date-picker-1" class="input-group-addon btn" ><span class="glyphicon glyphicon-calendar"></span> </label>
+            </div>
+          </div>
+        </div>
+        <div class="control-group col-md-2">
+          <label for="date-picker-2" class="control-label">To</label>
+          <div class="controls">
+            <div class="input-group">
+              <input id="date-picker-2" type="text" ng-model="ptoToDt" class="date-picker form-control" datepicker/>
+              <label for="date-picker-2" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span> </label>
+            </div>
+          </div>
+        </div>
+        <div class="control-group col-md-2">
+          <label for="date" class="control-label">Days</label>
+          <div class="controls">
+            <div class="input-group">
+              <input ng-model="daysAllotted" type="text" class="date-picker form-control" />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="control-group approvalActions col-md-2">
+        <label for="approval" class="control-label">Actions</label>
+        	<div class="controls">
+            	<div class="input-group">  
+        			<button type="button" class="btn btn-default btn-sm">
+          				<span class="glyphicon glyphicon-ok" title="Approve" style="color:green;"></span>  
+			        </button>
+			        <button type="button" class="btn btn-default btn-sm">
+          				<span class="glyphicon glyphicon-remove" title="Decline" style="color:red;"></span>  
+			        </button>
+			        <button type="button" class="btn btn-default btn-sm">
+          				<span class="glyphicon glyphicon-pencil" title="Edit" style="color:yellow;"></span>  
+			        </button>
+			    </div>
+          	</div>
+        </div>
+        <div class="control-group col-md-1">
+        <label for="addNewRows" class="control-label">&nbsp;</label>
+        <div class="controls">
+            <div class="input-group">  
+	        	<button type="button" class="btn btn-default btn-sm pull-right">
+		    		<span class="glyphicon glyphicon-plus-sign" title="Add Row" style="color:lime;">
+		    	</button>
+		    </div>
+		 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel panel-success">
+  <div class="panel-heading">Calendar</div>
+  <div class="panel-body">
+  	<div ng-model="ptoCalender" class="pushRight" pto-calendar></div>
+  	<div class="hidden"><span class="glyphicon glyphicon-stop" style="color:green;"></span>;</div>
+  </div>
+</div>
+</div>
+</div>
+<script>
+   
+   </script>

@@ -123,3 +123,8 @@ footer a, footer a:hover {
     color: #fff;
     text-decoration: none;
 }
+
+.notice-board li {
+    padding: 10px;
+    border-bottom: 1px solid #E5E5E5;
+}
