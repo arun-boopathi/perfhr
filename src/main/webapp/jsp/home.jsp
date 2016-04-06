@@ -32,7 +32,6 @@
 <script src="js/lib/angular-datatables.renderer.js"></script>
 <script src="js/lib/angular-datatables.directive.js"></script>
 <script src="js/lib/ngDialog.min.js"></script>
-<script src="js/lib/colResize.js"></script>
 <script src="js/app.js"></script>
 <script src="js/constants/constants.js"></script>
 <script src="js/controller/profileController.js"></script>
