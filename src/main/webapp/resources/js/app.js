@@ -8,7 +8,7 @@ var mainApp = angular.module("perficientHr",
 mainApp.config(function($routeProvider) {
     $routeProvider
         .when('/home', {
-            templateUrl: 'html/dashboard.html',
+            templateUrl: 'html/dashboard1.html',
             controller: 'approvalReqCtrl'
         })
         .when('/employees', {

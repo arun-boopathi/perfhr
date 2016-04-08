@@ -1,6 +1,5 @@
 
 body {
-    padding-top: 50px;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -56,10 +55,12 @@ footer {
 }
 
 .divContainer {
-    border: 3px solid #3C948B;
+    /* border: 2px solid #000; */
     border-radius: 25px;
-    margin: 10px;
+    margin-right: 10px !important;
+    margin-left: 10px !important;
     padding: 10px;
+    margin-top: 40px !important;
 }
 
 .dashboardContainer {
@@ -127,4 +128,8 @@ footer a, footer a:hover {
 .notice-board li {
     padding: 10px;
     border-bottom: 1px solid #E5E5E5;
+}
+
+.fa{
+	cursor: pointer;
 }
