@@ -36,19 +36,20 @@ public class LoginController {
 			@ModelAttribute("loginBean")LoginForm loginForm) {
 		ModelAndView model = null;
 		try {
-			logger.debug("Authenticating User :"+loginForm.getUsername());
+			logger.info("Authenticating User :"+loginForm.getUsername());
 			User userExists = loginDao.checkLogin(loginForm.getUsername(),loginForm.getPassword());
 			if(userExists != null){
 				HttpSession session = request.getSession();
 				session.setAttribute("userId", userExists.getEmployeePk());
-//				logger.info("Authentication successful. Redirecting to home page.");
+				logger.info("Authentication successful. Redirecting to home page.");
 				model = new ModelAndView("redirect:/home");
-			}else{
+			} else {
+				logger.error("Invalid Credentials provided for User: "+loginForm.getUsername());
 				model = new ModelAndView("login");
 				model.addObject("msg", "Invalid UserName/Password!");
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error("Unable to Authenticate User: "+loginForm.getUsername());
 		}
 		return model;
 	}
@@ -57,7 +58,7 @@ public class LoginController {
 	public ModelAndView doLogut(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession();
 		session.invalidate();
-//		logger.debug("User logged out successfully");
+		logger.info("User logged out successfully");
 		ModelAndView model = new ModelAndView("login");
 		model.addObject("msg", "Logged out Successfully!");
 		return model;

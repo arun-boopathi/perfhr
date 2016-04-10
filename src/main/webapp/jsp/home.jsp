@@ -8,7 +8,7 @@
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom CSS -->
-<link href="css/common.css" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css" >
 <link rel="stylesheet" href="css/jquery.dataTables.css">
 <link rel="stylesheet" href="css/angular-datatables.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -24,6 +24,22 @@
 	<nav id="menu" class="mm-menu">
         <ul>
             <li><a href="#/dashboard">Dashboard</a></li>
+            <li>
+            	<a href="#">Administration</a>
+            	<ul>
+            		<li><a href="#">Projects</a></li>
+            		<li><a href="#">Roles</a></li>
+            		<li><a href="#">Add Employee</a></li>
+            		<li><a href="#">Designations</a></li>
+            		<li>
+            			<a href="#">Reports</a>
+            			<ul>
+            				<li><a href="#">WFH Reports</a></li>
+            				<li><a href="#">PTO Reports</a></li>
+            			</ul>	
+            		</li>
+            	</ul>
+            </li>
             <li><a href="#/employees">Employees</a></li>
             <li><a href="#/profile">Profile</a></li>
             <li>
@@ -36,18 +52,7 @@
             <li><a href="#">WFH</a></li>
             <li><a href="#/notifications">Notifications</a></li>
             <li><a href="logout">Logout</a></li>
-        </ul>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About us</a>
-               <ul>
-                  <li><a href="/about/history">History</a></li>
-                  <li><a href="/about/team">The team</a></li>
-                  <li><a href="/about/address">Our address</a></li>
-               </ul>
-            </li>
-            <li><a href="/contact">Contact</a></li>
-         </ul>
+        </ul>        
 	</nav>
 	
 	
@@ -62,6 +67,7 @@
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/jquery-ui.min.js"></script>
 <script src="js/lib/angular.js"></script>
+<script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/angular-route.min.js"></script>
 <script src="js/lib/jquery.dataTables.min.js"></script>
 <script src="js/lib/angular-datatables.js"></script>
@@ -74,6 +80,7 @@
 <script src="js/lib/ngDialog.min.js"></script>
 <script src="js/lib/jquery.mmenu.all.min.js"></script>
 <script src="js/app.js"></script>
+<script src="js/common.js"></script>
 <script src="js/constants/constants.js"></script>
 <script src="js/controller/profileController.js"></script>
 <script src="js/service/profileServices.js"></script>
@@ -97,8 +104,6 @@ $menu.mmenu({
 	position: "top",
 	content: [ "searchfield", "breadcrumbs" ],
 	height: 2
-  }, {
-	position: "bottom"				
   }],
   extensions: ['widescreen', 'theme-dark', 'effect-menu-slide'],
   offCanvas: {

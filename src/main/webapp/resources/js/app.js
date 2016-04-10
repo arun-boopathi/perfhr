@@ -4,29 +4,31 @@ var mainApp = angular.module("perficientHr",
 		 'dashboard.controller','dashboard.services',
 		 'pto.controller',
 		 'ngRoute', 'datatables', 'ngDialog']);
- 
+
+var rand = Math.floor(Math.random()*(3-1+1)+1);
+
 mainApp.config(function($routeProvider) {
-    $routeProvider
-        .when('/home', {
-            templateUrl: 'html/dashboard1.html',
-            controller: 'approvalReqCtrl'
-        })
-        .when('/employees', {
-            templateUrl: 'html/employees.html',
-            controller: 'employeeController'
-        })
-        .when('/profile', {
-            templateUrl: 'html/profile.html',
-            controller: 'profileController'
-        })
-        .when('/pto', {
-            templateUrl: 'html/pto.html',
-            controller: 'ptoController'
-        })
-        .when('/candidate', {
-            templateUrl: 'html/candidate.html',
-        })
-        .otherwise({
-            redirectTo: '/home'
-        });
+	$routeProvider
+	    .when('/home', {
+	        templateUrl: 'html/dashboard'+rand+'.html',
+	        controller: 'dashboardController'
+	    })
+	    .when('/employees', {
+	        templateUrl: 'html/employees.html',
+	        controller: 'employeeController'
+	    })
+	    .when('/profile', {
+	        templateUrl: 'html/profile.html',
+	        controller: 'profileController'
+	    })
+	    .when('/pto', {
+	        templateUrl: 'html/pto.html',
+	        controller: 'ptoController'
+	    })
+	    .when('/candidate', {
+	        templateUrl: 'html/candidate.html',
+	    })
+	    .otherwise({
+	        redirectTo: '/home'
+	    });
 });

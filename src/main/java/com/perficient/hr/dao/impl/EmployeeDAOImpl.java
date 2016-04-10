@@ -7,14 +7,19 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.perficient.hr.controller.LoginController;
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.model.Employee;
 
 @Repository("employeeDAO")
 public class EmployeeDAOImpl implements EmployeeDAO{
 
+	protected Logger logger = LoggerFactory.getLogger(EmployeeDAOImpl.class);
+	
 	@Resource(name="sessionFactory")
 	
     protected SessionFactory sessionFactory;
@@ -29,6 +34,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	
 	@SuppressWarnings("unchecked")
 	public Employee loadEmployeeById(String employeePk) {
+		logger.info("Loading employee record for: "+employeePk);
 		Session session = sessionFactory.openSession();
 		Employee employee = null;
 		String SQL_QUERY =" from Employee as o where o.pk='"+employeePk+"'";

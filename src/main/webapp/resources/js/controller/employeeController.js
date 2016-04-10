@@ -50,7 +50,7 @@ angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).cont
         employeeAPIservice.getEmployeesDetails(employeeId).success(function (response) {
         	console.log('getEmployeesDetails response ', response);
     		scope.employee = response;
-    		$('#updateEmployee').show();
+//    		$('#updateEmployee').show();
         });
     }
     
@@ -67,7 +67,7 @@ angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).cont
     }
     function actionsHtml(data, type, full, meta) {
         vm.employees[data.pk] = data;
-        return '<button class="btn btn-info" ng-click="showCase.edit(showCase.employees[' + data.pk + '])">' +
+        return '<button class="btn btn-info" data-toggle="modal" data-target="#updateEmployee" ng-click="showCase.edit(showCase.employees[' + data.pk + '])">' +
             '   <i class="fa fa-edit"></i>' +
             '</button>&nbsp;' +
             '<button class="btn btn-danger" ng-click="showCase.delete(showCase.employees[' + data.pk + '])" )"="">' +

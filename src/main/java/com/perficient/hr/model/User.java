@@ -21,11 +21,11 @@ public class User implements Serializable {
 	@Column(name = "employee_pk")
 	private String employeePk;
 
-	@Column(name = "login_id")
-	private String login_id;
+	@Column(name = "email_id")
+	private String email_id;
 
-	@Column(name = "password")
-	private String password;
+	@Column(name = "pwd")
+	private String pwd;
 
 	/**
 	 * @return the pk
@@ -56,31 +56,33 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the login_id
+	 * @return the email_id
 	 */
-	public String getLogin_id() {
-		return login_id;
+	public String getEmail_id() {
+		return email_id;
 	}
 
 	/**
-	 * @param login_id the login_id to set
+	 * @param email_id the email_id to set
 	 */
-	public void setLogin_id(String login_id) {
-		this.login_id = login_id;
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
 	}
 
 	/**
-	 * @return the password
+	 * @return the pwd
 	 */
-	public String getPassword() {
-		return password;
+	public String getPwd() {
+		return pwd;
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param pwd the pwd to set
 	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
+
+	
 
 }
