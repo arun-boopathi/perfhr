@@ -7,11 +7,11 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.perficient.hr.controller.LoginController;
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.model.Employee;
 
@@ -21,7 +21,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	protected Logger logger = LoggerFactory.getLogger(EmployeeDAOImpl.class);
 	
 	@Resource(name="sessionFactory")
-	
     protected SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -55,5 +54,22 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		List<Employee> list = query.list();
 		session.close();
 		return list;
+	}
+
+	@Override
+	public boolean updateEmployee(Employee employee) {
+		boolean returnVal = false;
+		Session session = sessionFactory.openSession();
+		try{
+			Transaction tx = session.beginTransaction();
+			session.merge(employee);
+			tx.commit();
+			returnVal = true;
+		} catch(Exception e){
+			logger.error("Unable to update employee: "+employee.getEmployee_id());
+		} finally{
+			session.close();	
+		}
+		return returnVal;
 	}
 }

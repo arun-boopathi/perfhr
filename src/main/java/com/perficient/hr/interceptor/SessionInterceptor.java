@@ -3,11 +3,8 @@ package com.perficient.hr.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.core.Constants;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
-import com.perficient.hr.model.User;
 
 public class SessionInterceptor extends HandlerInterceptorAdapter{
 
@@ -29,7 +26,6 @@ public class SessionInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object arg2) throws Exception {
-		System.out.println("in prehandle..");
 		if(request.getSession().getAttribute("userId") == null) {
 			request.getSession().invalidate();
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

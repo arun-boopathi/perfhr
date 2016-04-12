@@ -1,23 +1,28 @@
 var employee;
 var scope;
+var vm
 /* Employee controller */
-angular.module('employee.controller', ['showcase.bindAngularDirective']).
-    controller('employeeController', function($scope, employeeAPIservice) {
-	console.log('in employeeController employeeAPIservice: ',employeeAPIservice);
+angular.module('employee.controller', ['showcase.bindAngularDirective'])
+.controller('employeeController', function($scope, employeeAPIservice) {
+	
 }).controller('updateEmployeeCtrl', function($scope, employeeAPIservice) {
 	scope = $scope;
-	$scope.list = [];
     $scope.submit = function() {
-      if ($scope.employee.firstName) {
-         console.log('val: ', $scope.employee.firstName);
+      if ($scope.employee) {
+         employeeAPIservice.updateEmployee($scope.employee).success(function (response) {
+         	vm.dtInstance.reloadData();
+         	$scope.msg = 'Employee updated successfully.';
+         }).error(function(error){
+         	$scope.msg = 'An Error Occured. Unable to update Employee.';
+         });
+         $("#updateEmployeeMsg").toggleClass("hidden");
       }
-      $('#updateEmployee').hide();
     };
 });
 
 angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).controller('BindAngularDirectiveCtrl', 
 		function($scope, $compile, DTOptionsBuilder, DTColumnBuilder, ngDialog, employeeAPIservice){
-	var vm = this;
+	vm = this;
     vm.message = '';
     vm.edit = edit;
     vm.delete = deleteRow;
@@ -48,9 +53,9 @@ angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).cont
         var employeeId = employee.pk;
         
         employeeAPIservice.getEmployeesDetails(employeeId).success(function (response) {
-        	console.log('getEmployeesDetails response ', response);
     		scope.employee = response;
-//    		$('#updateEmployee').show();
+    		if(!$("#updateEmployeeMsg").hasClass('hidden'))
+    			$("#updateEmployeeMsg").toggleClass('hidden');
         });
     }
     
@@ -67,7 +72,7 @@ angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).cont
     }
     function actionsHtml(data, type, full, meta) {
         vm.employees[data.pk] = data;
-        return '<button class="btn btn-info" data-toggle="modal" data-target="#updateEmployee" ng-click="showCase.edit(showCase.employees[' + data.pk + '])">' +
+        return '<button class="btn btn-warning" data-toggle="modal" data-target="#updateEmployee" ng-click="showCase.edit(showCase.employees[' + data.pk + '])">' +
             '   <i class="fa fa-edit"></i>' +
             '</button>&nbsp;' +
             '<button class="btn btn-danger" ng-click="showCase.delete(showCase.employees[' + data.pk + '])" )"="">' +

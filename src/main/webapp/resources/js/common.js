@@ -9,7 +9,8 @@ var perfUrl = {
 	'validateSession' : 'user/validateSession',
 	'loadAllEmployee' : urlPrefix+'employee/loadAllEmployee',
 	'loadEmployee': urlPrefix+'employee/loadEmployee',
-	'loadEmployeeById': urlPrefix+'employee/loadEmployeeById?employeeId='
+	'loadEmployeeById': urlPrefix+'employee/loadEmployeeById?employeeId=',
+	'updateEmployee': urlPrefix+'employee/updateEmployee'
 };
 
 //register the interceptor as a service

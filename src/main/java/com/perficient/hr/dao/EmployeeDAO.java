@@ -10,4 +10,5 @@ public interface EmployeeDAO {
 	
 	public List<Employee> loadEmployees();
 	
+	public boolean updateEmployee(Employee employee);
 }

@@ -9,12 +9,14 @@ import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.perficient.hr.dao.EmployeeDAO;
+import com.perficient.hr.exception.RecordNotFoundException;
 import com.perficient.hr.model.Employee;
 
 @Controller
@@ -44,5 +46,18 @@ public class EmployeeController {
 	public @ResponseBody List<Employee> loadAllEmployee(HttpServletRequest request, HttpServletResponse response){
 		List<Employee> employees = employeeDAO.loadEmployees();
 		return employees;
+	}
+	
+	@RequestMapping(value="/updateEmployee", method=RequestMethod.PUT)
+	@Produces("application/json")
+	public @ResponseBody boolean updateEmployee(HttpServletRequest request, HttpServletResponse response, @RequestBody Employee employee) throws RecordNotFoundException{
+		boolean returnVal = false;
+		if(employeeDAO.loadEmployeeById(String.valueOf(employee.getPk())) == null){
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			throw new RecordNotFoundException();
+		} else {
+			returnVal = employeeDAO.updateEmployee(employee);
+		}
+		return returnVal;
 	}
 }

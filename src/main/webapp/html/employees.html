@@ -11,6 +11,9 @@
             </div>
             <form role="form" ng-submit="submit()" class="form-inline" ng-controller="updateEmployeeCtrl">
 	            <div class="modal-body">
+	              <div id="updateEmployeeMsg" class = "alert alert-info">
+					   {{msg}}
+				  </div>
 	              <div class="form-group">
 			    	<div class="col-sm-5"><label>Employee Id</label><input type="text" ng-model="employee.employee_id" class="form-control" placeholder="First" value="{{employee.employee_id}}" disabled></div>
 			    	<div class="col-sm-5"><label>Email</label><input type="text" ng-model="employee.email" class="form-control" placeholder="Last" value="{{employee.email}}"></div>
