@@ -1,22 +1,24 @@
 var employee;
 var scope;
-var vm
+var vm;
+var rowIndex;
 /* Employee controller */
 angular.module('employee.controller', ['showcase.bindAngularDirective'])
 .controller('employeeController', function($scope, employeeAPIservice) {
 	
 }).controller('updateEmployeeCtrl', function($scope, employeeAPIservice) {
 	scope = $scope;
-    $scope.submit = function() {
-      if ($scope.employee) {
-         employeeAPIservice.updateEmployee($scope.employee).success(function (response) {
-         	vm.dtInstance.reloadData();
-         	$scope.msg = 'Employee updated successfully.';
-         }).error(function(error){
-         	$scope.msg = 'An Error Occured. Unable to update Employee.';
-         });
-         $("#updateEmployeeMsg").toggleClass("hidden");
-      }
+	$scope.submit = function() {
+    	console.log('on submit');
+        if ($scope.employee) {
+           employeeAPIservice.updateEmployee($scope.employee).success(function (response) {
+          	 vm.dtInstance.dataTable.fnUpdate($scope.employee, rowIndex, undefined);
+           	 $scope.msg = 'Employee updated successfully.';         	
+           }).error(function(error){
+           	 $scope.msg = 'An Error Occured. Unable to update Employee.';
+           });
+           $("#updateEmployeeMsg").toggleClass("hidden");
+        };
     };
 });
 
@@ -43,16 +45,12 @@ angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).cont
         DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
         	.renderWith(actionsHtml)
     ];
-    console.log('in module employeeAPIservice: ',employeeAPIservice);
     DTOptionsBuilder.newOptions().withOption('aaSorting', [2, 'asc']);
-    function edit(employee) {
-        //vm.message = 'You are trying to edit the row: ' + JSON.stringify(employee);
-        // Edit some data and call server to make changes...
-        // Then reload the data so that DT is refreshed
-        //vm.dtInstance.reloadData();
-        var employeeId = employee.pk;
-        
-        employeeAPIservice.getEmployeesDetails(employeeId).success(function (response) {
+    
+    function edit(employee, index) {
+    	rowIndex = index-1;
+        console.log('employee index ', index);
+        employeeAPIservice.getEmployeesDetails(employee.pk).success(function (response) {
     		scope.employee = response;
     		if(!$("#updateEmployeeMsg").hasClass('hidden'))
     			$("#updateEmployeeMsg").toggleClass('hidden');
@@ -62,17 +60,15 @@ angular.module('showcase.bindAngularDirective', ['datatables', 'ngDialog']).cont
     function deleteRow(employee) {
     	console.log('Delete employee ', employee.firstName);
         vm.message = 'You are trying to remove Employee:  ' + employee.lastName+', '+employee.firstName ;
-        // Delete some data and call server to make changes...
-        // Then reload the data so that DT is refreshed
         vm.dtInstance.reloadData();
     }
     function createdRow(row, data, dataIndex) {
         // Recompiling so we can bind Angular directive to the DT
         $compile(angular.element(row).contents())($scope);
     }
-    function actionsHtml(data, type, full, meta) {
+    function actionsHtml(data, type, full, meta, iDisplayIndex) {
         vm.employees[data.pk] = data;
-        return '<button class="btn btn-warning" data-toggle="modal" data-target="#updateEmployee" ng-click="showCase.edit(showCase.employees[' + data.pk + '])">' +
+        return '<button class="btn btn-warning" data-toggle="modal" data-target="#updateEmployee" ng-click="showCase.edit(showCase.employees[' + data.pk + '], '+data.pk+')">' +
             '   <i class="fa fa-edit"></i>' +
             '</button>&nbsp;' +
             '<button class="btn btn-danger" ng-click="showCase.delete(showCase.employees[' + data.pk + '])" )"="">' +
