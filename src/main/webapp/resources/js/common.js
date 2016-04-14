@@ -22,6 +22,8 @@ perfHrApp.factory('perfInterceptor', ['$q', function($q, $window) {
     	}
     	PerfConcurrentActivity.getInstance().init();
     	lastRequestTime = new Date().getTime();
+
+    	config.headers = config.headers || {};
         return config;
     },
    'requestError': function(rejection) {
