@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.perficient.hr.dao.EmployeeDAO;
+import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.exception.RecordNotFoundException;
 import com.perficient.hr.model.Employee;
 
@@ -57,6 +58,17 @@ public class EmployeeController {
 			throw new RecordNotFoundException();
 		} else {
 			returnVal = employeeDAO.updateEmployee(employee);
+		}
+		return returnVal;
+	}
+	
+	@RequestMapping(value="/addEmployee", method=RequestMethod.POST)
+	@Produces("application/json")
+	public @ResponseBody boolean addEmployee(HttpServletRequest request, HttpServletResponse response, @RequestBody Employee employee) throws RecordExistsException{
+		boolean returnVal = false;
+		if(!employeeDAO.addEmployee(employee)){
+			response.setStatus(HttpServletResponse.SC_CONFLICT);
+			throw new RecordExistsException();
 		}
 		return returnVal;
 	}

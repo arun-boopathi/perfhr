@@ -3,7 +3,7 @@ var mainApp = angular.module("perficientHr",
 		 'employee.controller','employee.services',
 		 'dashboard.controller','dashboard.services',
 		 'pto.controller',
-		 'ngRoute', 'datatables', 'ngDialog']);
+		 'ngRoute', 'datatables']);
 
 var rand = Math.floor(Math.random()*(3-1+1)+1);
 

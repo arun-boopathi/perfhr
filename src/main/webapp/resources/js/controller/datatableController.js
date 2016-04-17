@@ -4,7 +4,6 @@
 	perfDatatable.loadTable = {		
 		init: function(vm, $scope, $compile, DTOptionsBuilder, DTColumnBuilder, apiService, url){
 			vm.message = '';
-		    vm.edit = edit;
 		    vm.deleteRow = deleteRow;
 		    vm.dtInstance = {};
 		    vm.datalist = {};
@@ -12,20 +11,26 @@
 		        .withDisplayLength(7)
 		        .withDOM('pitrfl')
 		        .withPaginationType('full_numbers')
-		        .withOption('createdRow', createdRow).withOption('aaSorting', [1, 'asc']);
-		    
+		        .withOption('createdRow', createdRow)
+		        .withOption('aaSorting', [1, 'asc'])
+		        .withOption('rowCallback', rowCallback);
 		    vm.dtColumns.push(DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml));
-		    
-		    function edit(data, index) {
-		    	rowIndex = index-1;
-		    	console.log('in edit');
-		    	$("#updateEmployeeMsg").addClass('hidden');
-		        apiService.loadById(data.pk).success(function (response) {
-		        	scope.data = response;
+		    		    
+		    function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+		        $('td', nRow).unbind('click');
+		        $('td:last', nRow).bind('click', function() {
+		        	rowIndex = aData.pk-1;
+		        	console.log('in rowCallback ', rowIndex);
+		        	$(".alert-info").addClass('hidden');
+		        	apiService.loadById(aData.pk).success(function (response) {
+			        	scope.data = response;
+			        });
 		        });
+		        return nRow;
 		    }
 		    
 		    function deleteRow(data) {
+		    	console.log('on del scope ', scope);
 		        vm.message = 'You are trying to remove Employee:  ' + data.lastName+', '+data.firstName ;
 		        vm.dtInstance.reloadData();
 		    }
@@ -37,7 +42,7 @@
 		    
 		    function actionsHtml(data, type, full, meta, iDisplayIndex) {
 		        vm.datalist[data.pk] = data;
-		        return '<button class="btn btn-warning" data-toggle="modal" data-target="#updateForm" ng-click="showCase.edit(showCase.datalist[' + data.pk + '], '+data.pk+')">' +
+		        return '<button class="btn btn-warning" data-toggle="modal" data-target="#updateForm">' +
 		            '   <i class="fa fa-edit"></i>' +
 		            '</button>&nbsp;' +
 		            '<button class="btn btn-danger" ng-click="showCase.deleteRow(showCase.datalist[' + data.pk + '])" )"="">' +

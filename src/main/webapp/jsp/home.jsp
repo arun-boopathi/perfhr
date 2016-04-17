@@ -77,7 +77,6 @@
 <script src="js/lib/angular-datatables.factory.js"></script>
 <script src="js/lib/angular-datatables.renderer.js"></script>
 <script src="js/lib/angular-datatables.directive.js"></script>
-<script src="js/lib/ngDialog.min.js"></script>
 <script src="js/lib/jquery.mmenu.all.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/common.js"></script>

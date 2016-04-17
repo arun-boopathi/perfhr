@@ -7,8 +7,15 @@ angular.module('employee.services', []).
           url: perfUrl['loadEmployeeById']+empId
         });
     };
+    employeeAPI.addEmployee = function(employee) {
+        return $http({
+          method: 'post', 
+          data : employee,
+          url: perfUrl['addEmployee']
+        });
+    };
     employeeAPI.updateEmployee = function(employee) {
-        return doHttp({
+        return $http({
           method: 'put', 
           data : employee,
           url: perfUrl['updateEmployee']

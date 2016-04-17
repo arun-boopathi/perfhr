@@ -1,38 +1,45 @@
-<form role="form" ng-submit="submit()" class="form-inline" ng-controller="updateEmployeeCtrl">
-  <!-- <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h4 class="modal-title" id="myModalLabel">Modal title Here</h4>
-              </div>
-              <div class="modal-body">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-          </div>
+<div class="modal-body">
+   <div class = "alert alert-info">
+  	  {{msg}}
+   </div>
+   <div class="row">
+      <div class="col-sm-6 col-lg-6">
+         <div class="form-group">
+            <label for="inputEmail" class="col-md-4 control-label">Employee Id:</label>
+            <div class="col-md-8">
+               <input type="text" id="employee_id" ng-model="data.employee_id" class="form-control" placeholder="Employee Id" value="{{data.employee_id}}" disabled>
+            </div>
+         </div>
       </div>
-  </div> -->
-  
-  <div class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modal title</h4>
+      <div class="col-sm-6 col-lg-6">
+         <div class="form-group">
+            <label for="inputPassword" class="col-md-4 control-label">Email Id:</label>
+            <div class="col-md-8">
+               <input type="text" ng-model="data.email" class="form-control" required placeholder="Email" value="{{data.email}}">
+            </div>
+         </div>
       </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
+   </div>
+   <div class="row">
+      <div class="col-sm-6 col-lg-6">
+         <div class="form-group">
+            <label for="inputEmail" class="col-md-4 control-label">First Name:</label>
+            <div class="col-md-8">
+               <input type="text" ng-model="data.firstName" class="form-control" required placeholder="First Name" value="{{data.firstName}}">
+            </div>
+         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="col-sm-6 col-lg-6">
+         <div class="form-group">
+            <label for="inputPassword" class="col-md-4 control-label">Last Name:</label>
+            <div class="col-md-8">
+               <input type="text" ng-model="data.lastName" class="form-control" required placeholder="Last Name" value="{{data.lastName}}">
+            </div>
+         </div>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-  
-</form>
+   </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-primary">Save changes</button>
+   </div>
+</div>

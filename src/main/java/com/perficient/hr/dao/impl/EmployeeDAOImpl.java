@@ -72,4 +72,21 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		}
 		return returnVal;
 	}
+
+	@Override
+	public boolean addEmployee(Employee employee) {
+		boolean returnVal = false;
+		Session session = sessionFactory.openSession();
+		try{
+			Transaction tx = session.beginTransaction();
+			session.save(employee);
+			tx.commit();
+			returnVal = true;
+		} catch(Exception e){
+			logger.error("Unable to save employee: "+employee.getEmail());
+		} finally{
+			session.close();	
+		}
+		return returnVal;
+	}
 }
