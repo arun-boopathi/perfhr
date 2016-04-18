@@ -30,7 +30,7 @@
             		<li><a href="#">Projects</a></li>
             		<li><a href="#">Roles</a></li>
             		<li><a href="#">Add Employee</a></li>
-            		<li><a href="#">Designations</a></li>
+            		<li><a href="#/designations">Designations</a></li>
             		<li>
             			<a href="#">Reports</a>
             			<ul>
@@ -88,6 +88,8 @@
 <script src="js/service/employeeServices.js"></script>
 <script src="js/controller/dashboardController.js"></script>
 <script src="js/service/dashboardServices.js"></script>
+<script src="js/controller/designationController.js"></script>
+<script src="js/service/designationServices.js"></script>
 <script src="js/controller/ptoController.js"></script>
 <script src="js/directives/directives.js"></script>
 <script src="js/filters/filters.js"></script>

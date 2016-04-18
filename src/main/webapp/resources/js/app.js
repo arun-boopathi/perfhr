@@ -3,6 +3,7 @@ var mainApp = angular.module("perficientHr",
 		 'employee.controller','employee.services',
 		 'dashboard.controller','dashboard.services',
 		 'pto.controller',
+		 'designation.controller','designation.services',
 		 'ngRoute', 'datatables']);
 
 var rand = Math.floor(Math.random()*(3-1+1)+1);
@@ -27,6 +28,10 @@ mainApp.config(function($routeProvider) {
 	    })
 	    .when('/candidate', {
 	        templateUrl: 'html/candidate.html',
+	    })
+	    .when('/designations', {
+	        templateUrl: 'html/designations.html',
+	        controller: 'designationController'
 	    })
 	    .otherwise({
 	        redirectTo: '/home'

@@ -5,13 +5,14 @@ var PerfWidgetCache = [];
 var lastRequestTime = new Date().getTime();
 var timeoutHandle;
 
-var perfUrl = {
+var perfUrl = { 
 	'validateSession' : 'user/validateSession',
 	'loadAllEmployee' : urlPrefix+'employee/loadAllEmployee',
 	'loadEmployee': urlPrefix+'employee/loadEmployee',
 	'loadEmployeeById': urlPrefix+'employee/loadEmployeeById?employeeId=',
 	'updateEmployee': urlPrefix+'employee/updateEmployee',
-	'addEmployee':  urlPrefix+'employee/addEmployee'
+	'addEmployee':  urlPrefix+'employee/addEmployee',
+	'loadDesignations' : urlPrefix+'designation/loadDesignations'
 };
 
 //register the interceptor as a service
