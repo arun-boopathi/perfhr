@@ -30,7 +30,6 @@
 		    }
 		    
 		    function deleteRow(data) {
-		    	console.log('on del scope ', scope);
 		        vm.message = 'You are trying to remove Employee:  ' + data.lastName+', '+data.firstName ;
 		        vm.dtInstance.reloadData();
 		    }

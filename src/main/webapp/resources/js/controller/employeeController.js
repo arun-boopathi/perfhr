@@ -45,7 +45,8 @@ function EmployeeTableCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, 
         DTColumnBuilder.newColumn('employee_id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name'),
-        DTColumnBuilder.newColumn('email').withTitle('Email')
+        DTColumnBuilder.newColumn('email').withTitle('Email'),
+        DTColumnBuilder.newColumn('designation').withTitle('Designation')
     ];
     perfDatatable.loadTable.init(vm, $scope, $compile, DTOptionsBuilder, DTColumnBuilder, employeeAPIservice, perfUrl['loadAllEmployee']);
 }
