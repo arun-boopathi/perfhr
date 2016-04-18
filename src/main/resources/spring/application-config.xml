@@ -58,6 +58,7 @@
 				<list>
 					  <value>com.perficient.hr.model.User</value>
 					  <value>com.perficient.hr.model.Employee</value>
+					  <value>com.perficient.hr.model.Designations</value>
 				</list>
 			</property>
       </bean>
