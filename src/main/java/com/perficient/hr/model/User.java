@@ -22,7 +22,7 @@ public class User implements Serializable {
 	private String employeePk;
 
 	@Column(name = "email_id")
-	private String email_id;
+	private String emailId;
 
 	@Column(name = "pwd")
 	private String pwd;
@@ -56,17 +56,17 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the email_id
+	 * @return the emailId
 	 */
-	public String getEmail_id() {
-		return email_id;
+	public String getEmailId() {
+		return emailId;
 	}
 
 	/**
-	 * @param email_id the email_id to set
+	 * @param emailId the emailId to set
 	 */
-	public void setEmail_id(String email_id) {
-		this.email_id = email_id;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
 	/**

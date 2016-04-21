@@ -19,7 +19,7 @@ public class Employee implements Serializable {
 	private Long pk;
 	
 	@Column(name = "employee_id")
-	private String employee_id;
+	private String employeeId;
 	
 	@Column(name = "firstname")
 	private String firstName;
@@ -64,19 +64,19 @@ public class Employee implements Serializable {
 	public void setPk(Long pk) {
 		this.pk = pk;
 	}
-
+	
 	/**
-	 * @return the employee_id
+	 * @return the employeeId
 	 */
-	public String getEmployee_id() {
-		return employee_id;
+	public String getEmployeeId() {
+		return employeeId;
 	}
 
 	/**
-	 * @param employee_id the employee_id to set
+	 * @param employeeId the employeeId to set
 	 */
-	public void setEmployee_id(String employee_id) {
-		this.employee_id = employee_id;
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	/**

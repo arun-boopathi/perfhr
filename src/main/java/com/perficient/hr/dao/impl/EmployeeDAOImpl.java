@@ -31,26 +31,29 @@ public class EmployeeDAOImpl implements EmployeeDAO{
        return sessionFactory.openSession();
     }
 	
+    @Override
 	@SuppressWarnings("unchecked")
 	public Employee loadEmployeeById(String employeePk) {
 		logger.info("Loading employee record for: "+employeePk);
 		Session session = sessionFactory.openSession();
 		Employee employee = null;
-		String SQL_QUERY =" from Employee as o where o.pk='"+employeePk+"'";
-		Query query = session.createQuery(SQL_QUERY);
+		String sqlQuery =" from Employee as o where o.pk=:employee_pk";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter("employee_pk", Long.parseLong(employeePk));
 		List<Employee> list = query.list();
-		if ((list != null) && (list.size() > 0)) {
-			employee = (Employee)list.get(0);
+		if ((list != null) && (!list.isEmpty())) {
+			employee = list.get(0);
 		}
 		session.close();
 		return employee;
 	}
 
+    @Override
 	@SuppressWarnings("unchecked")
 	public List<Employee> loadEmployees() {
 		Session session = sessionFactory.openSession();
-		String SQL_QUERY =" from Employee";
-		Query query = session.createQuery(SQL_QUERY);
+		String sqlQuery =" from Employee";
+		Query query = session.createQuery(sqlQuery);
 		List<Employee> list = query.list();
 		session.close();
 		return list;
@@ -66,7 +69,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
-			logger.error("Unable to update employee: "+employee.getEmployee_id());
+			logger.error("Unable to update employee: "+employee.getEmployeeId()+" Exception is: "+e);
 		} finally{
 			session.close();	
 		}
@@ -83,7 +86,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
-			logger.error("Unable to save employee: "+employee.getEmail());
+			logger.error("Unable to save employee: "+employee.getEmail()+" Exception is: "+e);
 		} finally{
 			session.close();	
 		}

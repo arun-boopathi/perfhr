@@ -42,7 +42,7 @@ angular.module('showcase.bindAngularDirective', ['datatables']).controller('Empl
 function EmployeeTableCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, employeeAPIservice) {
     vm = this;
     vm.dtColumns = [
-        DTColumnBuilder.newColumn('employee_id').withTitle('ID'),
+        DTColumnBuilder.newColumn('employeeId').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name'),
         DTColumnBuilder.newColumn('email').withTitle('Email'),

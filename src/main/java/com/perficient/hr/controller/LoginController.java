@@ -1,7 +1,6 @@
 package com.perficient.hr.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Produces;
 
@@ -30,12 +29,11 @@ public class LoginController {
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public ModelAndView doLogin(){
-		ModelAndView model = new ModelAndView("login");
-		return model;
+		return new ModelAndView("login");
 	}
 
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public ModelAndView executeLogin(HttpServletRequest request, HttpServletResponse response, 
+	public ModelAndView executeLogin(HttpServletRequest request, 
 			@ModelAttribute("loginBean")LoginForm loginForm) {
 		ModelAndView model = null;
 		try {
@@ -52,14 +50,17 @@ public class LoginController {
 				model.addObject("msg", "Invalid UserName/Password!");
 			}
 		} catch(Exception e) {
-			logger.error("Unable to Authenticate User: "+loginForm.getUsername());
+			logger.info("Unable to Authenticate User: "+loginForm.getUsername()+" Exception is "+e);
+			model = new ModelAndView("login");
+			model.addObject("msg", "An Error occured during login!");
 		}
 		return model;
 	}
 	
 	@RequestMapping(value="/mobileLogin",method=RequestMethod.POST)
 	@Produces("application/json")
-	public @ResponseBody String loadEmployee(HttpServletRequest request, HttpServletResponse response, 
+	@ResponseBody
+	public String authenticateUser(HttpServletRequest request,
 			@RequestHeader(value="username") String username, @RequestHeader(value="password") String password){
 		String returnVal="failed";
 		logger.info("Authenticating User :"+username);
@@ -70,13 +71,13 @@ public class LoginController {
 			returnVal = "success";
 			logger.info("Authentication successful");
 		} else {
-			logger.error("Invalid Credentials provided for User: "+password);
+			logger.info("Invalid Credentials provided for User: "+password);
 		}
 		return returnVal;
 	}
 	
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
-	public ModelAndView doLogut(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView doLogut(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		session.invalidate();
 		logger.info("User logged out successfully");

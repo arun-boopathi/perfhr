@@ -10,8 +10,7 @@ public class HomeController {
 
 	@RequestMapping(value="/home",method=RequestMethod.GET)
 	public ModelAndView doLogin(){
-		ModelAndView model = new ModelAndView("home");
-		return model;
+		return new ModelAndView("home");
 	}
 	
 }
