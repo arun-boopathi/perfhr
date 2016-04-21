@@ -7,5 +7,19 @@ angular.module('designation.services', []).
           url: perfUrl['loadDesignations']
         });
     };
+    designationAPI.addDesignation = function(designation) {
+    	        return $http({
+          method: 'post', 
+          data : designation,
+          url: perfUrl['addDesignation']
+        });
+    };
+    designationAPI.updateDesignation = function(designation) {
+        return $http({
+          method: 'post', 
+          data : designation,
+          url: perfUrl['updateDesignation']
+        });
+    };
     return designationAPI; 
 });

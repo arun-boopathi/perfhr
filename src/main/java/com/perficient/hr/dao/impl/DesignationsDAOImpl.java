@@ -60,4 +60,22 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 		return returnVal;
 	}
 
+	@Override
+	public boolean updateDesignation(Designations designation) {
+		boolean returnVal = false;
+		Session session = sessionFactory.openSession();
+		try{
+			Transaction tx = session.beginTransaction();
+			session.merge(designation);
+			tx.commit();
+			returnVal = true;
+		} catch(Exception e){
+			logger.error("Unable to update designation: "+designation.getDesignation());
+		} finally{
+			session.close();	
+		}
+		
+		return returnVal;
+	}
+
 }
