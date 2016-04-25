@@ -4,7 +4,7 @@ angular.module('designation.services', []).
 	designationAPI.getDesignationDetails = function() {
         return $http({
           method: 'get', 
-          url: perfUrl['loadDesignations']
+          url: perfUrl['loadRoles']
         });
     };
     return designationAPI; 

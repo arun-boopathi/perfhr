@@ -12,7 +12,8 @@ var perfUrl = {
 	'loadEmployeeById': urlPrefix+'employee/loadEmployeeById?employeeId=',
 	'updateEmployee': urlPrefix+'employee/updateEmployee',
 	'addEmployee':  urlPrefix+'employee/addEmployee',
-	'loadDesignations' : urlPrefix+'designation/loadDesignations'
+	'loadDesignations' : urlPrefix+'designation/loadDesignations',
+	'loadRoles'       : urlPrefix+'role/loadRoles'
 };
 
 //register the interceptor as a service

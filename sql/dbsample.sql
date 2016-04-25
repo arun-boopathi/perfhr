@@ -1,5 +1,18 @@
 USE perficient;
 
+
+INSERT INTO roles (pk, rolename) VALUES 
+ (1,'Technical Consultant'),
+ (2,'Senior Technical Consultant'),
+ (3,'Lead Technical Consultant'),
+ (4,'Associate Technical Consultant'),
+ (5,'Solution Architect'),
+ (6,'Senior Solution Architect'),
+ (7,'Senior Project Manager'),
+ (8,'Technical Architect'),
+ (9,'Project Manager');
+
+
 INSERT INTO designations (pk, designation) VALUES 
  (1,'Technical Consultant'),
  (2,'Senior Technical Consultant'),
