@@ -6,14 +6,16 @@ var lastRequestTime = new Date().getTime();
 var timeoutHandle;
 
 var perfUrl = { 
-	'validateSession' : 'user/validateSession',
-	'loadAllEmployee' : urlPrefix+'employee/loadAllEmployee',
-	'loadEmployee': urlPrefix+'employee/loadEmployee',
-	'loadEmployeeById': urlPrefix+'employee/loadEmployeeById?employeeId=',
-	'updateEmployee': urlPrefix+'employee/updateEmployee',
-	'addEmployee':  urlPrefix+'employee/addEmployee',
+	'validateSession'  : 'user/validateSession',
+	'loadAllEmployee'  : urlPrefix+'employee/loadAllEmployee',
+	'loadEmployee'     : urlPrefix+'employee/loadEmployee',
+	'loadEmployeeById' : urlPrefix+'employee/loadEmployeeById?employeeId=',
+	'updateEmployee'   : urlPrefix+'employee/updateEmployee',
+	'addEmployee'      : urlPrefix+'employee/addEmployee',
 	'loadDesignations' : urlPrefix+'designation/loadDesignations',
 	'loadRoles'       : urlPrefix+'role/loadRoles'
+    'addDesignation'   : urlPrefix+'designation/addDesignation',
+    'updateDesignation': urlPrefix+'designation/updateDesignation'
 };
 
 //register the interceptor as a service
@@ -60,7 +62,7 @@ PerfConcurrentActivity.getInstance = function(){
 };
 
 PerfConcurrentActivity.prototype = {
-	init: function() {
+	init: function() { 
 		if((new Date().getTime()-lastRequestTime)/(1000*60) > 30){
 			window.location.href = "logout";
 		} else {
