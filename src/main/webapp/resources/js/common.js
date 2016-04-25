@@ -21,6 +21,7 @@ var perfUrl = {
 perfHrApp.factory('perfInterceptor', ['$q', function($q, $window) {
   return {
     'request': function(config) {
+    	$('#overlay').show();
     	if(timeoutHandle){
     		window.clearTimeout(timeoutHandle);
     	}
@@ -34,6 +35,7 @@ perfHrApp.factory('perfInterceptor', ['$q', function($q, $window) {
         return $q.reject(rejection);
     },
     'response': function(response) {
+    	$('#overlay').hide();
         return response;
     },
    'responseError': function(rejection) {

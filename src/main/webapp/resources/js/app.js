@@ -31,6 +31,7 @@ mainApp.config(function($routeProvider) {
 	    })
 	    .when('/designations', {
 	        templateUrl: 'html/designations.html',
+//	        templateUrl: 'html/sample.html',
 	        controller: 'designationController'
 	    })
 	    .otherwise({

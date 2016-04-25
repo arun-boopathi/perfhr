@@ -16,7 +16,7 @@ angular.module('designation.services', []).
     };
     designationAPI.updateDesignation = function(designation) {
         return $http({
-          method: 'post', 
+          method: 'put', 
           data : designation,
           url: perfUrl['updateDesignation']
         });

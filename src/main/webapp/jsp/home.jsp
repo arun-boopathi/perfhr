@@ -17,9 +17,7 @@
 <link rel="stylesheet" href="css/ui-jquery.css">
 <link rel="stylesheet" href="css/jquery.mmenu.all.css">
 <link rel="stylesheet" href="css/layout.css">
-
 </head>
-
 <body ng-app="perficientHr" class="fixedsubmenu">
 	<nav id="menu" class="mm-menu">
         <ul>
@@ -55,11 +53,11 @@
         </ul>        
 	</nav>
 	
-	
 	<a id="sidePanel" class="mm-slideout" href="#"><span></span></a>
 	
 	<div class="submenu fixed mm-slideout">
 		<div class="divContainer">
+			<div id="overlay"><img id="loading" src="images/gears.gif"></div>
 			<ng-view></ng-view>
 		</div>
 	</div>

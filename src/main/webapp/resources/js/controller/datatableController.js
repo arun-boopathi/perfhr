@@ -20,7 +20,7 @@
 		        $('td', nRow).unbind('click');
 		        $('td:last', nRow).bind('click', function() {
 		        	rowIndex = aData.pk-1;
-		        	console.log('in rowCallback ', rowIndex);
+		        	console.log('in rowCallback ', rowIndex, 'scope ', scope);
 		        	$(".alert-info").addClass('hidden');
 		        	apiService.loadById(aData.pk).success(function (response) {
 			        	scope.data = response;

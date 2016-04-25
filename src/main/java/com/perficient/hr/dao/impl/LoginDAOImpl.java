@@ -41,7 +41,7 @@ public class LoginDAOImpl implements LoginDAO {
 		query.setParameter(1, userPwd);
 		List<User> list = query.list();
 		if ((list != null) && (!list.isEmpty())) {
-			user = (User)list.get(0);
+			user = list.get(0);
 		}
 		session.close();
 		return user;              
