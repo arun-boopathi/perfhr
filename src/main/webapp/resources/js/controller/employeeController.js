@@ -4,8 +4,12 @@ var data;
 var scope;
 /* Employee controller */
 angular.module('employee.controller', ['employeeTable.bindAngularDirective'])
-.controller('employeeController', function($scope, employeeAPIservice) {
+.controller('employeeController', function($scope, employeeAPIservice, designationAPIservice) {
 	scope = $scope;
+	
+	designationAPIservice.getDesignationDetails().success(function (response) {
+	   $scope.designations = response;
+	});
 	
 	$scope.addEmployee = function(){
 		$scope.data = '';
