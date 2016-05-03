@@ -30,16 +30,18 @@ public class LoginDAOImpl implements LoginDAO {
        return sessionFactory.openSession();
     }
 
-    public User checkLogin(String userName, String userPassword){
+	@SuppressWarnings("unchecked")
+	@Override
+    public User checkLogin(String userName, String userPwd){
 		Session session = sessionFactory.openSession();
 		User user = null;
-		String SQL_QUERY =" from User as o where o.email_id=? and o.pwd=?";
-		Query query = session.createQuery(SQL_QUERY);
-		query.setParameter(0,userName);
-		query.setParameter(1,userPassword);
-		List list = query.list();
-		if ((list != null) && (list.size() > 0)) {
-			user = (User)list.get(0);
+		String sqlQuery =" from User as o where o.emailId=? and o.pwd=?";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter(0, userName);
+		query.setParameter(1, userPwd);
+		List<User> list = query.list();
+		if ((list != null) && (!list.isEmpty())) {
+			user = list.get(0);
 		}
 		session.close();
 		return user;              

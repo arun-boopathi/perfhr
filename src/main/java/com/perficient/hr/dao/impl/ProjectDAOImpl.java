@@ -12,13 +12,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.perficient.hr.dao.EmployeeDAO;
+import com.perficient.hr.dao.ProjectDAO;
 import com.perficient.hr.model.Employee;
+import com.perficient.hr.model.Projects;
 
-@Repository("employeeDAO")
-public class EmployeeDAOImpl implements EmployeeDAO{
+@Repository("projectDAO")
+public class ProjectDAOImpl implements ProjectDAO {
 
-	protected Logger logger = LoggerFactory.getLogger(EmployeeDAOImpl.class);
+	protected Logger logger = LoggerFactory.getLogger(ProjectDAOImpl.class);
 	
 	@Resource(name="sessionFactory")
     protected SessionFactory sessionFactory;
@@ -26,50 +27,50 @@ public class EmployeeDAOImpl implements EmployeeDAO{
     public void setSessionFactory(SessionFactory sessionFactory) {
        this.sessionFactory = sessionFactory;
     }
-   
+    
     protected Session getSession(){
-       return sessionFactory.openSession();
+        return sessionFactory.openSession();
     }
-	
-    @Override
+    
 	@SuppressWarnings("unchecked")
-	public Employee loadEmployeeById(String employeePk) {
-		logger.info("Loading employee record for: "+employeePk);
+	@Override
+	public Projects loadProjectById(String projectPk) {
+		logger.info("Loading employee record for: "+projectPk);
 		Session session = sessionFactory.openSession();
-		Employee employee = null;
-		String sqlQuery =" from Employee as o where o.pk=:employee_pk";
+		Projects projects = null;
+		String sqlQuery =" from Projects as o where o.pk=:projectPk";
 		Query query = session.createQuery(sqlQuery);
-		query.setParameter("employee_pk", Long.parseLong(employeePk));
-		List<Employee> list = query.list();
+		query.setParameter("projectPk", Long.parseLong(projectPk));
+		List<Projects> list = query.list();
 		if ((list != null) && (!list.isEmpty())) {
-			employee = list.get(0);
+			projects = list.get(0);
 		}
 		session.close();
-		return employee;
+		return projects;
 	}
-
-    @Override
+    
 	@SuppressWarnings("unchecked")
-	public List<Employee> loadEmployees() {
+	@Override
+	public List<Projects> loadProjects() {
 		Session session = sessionFactory.openSession();
-		String sqlQuery =" from Employee";
+		String sqlQuery = " from Projects";
 		Query query = session.createQuery(sqlQuery);
-		List<Employee> list = query.list();
+		List<Projects> list = query.list();
 		session.close();
 		return list;
 	}
 
 	@Override
-	public boolean updateEmployee(Employee employee) {
-		boolean returnVal = false;
+	public Projects addProject(Projects project) {
+		Projects returnVal = null;
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
-			session.merge(employee);
+			session.save(project);
 			tx.commit();
-			returnVal = true;
+			returnVal = project;
 		} catch(Exception e){
-			logger.error("Unable to update employee: "+employee.getEmployeeId()+" Exception is: "+e);
+			logger.error("Unable to add designation: "+project.getProjectName()+" Exception is: "+e);
 		} finally{
 			session.close();	
 		}
@@ -77,16 +78,16 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	}
 
 	@Override
-	public boolean addEmployee(Employee employee) {
+	public boolean updateProject(Projects project) {
 		boolean returnVal = false;
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
-			session.save(employee);
+			session.merge(project);
 			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
-			logger.error("Unable to save employee: "+employee.getEmail()+" Exception is: "+e);
+			logger.error("Unable to update designation: "+project.getProjectName()+" Exception is: "+e);
 		} finally{
 			session.close();	
 		}

@@ -12,14 +12,11 @@
 <link rel="stylesheet" href="css/jquery.dataTables.css">
 <link rel="stylesheet" href="css/angular-datatables.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/ngDialog-theme-default.min.css">
-<link rel="stylesheet" href="css/ngDialog.min.css">
-<link rel="stylesheet" href="css/ui-jquery.css">
+<link rel="stylesheet" href="css/jquery-ui.min.css">
+<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" href="css/jquery.mmenu.all.css">
 <link rel="stylesheet" href="css/layout.css">
-
 </head>
-
 <body ng-app="perficientHr" class="fixedsubmenu">
 	<nav id="menu" class="mm-menu">
         <ul>
@@ -27,7 +24,7 @@
             <li>
             	<a href="#">Administration</a>
             	<ul>
-            		<li><a href="#">Projects</a></li>
+            		<li><a href="#/projects">Projects</a></li>
             		<li><a href="#/role">Roles</a></li>
             		<li><a href="#">Add Employee</a></li>
             		<li><a href="#/designations">Designations</a></li>
@@ -55,11 +52,11 @@
         </ul>        
 	</nav>
 	
-	
 	<a id="sidePanel" class="mm-slideout" href="#"><span></span></a>
 	
 	<div class="submenu fixed mm-slideout">
 		<div class="divContainer">
+			<div id="overlay"><img id="loading" src="images/gears.gif"></div>
 			<ng-view></ng-view>
 		</div>
 	</div>
@@ -78,6 +75,8 @@
 <script src="js/lib/angular-datatables.renderer.js"></script>
 <script src="js/lib/angular-datatables.directive.js"></script>
 <script src="js/lib/jquery.mmenu.all.min.js"></script>
+<script src="js/lib/moment.min.js"></script>
+<script src="js/lib/bootstrap-datetimepicker.js"></script>
 <script src="js/app.js"></script>
 <script src="js/common.js"></script>
 <script src="js/constants/constants.js"></script>
@@ -95,7 +94,8 @@
 <script src="js/controller/ptoController.js"></script>
 <script src="js/directives/directives.js"></script>
 <script src="js/filters/filters.js"></script>
-
+<script src="js/controller/projectController.js"></script>
+<script src="js/service/projectServices.js"></script>
 <script type="text/javascript">
 // variables
 var $menu = $('#menu');

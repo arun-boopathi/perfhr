@@ -5,6 +5,7 @@ var mainApp = angular.module("perficientHr",
 		 'pto.controller',
 		 'designation.controller','designation.services',
 		 'role.controller','role.services',
+		 'project.controller','project.services',
 		 'ngRoute', 'datatables']);
 
 var rand = Math.floor(Math.random()*(3-1+1)+1);
@@ -28,15 +29,15 @@ mainApp.config(function($routeProvider) {
 	        controller: 'ptoController'
 	    })
 	    .when('/candidate', {
-	        templateUrl: 'html/candidate.html',
+	        templateUrl: 'html/candidate.html'
 	    })
 	    .when('/designations', {
 	        templateUrl: 'html/designations.html',
 	        controller: 'designationController'
 	    })
-	    .when('/role', {
-	        templateUrl: 'html/roles.html',
-	        controller: 'roleController'
+	    .when('/projects', {
+	        templateUrl: 'html/projects.html',
+	        controller: 'projectController'
 	    })
 	    .otherwise({
 	        redirectTo: '/home'

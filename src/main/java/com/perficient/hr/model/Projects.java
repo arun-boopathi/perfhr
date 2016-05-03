@@ -1,31 +1,26 @@
 package com.perficient.hr.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "designations")
+@Table(name = "projects")
 @SuppressWarnings("serial")
-public class Designations implements Serializable{
+public class Projects implements Serializable{
 
 	@Id
 	@GeneratedValue
 	@Column(name = "pk", length = 11 )
 	private Long pk;
 	
-	@Column(name = "designation")
-	private String designation;
-	
-	@OneToMany(mappedBy="designations")
-    private Set<Employee> employees;
-	
+	@Column(name = "Project_name")
+	private String projectName;
+
 	/**
 	 * @return the pk
 	 */
@@ -41,16 +36,18 @@ public class Designations implements Serializable{
 	}
 
 	/**
-	 * @return the designation
+	 * @return the projectName
 	 */
-	public String getDesignation() {
-		return designation;
+	public String getProjectName() {
+		return projectName;
 	}
 
 	/**
-	 * @param designation to set
+	 * @param projectName the projectName to set
 	 */
-	public void setDesignation(String designation) {
-		this.designation = designation;
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
+	
+		
 }

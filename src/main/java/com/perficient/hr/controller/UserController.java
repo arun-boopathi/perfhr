@@ -1,7 +1,6 @@
 package com.perficient.hr.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +22,7 @@ public class UserController {
 	public LoginDAO loginDao;
 	
 	@RequestMapping(value="/validateSession",method=RequestMethod.GET)
-	public ModelAndView validateSession(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView validateSession(HttpServletRequest request){
 		logger.info("validateSession");
 		ModelAndView model = null;
 		if(request.getSession().getAttribute("userId") == null) {
@@ -32,5 +31,4 @@ public class UserController {
 		}
 		return model;
 	}
-	
 }

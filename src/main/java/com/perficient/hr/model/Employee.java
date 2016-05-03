@@ -2,10 +2,14 @@ package com.perficient.hr.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +23,7 @@ public class Employee implements Serializable {
 	private Long pk;
 	
 	@Column(name = "employee_id")
-	private String employee_id;
+	private String employeeId;
 	
 	@Column(name = "firstname")
 	private String firstName;
@@ -36,8 +40,9 @@ public class Employee implements Serializable {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "designation")
-	private int designation;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "designation")
+	private Designations designations;
 	
 	@Column(name = "address")
 	private String address;
@@ -64,19 +69,19 @@ public class Employee implements Serializable {
 	public void setPk(Long pk) {
 		this.pk = pk;
 	}
-
+	
 	/**
-	 * @return the employee_id
+	 * @return the employeeId
 	 */
-	public String getEmployee_id() {
-		return employee_id;
+	public String getEmployeeId() {
+		return employeeId;
 	}
 
 	/**
-	 * @param employee_id the employee_id to set
+	 * @param employeeId the employeeId to set
 	 */
-	public void setEmployee_id(String employee_id) {
-		this.employee_id = employee_id;
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	/**
@@ -149,20 +154,7 @@ public class Employee implements Serializable {
 		this.email = email;
 	}
 
-	/**
-	 * @return the designation
-	 */
-	public int getDesignation() {
-		return designation;
-	}
-
-	/**
-	 * @param designation the designation to set
-	 */
-	public void setDesignation(int designation) {
-		this.designation = designation;
-	}
-
+	
 	/**
 	 * @return the address
 	 */
@@ -217,6 +209,20 @@ public class Employee implements Serializable {
 	 */
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
+	}
+
+	/**
+	 * @return the designations
+	 */
+	public Designations getDesignations() {
+		return designations;
+	}
+
+	/**
+	 * @param designations the designations to set
+	 */
+	public void setDesignations(Designations designations) {
+		this.designations = designations;
 	}
 	
 	

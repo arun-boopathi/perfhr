@@ -29,42 +29,41 @@ public class EmployeeController {
 	
 	@RequestMapping(value="/loadEmployee",method=RequestMethod.GET)
 	@Produces("application/json")
-	public @ResponseBody Employee loadEmployee(HttpServletRequest request, HttpServletResponse response){
+	@ResponseBody
+	public Employee loadEmployee(HttpServletRequest request){
 		HttpSession session = request.getSession();
-		Employee employee = employeeDAO.loadEmployeeById(session.getAttribute("userId").toString());
-		return employee;
+		return employeeDAO.loadEmployeeById(session.getAttribute("userId").toString());
 	}
 	
 	@RequestMapping(value="/loadEmployeeById",method=RequestMethod.GET)
 	@Produces("application/json")
-	public @ResponseBody Employee loadEmployeeById(@RequestParam(value="employeeId") String employeeId, HttpServletRequest request, HttpServletResponse response){
-		Employee employee = employeeDAO.loadEmployeeById(employeeId);
-		return employee;
+	@ResponseBody
+	public Employee loadEmployeeById(@RequestParam(value="employeeId") String employeeId){
+		return employeeDAO.loadEmployeeById(employeeId);
 	}
 	
 	@RequestMapping(value="/loadAllEmployee",method=RequestMethod.GET)
 	@Produces("application/json")
-	public @ResponseBody List<Employee> loadAllEmployee(HttpServletRequest request, HttpServletResponse response){
-		List<Employee> employees = employeeDAO.loadEmployees();
-		return employees;
+	@ResponseBody
+	public List<Employee> loadAllEmployee(){
+		return employeeDAO.loadEmployees();
 	}
 	
 	@RequestMapping(value="/updateEmployee", method=RequestMethod.PUT)
 	@Produces("application/json")
-	public @ResponseBody boolean updateEmployee(HttpServletRequest request, HttpServletResponse response, @RequestBody Employee employee) throws RecordNotFoundException{
-		boolean returnVal = false;
+	@ResponseBody
+	public boolean updateEmployee(HttpServletResponse response, @RequestBody Employee employee) throws RecordNotFoundException{
 		if(employeeDAO.loadEmployeeById(String.valueOf(employee.getPk())) == null){
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			throw new RecordNotFoundException();
-		} else {
-			returnVal = employeeDAO.updateEmployee(employee);
 		}
-		return returnVal;
+		return employeeDAO.updateEmployee(employee);
 	}
 	
 	@RequestMapping(value="/addEmployee", method=RequestMethod.POST)
 	@Produces("application/json")
-	public @ResponseBody boolean addEmployee(HttpServletRequest request, HttpServletResponse response, @RequestBody Employee employee) throws RecordExistsException{
+	@ResponseBody
+	public boolean addEmployee(@RequestBody Employee employee, HttpServletResponse response) throws RecordExistsException{
 		boolean returnVal = false;
 		if(!employeeDAO.addEmployee(employee)){
 			response.setStatus(HttpServletResponse.SC_CONFLICT);

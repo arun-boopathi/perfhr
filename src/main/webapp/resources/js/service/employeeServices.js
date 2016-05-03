@@ -7,6 +7,12 @@ angular.module('employee.services', []).
           url: perfUrl['loadEmployeeById']+empId
         });
     };
+    employeeAPI.loadAllEmployees = function() {
+        return $http({
+          method: 'get', 
+          url: perfUrl['loadAllEmployee']
+        });
+    };
     employeeAPI.addEmployee = function(employee) {
         return $http({
           method: 'post', 
@@ -23,8 +29,3 @@ angular.module('employee.services', []).
     };
     return employeeAPI; 
 });
-
-function doHttp($http){
-	console.log('in http');
-	return $http;
-}
