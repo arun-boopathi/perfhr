@@ -36,7 +36,7 @@ public class DesignationController {
 	@RequestMapping(value="/addDesignation", method=RequestMethod.POST)
 	@Produces("application/json")
 	@ResponseBody
-	public boolean addDesignation(@RequestBody Designations designations) throws RecordExistsException{
+	public Designations addDesignation(@RequestBody Designations designations) throws RecordExistsException{
 		return designationsDAO.addDesignation(designations);
 	}
 	

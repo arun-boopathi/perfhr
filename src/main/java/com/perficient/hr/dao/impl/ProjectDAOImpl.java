@@ -13,10 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.ProjectDAO;
+import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.Projects;
 
 @Repository("projectDAO")
-public class ProjectDAOImpl implements ProjectDAO{
+public class ProjectDAOImpl implements ProjectDAO {
 
 	protected Logger logger = LoggerFactory.getLogger(ProjectDAOImpl.class);
 	
@@ -30,7 +31,24 @@ public class ProjectDAOImpl implements ProjectDAO{
     protected Session getSession(){
         return sessionFactory.openSession();
     }
-	
+    
+	@SuppressWarnings("unchecked")
+	@Override
+	public Projects loadProjectById(String projectPk) {
+		logger.info("Loading employee record for: "+projectPk);
+		Session session = sessionFactory.openSession();
+		Projects projects = null;
+		String sqlQuery =" from Projects as o where o.pk=:projectPk";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter("projectPk", Long.parseLong(projectPk));
+		List<Projects> list = query.list();
+		if ((list != null) && (!list.isEmpty())) {
+			projects = list.get(0);
+		}
+		session.close();
+		return projects;
+	}
+    
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Projects> loadProjects() {
@@ -43,14 +61,14 @@ public class ProjectDAOImpl implements ProjectDAO{
 	}
 
 	@Override
-	public boolean addProject(Projects project) {
-		boolean returnVal = false;
+	public Projects addProject(Projects project) {
+		Projects returnVal = null;
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
 			session.save(project);
 			tx.commit();
-			returnVal = true;
+			returnVal = project;
 		} catch(Exception e){
 			logger.error("Unable to add designation: "+project.getProjectName()+" Exception is: "+e);
 		} finally{

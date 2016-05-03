@@ -15,8 +15,8 @@ controller('designationController', function($scope, designationAPIservice) {
 	});
 	
 	$scope.save = function(){
-		designationAPIservice.addDesignation($scope.tempData).success(function () {
-			$scope.designations.push($scope.tempData);
+		designationAPIservice.addDesignation($scope.tempData).success(function (response) {
+			$scope.designations.push(response);
 			$scope.msg="Designation Saved Successfully!";
 		}).error(function(){
 			$scope.msg="An error occurred during save!";

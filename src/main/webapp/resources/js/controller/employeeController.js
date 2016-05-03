@@ -3,41 +3,36 @@ var rowIndex;
 var data;
 var scope;
 /* Employee controller */
-angular.module('employee.controller', ['showcase.bindAngularDirective'])
+angular.module('employee.controller', ['employeeTable.bindAngularDirective'])
 .controller('employeeController', function($scope, employeeAPIservice) {
-	
-}).controller('AddEmployeeCtrl', function($scope, employeeAPIservice) {
-	$scope.finishLoading = function() {
-		$('#employee_id').removeAttr('disabled');
-		$(".alert-info").addClass('hidden');
-	};
-	$scope.submit = function() {
-		if ($scope.data) {
-			$('.alert-info').removeClass('hidden');
-		    employeeAPIservice.addEmployee($scope.data).success(function (response) {
-		      $scope.msg = 'Employee saved successfully.';
-			  vm.dtInstance.reloadData();
-	        }).error(function(error){
-	       	  $scope.msg = 'An Error Occured. Unable to save Employee.';
-	        });
-		}
-    };
-}).controller('UpdateEmployeeCtrl', function($scope, employeeAPIservice) {
 	scope = $scope;
+	
+	$scope.addEmployee = function(){
+		$scope.data = '';
+		$('#employee_id').removeAttr('disabled');
+		$('#employeeForm').modal();
+	};
+	
 	$scope.submit = function() {
-        if ($scope.data) {
-           $('.alert-info').removeClass('hidden');
+        if ($scope.data.pk) {
            employeeAPIservice.updateEmployee($scope.data).success(function (response) {
           	   vm.dtInstance.dataTable.fnUpdate($scope.data, rowIndex, undefined, false);
-           	   $scope.msg = 'Employee updated successfully.';         	
+          	   $scope.data.msg = 'Employee updated successfully.';         	
            }).error(function(error){
-           	   $scope.msg = 'An Error Occured. Unable to update Employee.';
+        	   $scope.data.msg = 'An Error Occured. Unable to update Employee.';
            });
+        } else {
+           employeeAPIservice.addEmployee($scope.data).success(function (response) {
+        	   $scope.data.msg = 'Employee saved successfully.';
+  			   vm.dtInstance.reloadData();
+  	       }).error(function(error){
+  	    	   $scope.data.msg = 'An Error Occured. Unable to save Employee.';
+  	       });
         }
     };
 });
 
-angular.module('showcase.bindAngularDirective', ['datatables']).controller('EmployeeTableCtrl', EmployeeTableCtrl);
+angular.module('employeeTable.bindAngularDirective', ['datatables']).controller('EmployeeTableCtrl', EmployeeTableCtrl);
 
 function EmployeeTableCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, employeeAPIservice) {
     vm = this;
@@ -46,7 +41,18 @@ function EmployeeTableCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, 
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name'),
         DTColumnBuilder.newColumn('email').withTitle('Email'),
-        DTColumnBuilder.newColumn('designation').withTitle('Designation')
+        DTColumnBuilder.newColumn('designations.designation').withTitle('Designation')
     ];
-    perfDatatable.loadTable.init(vm, $scope, $compile, DTOptionsBuilder, DTColumnBuilder, employeeAPIservice, perfUrl['loadAllEmployee']);
+    var paramObj = {
+    		"vm" : vm,
+    		"scope" : $scope,
+    		"compile" : $compile,
+    		"DtOptionsBuilder" : DTOptionsBuilder,
+    		"DTColumnBuilder" : DTColumnBuilder,
+    		"service" : employeeAPIservice,
+    		'loadListUrl' : perfUrl['loadAllEmployee'],
+    		'editFormId' : 'employeeForm',
+    		'sortCol': '1'
+    };
+    perfDatatable.loadTable.init(paramObj);
 }

@@ -1,13 +1,13 @@
 <div class="modal-body">
-   <div class = "alert alert-info">
-  	  {{msg}}
+   <div class = "alert alert-info" ng-show="data.msg">
+  	  {{data.msg}}
    </div>
    <div class="row">
       <div class="col-sm-6 col-lg-6">
          <div class="form-group">
             <label for="inputEmail" class="col-md-4 control-label">Employee Id:</label>
             <div class="col-md-8">
-               <input type="text" id="employee_id" ng-model="data.employee_id" class="form-control" placeholder="Employee Id" value="{{data.employee_id}}" disabled>
+               <input type="text" id="employee_id" ng-model="data.employeeId" class="form-control" placeholder="Employee Id" value="{{data.employeeId}}" disabled>
             </div>
          </div>
       </div>

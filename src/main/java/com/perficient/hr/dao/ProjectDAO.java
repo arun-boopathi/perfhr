@@ -8,8 +8,10 @@ public interface ProjectDAO {
 
     public List<Projects> loadProjects();
 	
-	public boolean addProject(Projects project);
+	public Projects addProject(Projects project);
 	
 	public boolean updateProject(Projects project);
+	
+	public Projects loadProjectById(String projectPk);
 	
 }

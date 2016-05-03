@@ -40,14 +40,14 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 	}
 
 	@Override
-	public boolean addDesignation(Designations designation) {
-	    boolean returnVal = false;
+	public Designations addDesignation(Designations designation) {
+		Designations returnVal = null;
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
 			session.save(designation);
 			tx.commit();
-			returnVal = true;
+			returnVal = designation;
 		} catch(Exception e){
 			logger.error("Unable to add designation: "+designation.getDesignation()+" Exception is: "+e);
 		} finally{

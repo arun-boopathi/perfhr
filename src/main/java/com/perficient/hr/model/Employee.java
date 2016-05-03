@@ -2,10 +2,14 @@ package com.perficient.hr.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,8 +40,9 @@ public class Employee implements Serializable {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "designation")
-	private int designation;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "designation")
+	private Designations designations;
 	
 	@Column(name = "address")
 	private String address;
@@ -149,20 +154,7 @@ public class Employee implements Serializable {
 		this.email = email;
 	}
 
-	/**
-	 * @return the designation
-	 */
-	public int getDesignation() {
-		return designation;
-	}
-
-	/**
-	 * @param designation the designation to set
-	 */
-	public void setDesignation(int designation) {
-		this.designation = designation;
-	}
-
+	
 	/**
 	 * @return the address
 	 */
@@ -217,6 +209,20 @@ public class Employee implements Serializable {
 	 */
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
+	}
+
+	/**
+	 * @return the designations
+	 */
+	public Designations getDesignations() {
+		return designations;
+	}
+
+	/**
+	 * @param designations the designations to set
+	 */
+	public void setDesignations(Designations designations) {
+		this.designations = designations;
 	}
 	
 	

@@ -14,7 +14,12 @@ var perfUrl = {
 	'addEmployee'      : urlPrefix+'employee/addEmployee',
 	'loadDesignations' : urlPrefix+'designation/loadDesignations',
     'addDesignation'   : urlPrefix+'designation/addDesignation',
-    'updateDesignation': urlPrefix+'designation/updateDesignation'
+    'updateDesignation': urlPrefix+'designation/updateDesignation',
+    'loadProjects' : urlPrefix+'projects/loadProjects',
+    'addProject'   : urlPrefix+'projects/addProject',
+    'updateProject': urlPrefix+'projects/updateProject',
+    'loadProjectById' : urlPrefix+'projects/loadProjectById?projectPk=',
+    'loadProjectMembersByProjectId' : urlPrefix+'projectmembers/loadProjectMembersByProjectId?projectId='
 };
 
 //register the interceptor as a service

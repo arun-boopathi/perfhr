@@ -1,0 +1,56 @@
+<div class="row mt80" ng-controller="ProjectMembersCtrl">
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 animated fadeInDown">
+		<form novalidate name="projectMemberForm">
+			<div class="form-group">
+				<label for="name">Project Name :</label>
+				<select class="form-control" ng-model="selectedProject" ng-change="changedProject(selectedProject)" ng-options="x.projectName for x in projects">
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="email">Members :</label> 
+				<select class="form-control" ng-model="selectedEmployee" ng-options="x.firstName for x in employees">
+				</select>
+			</div>
+			<div class="form-group date">
+				<label for="startDate">Member Start Date :</label>
+				<div class='input-group date' id='pmStartDate'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+			</div>
+			<div class="form-group date">
+				<label for="startDate">Member End Date :</label>
+				<div class='input-group date' id='pmEndDate'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+			</div>
+			<div class="text-center">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<button class="btn btn-save btn-primary" ng-disabled="projectMemberForm.$invalid" ng-click="save()">Save User</button>
+			</div>
+		</form>
+	</div>
+	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 animated fadeInUp">
+		<div class="table-responsive">
+			<div ng-controller="ProjectsUserController as projectUserTable">
+			    <p class="text-danger"><strong>{{ showCase.message }}</strong></p>
+			    <table datatable="" dt-options="projectUserTable.dtOptions" dt-columns="projectUserTable.dtColumns" dt-instance="projectUserTable.dtInstance" class="row-border hover"></table>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+  $(function() {
+  	$('#pmStartDate').datetimepicker({
+  		format: 'DD/MM/YYYY'
+  	});
+    $('#pmEndDate').datetimepicker({
+    	format: 'DD/MM/YYYY'
+    });
+  });
+</script>

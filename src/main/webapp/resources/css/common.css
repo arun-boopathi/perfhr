@@ -96,6 +96,10 @@ table.dataTable tbody td {
 	text-align: left;
 }
 
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 5px 10px !important;
+}
+
 table.dataTable tbody td:last-child {
 	text-align: center;
 }
@@ -147,7 +151,7 @@ footer a, footer a:hover {
     background: #000;
     opacity: 0.8;
     filter: alpha(opacity=80);
-    z-index: 1;
+    z-index: 10000;
     display: none;
 }
 #loading {
