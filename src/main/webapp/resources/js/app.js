@@ -4,7 +4,6 @@ var mainApp = angular.module("perficientHr",
 		 'dashboard.controller','dashboard.services',
 		 'pto.controller',
 		 'designation.controller','designation.services',
-		 'role.controller','role.services',
 		 'project.controller','project.services',
 		 'ngRoute', 'datatables']);
 

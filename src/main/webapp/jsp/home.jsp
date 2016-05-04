@@ -25,7 +25,7 @@
             	<a href="#">Administration</a>
             	<ul>
             		<li><a href="#/projects">Projects</a></li>
-            		<li><a href="#/role">Roles</a></li>
+            		<li><a href="#">Roles</a></li>
             		<li><a href="#">Add Employee</a></li>
             		<li><a href="#/designations">Designations</a></li>
             		<li>
@@ -56,7 +56,6 @@
 	
 	<div class="submenu fixed mm-slideout">
 		<div class="divContainer">
-			<div id="overlay"><img id="loading" src="images/gears.gif"></div>
 			<ng-view></ng-view>
 		</div>
 	</div>
@@ -89,8 +88,6 @@
 <script src="js/service/dashboardServices.js"></script>
 <script src="js/controller/designationController.js"></script>
 <script src="js/service/designationServices.js"></script>
-<script src="js/service/roleServices.js"></script>
-<script src="js/controller/roleController.js"></script>
 <script src="js/controller/ptoController.js"></script>
 <script src="js/directives/directives.js"></script>
 <script src="js/filters/filters.js"></script>

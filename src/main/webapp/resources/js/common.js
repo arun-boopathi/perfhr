@@ -13,7 +13,6 @@ var perfUrl = {
 	'updateEmployee'   : urlPrefix+'employee/updateEmployee',
 	'addEmployee'      : urlPrefix+'employee/addEmployee',
 	'loadDesignations' : urlPrefix+'designation/loadDesignations',
-	'loadRoles'       : urlPrefix+'role/loadRoles'
     'addDesignation'   : urlPrefix+'designation/addDesignation',
     'updateDesignation': urlPrefix+'designation/updateDesignation',
     'loadProjects' : urlPrefix+'projects/loadProjects',
