@@ -2,13 +2,18 @@ var vm, pm;
 var rowIndex;
 var data;
 var scope;
-angular.module('project.controller', ['projectTable.bindAngularDirective']).
-	/* Project controller */
-controller('projectController', function($scope, projectAPIservice, employeeAPIservice) {
+/* Project controller */
+mainApp.controller('projectController', function($scope, projectAPIservice, employeeAPIservice) {
 	scope = $scope;
 	
+	$('#prStartDate').datetimepicker({
+  		format: 'DD/MM/YYYY'
+  	});
+    $('#prEndDate').datetimepicker({
+    	format: 'DD/MM/YYYY'
+    });
+	
 	$scope.save = function(){
-		console.log('in projectController');
 		projectAPIservice.addProject($scope.data).success(function(response) {
 			vm.dtInstance.reloadData();
 			$scope.data.msg="Project Saved Successfully!";
@@ -76,7 +81,7 @@ controller('projectController', function($scope, projectAPIservice, employeeAPIs
 	};
 });
 
-angular.module('projectTable.bindAngularDirective', ['datatables']).controller('ProjectsController', ProjectsController).controller('ProjectsUserController', ProjectsUserController);
+mainApp.controller('ProjectsController', ProjectsController).controller('ProjectsUserController', ProjectsUserController);
 
 function ProjectsController($scope, $compile, DTOptionsBuilder, DTColumnBuilder, projectAPIservice) {
     vm = this;

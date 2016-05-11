@@ -19,7 +19,8 @@ var perfUrl = {
     'addProject'   : urlPrefix+'projects/addProject',
     'updateProject': urlPrefix+'projects/updateProject',
     'loadProjectById' : urlPrefix+'projects/loadProjectById?projectPk=',
-    'loadProjectMembersByProjectId' : urlPrefix+'projectmembers/loadProjectMembersByProjectId?projectId='
+    'loadProjectMembersByProjectId' : urlPrefix+'projectmembers/loadProjectMembersByProjectId?projectId=',
+    'importPto' : urlPrefix+'pto/fetchExcel'
 };
 
 //register the interceptor as a service

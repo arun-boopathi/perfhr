@@ -3,8 +3,7 @@ var rowIndex;
 var data;
 var scope;
 /* Employee controller */
-angular.module('employee.controller', ['employeeTable.bindAngularDirective'])
-.controller('employeeController', function($scope, employeeAPIservice, designationAPIservice) {
+mainApp.controller('employeeController', function($scope, employeeAPIservice, designationAPIservice) {
 	scope = $scope;
 	
 	designationAPIservice.getDesignationDetails().success(function (response) {
@@ -36,14 +35,14 @@ angular.module('employee.controller', ['employeeTable.bindAngularDirective'])
     };
 });
 
-angular.module('employeeTable.bindAngularDirective', ['datatables']).controller('EmployeeTableCtrl', EmployeeTableCtrl);
+mainApp.controller('EmployeeTableCtrl', EmployeeTableCtrl);
 
 function EmployeeTableCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, employeeAPIservice) {
     vm = this;
     vm.dtColumns = [
         DTColumnBuilder.newColumn('employeeId').withTitle('ID'),
-        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
-        DTColumnBuilder.newColumn('lastName').withTitle('Last name'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First Name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last Name'),
         DTColumnBuilder.newColumn('email').withTitle('Email'),
         DTColumnBuilder.newColumn('designations.designation').withTitle('Designation')
     ];

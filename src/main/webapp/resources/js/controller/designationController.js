@@ -1,6 +1,5 @@
-angular.module('designation.controller', []).
-	/* Designation controller */
-controller('designationController', function($scope, designationAPIservice) {
+/* Designation controller */
+mainApp.controller('designationController', function($scope, designationAPIservice) {
 	$scope.designations = [];
 	$scope.tempData = {};
 	$scope.index = '';

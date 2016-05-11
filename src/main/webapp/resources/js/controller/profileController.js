@@ -1,6 +1,5 @@
-angular.module('profile.controller', []).
-	/* Profile controller */
-    controller('profileController', function($scope, profileAPIservice, employeeAPIservice) {
+/* Profile controller */
+mainApp.controller('profileController', function($scope, profileAPIservice, employeeAPIservice) {
       $scope.finishLoading = function() {
        	  $(".alert-info").addClass('hidden');
        	  $('#closeBtn').hide();

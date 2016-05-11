@@ -5,17 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Perficient HR</title>
-<!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- Vendors CSS -->
+<link rel="stylesheet" href="sass_compiled/vendors.css">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="css/common.css" >
-<link rel="stylesheet" href="css/jquery.dataTables.css">
-<link rel="stylesheet" href="css/angular-datatables.css">
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/jquery-ui.min.css">
-<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet" href="css/jquery.mmenu.all.css">
+<link rel="stylesheet" href="sass_compiled/main.css">
 <link rel="stylesheet" href="css/layout.css">
+
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
 	<nav id="menu" class="mm-menu">
@@ -24,10 +19,11 @@
             <li>
             	<a href="#">Administration</a>
             	<ul>
-            		<li><a href="#/projects">Projects</a></li>
-            		<li><a href="#">Roles</a></li>
             		<li><a href="#">Add Employee</a></li>
             		<li><a href="#/designations">Designations</a></li>
+            		<li><a href="#/importpto">Import PTO</a></li>
+            		<li><a href="#/projects">Projects</a></li>
+            		<li><a href="#">Roles</a></li>
             		<li>
             			<a href="#">Reports</a>
             			<ul>
@@ -77,6 +73,18 @@
 <script src="js/lib/jquery.mmenu.all.min.js"></script>
 <script src="js/lib/moment.min.js"></script>
 <script src="js/lib/bootstrap-datetimepicker.js"></script>
+<script src="js/lib/angular-bootstrap.js"></script>
+<script src="js/lib/angular-datatables.bootstrap.options.js"></script>
+<script src="js/lib/angular-datatables.bootstrap.tabletools.js"></script>
+<script src="js/lib/angular-datatables.bootstrap.colvis.js"></script>
+<script src="js/lib/angular-datatables.columnfilter.js"></script>
+<script src="js/lib/angular-datatables.responsive.js"></script>
+<!-- <script src="js/lib/angular-datatables.buttons.js"></script>
+<script src="js/lib/datatables.buttons.js"></script>
+<script src="js/lib/angular-datatables.buttons.html5.js"></script>
+<script src="js/lib/angular-datatables.buttons.print.js"></script>
+<script src="js/lib/angular-datatables.buttons.colVis.js"></script>
+<script src="js/lib/angular-datatables.buttons.flash.js"></script> -->
 <script src="js/app.js"></script>
 <script src="js/common.js"></script>
 <script src="js/constants/constants.js"></script>
@@ -94,46 +102,5 @@
 <script src="js/filters/filters.js"></script>
 <script src="js/controller/projectController.js"></script>
 <script src="js/service/projectServices.js"></script>
-<script type="text/javascript">
-// variables
-var $menu = $('#menu');
-var $btnMenu = $('.btn-menu');
-var $img = $('img'); 
-
-// mmenu customization
-$menu.mmenu({
-  navbars: [{
-	position: "top",
-	content: [ "searchfield", "breadcrumbs" ],
-	height: 2
-  }],
-  extensions: ['widescreen', 'theme-dark', 'effect-menu-slide'],
-  offCanvas: {
-    position  : "left",
-    zposition : "back"
-  },
-  searchfield: true
-}).on('click', 'a[href^="#/"]', function() {
-	console.log('link: ', $(this));
-	window.location.href=$(this).attr('href');
-	return false;
-});
-
-// toggle menu
-var api = $menu.data("mmenu");
-
-$('#sidePanel').on('click', function(e) {
-	e.preventDefault();
-	if ( $(this).hasClass('mm-opened' )) {
-		api.close();
-	} else {
-		api.open();
-	}
-});
-
-// change toggle behavior for subpanels
-$menu.find( ".mm-next" ).addClass("mm-fullsubopen");
-
-</script>
 
 </html>

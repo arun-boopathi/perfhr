@@ -13,10 +13,21 @@
 			params.vm.dtOptions = params.DtOptionsBuilder.fromSource(url)
 		        .withDisplayLength(7)
 		        .withDOM('pitrfl')
-		        .withPaginationType('full_numbers')
+		        .withBootstrap()
+		        .withOption('responsive', true)
 		        .withOption('createdRow', createdRow)
 		        .withOption('aaSorting', [params.sortCol, 'asc'])
 		        .withOption('rowCallback', rowCallback)
+		        .withPaginationType('full_numbers')
+		        /*.withColumnFilter({
+		        	aoColumns: [{
+		                type: 'text'
+		            }]
+		        })*/
+		        /*.withButtons([
+		            'excel',
+		            'print'
+		        ])*/
 		        .withOption("oLanguage", {"sEmptyTable": "No Orders Found."});
 			params.vm.dtColumns.push(params.DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml));
 		    		    

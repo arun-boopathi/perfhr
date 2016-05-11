@@ -1,8 +1,5 @@
-var dashboard;
-
 /*Dashboard Controller*/
-angular.module('dashboard.controller', []).
-controller('dashboardController', function($scope, $interval, dashboardAPIservice, profileAPIservice) {
+mainApp.controller('dashboardController', function($scope, $interval, dashboardAPIservice, profileAPIservice) {
 	profileAPIservice.getProfileDetails().success(function (response) {
   	  console.log('dashboard response ', response);
   	  user = response;

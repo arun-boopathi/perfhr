@@ -43,4 +43,45 @@
 	    };
 	});
 	
+	angular.module('perficientHr').directive('datepicker', function () {
+		return {
+	        restrict: "A",
+	        link: function (scope, el, attr) {
+	            el.datepicker({
+	                 dateFormat: 'yy-mm-dd'
+	            });
+	        }
+	    };
+	});
+	
+	angular.module("perficientHr").directive('addRows', function($templateRequest,$compile){
+		return(
+			function(scope,element,attrs){
+				element.bind("click", function(){
+					 scope.index++;
+					 $templateRequest("js/templates/addRows.html").then(function(html){											
+					      var template = angular.element(html);
+						  $(template).find("input").attr("ng-model", $(template).find("input").attr("ng-model")+scope.index)
+					      angular.element($("#"+element.attr('id')).parents().eq(5)).append(template);
+					      $compile(template)(scope);
+					   });
+				});
+		} )
+	});
+	
+	angular.module('perficientHr').directive('ptoCalendar', function () {
+		
+	});
+	
+	angular.module('perficientHr').directive('fileModel', function ($parse) {
+	    return {
+	        restrict: 'A',
+	        link: function(scope, element, attrs) {
+	            element.bind('change', function(){
+	                    scope.newFileVal=element[0].files[0];
+	            });
+	        }
+	    };
+	});
+	
 }());
