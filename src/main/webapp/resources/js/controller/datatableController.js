@@ -14,21 +14,28 @@
 		        .withDisplayLength(7)
 		        .withDOM('pitrfl')
 		        .withBootstrap()
-		        .withOption('responsive', true)
+		        .withOption('responsive', {
+		            details: true
+		        })
 		        .withOption('createdRow', createdRow)
 		        .withOption('aaSorting', [params.sortCol, 'asc'])
 		        .withOption('rowCallback', rowCallback)
 		        .withPaginationType('full_numbers')
-		        /*.withColumnFilter({
-		        	aoColumns: [{
-		                type: 'text'
-		            }]
-		        })*/
-		        /*.withButtons([
-		            'excel',
-		            'print'
-		        ])*/
-		        .withOption("oLanguage", {"sEmptyTable": "No Orders Found."});
+		        .withOption("oLanguage", {"sEmptyTable": "No Records Found."})
+		        .withButtons([
+		            { 
+		            	extend : 'excel',
+		            	exportOptions: {
+		            		columns: ':not(:last-child)'
+		                }
+		            },
+		            {
+		            	extend : 'print',
+		            	exportOptions: {
+		            		columns: ':not(:last-child)'
+		                }
+		            }
+            	]);
 			params.vm.dtColumns.push(params.DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml));
 		    		    
 		    function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -41,7 +48,7 @@
 		        });
 		        return nRow;
 		    }
-		    
+		  	    
 		    function deleteRow(data) {
 		        vm.message = 'You are trying to remove Employee:  ' + data.lastName+', '+data.firstName ;
 		        params.vm.dtInstance.reloadData();
@@ -63,7 +70,7 @@
 		        if(params.deleteRow == undefined){
 		        	deleteRecord = '<button class="btn btn-danger" ng-click="showCase.deleteRow(showCase.datalist[' + data.pk + '])" )"="">' +
 		            '   <i class="fa fa-trash-o"></i>' +
-		            '</button>';	
+		            '</button>';
 		        }
 		        return  editRecord+deleteRecord;
 		    };

@@ -1,7 +1,6 @@
 (function(){
 	var perficientHr = angular.module("perficientHr");
 	
-	
 	/**
 	 * Date Picker Directive - Employee PTO Section.
 	 * 

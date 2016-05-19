@@ -1,0 +1,651 @@
+/*--------------------------------------Variables--------------------------------------*/
+/*---------------------------------------mixins----------------------------------*/
+/*-----------------------------------COMPOMENTS-------------------------------*/
+body.loginpage {
+  background-image: url("../images/home-big-ideas.jpg");
+  overflow: hidden;
+}
+
+.carousel-fade .carousel-inner .item {
+  opacity: 0;
+  transition-property: opacity;
+}
+.carousel-fade .carousel-inner .active {
+  opacity: 1;
+}
+.carousel-fade .carousel-inner .active.left, .carousel-fade .carousel-inner .active.right {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+}
+.carousel-fade .carousel-inner .next.left, .carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel-fade .carousel-control {
+  z-index: 2;
+}
+
+@media all and (transform-3d), (-webkit-transform-3d) {
+  .carousel-fade .carousel-inner > .item.next, .carousel-fade .carousel-inner > .item.active.right, .carousel-fade .carousel-inner > .item.prev, .carousel-fade .carousel-inner > .item.active.left {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  .carousel-fade .carousel-inner > .item.next.left, .carousel-fade .carousel-inner .item.prev.right, .carousel-fade .carousel-inner .item.active {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+.item:nth-child(1) {
+  background: url("../images/black.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.item:nth-child(2) {
+  background: url(http://www.perficient.com/-/media/images/homepage/home-big-ideas.ashx?h=669&w=1600&la=en&hash=20074F83C8647E3AB7F3C779F5680492643FAADE) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.item:nth-child(3) {
+  background: url(http://www.perficient.com/-/media/images/homepage/hero-digital.ashx) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.carousel {
+  z-index: -99;
+}
+.carousel .item {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.registerheader {
+  float: left;
+  width: 100%;
+  text-align: left;
+  padding: 50px 0 0;
+}
+
+.registerbody {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  text-align: center;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2) none repeat scroll 0 0;
+  padding: 21px 0 13px;
+}
+
+.registerbody ul li label {
+  color: black;
+  font-family: helvetica;
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: uppercase;
+  float: left;
+  width: 100%;
+  text-align: left;
+}
+
+.registerbody ul li {
+  float: left;
+  width: 100%;
+  text-align: left;
+  margin: 5px 0;
+}
+
+.input-divs .icnholder {
+  background-image: url("../images/ash.png");
+  background-color: rgba(204, 201, 201, 0.44);
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  height: 47px;
+  float: left;
+  width: 47px;
+}
+.input-divs i.regisr {
+  background-image: url("../images/register.png");
+  display: inline-block;
+  height: 20px;
+  width: 16px;
+  margin: 15px 0 0;
+}
+.input-divs i.regisr.regit1 {
+  background-position: 0 -22px;
+}
+.input-divs i.regisr.regit4 {
+  background-position: 3px -152px;
+  margin: 11px 0 0;
+}
+
+.input-divs input[type="text"],
+.input-divs input[type="password"],
+.input-divs input[type="email"] {
+  border: medium none;
+  border-radius: 0;
+  height: 47px;
+  line-height: 47px;
+  padding: 13px 8px;
+  width: 84%;
+  width: calc($value1 - $value2);
+  width: -webkit-calc($value1 - $value2);
+  width: -moz-calc($value1 - $value2);
+  width: -ms-calc($value1 - $value2);
+  float: left;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.registerbody ul li {
+  float: left;
+  width: 100%;
+  text-align: left;
+  margin: 5px 0;
+}
+.registerbody > a {
+  display: inline-block;
+  margin: 0 0 46px;
+  width: 170px;
+}
+
+.registerbody-left .btn {
+  background: #cc1f20;
+  color: #fff;
+  float: right;
+  font-size: 15px;
+  margin: 22px 0 0;
+}
+
+.input-divs.focus i.regisr {
+  background-repeat: no-repeat;
+}
+.input-divs.focus i.regisr.regit1 {
+  background-position: 0 -22px;
+}
+.input-divs.focus i.regisr.regit4 {
+  background-position: 3px -153px;
+}
+
+.signbgconformation-holder {
+  float: left;
+  width: 100%;
+  text-align: left;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 650px;
+  position: relative;
+}
+
+.registerbody-left {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+.registerbody-left li {
+  list-style: none;
+}
+
+.opeiningscreen.opeiningscreen {
+  min-height: 900px;
+  float: left;
+  width: 100%;
+  text-align: left;
+}
+
+/*------------ANIMATION EFFECTS_____________*/
+.logodiv {
+  margin: 70px auto 0;
+  text-align: center;
+  width: 490px;
+}
+
+.top-p {
+  display: inline-block;
+  text-align: center;
+  width: 100px;
+}
+
+.top-p img {
+  width: 100%;
+}
+
+.zoomin-p {
+  -webkit-animation-delay: 0s;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-name: Pzoom;
+  -webkit-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -moz-animation-delay: 0s;
+  -moz-animation-duration: 2s;
+  -moz-animation-name: Pzoom;
+  -moz-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -o-animation-delay: 0s;
+  -o-animation-duration: 2s;
+  -o-animation-name: Pzoom;
+  -o-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  animation-delay: 0s;
+  animation-duration: 2s;
+  animation-name: Pzoom;
+  animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+}
+
+@-webkit-keyframes Pzoom {
+  from {
+    opacity: 0;
+    -webkit-transform: rotate(4deg) scale(6) skew(1deg);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: rotate(0deg) scale(1) skew(1deg);
+  }
+}
+
+@-moz-keyframes Pzoom {
+  from {
+    opacity: 0;
+    -moz-transform: rotate(4deg) scale(6) skew(1deg);
+  }
+
+  to {
+    opacity: 1;
+    -moz-transform: rotate(0deg) scale(1) skew(1deg);
+  }
+}
+
+@-o-keyframes Pzoom {
+  from {
+    opacity: 0;
+    -o-transform: rotate(4deg) scale(6) skew(1deg);
+  }
+
+  to {
+    opacity: 1;
+    -o-transform: rotate(0deg) scale(1) skew(1deg);
+  }
+}
+
+.brandname {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  text-align: center;
+  margin: 10px 0 0;
+  padding: 0;
+}
+.brandname li {
+  display: inline-block;
+  width: auto;
+  transform: rotateY(190deg);
+  -webkit-transform: rotateY(190deg);
+  -moz-transform: rotateY(190deg);
+  -ms-transform: rotateY(190deg);
+  -o-transform: rotateY(190deg);
+  -webkit-animation-delay: 2s;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: Protate;
+  -webkit-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -moz-animation-delay: 2s;
+  -moz-animation-duration: 1s;
+  -moz-animation-name: Protate;
+  -moz-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -o-animation-delay: 2s;
+  -o-animation-duration: 1s;
+  -o-animation-name: Protate;
+  -o-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  animation-delay: 2s;
+  animation-duration: 1s;
+  animation-name: Protate;
+  animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  font-size: 33px;
+  font-weight: bold;
+  opacity: 0;
+}
+
+@-webkit-keyframes Protate {
+  from {
+    opacity: 0;
+    -webkit-transform: rotateY(190deg);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: rotate(0deg);
+  }
+}
+
+@-moz-keyframes Protate {
+  from {
+    opacity: 0;
+    -moz-transform: rotateY(190deg);
+  }
+
+  to {
+    opacity: 1;
+    -moz-transform: rotate(0deg);
+  }
+}
+
+@-o-keyframes Protate {
+  from {
+    opacity: 0;
+    -o-transform: rotateY(190deg);
+  }
+
+  to {
+    opacity: 1;
+    -o-transform: rotate(0deg);
+  }
+}
+
+.brandbottom {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  text-align: center;
+}
+.brandbottom li {
+  display: inline-block;
+  margin: 0 4px;
+  width: auto;
+}
+.brandbottom img {
+  float: left;
+  -webkit-animation-delay: 3s;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: imgscale;
+  -webkit-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -moz-animation-delay: 3s;
+  -moz-animation-duration: 1s;
+  -moz-animation-name: imgscale;
+  -moz-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -o-animation-delay: 3s;
+  -o-animation-duration: 1s;
+  -o-animation-name: imgscale;
+  -o-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  animation-delay: 3s;
+  animation-duration: 1s;
+  animation-name: imgscale;
+  animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  opacity: 0;
+}
+
+@-webkit-keyframes imgscale {
+  from {
+    opacity: 0;
+    -webkit-transform: scale(0.1);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+
+@-moz-keyframes imgscale {
+  from {
+    opacity: 0;
+    -moz-transform: scale(0.1);
+  }
+
+  to {
+    opacity: 1;
+    -moz-transform: scale(1);
+  }
+}
+
+@-o-keyframes imgscale {
+  from {
+    opacity: 0;
+    -o-transform: scale(0.1);
+  }
+
+  to {
+    opacity: 1;
+    -o-transform: scale(1);
+  }
+}
+
+.enterbtn {
+  background: #ce2127 none repeat scroll 0 0;
+  border-radius: 30px 0;
+  color: white;
+  display: inline-block;
+  font-size: 18px;
+  margin: 110px 0 0;
+  padding: 13px 27px;
+  -webkit-animation-delay: 2s;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-name: opacitybtn;
+  -webkit-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -moz-animation-delay: 2s;
+  -moz-animation-duration: 1s;
+  -moz-animation-name: opacitybtn;
+  -moz-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -o-animation-delay: 2s;
+  -o-animation-duration: 1s;
+  -o-animation-name: opacitybtn;
+  -o-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  animation-delay: 2s;
+  animation-duration: 1s;
+  animation-name: opacitybtn;
+  animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  opacity: 0;
+}
+
+@-webkit-keyframes opacitybtn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes opacitybtn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes opacitybtn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.arrowimgs {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  text-align: center;
+}
+
+.arrowimgs img {
+  border: 1px solid #7c7c7c;
+  border-radius: 50%;
+  bottom: 20px;
+  height: 50px;
+  right: 40px;
+  padding: 8px;
+  position: absolute;
+  width: 50px;
+}
+
+.registerbody-left.col-xs-12 > ul {
+  display: inline-block;
+  padding: 0 30px;
+  text-align: center;
+}
+
+.animatetoptobottom {
+  -webkit-animation-delay: 2s;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-name: animtop-bottm;
+  -webkit-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -moz-animation-delay: 2s;
+  -moz-animation-duration: 2s;
+  -moz-animation-name: animtop-bottm;
+  -moz-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -o-animation-delay: 2s;
+  -o-animation-duration: 2s;
+  -o-animation-name: animtop-bottm;
+  -o-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  animation-delay: 2s;
+  animation-duration: 2s;
+  animation-name: animtop-bottm;
+  animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  opacity: 0;
+  position: relative;
+}
+
+@-webkit-keyframes animtop-bottm {
+  from {
+    opacity: 0;
+    top: -20px;
+  }
+
+  to {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+@-moz-keyframes animtop-bottm {
+  from {
+    opacity: 0;
+    top: -20px;
+  }
+
+  to {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+@-o-keyframes animtop-bottm {
+  from {
+    opacity: 0;
+    top: -20px;
+  }
+
+  to {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+.opacityanim {
+  -webkit-animation-delay: 2s;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-name: opacit-anim;
+  -webkit-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -moz-animation-delay: 2s;
+  -moz-animation-duration: 2s;
+  -moz-animation-name: opacit-anim;
+  -moz-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  -o-animation-delay: 2s;
+  -o-animation-duration: 2s;
+  -o-animation-name: opacit-anim;
+  -o-animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  animation-delay: 2s;
+  animation-duration: 2s;
+  animation-name: opacit-anim;
+  animation-fill-mode: forwards;
+  /* this prevents the animation from restarting! */
+  opacity: 0;
+  position: relative;
+}
+
+@-webkit-keyframes opacit-anim {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes opacit-anim {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes opacit-anim {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.loginuserimn {
+  float: left;
+  width: 100%;
+  text-align: left;
+  position: relative;
+}
+
+.loginuserimn img {
+  position: absolute;
+  right: -70px;
+  top: -50px;
+  width: 120px;
+}

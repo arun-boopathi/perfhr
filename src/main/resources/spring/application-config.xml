@@ -54,14 +54,6 @@
 					<prop key="hibernate.show_sql">true</prop>
 			  </props>
 			</property>
-			<property name="annotatedClasses">
-				<list>
-					  <value>com.perficient.hr.model.User</value>
-					  <value>com.perficient.hr.model.Employee</value>
-					  <value>com.perficient.hr.model.Designations</value>
-					  <value>com.perficient.hr.model.Projects</value>
-					  <value>com.perficient.hr.model.ProjectMembers</value>
-				</list>
-			</property>
+			<property name="packagesToScan" value="com.perficient.hr.model" />
       </bean>
 </beans>

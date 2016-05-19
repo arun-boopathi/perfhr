@@ -1,36 +1,15 @@
 @import "config/variables";
+@import "components/mixins";
 @import "vendor_extensions/datatables";
 
 body {
     background: darken($body-background-color, 0%);
-    font-family: $font-family;
+    font-family: $body-font-family;
 }
 
 .divContainer {
 	margin: $divContainer-margin;
 	padding: $divContainer-padding;
-}
-
-table.dataTable thead {
-   .sorting_asc, .sorting_desc, .sorting, .sorting_disabled{
- 	  background-color: $th-background-color;
-	  color: $th-color;
-	  font-size: $th-font-size;
-   }
-   th{
- 	  text-align: center;
- 	  padding: $th_td_padding;
-   }
-}
-
-table.dataTable tbody {
-   td {
- 	  text-align: left;
- 	  padding: $th_td_padding;
-   }
-   td:last-child {
-   	  text-align: center;
-   }
 }
 
 .fa{
@@ -60,4 +39,525 @@ table.dataTable tbody {
     top: 50%;
     left: 50%;
     margin: -28px 0 0 -25px;
+}
+
+/*----------------------LAYOUT CSS------------------*/
+
+/*MENU*/
+
+#menu{
+	&:not(.mm-menu) {
+		display: none;
+	}
+	
+	.fa {
+		width: 15px;
+		color: #ccc;
+	}
+}
+
+.mm-panel > p {
+	font-size: 14px;
+	margin: 15px 0;
+}
+
+.mm-counter.badge {
+	right: 20px;
+}
+
+/*LAYOUT*/
+
+#sidePanel {
+	box-sizing: border-box;
+	display: block;
+	width: 70px;
+	height: 45px;
+	position: fixed;
+	top: 20px;
+	left: 10px;
+	z-index: 2;
+}
+html:not(.mm-opening):not(.mm-opened) #sidePanel {
+    @include transition (top, 0.3s, ease, 0);
+}
+
+#sidePanel {
+	&:before, &:after, span {
+		background: #FF432E;
+		content: '';
+		display: block;
+		width: 30px;
+		height: 2px;
+		position: absolute;
+		left: 20px;
+		@include transition ((transform, top, bottom, left, opacity), 0.5s, ease, 0) ;
+	}
+}
+
+#sidePanel{
+	&:before {
+		top: 12px;
+	}
+	span {
+		top: 22px;
+	}
+	&:after {
+		top: 32px;
+	}
+}
+
+html.mm-opening {
+	#sidePanel{
+		&:before{
+			top: 20px;	
+			@include transform(-45deg);	
+		}
+		&:after{
+			top: 20px;
+			@include transform(45deg);	
+		}
+		span {
+			left: -50px;
+			opacity: 0;
+		}
+	}
+}
+
+#page, body > .submenu {
+	font-family: $menu-font-family;
+}
+
+#page {
+	box-shadow: none;
+	width: 100%;
+	min-width: 320px;
+	padding: 100px 0 160px 0;
+	overflow: hidden;
+	position: relative;
+}
+
+#sidePanel + .wrapper:before,
+.wrapper:first-child:before {
+	content: '';
+	background: url( ../img/phone.png ) center center no-repeat transparent;
+	display: block;
+	width: 2300px;
+	height: 1835px;
+	margin-left: -400px;
+	position: absolute;
+	left: 50%;
+	top: -1150px;
+	z-index: -1;
+}
+
+/*Submenu*/
+h1 {
+	.submenutext{
+		display: none;
+	}
+	+ .submenu {
+		margin-top: -80px;
+		margin-bottom: 80px;
+	}
+}
+
+.customlist {
+	list-style: none;
+	display: block;
+	padding: 0;
+}
+
+.submenu {
+	line-height: 20px;
+	padding-top: 5px;
+	
+	> ul {
+		@extend .customlist;
+		padding: 0 5px;
+		margin-left: -20px;
+		margin-right: -20px;
+	
+		&:after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+	
+	 	li {  
+		    @extend .customlist;
+			margin: 0;
+			float: left;
+		}
+		
+		a {
+			text-decoration: none;
+			display: block;
+			padding: 10px 15px;
+			position: relative;
+		}
+	}
+}
+
+.header h1 + .submenu {
+	margin-bottom: -66px;
+}
+
+.submenu:hover li.selected a:hover:after,
+.submenu li.selected a:after,
+.submenu a:hover:after {
+	content: '';
+	display: block;
+	height: 1px;
+	position: absolute;
+	bottom: -1px;
+	left: 15px;
+	right: 15px;
+}
+.submenu:hover li.selected a:after {
+	content: none;
+}
+
+.submenu.fixed {
+	background: #294072;
+	opacity: 0.95;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+.fixedsubmenu{
+	.submenu{
+		visibility: hidden;
+	}
+	
+	.submenu.fixed	{
+		visibility: visible;
+		display: block;
+		height: 100%;
+		overflow: auto;
+	}
+	
+	 #sidePanel	{
+		top: 2px;
+	}
+}
+
+/* large screens */
+@media all and (min-width: 1430px) {
+	#sidePanel,
+	.lt-1430 {
+		display: none;
+	}
+}
+
+/* small screens */
+@media all and (max-width: 950px) {
+	.gt-950px {
+		display: none;
+	}
+}
+
+/* really small screens */
+@media all and (max-width: 760px) {
+	.gt-760px {
+		display: none;
+	}
+	#sidePanel {
+		background: #4bb5ef;
+		border-bottom: 1px solid rgba( 255, 255, 255, 0.5 );
+		opacity: 0.95;
+		width: 100%;
+		top: 0px;
+		left: 0;
+	}
+}
+
+.mm-panels, {
+	top: 10px;
+}
+
+.mm-menu {
+    max-width: 250px; 
+}
+     
+/**
+ * add more vendor prefixes
+ * depending on the browsers you're targeting
+ */
+ 
+@media all and (min-width: 550px) {
+    html.mm-opening .mm-slideout {
+        transform: translate(250px, 0); 
+    } 
+}
+     
+/**
+ * override this rule
+ * in case you're building a right menu
+ */
+ 
+@media all and (min-width: 550px) {
+    html.mm-right.mm-opening .mm-slideout {
+        transform: translate(-250px, 0);
+    }
+}
+
+/**** Start Feature Section ****/
+.feature, .feature-2 {
+    padding-bottom: 80px;
+}
+
+.feature {
+     text-align: center;
+     
+	 h4 {
+	    font-size: 15px;
+	    color: #faffbd;
+	    font-weight: 300;
+	    font-family: 'Oswald', sans-serif;
+	}
+	
+	i {
+        font-size:3.5em;
+   		color:#fff;
+    	background: #FF432E;
+    	width: 100px;
+    	height: 100px;
+    	padding:25px;
+    	margin-bottom: 10px;
+ 	    position: relative;
+		box-shadow: 0 0 0 30px transparent;
+		@include border-radius(70%);
+		@include transform3d(2, 2, 2);
+		@include transition(box-shadow, .6s, ease-in-out, 0)
+	 }
+}
+
+.feature-2 h4 {
+    font-size: 15px;
+    color: #444;
+    padding-bottom: 10px;
+    font-weight: 300;
+    font-family: 'Oswald', sans-serif;
+}
+
+.feature, .feature-2 {
+	p {
+		color: #fff;
+	    font-size: 13px;
+	    line-height: 20px;
+	    font-weight: 300;
+	}
+}
+
+.no-touch .feature {
+	&:hover, &:active, &:focus {
+		i {
+			@include transition (box-shadow, .4s, ease-in-out , 0) ; 
+			box-shadow: 0 0 0 0 #FF432E;
+		}
+	}
+}
+
+.feature-2 i {
+   color:#FF432E;
+   font-size:3em;
+   padding:1px 10px 0 1px;
+   position: relative;
+}
+
+/** Start dashboard2 **/
+.ch-grid {
+	margin: 20px 0px 20px 0px;
+	padding: 0;
+	list-style: none;
+	display: block;
+	text-align: center;
+	width: 100%;
+	
+	&:after {
+		clear: both;
+		content: '';
+    	display: table;	
+	}
+
+ 	li {
+		width: 220px;
+		height: 220px;
+		display: inline-block;
+		margin-left: 100px;
+		margin-bottom: 20px;
+	}
+}
+
+.ch-item {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	position: relative;
+	cursor: default;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+	
+	&:before{
+		content: '';
+    	display: table;	
+	}
+}
+
+.ch-thumb {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	overflow: hidden;
+	position: absolute;
+	box-shadow: inset 0 0 0 15px rgba(255,255,255, 0.5);
+	@include transform-origin(95%,  40%);
+	@include transition(all, 0.3s, ease-in-out, 0);
+
+	&:after {
+		content: '';
+		width: 8px;
+		height: 8px;
+		position: absolute;
+		border-radius: 50%;
+		top: 40%;
+		left: 95%;
+		margin: -4px 0 0 -4px;
+		background: rgb(14,14,14);
+		background: -moz-radial-gradient(center, ellipse cover, rgba(14,14,14,1) 0%, rgba(125,126,125,1) 100%);
+		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(14,14,14,1)), color-stop(100%,rgba(125,126,125,1)));
+		background: -webkit-radial-gradient(center, ellipse cover, rgba(14,14,14,1) 0%,rgba(125,126,125,1) 100%);
+		background: -o-radial-gradient(center, ellipse cover, rgba(14,14,14,1) 0%,rgba(125,126,125,1) 100%);
+		background: -ms-radial-gradient(center, ellipse cover, rgba(14,14,14,1) 0%,rgba(125,126,125,1) 100%);
+		background: radial-gradient(ellipse at center, rgba(14,14,14,1) 0%,rgba(125,126,125,1) 100%);
+		box-shadow: 0 0 1px rgba(255,255,255,0.9);
+	}
+}
+
+.ch-info {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	overflow: hidden;
+	background: #0C6;
+	box-shadow: inset 0 0 0 5px rgba(0,0,0,0.05);
+	
+  	h3 {
+		color: #fff;
+		text-transform: uppercase;
+		position: relative;
+		letter-spacing: 2px;
+		font-size: 11px;
+		margin: 8px 60px;
+		padding: 22px 0 0 0;
+		height: 85px;
+		font-family: 'Open Sans', Arial, sans-serif;
+		text-shadow: 
+		0 0 1px #fff, 
+		0 1px 2px rgba(0,0,0,0.3);
+	}
+  	
+  	p {
+		color: #fff;
+		padding: 10px 5px;
+		font-style: italic;
+		margin: 0 30px;
+		font-size: 12px;
+		border-top: 1px solid rgba(255,255,255,0.5);
+   
+	    a {
+			display: block;
+			color: #333;
+			width: 80px;
+			height: 80px;
+			background: rgba(255,255,255,0.3);
+			border-radius: 50%;
+			color: #fff;
+			font-style: normal;
+			font-weight: 700;
+			text-transform: uppercase;
+			font-size: 9px;
+			letter-spacing: 1px;
+			padding-top: 24px;
+			margin: 7px auto 0;
+			font-family: 'Open Sans', Arial, sans-serif;
+			opacity: 0;
+			
+			-webkit-transition: 
+				-webkit-transform 0.3s ease-in-out 0.2s,
+				opacity 0.3s ease-in-out 0.2s,
+				background 0.2s linear 0s;
+			-moz-transition: 
+				-moz-transform 0.3s ease-in-out 0.2s,
+				opacity 0.3s ease-in-out 0.2s,
+				background 0.2s linear 0s;
+			-o-transition: 
+				-o-transform 0.3s ease-in-out 0.2s,
+				opacity 0.3s ease-in-out 0.2s,
+				background 0.2s linear 0s;
+			-ms-transition: 
+				-ms-transform 0.3s ease-in-out 0.2s,
+				opacity 0.3s ease-in-out 0.2s,
+				background 0.2s linear 0s;
+			transition: 
+				transform 0.3s ease-in-out 0.2s,
+				opacity 0.3s ease-in-out 0.2s,
+				background 0.2s linear 0s;
+				
+			@include trans-rotat (60px , 90deg); 
+				
+			-webkit-backface-visibility: hidden;
+		
+			&:hover {
+				background: rgba(255,255,255,0.5);
+			}
+		}
+	}
+}
+
+.ch-item:hover{
+	.ch-thumb {
+		box-shadow: inset 0 0 0 15px rgba(255,255,255, 0.5), 0 1px 3px rgba(0,0,0,0.2);
+		@include transform(-110deg);
+	}
+	.ch-info p a{
+		opacity: 1;
+		@include trans-rotat (0px , 0deg);
+	}
+}
+
+.cal-slide-content{
+	padding: 20px;
+    color: #fff;
+    background-color: #555;
+    box-shadow: inset 0 0 15px 0 rgba(0,0,0,.5);
+}
+
+.cal-day-tick {
+    border: 1px solid #e1e1e1;
+    border-top: 0 solid;
+    border-radius: 0 0 5px 5px;
+    background-color: #ededed;
+    text-align: center;
+}
+
+.cal-day-tick {
+    right: 50%;
+    bottom: -21px;
+    padding: 0 5px;
+    z-index: 5;
+    text-align: center;
+    width: 26px;
+    margin-right: -17px;
+}
+#cal-week-box, .cal-day-tick {
+    position: absolute;
+    cursor: pointer;
+}
+
+.cal-day-tick .fa {
+    display: none;
 }

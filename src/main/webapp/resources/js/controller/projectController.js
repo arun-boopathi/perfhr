@@ -46,30 +46,6 @@ mainApp.controller('projectController', function($scope, projectAPIservice, empl
 		pm.dtInstance.DataTable.clear().draw();
 		$('#projectMembersForm').modal();
 	};
-	/*$scope.onDelete = function(data){
-		$scope.index = $scope.projects.indexOf(data);
-		$scope.tempData = {
-			projectName : data.projectName
-		};
-		$('#deleteProject').modal();
-	};
-	
-	$scope.deleteProject = function(){
-		$scope.projects.splice($scope.index , 1);
-		$scope.msg="Project Deleted Successfully!";
-	};
-	
-	$scope.selectProject = function(data){
-		if($('#project_'+data.pk).prop('checked')) {
-			$('input:checkbox:not("#project_'+data.pk+'")').prop('disabled', true);
-		} else {
-			$('input:checkbox:not("#project_'+data.pk+'")').prop('disabled', false);
-		}			
-	};
-	
-	$scope.addMembers = function(){
-		
-	};*/
 }).controller('ProjectMembersCtrl', function($scope, projectAPIservice){
 	$scope.save = function(){
 		console.log('in ProjectMembersCtrl ', $scope.selectedProject);

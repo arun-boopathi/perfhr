@@ -32,14 +32,14 @@ public class EmployeeController {
 	@ResponseBody
 	public Employee loadEmployee(HttpServletRequest request){
 		HttpSession session = request.getSession();
-		return employeeDAO.loadEmployeeById(session.getAttribute("userId").toString());
+		return employeeDAO.loadById(session.getAttribute("userId").toString());
 	}
 	
 	@RequestMapping(value="/loadEmployeeById",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
 	public Employee loadEmployeeById(@RequestParam(value="employeeId") String employeeId){
-		return employeeDAO.loadEmployeeById(employeeId);
+		return employeeDAO.loadById(employeeId);
 	}
 	
 	@RequestMapping(value="/loadAllEmployee",method=RequestMethod.GET)
@@ -53,7 +53,7 @@ public class EmployeeController {
 	@Produces("application/json")
 	@ResponseBody
 	public boolean updateEmployee(HttpServletResponse response, @RequestBody Employee employee) throws RecordNotFoundException{
-		if(employeeDAO.loadEmployeeById(String.valueOf(employee.getPk())) == null){
+		if(employeeDAO.loadById(String.valueOf(employee.getPk())) == null){
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			throw new RecordNotFoundException();
 		}

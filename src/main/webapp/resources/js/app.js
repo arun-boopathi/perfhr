@@ -1,14 +1,16 @@
 var mainApp = angular.module("perficientHr", 
 		['profile.services','employee.services','dashboard.services',
-		 'designation.services','project.services',
-		 'ngRoute', 'datatables', 'datatables.bootstrap']);
+		 'designation.services','project.services', 'pto.services', 'wfh.services',
+		 'ngRoute', 'ngResource', 'ngAnimate',
+		 'mwl.calendar', 'ui.bootstrap',
+		 'datatables', 'datatables.bootstrap', 'datatables.buttons']);
 
 var rand = Math.floor(Math.random()*(3-1+1)+1);
 
 mainApp.config(function($routeProvider) {
 	$routeProvider
 	    .when('/home', {
-	        templateUrl: 'html/dashboard'+rand+'.html',
+	        templateUrl: 'html/dashboard2.html',
 	        controller: 'dashboardController'
 	    })
 	    .when('/employees', {
@@ -35,7 +37,11 @@ mainApp.config(function($routeProvider) {
 	        controller: 'projectController'
 	    })
 	    .when('/importpto', {
-	        templateUrl: 'html/importpto.html'
+	        templateUrl: 'html/importpto.html',
+	        controller: 'ptoController'
+	    })
+	    .when('/wfh', {
+	        templateUrl: 'html/wfh.html'
 	    })
 	    .otherwise({
 	        redirectTo: '/home'
@@ -60,7 +66,6 @@ $menu.mmenu({
   },
   searchfield: true
 }).on('click', 'a[href^="#/"]', function() {
-	console.log('link: ', $(this));
 	window.location.href=$(this).attr('href');
 	return false;
 });
@@ -79,3 +84,8 @@ $('#sidePanel').on('click', function(e) {
 
 // change toggle behavior for subpanels
 $menu.find( ".mm-next" ).addClass("mm-fullsubopen");
+
+//Dashboard 1 click event on actions
+$('#divContainer').on('click', '.feature i',  function(e) {
+	window.location.href=$(this).attr('nav');
+});

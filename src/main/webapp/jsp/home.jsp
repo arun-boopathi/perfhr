@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" class="no-touch">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Perficient HR</title>
 <!-- Vendors CSS -->
 <link rel="stylesheet" href="sass_compiled/vendors.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" href="sass_compiled/main.css">
-<link rel="stylesheet" href="css/layout.css">
 
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
@@ -42,7 +42,7 @@
             	</ul>
             </li>
             <li><a href="#/pto">PTO</a></li>
-            <li><a href="#">WFH</a></li>
+            <li><a href="#/wfh">WFH</a></li>
             <li><a href="#/notifications">Notifications</a></li>
             <li><a href="logout">Logout</a></li>
         </ul>        
@@ -51,7 +51,7 @@
 	<a id="sidePanel" class="mm-slideout" href="#"><span></span></a>
 	
 	<div class="submenu fixed mm-slideout">
-		<div class="divContainer">
+		<div class="divContainer" id="divContainer">
 			<div id="overlay"><img id="loading" src="images/gears.gif"></div>
 			<ng-view></ng-view>
 		</div>
@@ -62,6 +62,7 @@
 <script src="js/lib/angular.js"></script>
 <script src="js/lib/bootstrap.min.js"></script>
 <script src="js/lib/angular-route.min.js"></script>
+<script src="js/lib/angular-resource.min.js"></script>
 <script src="js/lib/jquery.dataTables.min.js"></script>
 <script src="js/lib/angular-datatables.js"></script>
 <script src="js/lib/angular-datatables.util.js"></script>
@@ -74,17 +75,22 @@
 <script src="js/lib/moment.min.js"></script>
 <script src="js/lib/bootstrap-datetimepicker.js"></script>
 <script src="js/lib/angular-bootstrap.js"></script>
+<script src="js/lib/angular-animate.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.options.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.tabletools.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.colvis.js"></script>
 <script src="js/lib/angular-datatables.columnfilter.js"></script>
 <script src="js/lib/angular-datatables.responsive.js"></script>
-<!-- <script src="js/lib/angular-datatables.buttons.js"></script>
+<script src="js/lib/angular-datatables.buttons.js"></script>
 <script src="js/lib/datatables.buttons.js"></script>
+<script src="js/lib/dataTables.tableTools.js"></script>
 <script src="js/lib/angular-datatables.buttons.html5.js"></script>
 <script src="js/lib/angular-datatables.buttons.print.js"></script>
 <script src="js/lib/angular-datatables.buttons.colVis.js"></script>
-<script src="js/lib/angular-datatables.buttons.flash.js"></script> -->
+<script src="js/lib/angular-datatables.buttons.flash.js"></script>
+<script src="js/lib/bootstrap-calendar.min.js"></script>
+<script src="js/lib/angular-bootstrap-calendar-tpls.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-1.3.2.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/common.js"></script>
 <script src="js/constants/constants.js"></script>
@@ -102,5 +108,8 @@
 <script src="js/filters/filters.js"></script>
 <script src="js/controller/projectController.js"></script>
 <script src="js/service/projectServices.js"></script>
-
+<script src="js/controller/importPtoController.js"></script>
+<script src="js/service/importPtoServices.js"></script>
+<script src="js/controller/wfhController.js"></script>
+<script src="js/service/wfhServices.js"></script>
 </html>

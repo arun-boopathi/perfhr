@@ -1,7 +1,5 @@
 package com.perficient.hr.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "employee_login")
 @SuppressWarnings("serial")
-public class User implements Serializable {
+public class User  extends AbstractModel {
 
 	@Id
 	@GeneratedValue

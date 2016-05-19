@@ -6,7 +6,7 @@ import com.perficient.hr.model.Employee;
 
 public interface EmployeeDAO {
 
-	public Employee loadEmployeeById(String employeeId);
+	public Employee loadById(String employeeId);
 	
 	public List<Employee> loadEmployees();
 	

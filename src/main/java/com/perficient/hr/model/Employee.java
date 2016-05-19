@@ -1,7 +1,5 @@
 package com.perficient.hr.model;
 
-import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,13 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "employee")
 @SuppressWarnings("serial")
-public class Employee implements Serializable {
+public class Employee extends AbstractModel {
 
 	@Id
 	@GeneratedValue
@@ -55,6 +52,10 @@ public class Employee implements Serializable {
 	
 	@Column(name = "nationality")
 	private String nationality;
+	
+	@Column(name = "superviser")
+	private Long superviser;
+	
 
 	/**
 	 * @return the pk
@@ -224,6 +225,19 @@ public class Employee implements Serializable {
 	public void setDesignations(Designations designations) {
 		this.designations = designations;
 	}
-	
+
+	/**
+	 * @return the superviser
+	 */
+	public long getSuperviser() {
+		return superviser;
+	}
+
+	/**
+	 * @param superviser the superviser to set
+	 */
+	public void setSuperviser(long superviser) {
+		this.superviser = superviser;
+	}
 	
 }

@@ -1,5 +1,21 @@
-$th-background-color: #0c6;
-$th-color: #FFF;
-$th-font-size: 13px;
+table.dataTable thead {
+   .sorting_asc, .sorting_desc, .sorting, .sorting_disabled{
+ 	  background-color: $th-background-color;
+	  color: $th-color;
+	  font-size: $th-font-size;
+   }
+   th{
+ 	  text-align: center;
+ 	  padding: $th_td_padding;
+   }
+}
 
-$th_td_padding: 5px 10px;
+table.dataTable tbody {
+   td {
+ 	  text-align: left;
+ 	  padding: $th_td_padding;
+   }
+   td:last-child {
+   	  text-align: center;
+   }
+}

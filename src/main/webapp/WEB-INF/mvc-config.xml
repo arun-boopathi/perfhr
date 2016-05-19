@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package=" com.perficient.hr"/>  
+    <context:component-scan base-package="com.perficient.hr"/>  
 
 	<mvc:resources location="/resources/css/" mapping="/css/**" />
 	<mvc:resources location="/resources/js/" mapping="/js/**" />
@@ -19,6 +19,10 @@
    
     <mvc:view-controller path="/" view-name="login" />
     <mvc:view-controller path="/home" view-name="home"/>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <property name="maxUploadSize" value="50000000"/>
+	</bean>
 
 	<mvc:interceptors>
 		<mvc:interceptor>

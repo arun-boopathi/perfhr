@@ -42,7 +42,7 @@ function EmployeeTableCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, 
     vm.dtColumns = [
         DTColumnBuilder.newColumn('employeeId').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First Name'),
-        DTColumnBuilder.newColumn('lastName').withTitle('Last Name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last Name').withClass('none'),
         DTColumnBuilder.newColumn('email').withTitle('Email'),
         DTColumnBuilder.newColumn('designations.designation').withTitle('Designation')
     ];

@@ -33,13 +33,13 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	
     @Override
 	@SuppressWarnings("unchecked")
-	public Employee loadEmployeeById(String employeePk) {
-		logger.info("Loading employee record for: "+employeePk);
+	public Employee loadById(String pk) {
+		logger.info("Loading employee record for: "+pk);
 		Session session = sessionFactory.openSession();
 		Employee employee = null;
-		String sqlQuery =" from Employee as o where o.pk=:employee_pk";
+		String sqlQuery =" from Employee as o where o.pk=:pk";
 		Query query = session.createQuery(sqlQuery);
-		query.setParameter("employee_pk", Long.parseLong(employeePk));
+		query.setParameter("pk", Long.parseLong(pk));
 		List<Employee> list = query.list();
 		if ((list != null) && (!list.isEmpty())) {
 			employee = list.get(0);

@@ -1,35 +1,80 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <title>Perficient</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/login.css">
-<script>
-	
-</script>
+<link rel="stylesheet" href="sass_compiled/vendors.css">
+<link rel="stylesheet" href="sass_compiled/login.css">
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/bootstrap.min.js"></script>
 </head>
-<body>
-	<div class="form responsive">
-		<div class="header"><h2>Sign In</h2></div>
-		<p style="color:#faffbd; margin: 5px;"><strong>${msg}</strong></p>
-		<div class="login">
-			<form name="loginForm" method="post" action="login" modelAttribute="loginBean">
-			<ul>
-				<li>
-					<span class="un"><i class="fa fa-user"></i></span><input type="text" name="username" autofocus required="" class="text" placeholder="Perficient Email"></li>
-				<li>
-					<span class="un"><i class="fa fa-lock"></i></span><input type="password" name="password" required="" class="text" placeholder="User Password"></li>
-				<li>
-					<input type="submit" value="LOGIN" class="btn">
-				</li>
-				<li>
-					<div class="span"><span class="ch"><input type="checkbox" id="r"> <label for="r">Remember Me</label></span></div>
-				</li>
-			</ul>
-			</form>
+<body class="loginpage">
+	<section>
+	<div class="carousel slide carousel-fade" data-ride="carousel">
+	<!-- Wrapper for slides -->
+		<div class="carousel-inner" role="listbox">
+			<div class="item active"></div>
+			<div class="item"></div>
+			<div class="item"></div>
 		</div>
 	</div>
+	<div class="opeiningscreen">
+		<div class="logodiv">
+			<a class="top-p" href="#"><img class="zoomin-p" src="images/p.png"></a>
+			<ul class="brandname">
+				<li>P</li>
+				<li>E</li>
+				<li>R</li>
+				<li>F</li>
+				<li>I</li>
+				<li>C</li>
+				<li>I</li>
+				<li>E</li>
+				<li>N</li>
+				<li>T</li>
+			</ul>
+			<ul class="brandbottom">
+				<li><img src="images/l1.png"></li>
+				<li><img src="images/l2.png"></li>
+				<li><img src="images/l3.png"></li>
+			</ul>
+		
+			<div class="registerbody opacityanim">
+				<div class="registerbody-left  col-xs-12">
+					<form name="loginForm" method="post" action="login" modelAttribute="loginBean">
+						<ul>
+							<li>
+								<div class="form-group">
+									<label class="animatetoptobottom">Email Address:</label>
+									<div class="input-divs animatetoptobottom">
+										<input type="text" id="username" name="username" class="form-control" placeholder="Enter username" autofocus="true"  required>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="form-group">
+								<div class="icnholder"><i class="regisr regit4"></i></div>
+								<label class="animatetoptobottom">Password:</label>
+								<div class="input-divs animatetoptobottom">
+									<input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required>
+								</div>
+								</div>
+							</li>
+							<li>
+								<div class="form-group text-center">
+									<input type="submit" class="btn btn-primary" value="Log In" />
+								</div>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script type="text/javascript">
+	$('.carousel').carousel();
+</script>
 </body>
 </html>
