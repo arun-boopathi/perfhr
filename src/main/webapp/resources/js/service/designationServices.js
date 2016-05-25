@@ -7,6 +7,12 @@ angular.module('designation.services', []).
           url: perfUrl['loadDesignations']
         });
     };
+    designationAPI.loadById = function(id) {
+        return $http({
+          method: 'get', 
+          url: perfUrl['loadDesignationById']+id
+        });
+    };
     designationAPI.addDesignation = function(designation) {
     	return $http({
           method: 'post', 
@@ -19,6 +25,13 @@ angular.module('designation.services', []).
           method: 'put', 
           data : designation,
           url: perfUrl['updateDesignation']
+        });
+    };
+    designationAPI.deleteDesignation = function(designation) {
+        return $http({
+          method: 'put', 
+          data : designation,
+          url: perfUrl['deleteDesignation']
         });
     };
     return designationAPI; 

@@ -5,28 +5,9 @@
 	        <li><button data-toggle="modal" ng-click="addDesignation()" ><i class="fa fa-plus"></i></button></li>
         </ul>
 	</div>
-	<div class="panel-body">
-		<table class="table" fixed-header>
-			<thead>
-				<tr>
-					<th><span>Designation</span></th>
-					<th><span>Actions</span></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat="designation in designations | orderBy:'designation'">
-					<td>{{designation.designation}}</td>
-					<td>
-					    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#designationForm" data-ng-click="edit(designation)">
-							<i class="fa fa-edit"></i>
-						</button>
-						<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-ng-click="onDelete(designation)">
-							<i class="fa fa-trash-o"></i>
-						</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+	<div ng-controller="DesignationController as designationTable">
+	    <p class="text-info"><strong>{{ msg }}</strong></p>
+	    <table datatable="" dt-options="designationTable.dtOptions" dt-columns="designationTable.dtColumns" dt-instance="designationTable.dtInstance" class="table perfhr-table"></table>
 	</div>
 </div>
 <!-- Modal -->
@@ -36,26 +17,23 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" ng-show="!tempData.pk" id="myModalLabel">Save Designation</h4>
-				<h4 class="modal-title" ng-show="tempData.pk" id="myModalLabel">Update Designation</h4>
+				<h4 class="modal-title" ng-show="!data.pk" id="myModalLabel">Save Designation</h4>
+				<h4 class="modal-title" ng-show="data.pk" id="myModalLabel">Update Designation</h4>
 			</div>
 		    <div class="modal-body">
-		       <div class = "alert alert-info" ng-show="msg">
-			  	  {{msg}}
-			   </div>
 			   <form role="form" class="form-horizontal">
 		         <div class="form-group">
 			         <label class="col-md-4 control-label text-left">Designation :</label>
 		             <div class="col-md-8">
-		               <input type="Text" class="form-control" id="add" autofocus ng-model="tempData.designation"/>
+		               <input type="Text" class="form-control" id="add" autofocus ng-model="data.designation"/>
 		             </div>
    		         </div>
 			   </form>
 		    </div>
 		    <div class="modal-footer">
 		    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" ng-show="!tempData.pk" ng-click="save()">Save</button>
-				<button type="button" class="btn btn-primary" ng-show="tempData.pk" ng-click="update()">Save Changes</button>
+				<button type="button" class="btn btn-primary" ng-show="!data.pk" ng-click="save()">Save</button>
+				<button type="button" class="btn btn-primary" ng-show="data.pk" ng-click="update()">Update</button>
 			</div>
 		</div>
 	</div>
@@ -71,7 +49,7 @@
 					<h4 class="modal-title">Delete Designation</h4>
 				</div>
 				<div class="modal-body">
-					Are you sure you want to delete - <b>{{tempData.designation}}</b>?
+					Are you sure you want to delete - <b>{{data.designation}}</b>?
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning" data-dismiss="modal">No</button>

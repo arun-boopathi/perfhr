@@ -69,7 +69,6 @@ $menu.mmenu({
 	window.location.href=$(this).attr('href');
 	return false;
 });
-
 // toggle menu
 var api = $menu.data("mmenu");
 
@@ -77,8 +76,10 @@ $('#sidePanel').on('click', function(e) {
 	e.preventDefault();
 	if ( $(this).hasClass('mm-opened' )) {
 		api.close();
+		$menu.hide();
 	} else {
 		api.open();
+		$menu.show();
 	}
 });
 

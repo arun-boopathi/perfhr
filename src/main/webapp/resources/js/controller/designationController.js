@@ -1,21 +1,13 @@
+var scope, data, rowIndex;
 /* Designation controller */
 mainApp.controller('designationController', function($scope, designationAPIservice) {
-	$scope.designations = [];
-	$scope.tempData = {};
-	$scope.index = '';
 	$scope.msg='';
-	
-	$('#designationForm').on('hidden.bs.modal', function (e) {
-		$scope.reset();
-	});
-	
-	designationAPIservice.getDesignationDetails().success(function (response) {
-	   $scope.designations = response;
-	});
-	
+	scope = $scope;
+
 	$scope.save = function(){
-		designationAPIservice.addDesignation($scope.tempData).success(function (response) {
-			$scope.designations.push(response);
+		designationAPIservice.addDesignation($scope.data).success(function (response) {
+			$scope.closeModal();
+			vm.dtInstance.reloadData();
 			$scope.msg="Designation Saved Successfully!";
 		}).error(function(){
 			$scope.msg="An error occurred during save!";
@@ -23,42 +15,54 @@ mainApp.controller('designationController', function($scope, designationAPIservi
 	};
 	
 	$scope.addDesignation = function(){
+		$scope.msg='';
+		$scope.data = {};
 		$('#designationForm').modal();
 	};
 	
-	$scope.edit = function(data){
-		$scope.index = $scope.designations.indexOf(data);
-		$scope.tempData = {
-			pk : data.pk,
-			designation : data.designation
-		};
+	$scope.closeModal = function(){
+		$('#designationForm').modal('hide');
 	};
 	
 	$scope.update = function(){
-		designationAPIservice.updateDesignation($scope.tempData).success(function () {
-			$scope.designations[$scope.index] = $scope.tempData;
+		designationAPIservice.updateDesignation($scope.data).success(function () {
+			vm.dtInstance.dataTable.fnUpdate($scope.data, rowIndex, undefined, false);
+			$scope.closeModal();
 			$scope.msg="Designation Updated Successfully!";
 		}).error(function(){
 			$scope.msg="An error occurred during update!";
 		});
 	};
 	
-	$scope.onDelete = function(data){
-		$scope.index = $scope.designations.indexOf(data);
-		$scope.tempData = {
-			designation : data.designation
-		};
-		$('#deleteDesignation').modal();
-	};
-	
 	$scope.deleteDesignation = function(){
-		$scope.designations.splice($scope.index , 1);
-		$scope.msg="Designation Deleted Successfully!";
-	};
-	
-	$scope.reset = function(){
-		$scope.tempData = {};
-		$scope.index = '';
-		$scope.msg='';
+		designationAPIservice.deleteDesignation($scope.data).success(function () {
+			vm.dtInstance.DataTable.row('.selected').remove().draw(false);
+			$('#deleteDesignation').modal('hide');
+			$scope.msg="Designation Deleted Successfully!";
+		}).error(function(){
+			$scope.msg="An error occurred during delete!";
+		});
 	};
 });
+
+mainApp.controller('DesignationController', DesignationController);
+
+function DesignationController($scope, $compile, DTOptionsBuilder, DTColumnBuilder, designationAPIservice) {
+    vm = this;
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('designation').withTitle('Designations')
+    ];
+    var paramObj = {
+    		"vm" : vm,
+    		"scope" : $scope,
+    		"compile" : $compile,
+    		"DtOptionsBuilder" : DTOptionsBuilder,
+    		"DTColumnBuilder" : DTColumnBuilder,
+    		"service" : designationAPIservice,
+    		'loadListUrl' : perfUrl['loadDesignations'],
+    		'editFormId' : 'designationForm',
+    		'deleteFormId' : 'deleteDesignation',
+    		'sortCol': '0'
+    };
+    perfDatatable.loadTable.init(paramObj);
+}

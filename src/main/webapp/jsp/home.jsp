@@ -13,7 +13,7 @@
 
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
-	<nav id="menu" class="mm-menu">
+	<nav id="menu" class="mm-menu" style="display: none;">
         <ul>
             <li><a href="#/dashboard">Dashboard</a></li>
             <li>
@@ -91,7 +91,6 @@
 <script src="js/lib/bootstrap-calendar.min.js"></script>
 <script src="js/lib/angular-bootstrap-calendar-tpls.js"></script>
 <script src="js/lib/ui-bootstrap-tpls-1.3.2.min.js"></script>
-<script src="js/lib/fullcalendar.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/common.js"></script>
 <script src="js/constants/constants.js"></script>

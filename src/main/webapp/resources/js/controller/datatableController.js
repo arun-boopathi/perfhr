@@ -40,7 +40,9 @@
 		    		    
 		    function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 		        $('td', nRow).unbind('click');
-		        $('td:last', nRow).bind('click', function() {
+		        $('td:last button', nRow).bind('click', function() {
+		        	vm.dtInstance.DataTable.$('tr.selected').removeClass('selected');
+		        	$(nRow).addClass('selected');
 		        	rowIndex = aData.pk-1;
 		        	params.service.loadById(aData.pk).success(function (response) {
 			        	scope.data = response;
@@ -68,7 +70,7 @@
 		            '</button>&nbsp;';	
 		        }
 		        if(params.deleteRow == undefined){
-		        	deleteRecord = '<button class="btn btn-danger" ng-click="showCase.deleteRow(showCase.datalist[' + data.pk + '])" )"="">' +
+		        	deleteRecord = '<button class="btn btn-danger" data-toggle="modal" data-target="#'+params.deleteFormId+'">' +
 		            '   <i class="fa fa-trash-o"></i>' +
 		            '</button>';
 		        }
