@@ -6,14 +6,18 @@ import com.perficient.hr.model.EmployeeLeaves;
 
 public interface EmployeeLeavesDAO {
 
-	public boolean readPto(String fileName);
+	public boolean pasrsePtoDocument(String fileName);
 	
-	public List<EmployeeLeaves> loadAllWfh();
+	public List<EmployeeLeaves> loadAllLeaves(String leaveType);
 	
-	public EmployeeLeaves applyWfh(EmployeeLeaves employeeLeaves, String userId);
+	public EmployeeLeaves loadLeaveById(String leaveId);
 	
-	public boolean updateWfh(EmployeeLeaves employeeLeaves, String userId);
+	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String employeeId);
 	
-	public boolean deleteWfh(EmployeeLeaves employeeLeaves, String userId);
+	public EmployeeLeaves applyLeave(EmployeeLeaves employeeLeaves, String userId);
+	
+	public boolean updateLeave(EmployeeLeaves employeeLeaves, String userId);
+	
+	public boolean deleteLeave(EmployeeLeaves employeeLeaves, String userId);
 	
 }

@@ -2,6 +2,7 @@ package com.perficient.hr.dao.impl;
 
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -53,7 +54,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     EmployeeDAO employeeDAO;
     
 	@Override
-	public boolean readPto(String fileName) {
+	public boolean pasrsePtoDocument(String fileName) {
 		boolean returnVal = false;
 		Session session = sessionFactory.openSession();
 		try{
@@ -82,7 +83,8 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 		                		employeeLeaves.setComments(row.getCell(35).toString());
 		                		int hours = (Math.round(Float.parseFloat(row.getCell(31).toString())) < 4) ? 4:8;
 		                		Date dt = sdf.parse(row.getCell(28).toString());
-		                		employeeLeaves.setTitle(row.getCell(28).toString()+" - "+LeaveType.PTO.getLeaveType());
+		                		System.out.println("---Title---- "+row.getCell(18).toString()+" - "+leaveType);
+		                		employeeLeaves.setTitle(row.getCell(18).toString()+" - "+leaveType);
 		                		employeeLeaves.setStartsAt(dt);
 		                		employeeLeaves.setEndsAt(dt);
 		                		employeeLeaves.setHours(hours);
@@ -123,11 +125,18 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<EmployeeLeaves> loadAllWfh() {
+	public List<EmployeeLeaves> loadAllLeaves(String leaveType) {
 		Session session = sessionFactory.openSession();
-		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType=:requestType AND el.active=:active";
+		List<String> leaveTypeList = new ArrayList<String>();
+		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active";
 		Query query = session.createQuery(sqlQuery);
-		query.setParameter("requestType", LeaveType.WFH.getLeaveType());
+		if(leaveType.equals(LeaveType.PTO.getLeaveType())){
+			leaveTypeList.add(LeaveType.PTO.getLeaveType());
+			leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
+		} else {
+			leaveTypeList.add(LeaveType.WFH.getLeaveType());
+		}
+		query.setParameterList("requestTypes", leaveTypeList);
 		query.setParameter("active", PerfHrConstants.ACTIVE);
 		List<EmployeeLeaves> list = query.list();
 		session.close();
@@ -135,7 +144,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	}
 
 	@Override
-	public EmployeeLeaves applyWfh(EmployeeLeaves employeeLeaves, String userId) {
+	public EmployeeLeaves applyLeave(EmployeeLeaves employeeLeaves, String userId) {
 		Session session = sessionFactory.openSession();
 		EmployeeLeaves empLeaves = new EmployeeLeaves();
 		try{
@@ -143,9 +152,9 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 
 			Employee employee = employeeDAO.loadById(userId);
 			empLeaves.setEmployeeId(employee.getPk());
-			empLeaves.setRequestType(LeaveType.WFH.getLeaveType());
+			empLeaves.setRequestType(employeeLeaves.getRequestType());
 			empLeaves.setComments(employeeLeaves.getComments());
-    		empLeaves.setTitle(employee.getFirstName()+", "+employee.getLastName()+" - "+Notificationtype.WFH.getLeaveType());
+    		empLeaves.setTitle(employeeLeaves.getTitle());
     		empLeaves.setStartsAt(employeeLeaves.getStartsAt());
     		empLeaves.setEndsAt(employeeLeaves.getEndsAt());
     		empLeaves.setDtFromHalf(employeeLeaves.getDtFromHalf());
@@ -179,7 +188,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	}
 
 	@Override
-	public boolean updateWfh(EmployeeLeaves employeeLeaves, String userId) {
+	public boolean updateLeave(EmployeeLeaves employeeLeaves, String userId) {
 		boolean returnVal = false;
 		Session session = sessionFactory.openSession();
 		try{
@@ -210,7 +219,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	}
 
 	@Override
-	public boolean deleteWfh(EmployeeLeaves employeeLeaves, String userId) {
+	public boolean deleteLeave(EmployeeLeaves employeeLeaves, String userId) {
 		boolean returnVal = false;
 		Session session = sessionFactory.openSession();
 		try{
@@ -226,5 +235,34 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			session.close();	
 		}
 		return returnVal;
+	}
+
+	@Override
+	public EmployeeLeaves loadLeaveById(String leaveId) {
+		Session session = sessionFactory.openSession();
+		EmployeeLeaves employeeLeave = (EmployeeLeaves)session.get(EmployeeLeaves.class, Long.parseLong(leaveId));
+		session.close();
+		return employeeLeave;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String employeeId) {
+		Session session = sessionFactory.openSession();
+		List<String> leaveTypeList = new ArrayList<String>();
+		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId:employeeId";
+		Query query = session.createQuery(sqlQuery);
+		if(leaveType.equals(LeaveType.PTO.getLeaveType())){
+			leaveTypeList.add(LeaveType.PTO.getLeaveType());
+			leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
+		} else {
+			leaveTypeList.add(LeaveType.WFH.getLeaveType());
+		}
+		query.setParameterList("requestTypes", leaveTypeList);
+		query.setParameter("employeeId", Long.parseLong(employeeId));
+		query.setParameter("active", PerfHrConstants.ACTIVE);
+		List<EmployeeLeaves> list = query.list();
+		session.close();
+		return list;
 	}
 }

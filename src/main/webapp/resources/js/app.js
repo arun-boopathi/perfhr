@@ -1,6 +1,6 @@
 var mainApp = angular.module("perficientHr", 
 		['profile.services','employee.services','dashboard.services',
-		 'designation.services','project.services', 'pto.services', 'wfh.services',
+		 'designation.services','project.services', 'pto.services', 'leave.services',
 		 'ngRoute', 'ngResource', 'ngAnimate',
 		 'mwl.calendar', 'ui.bootstrap',
 		 'datatables', 'datatables.bootstrap', 'datatables.buttons']);
@@ -22,8 +22,7 @@ mainApp.config(function($routeProvider) {
 	        controller: 'profileController'
 	    })
 	    .when('/pto', {
-	        templateUrl: 'html/pto.html',
-	        controller: 'ptoController'
+	        templateUrl: 'html/pto.html'
 	    })
 	    .when('/candidate', {
 	        templateUrl: 'html/candidate.html'
@@ -38,7 +37,7 @@ mainApp.config(function($routeProvider) {
 	    })
 	    .when('/importpto', {
 	        templateUrl: 'html/importpto.html',
-	        controller: 'ptoController'
+	        controller: 'importPtoController'
 	    })
 	    .when('/wfh', {
 	        templateUrl: 'html/wfh.html'
@@ -47,6 +46,7 @@ mainApp.config(function($routeProvider) {
 	        redirectTo: '/home'
 	    });
 });
+
 
 var $menu = $('#menu');
 var $btnMenu = $('.btn-menu');

@@ -1,10 +1,13 @@
-<div class="panel panel-success">
+<div class="panel panel-success perfhr-panel">
 	<div class="panel-heading">
-		<b>Projects</b>
+		<h1 class="section-title">Projects</h1>
+		<ul class="controls">
+	        <li><button data-toggle="modal" ng-click="addProject()" ><i class="fa fa-plus"></i></button></li>
+        </ul>
 	</div>
 	<div ng-controller="ProjectsController as projectTable">
 	    <p class="text-danger"><strong>{{ showCase.message }}</strong></p>
-	    <table datatable="" dt-options="projectTable.dtOptions" dt-columns="projectTable.dtColumns" dt-instance="projectTable.dtInstance" class="row-border hover"></table>
+	    <table datatable="" dt-options="projectTable.dtOptions" dt-columns="projectTable.dtColumns" dt-instance="projectTable.dtInstance" class="table perfhr-table"></table>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-success btn-md" data-toggle="modal" ng-click="addProjectMembers()">Project Members</button>

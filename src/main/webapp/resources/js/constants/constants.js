@@ -20,11 +20,13 @@ var perfUrl = {
     'updateProject': urlPrefix+'projects/updateProject',
     'loadProjectById' : urlPrefix+'projects/loadProjectById?projectPk=',
     'loadProjectMembersByProjectId' : urlPrefix+'projectmembers/loadProjectMembersByProjectId?projectId=',
-    'importPto' : urlPrefix+'pto/fetchExcel',
-    'applyWfh' : urlPrefix+'pto/applyWfh',
-    'loadAllWfh' : urlPrefix+'pto/loadAllWfh',
-    'updateWfh' : urlPrefix+'pto/updateWfh',
-    'deleteWfh' : urlPrefix+'pto/deleteWfh'
+    'importPto' : urlPrefix+'leave/fetchExcel',
+    'applyLeave' : urlPrefix+'leave/applyLeave',
+    'loadAllLeaves' : urlPrefix+'leave/loadAllLeaves?leaveType=',
+    'updateLeave' : urlPrefix+'leave/updateLeave',
+    'deleteLeave' : urlPrefix+'leave/deleteLeave',
+    'loadLeaveById' : urlPrefix+'leave/loadLeaveById?leaveId=',
+    'loadMyLeaves' : urlPrefix+'leave/loadMyLeaves?empId='
 };
 
 (function(){

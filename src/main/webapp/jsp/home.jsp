@@ -91,6 +91,7 @@
 <script src="js/lib/bootstrap-calendar.min.js"></script>
 <script src="js/lib/angular-bootstrap-calendar-tpls.js"></script>
 <script src="js/lib/ui-bootstrap-tpls-1.3.2.min.js"></script>
+<script src="js/lib/fullcalendar.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/common.js"></script>
 <script src="js/constants/constants.js"></script>
@@ -103,13 +104,12 @@
 <script src="js/service/dashboardServices.js"></script>
 <script src="js/controller/designationController.js"></script>
 <script src="js/service/designationServices.js"></script>
-<script src="js/controller/ptoController.js"></script>
 <script src="js/directives/directives.js"></script>
 <script src="js/filters/filters.js"></script>
 <script src="js/controller/projectController.js"></script>
 <script src="js/service/projectServices.js"></script>
 <script src="js/controller/importPtoController.js"></script>
 <script src="js/service/importPtoServices.js"></script>
-<script src="js/controller/wfhController.js"></script>
-<script src="js/service/wfhServices.js"></script>
+<script src="js/controller/leaveController.js"></script>
+<script src="js/service/leaveServices.js"></script>
 </html>

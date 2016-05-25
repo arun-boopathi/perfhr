@@ -1,13 +1,13 @@
-mainApp.controller('wfhController', function($scope, moment, wfhAPIservice) {
+mainApp.controller('wfhController', function($scope, moment, leaveAPIservice) {
 	$scope.tempData = {};
     var scope = this;
     //These variables MUST be set as a minimum for the calendar to work
     scope.calendarView = 'month';
     scope.viewDate = new Date();
-    
+    $scope.leaveType="WFH";
     scope.events = [];
 
-    wfhAPIservice.loadAllWfh().success(function (response) {
+    leaveAPIservice.loadAllLeaves($scope.leaveType).success(function (response) {
      	$.each(response, function(i, val){
      		val.startsAt = new Date(val.startsAt);
      		val.endsAt = new Date(val.endsAt);
@@ -53,16 +53,17 @@ mainApp.controller('wfhController', function($scope, moment, wfhAPIservice) {
     };
     
     $scope.saveWfh = function(){
-    	wfhAPIservice.applyWfh($scope.data).success(function (response) {
+    	console.log('data ', $scope.data);
+    	/*leaveAPIservice.applyWfh($scope.data).success(function (response) {
     		console.log("success", response);
     		scope.events[response.pk] = response;
 			$scope.msg="WFH Saved Successfully!";
 		}).error(function(){
 			$scope.msg="An error occurred during Save!";
-		});
+		});*/
     };
     
-    $scope.updateWfh = function(){
+    /*$scope.updateWfh = function(){
     	wfhAPIservice.updateWfh($scope.data).success(function (response) {
     		scope.events[response.pk] = $scope.data;
 			$scope.msg="WFH Updated Successfully!";
@@ -80,7 +81,7 @@ mainApp.controller('wfhController', function($scope, moment, wfhAPIservice) {
 		}).error(function(){
 			$scope.msg="An error occurred during Delete!";
 		});
-    };
+    };*/
     
     $scope.openModal = function(){
     	$('#wfhModal').modal();

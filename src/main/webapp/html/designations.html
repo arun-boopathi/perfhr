@@ -1,17 +1,20 @@
-<div class="panel panel-success">
+<div class="panel panel-success perfhr-panel">
 	<div class="panel-heading">
-		<h1>Designations</h1>
+		<h1 class="section-title">Designations</h1>
+		<ul class="controls">
+	        <li><button data-toggle="modal" ng-click="addDesignation()" ><i class="fa fa-plus"></i></button></li>
+        </ul>
 	</div>
 	<div class="panel-body">
-		<table class="table table-hover" fixed-header>
+		<table class="table" fixed-header>
 			<thead>
 				<tr>
 					<th><span>Designation</span></th>
 					<th><span>Actions</span></th>
 				</tr>
 			</thead>
-			<tbody data-ng-repeat="designation in designations | orderBy:'designation'">
-				<tr>
+			<tbody>
+				<tr data-ng-repeat="designation in designations | orderBy:'designation'">
 					<td>{{designation.designation}}</td>
 					<td>
 					    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#designationForm" data-ng-click="edit(designation)">
@@ -24,9 +27,6 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-success btn-md" data-toggle="modal" ng-click="addDesignation()">Add Designation</button>
 	</div>
 </div>
 <!-- Modal -->
@@ -44,16 +44,12 @@
 			  	  {{msg}}
 			   </div>
 			   <form role="form" class="form-horizontal">
-			   	  <div class="row">
-				      <div class="col-lg-8">
-				         <div class="form-group">
-					         <label class="col-md-4 control-label">Designation :</label>
-				             <div class="col-md-8">
-				               <input type="Text" class="form-control" id="add" autofocus ng-model="tempData.designation"/>
-				             </div>
-				         </div>
-				      </div>
-			       </div>
+		         <div class="form-group">
+			         <label class="col-md-4 control-label text-left">Designation :</label>
+		             <div class="col-md-8">
+		               <input type="Text" class="form-control" id="add" autofocus ng-model="tempData.designation"/>
+		             </div>
+   		         </div>
 			   </form>
 		    </div>
 		    <div class="modal-footer">

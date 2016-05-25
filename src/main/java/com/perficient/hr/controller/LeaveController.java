@@ -13,6 +13,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,24 +25,27 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.perficient.hr.dao.EmployeeLeavesDAO;
 import com.perficient.hr.exception.RecordExistsException;
-import com.perficient.hr.model.Designations;
 import com.perficient.hr.model.EmployeeLeaves;
 
 @Controller
-@RequestMapping("/v-pto")
-public class PtoController {
+@RequestMapping("/v-leave")
+public class LeaveController {
 
+	@Value("${wfh.total}")
+	private String wfhCount;
+	
+	@Value("${ptoFilesOutputDir}")
+	private String ptoFilesOutputDir;
+		
 	@Autowired
 	private EmployeeLeavesDAO employeeLeavesDAO;
-	
-	public static String UPLOAD_LOCATION = "D:\\";
 	
 	@RequestMapping(value="/fetchExcel", method=RequestMethod.POST)
 	@Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
 	@Produces("application/json")
 	@ResponseBody
 	public boolean uploadExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("uploadFiles") MultipartFile file) throws IOException{
-		return employeeLeavesDAO.readPto(writeToFileServer(file.getInputStream(), file.getName()));
+		return employeeLeavesDAO.pasrsePtoDocument(writeToFileServer(file.getInputStream(), file.getName()));
 	}
 	
 	/**
@@ -52,7 +56,7 @@ public class PtoController {
      */
     private String writeToFileServer(InputStream inputStream, String fileName) throws IOException {
     	FileOutputStream outputStream = null;
-    	String qualifiedUploadFilePath = UPLOAD_LOCATION + fileName+".xls";
+    	String qualifiedUploadFilePath =  this.ptoFilesOutputDir+fileName+".xls";
         try {
             outputStream = new FileOutputStream(new File(qualifiedUploadFilePath));
             int read = 0;
@@ -69,34 +73,48 @@ public class PtoController {
         return qualifiedUploadFilePath;
     }
     
-    @RequestMapping(value="/loadAllWfh",method=RequestMethod.GET)
+    @RequestMapping(value="/loadAllLeaves",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public List<EmployeeLeaves> loadAllWfh(){
-		return employeeLeavesDAO.loadAllWfh();
+	public List<EmployeeLeaves> loadAllLeaves(@RequestParam(value="leaveType") String leaveType){
+		return employeeLeavesDAO.loadAllLeaves(leaveType);
+	}
+
+    @RequestMapping(value="/loadLeaveById",method=RequestMethod.GET)
+	@Produces("application/json")
+	@ResponseBody
+	public EmployeeLeaves loadLeaveById(@RequestParam(value="leaveId") String leaveId){
+		return employeeLeavesDAO.loadLeaveById(leaveId);
 	}
     
-    @RequestMapping(value="/applyWfh", method=RequestMethod.POST)
+    @RequestMapping(value="/loadMyLeaves",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public EmployeeLeaves applyWfh(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request) throws RecordExistsException{
-    	HttpSession session = request.getSession();
-		return employeeLeavesDAO.applyWfh(employeeLeaves, session.getAttribute("userId").toString());
+	public List<EmployeeLeaves> loadMyLeaves(@RequestParam(value="leaveType") String leaveType, @RequestParam(value="empId") String employeeId){
+		return employeeLeavesDAO.loadMyLeaves(leaveType, employeeId);
 	}
     
-    @RequestMapping(value="/updateWfh", method=RequestMethod.PUT)
+    @RequestMapping(value="/applyLeave", method=RequestMethod.POST)
 	@Produces("application/json")
 	@ResponseBody
-	public boolean updateWfh(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
+	public EmployeeLeaves applyLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request) throws RecordExistsException{
     	HttpSession session = request.getSession();
-		return employeeLeavesDAO.updateWfh(employeeLeaves, session.getAttribute("userId").toString());
+		return employeeLeavesDAO.applyLeave(employeeLeaves, session.getAttribute("userId").toString());
 	}
     
-    @RequestMapping(value="/deleteWfh", method=RequestMethod.PUT)
+    @RequestMapping(value="/updateLeave", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
-	public boolean deleteWfh(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
+	public boolean updateLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
     	HttpSession session = request.getSession();
-		return employeeLeavesDAO.deleteWfh(employeeLeaves, session.getAttribute("userId").toString());
+		return employeeLeavesDAO.updateLeave(employeeLeaves, session.getAttribute("userId").toString());
+	}
+    
+    @RequestMapping(value="/deleteLeave", method=RequestMethod.PUT)
+	@Produces("application/json")
+	@ResponseBody
+	public boolean deleteLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
+    	HttpSession session = request.getSession();
+		return employeeLeavesDAO.deleteLeave(employeeLeaves, session.getAttribute("userId").toString());
 	}
 }

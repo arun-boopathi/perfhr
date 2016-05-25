@@ -1,4 +1,4 @@
-mainApp.controller('ptoController', function($scope, ptoAPIService){
+mainApp.controller('importPtoController', function($scope, ptoAPIService){
 	$scope.uploadFile = function(){
 	    ptoAPIService.uploadFileToUrl($scope.newFileVal).success(function(data){
 	    	$('input[type="file"]').val('');

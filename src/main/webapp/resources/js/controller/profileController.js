@@ -5,18 +5,19 @@ mainApp.controller('profileController', function($scope, profileAPIservice, empl
        	  $('#closeBtn').hide();
       };
       $scope.data = null;
-      profileAPIservice.getProfileDetails().success(function (response) {
+     /* profileAPIservice.getProfileDetails().success(function (response) {
           $scope.data = response; 
-      });
+      });*/
       
       $scope.submit = function() {
-    	  if ($scope.data) {
+    	  console.log('data: ', $scope.data);
+    	  /*if ($scope.data) {
     	      $('.alert-info').removeClass('hidden');
     	      employeeAPIservice.updateEmployee($scope.data).success(function (response) {
     	      	   $scope.msg = 'User updated successfully.';         	
     	      }).error(function(error){
     	      	   $scope.msg = 'An Error Occured. Unable to update User.';
     	      });
-          }  
+          }*/  
       };
 });
