@@ -43,8 +43,9 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 	@SuppressWarnings("unchecked")
 	public List<Designations> loadDesignations() {
 	    Session session = sessionFactory.openSession();
-		String sqlQuery = " from Designations";
+		String sqlQuery = " from Designations d where d.active=:active";
 		Query query = session.createQuery(sqlQuery);
+		query.setParameter("active", PerfHrConstants.ACTIVE);
 		List<Designations> list = query.list();
 		session.close();
 		return list;
@@ -73,11 +74,13 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 	}
 
 	@Override
-	public boolean updateDesignation(Designations designation) {
+	public boolean updateDesignation(Designations designation, String userId) {
 		boolean returnVal = false;
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
+			designation.setDtModified(new Date());
+			designation.setModifiedBy(employeeDAO.loadById(userId).getPk());
 			session.merge(designation);
 			tx.commit();
 			returnVal = true;

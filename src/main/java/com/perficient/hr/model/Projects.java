@@ -1,5 +1,7 @@
 package com.perficient.hr.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +18,15 @@ public class Projects  extends AbstractModel{
 	@Column(name = "pk", length = 11 )
 	private Long pk;
 	
-	@Column(name = "Project_name")
+	@Column(name = "project_name")
 	private String projectName;
+	
+	@Column(name = "st_date")
+	private Date startDate;
+	
+	@Column(name = "end_date")
+	private Date endDate;
+	
 
 	/**
 	 * @return the pk
@@ -46,6 +55,33 @@ public class Projects  extends AbstractModel{
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+
+	/**
+	 * @return the startDate
+	 */
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	/**
+	 * @param startDate the startDate to set
+	 */
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	/**
+	 * @return the endDate
+	 */
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	/**
+	 * @param endDate the endDate to set
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 	
-		
 }

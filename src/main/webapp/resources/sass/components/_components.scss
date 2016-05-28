@@ -1,14 +1,10 @@
 /*-----------------BUTTON COMPONENT---------------------*/
-
-/*.btn-danger{background-color: rgba(217, 83, 79, 0.63);}
+/*--
+.btn-danger{background-color: rgba(217, 83, 79, 0.63);}
 .btn-warning { background-color: rgba(240, 173, 78, 0.72);}
 .btn-primary {background-color: rgba(51, 122, 183, 0.67);}
 
-.btn-default {
-    background: rgba(222, 222, 222, 0.55);
-    border-color: #cccccc;
-    color: #333333;
-}
+
 
 .btn-success {
     background-color: rgba(92, 184, 92, 0.55);
@@ -20,15 +16,43 @@
     background-color: rgba(91, 192, 222, 0.55);
     border-color: #46b8da;
     color: #ffffff;
+}--*/
+
+
+.btn-default {
+    background: rgba(222, 222, 222, 0.55);
+    border-color: #cccccc;
+    color: #333333;
 }
 
+.btn-save {
+    background: #55C188;
+    color: #fff;
+}
+
+.btn-close {
+    background: #fff;
+}
 
 .btn{
 	.fa {font-size: 18px;}
 }
 
+.btn-primary{@extend .btn-save}
 
-button.dt-button, div.dt-button, a.dt-button{@extend .btn-default; padding: 5px 20px;     font-size: 14px;}*/
+
+button.dt-button, div.dt-button, a.dt-button{
+    background: rgba(0, 0, 0, 0.18);
+    border-color: rgba(204, 204, 204, 0.19);
+    color: #FBF7F7;
+}
+
+
+.btn-update {
+    background-color: #f0ad4e;
+    border-color: #eea236;
+    color: #fff;
+}
 
 /*-----------------TABLE COMPONENT---------------------*/
 
@@ -63,7 +87,42 @@ button.dt-button, div.dt-button, a.dt-button{@extend .btn-default; padding: 5px 
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover, .pagination > li > a:focus, .pagination > li > a:hover, {
     z-index: 3;
     color: #fff;
-    cursor: default;
+
     background-color: rgba(0, 0, 0, 0.24);
     border-color: rgba(255, 255, 255, 0.84);
 }
+
+
+
+
+/*-----------------------------MODAL-----------------------------*/
+
+
+.modal{   
+   background: rgba(0, 0, 0, 0.47);
+   
+   .form-horizontal .control-label{font-weight:normal; color:#fff;}
+   .form-control{background:none; color:#fff;}
+   }
+
+
+.modal-content {
+    background: #2C475E;
+}
+
+
+  .modal-header {
+    padding: 15px;
+     border-bottom: 1px solid rgba(15, 51, 32, 0.38);
+    background: #55C188;
+    color: #fff;
+}
+
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    background: rgba(0, 0, 0, 0.14);
+    border-top: none;
+}
+
+

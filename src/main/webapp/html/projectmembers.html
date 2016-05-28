@@ -1,45 +1,97 @@
-<div class="row mt80" ng-controller="ProjectMembersCtrl">
-	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 animated fadeInDown">
-		<form novalidate name="projectMemberForm">
-			<div class="form-group">
-				<label for="name">Project Name :</label>
-				<select class="form-control" ng-model="selectedProject" ng-change="changedProject(selectedProject)" ng-options="project.projectName for project in projects track by project.pk">
-				</select>
-			</div>
-			<div class="form-group">
-				<label for="email">Members :</label> 
-				<select class="form-control" ng-model="selectedEmployee" ng-options="x.firstName for x in employees">
-				</select>
-			</div>
-			<div class="form-group date">
-				<label for="startDate">Member Start Date :</label>
-				<div class='input-group date' id='pmStartDate'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-			</div>
-			<div class="form-group date">
-				<label for="startDate">Member End Date :</label>
-				<div class='input-group date' id='pmEndDate'>
-                    <input type='text' class="form-control"/>
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-			</div>
-			<div class="text-center">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				<button class="btn btn-save btn-primary" ng-disabled="projectMemberForm.$invalid" ng-click="save()">Save User</button>
-			</div>
-		</form>
+<div class="panel panel-success perfhr-panel">
+	<div class="panel-heading">
+		<h1 class="section-title">Project Members</h1>
+		<ul class="controls">
+	        <li><button data-toggle="modal" ng-click="addProjectMembers()" ><i class="fa fa-plus"></i></button></li>
+        </ul>
 	</div>
-	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 animated fadeInUp">
-		<div class="table-responsive">
-			<div ng-controller="ProjectsUserController as projectUserTable">
-			    <p class="text-danger"><strong>{{ showCase.message }}</strong></p>
-			    <table datatable="" dt-options="projectUserTable.dtOptions" dt-columns="projectUserTable.dtColumns" dt-instance="projectUserTable.dtInstance" class="row-border hover"></table>
+	<div ng-controller="ProjectsUserController as projectUserTable">
+	    <p class="text-danger"><strong>{{msg}}</strong></p>
+	    <table datatable="" dt-options="projectUserTable.dtOptions" dt-columns="projectUserTable.dtColumns" 
+	    	dt-instance="projectUserTable.dtInstance" class="table perfhr-table"></table>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-success btn-md" data-toggle="modal" ng-click="addProjectMembers()">Project Members</button>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="projectMembersForm" role="dialog" data-backdrop="static">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" ng-show="!data.pk">Save Project</h4>
+				<h4 class="modal-title" ng-show="data.pk">Update Project</h4>
+			</div>
+		    <div class="modal-body">
+			   <form name="projectMemberForm" role="form" class="form-horizontal">
+			   	 <div class="row">
+				      <div class="col-sm-10">
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="name">Project Name :</label>
+							<div class="col-md-8 input-group">
+								<select class="form-control" ng-model="data.projectId"  ng-selected="{{data.projectId}}"
+										ng-options="project.projectName for project in projects track by project.pk">
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="email">Members :</label>
+							<div class="col-md-8 input-group">
+								<select class="form-control" ng-model="data.employeeId" ng-selected="{{data.employeeId}}"
+									ng-options='(employee.firstName + ", " + employee.lastName) for employee in employees | orderBy: "firstName" track by employee.pk'>
+								</select>
+							</div>
+						</div>
+						<div class="form-group date">
+							<label class="col-md-4 control-label" for="startDate">Member Start Date :</label>
+							<p class="input-group">
+					          <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.dtStarted}} ng-model="data.dtStarted" is-open="pmStDate.opened" 
+					          		datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+					          <span class="input-group-btn">
+					            <button type="button" class="btn btn-default" ng-click="pmStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+					          </span>
+					        </p>
+						</div>
+						<div class="form-group date">
+							<label class="col-md-4 control-label" for="startDate">Member End Date :</label>
+			                <p class="input-group">
+					          <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.dtEnded}} ng-model="data.dtEnded" is-open="pmEndDate.opened" 
+					          		datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+					          <span class="input-group-btn">
+					            <button type="button" class="btn btn-default" ng-click="pmEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+					          </span>
+					        </p>
+						</div>
+					</div>
+				</div>
+			  </form>
+		    </div>
+		    <div class="modal-footer">
+		    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" ng-show="!data.pk" ng-click="save()">Save</button>
+				<button type="button" class="btn btn-primary" ng-show="data.pk" ng-click="update()">Update</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div>
+	<div class="modal fade" id="deleteProjectMember" role="dialog" data-backdrop="static">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Delete Project</h4>
+				</div>
+				<div class="modal-body">
+					Are you sure you want to delete <b>{{data.projectId.projectName}}-{{data.employeeId.firstName}} {{data.employeeId.lastName}}</b>?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-danger" ng-click="deleteProjectMember()">Yes</button>
+				</div>
 			</div>
 		</div>
 	</div>

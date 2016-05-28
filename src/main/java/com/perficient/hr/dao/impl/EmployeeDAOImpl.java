@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.model.Employee;
+import com.perficient.hr.model.VW_Employee;
+import com.perficient.hr.utils.PerfHrConstants;
 
 @Repository("employeeDAO")
 public class EmployeeDAOImpl implements EmployeeDAO{
@@ -31,8 +33,19 @@ public class EmployeeDAOImpl implements EmployeeDAO{
        return sessionFactory.openSession();
     }
 	
+    public VW_Employee loadByUserId(String pk) {
+		logger.info("Loading employee record for: "+pk);
+		Session session = sessionFactory.openSession();
+		VW_Employee employee = null;
+		String sqlQuery =" from VW_Employee as o where o.pk=:pk";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter("pk", Long.parseLong(pk));
+		employee = (VW_Employee)query.uniqueResult();
+		session.close();
+		return employee;
+	}
+
     @Override
-	@SuppressWarnings("unchecked")
 	public Employee loadById(String pk) {
 		logger.info("Loading employee record for: "+pk);
 		Session session = sessionFactory.openSession();
@@ -40,21 +53,19 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		String sqlQuery =" from Employee as o where o.pk=:pk";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("pk", Long.parseLong(pk));
-		List<Employee> list = query.list();
-		if ((list != null) && (!list.isEmpty())) {
-			employee = list.get(0);
-		}
+		employee = (Employee)query.uniqueResult();
 		session.close();
 		return employee;
 	}
-
+    
     @Override
 	@SuppressWarnings("unchecked")
-	public List<Employee> loadEmployees() {
+	public List<VW_Employee> loadEmployees() {
 		Session session = sessionFactory.openSession();
-		String sqlQuery =" from Employee";
+		String sqlQuery =" from VW_Employee e where e.active=:active";
 		Query query = session.createQuery(sqlQuery);
-		List<Employee> list = query.list();
+		query.setParameter("active", PerfHrConstants.ACTIVE);
+		List<VW_Employee> list = query.list();
 		session.close();
 		return list;
 	}

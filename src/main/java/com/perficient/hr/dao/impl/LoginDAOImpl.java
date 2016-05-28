@@ -35,10 +35,10 @@ public class LoginDAOImpl implements LoginDAO {
     public User checkLogin(String userName, String userPwd){
 		Session session = sessionFactory.openSession();
 		User user = null;
-		String sqlQuery =" from User as o where o.emailId=? and o.pwd=?";
+		String sqlQuery =" from User as o where o.emailId=:email and o.pwd=:pwd";
 		Query query = session.createQuery(sqlQuery);
-		query.setParameter(0, userName);
-		query.setParameter(1, userPwd);
+		query.setParameter("email", userName);
+		query.setParameter("pwd", userPwd);
 		List<User> list = query.list();
 		if ((list != null) && (!list.isEmpty())) {
 			user = list.get(0);

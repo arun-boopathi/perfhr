@@ -21,7 +21,7 @@
 		        .withOption('aaSorting', [params.sortCol, 'asc'])
 		        .withOption('rowCallback', rowCallback)
 		        .withPaginationType('full_numbers')
-		        .withOption("oLanguage", {"sEmptyTable": "No Records Found."})
+		        .withOption("oLanguage", {"sEmptyTable": params.vm.sEmptyTable != null ? params.vm.sEmptyTable: "No Records Found."})
 		        .withButtons([
 		            { 
 		            	extend : 'excel',

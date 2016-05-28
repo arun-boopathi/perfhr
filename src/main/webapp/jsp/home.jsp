@@ -19,11 +19,10 @@
             <li>
             	<a href="#">Administration</a>
             	<ul>
-            		<li><a href="#">Add Employee</a></li>
             		<li><a href="#/designations">Designations</a></li>
             		<li><a href="#/importpto">Import PTO</a></li>
             		<li><a href="#/projects">Projects</a></li>
-            		<li><a href="#">Roles</a></li>
+            		<li><a href="#/projectmembers">Project Members</a></li>
             		<li>
             			<a href="#">Reports</a>
             			<ul>
@@ -107,6 +106,8 @@
 <script src="js/filters/filters.js"></script>
 <script src="js/controller/projectController.js"></script>
 <script src="js/service/projectServices.js"></script>
+<script src="js/controller/projectMembersController.js"></script>
+<script src="js/service/projectMembersServices.js"></script>
 <script src="js/controller/importPtoController.js"></script>
 <script src="js/service/importPtoServices.js"></script>
 <script src="js/controller/leaveController.js"></script>

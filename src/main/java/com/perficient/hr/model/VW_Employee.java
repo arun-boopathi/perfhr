@@ -1,5 +1,6 @@
 package com.perficient.hr.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -12,9 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "vw_employee_superviser")
 @SuppressWarnings("serial")
-public class Employee extends AbstractModel {
+public class VW_Employee implements Serializable{
 
 	@Id
 	@GeneratedValue
@@ -55,8 +56,17 @@ public class Employee extends AbstractModel {
 	@Column(name = "nationality")
 	private String nationality;
 	
+	@Column(name = "active")
+	private int active;
+	
 	@Column(name = "superviser")
 	private Long superviser;
+	
+	@Column(name = "sup_firstname")
+	private String superviserFirstName;
+	
+	@Column(name = "sup_lastname")
+	private String superviserLastName;
 	
 	@Column(name = "dob")
 	private Date dob;
@@ -84,8 +94,7 @@ public class Employee extends AbstractModel {
 	
 	@Column(name = "gender")
 	private String gender;
-	
-	
+
 	/**
 	 * @return the pk
 	 */
@@ -99,7 +108,7 @@ public class Employee extends AbstractModel {
 	public void setPk(Long pk) {
 		this.pk = pk;
 	}
-	
+
 	/**
 	 * @return the employeeId
 	 */
@@ -184,7 +193,20 @@ public class Employee extends AbstractModel {
 		this.email = email;
 	}
 
-	
+	/**
+	 * @return the designations
+	 */
+	public Designations getDesignations() {
+		return designations;
+	}
+
+	/**
+	 * @param designations the designations to set
+	 */
+	public void setDesignations(Designations designations) {
+		this.designations = designations;
+	}
+
 	/**
 	 * @return the address
 	 */
@@ -242,31 +264,59 @@ public class Employee extends AbstractModel {
 	}
 
 	/**
-	 * @return the designations
-	 */
-	public Designations getDesignations() {
-		return designations;
-	}
-
-	/**
-	 * @param designations the designations to set
-	 */
-	public void setDesignations(Designations designations) {
-		this.designations = designations;
-	}
-
-	/**
 	 * @return the superviser
 	 */
-	public long getSuperviser() {
+	public Long getSuperviser() {
 		return superviser;
 	}
 
 	/**
 	 * @param superviser the superviser to set
 	 */
-	public void setSuperviser(long superviser) {
+	public void setSuperviser(Long superviser) {
 		this.superviser = superviser;
+	}
+
+	/**
+	 * @return the superviserFirstName
+	 */
+	public String getSuperviserFirstName() {
+		return superviserFirstName;
+	}
+
+	/**
+	 * @param superviserFirstName the superviserFirstName to set
+	 */
+	public void setSuperviserFirstName(String superviserFirstName) {
+		this.superviserFirstName = superviserFirstName;
+	}
+
+	/**
+	 * @return the superviserLastName
+	 */
+	public String getSuperviserLastName() {
+		return superviserLastName;
+	}
+
+	/**
+	 * @param superviserLastName the superviserLastName to set
+	 */
+	public void setSuperviserLastName(String superviserLastName) {
+		this.superviserLastName = superviserLastName;
+	}
+
+	/**
+	 * @return the active
+	 */
+	public int getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(int active) {
+		this.active = active;
 	}
 
 	/**
@@ -395,11 +445,4 @@ public class Employee extends AbstractModel {
 		this.gender = gender;
 	}
 
-	/**
-	 * @param superviser the superviser to set
-	 */
-	public void setSuperviser(Long superviser) {
-		this.superviser = superviser;
-	}
-	
 }

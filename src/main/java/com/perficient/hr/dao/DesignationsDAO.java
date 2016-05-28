@@ -12,7 +12,7 @@ public interface DesignationsDAO {
 	
 	public Designations addDesignation(Designations designation, String userId);
 	
-	public boolean updateDesignation(Designations designation);
+	public boolean updateDesignation(Designations designation, String userId);
 	
 	public boolean deleteDesignation(Designations designation, String userId);
 	

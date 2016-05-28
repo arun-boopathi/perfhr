@@ -55,8 +55,9 @@ public class DesignationController {
 	@RequestMapping(value="/updateDesignation", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
-	public boolean updateDesignation(@RequestBody Designations designations) throws RecordNotFoundException {
-		return designationsDAO.updateDesignation(designations);
+	public boolean updateDesignation(@RequestBody Designations designations, HttpServletRequest request) throws RecordNotFoundException {
+		HttpSession session = request.getSession();
+		return designationsDAO.updateDesignation(designations, session.getAttribute("userId").toString());
 	}
 	
 	@RequestMapping(value="/deleteDesignation", method=RequestMethod.PUT)

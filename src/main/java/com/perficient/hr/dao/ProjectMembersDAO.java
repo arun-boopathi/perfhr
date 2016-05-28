@@ -5,11 +5,17 @@ import java.util.List;
 import com.perficient.hr.model.ProjectMembers;
 
 public interface ProjectMembersDAO {
+	
+	public List<ProjectMembers> loadAllProjectMembers();
 
 	public List<ProjectMembers> loadProjectMembersByProjectId(String projectPk);
 	
-	public ProjectMembers saveProjectMember(ProjectMembers projectMembers);
+	public ProjectMembers loadProjectMemberById(String projectMemberId);
 	
-	public boolean deleteProjectMember(ProjectMembers projectMembers);
+	public ProjectMembers saveProjectMember(ProjectMembers projectMembers, String userId);
+	
+	public boolean updateProjectMember(ProjectMembers projectMembers, String userId);
+	
+	public boolean deleteProjectMember(ProjectMembers projectMembers, String userId);
 	
 }

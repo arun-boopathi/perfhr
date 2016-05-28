@@ -1,6 +1,6 @@
 var mainApp = angular.module("perficientHr", 
 		['profile.services','employee.services','dashboard.services',
-		 'designation.services','project.services', 'pto.services', 'leave.services',
+		 'designation.services','project.services', 'projectmember.services', 'pto.services', 'leave.services',
 		 'ngRoute', 'ngResource', 'ngAnimate',
 		 'mwl.calendar', 'ui.bootstrap',
 		 'datatables', 'datatables.bootstrap', 'datatables.buttons']);
@@ -34,6 +34,10 @@ mainApp.config(function($routeProvider) {
 	    .when('/projects', {
 	        templateUrl: 'html/projects.html',
 	        controller: 'projectController'
+	    })
+	    .when('/projectmembers', {
+	        templateUrl: 'html/projectmembers.html',
+	        controller: 'projectMembersController'
 	    })
 	    .when('/importpto', {
 	        templateUrl: 'html/importpto.html',

@@ -1,13 +1,19 @@
 /* Profile controller */
-mainApp.controller('profileController', function($scope, profileAPIservice, employeeAPIservice) {
-      $scope.finishLoading = function() {
-       	  $(".alert-info").addClass('hidden');
-       	  $('#closeBtn').hide();
-      };
-      $scope.data = null;
-     /* profileAPIservice.getProfileDetails().success(function (response) {
+mainApp.controller('profileController', function($scope, profileAPIservice, employeeAPIservice, designationAPIservice) {
+      
+     $scope.data = null;
+      
+     employeeAPIservice.loadAllEmployees().success(function (response) {
+  		$scope.employees = response;
+  	 });
+  	
+	 designationAPIservice.getDesignationDetails().success(function (response) {
+	    $scope.designations = response;
+	 });
+      
+      profileAPIservice.getProfileDetails().success(function (response) {
           $scope.data = response; 
-      });*/
+      });
       
       $scope.submit = function() {
     	  console.log('data: ', $scope.data);

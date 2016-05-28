@@ -6,11 +6,10 @@
         </ul>
 	</div>
 	<div ng-controller="ProjectsController as projectTable">
-	    <p class="text-danger"><strong>{{ showCase.message }}</strong></p>
+	    <p class="text-danger"><strong>{{msg}}</strong></p>
 	    <table datatable="" dt-options="projectTable.dtOptions" dt-columns="projectTable.dtColumns" dt-instance="projectTable.dtInstance" class="table perfhr-table"></table>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-success btn-md" data-toggle="modal" ng-click="addProjectMembers()">Project Members</button>
 		<button type="button" class="btn btn-success btn-md" data-toggle="modal" ng-click="addProject()">Add Project</button>
 	</div>
 </div>
@@ -25,9 +24,6 @@
 				<h4 class="modal-title" ng-show="data.pk">Update Project</h4>
 			</div>
 		    <div class="modal-body">
-		       <div class = "alert alert-info" ng-show="data.msg">
-			  	  {{data.msg}}
-			   </div>
 			   <form role="form" class="form-horizontal">
 			   	  <div class="row">
 				      <div class="col-sm-10">
@@ -37,23 +33,25 @@
 				               <input type="Text" class="form-control" id="add" autofocus ng-model="data.projectName" value="{{data.projectName}}"/>
 				             </div>
 				         </div>
-				         <div class="form-group date">
+				         <div class="form-group">
 							<label class="col-md-4 control-label" for="startDate">Project Start Date :</label>
-							<div class='col-md-8 input-group date' id='prStartDate'>
-			                    <input type='text' class="form-control" />
-			                    <span class="input-group-addon">
-			                        <span class="glyphicon glyphicon-calendar"></span>
-			                    </span>
-			                </div>
+			                <p class="input-group">
+					          <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.startDate }} ng-model="data.startDate" is-open="stDate.opened" 
+					          		datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+					          <span class="input-group-btn">
+					            <button type="button" class="btn btn-default" ng-click="prStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+					          </span>
+					        </p>
 						</div>
-						<div class="form-group date">
+						<div class="form-group">
 							<label class="col-md-4 control-label" for="startDate">Project End Date :</label>
-							<div class='col-md-8 input-group date' id='prEndDate'>
-			                    <input type='text' class="form-control" />
-			                    <span class="input-group-addon">
-			                        <span class="glyphicon glyphicon-calendar"></span>
-			                    </span>
-			                </div>
+							<p class="input-group">
+					          <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.endDate}} ng-model="data.endDate" is-open="endDate.opened" 
+					          		datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+					          <span class="input-group-btn">
+					            <button type="button" class="btn btn-default" ng-click="prEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+					          </span>
+					        </p>
 						</div>
 				      </div>
 			       </div>
@@ -62,7 +60,7 @@
 		    <div class="modal-footer">
 		    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary" ng-show="!data.pk" ng-click="save()">Save</button>
-				<button type="button" class="btn btn-primary" ng-show="data.pk" ng-click="update()">Save Changes</button>
+				<button type="button" class="btn btn-primary" ng-show="data.pk" ng-click="update()">Update</button>
 			</div>
 		</div>
 	</div>
@@ -77,32 +75,13 @@
 					<h4 class="modal-title">Delete Project</h4>
 				</div>
 				<div class="modal-body">
-					Are you sure you want to delete - <b>{{tempData.project}}</b>?
+					Are you sure you want to delete - <b>{{data.projectName}}</b>?
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
 					<button type="button" class="btn btn-danger" ng-click="deleteProject()">Yes</button>
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
-<!-- Modal -->
-<div class="modal fade bs-example-modal-lg" id="projectMembersForm" role="dialog" data-keyboard="false" data-backdrop="static">
-	<div class="modal-dialog modal-lg">
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" ng-show="!tempData.pk">Save Project Members</h4>
-				<h4 class="modal-title" ng-show="tempData.pk">Update Project</h4>
-			</div>
-		    <div class="modal-body">
-		       <div class = "alert alert-info" ng-show="msg">
-			  	  {{msg}}
-			   </div>
-			   <div ng-include="'html/projectmembers.html'"></div>
-		    </div>
 		</div>
 	</div>
 </div>

@@ -19,6 +19,7 @@ import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.exception.RecordNotFoundException;
 import com.perficient.hr.model.Employee;
+import com.perficient.hr.model.VW_Employee;
 
 @Controller
 @RequestMapping("/v-employee")
@@ -45,7 +46,7 @@ public class EmployeeController {
 	@RequestMapping(value="/loadAllEmployee",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public List<Employee> loadAllEmployee(){
+	public List<VW_Employee> loadAllEmployee(){
 		return employeeDAO.loadEmployees();
 	}
 	

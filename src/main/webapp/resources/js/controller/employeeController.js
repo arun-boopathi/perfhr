@@ -1,10 +1,13 @@
-var vm;
-var rowIndex;
-var data;
-var scope;
+var vm, rowIndex, data, scope;
 /* Employee controller */
 mainApp.controller('employeeController', function($scope, employeeAPIservice, designationAPIservice) {
 	scope = $scope;
+	
+	employeeAPIservice.loadAllEmployees().success(function (response) {
+		$scope.employees = response;
+		vm.dtInstance.DataTable.clear().draw();
+    	vm.dtInstance.DataTable.rows.add($scope.employees).draw();
+	});
 	
 	designationAPIservice.getDesignationDetails().success(function (response) {
 	   $scope.designations = response;
@@ -12,24 +15,24 @@ mainApp.controller('employeeController', function($scope, employeeAPIservice, de
 	
 	$scope.addEmployee = function(){
 		$scope.data = '';
-		$('#employee_id').removeAttr('disabled');
 		$('#employeeForm').modal();
 	};
 	
 	$scope.submit = function() {
+		console.log('data ', $scope.data);
         if ($scope.data.pk) {
            employeeAPIservice.updateEmployee($scope.data).success(function (response) {
           	   vm.dtInstance.dataTable.fnUpdate($scope.data, rowIndex, undefined, false);
-          	   $scope.data.msg = 'Employee updated successfully.';         	
+          	   $scope.msg = 'Employee updated successfully.';         	
            }).error(function(error){
-        	   $scope.data.msg = 'An Error Occured. Unable to update Employee.';
+        	   $scope.msg = 'An Error Occured. Unable to update Employee.';
            });
         } else {
            employeeAPIservice.addEmployee($scope.data).success(function (response) {
-        	   $scope.data.msg = 'Employee saved successfully.';
+        	   $scope.msg = 'Employee saved successfully.';
   			   vm.dtInstance.reloadData();
   	       }).error(function(error){
-  	    	   $scope.data.msg = 'An Error Occured. Unable to save Employee.';
+  	    	   $scope.msg = 'An Error Occured. Unable to save Employee.';
   	       });
         }
     };
@@ -41,8 +44,12 @@ function EmployeeTableCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, 
     vm = this;
     vm.dtColumns = [
         DTColumnBuilder.newColumn('employeeId').withTitle('ID'),
-        DTColumnBuilder.newColumn('firstName').withTitle('First Name'),
-        DTColumnBuilder.newColumn('lastName').withTitle('Last Name').withClass('none'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First Name').renderWith(function(data, type, full) {
+            return full.firstName+' '+full.lastName;
+        }),
+        DTColumnBuilder.newColumn('superviserFirstName').withTitle('Superviser').withClass('none').renderWith(function(data, type, full) {
+            return full.superviserFirstName+' '+full.superviserLastName;
+        }),
         DTColumnBuilder.newColumn('email').withTitle('Email'),
         DTColumnBuilder.newColumn('designations.designation').withTitle('Designation')
     ];
@@ -53,9 +60,9 @@ function EmployeeTableCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, 
     		"DtOptionsBuilder" : DTOptionsBuilder,
     		"DTColumnBuilder" : DTColumnBuilder,
     		"service" : employeeAPIservice,
-    		'loadListUrl' : perfUrl['loadAllEmployee'],
     		'editFormId' : 'employeeForm',
-    		'sortCol': '1'
+    		'sortCol': '1',
+    		'sEmptyTable' : 'Loading..'
     };
     perfDatatable.loadTable.init(paramObj);
 }

@@ -5,20 +5,29 @@ var scope;
 /* Project controller */
 mainApp.controller('projectController', function($scope, projectAPIservice, employeeAPIservice) {
 	scope = $scope;
-	
-	$('#prStartDate').datetimepicker({
-  		format: 'DD/MM/YYYY'
-  	});
-    $('#prEndDate').datetimepicker({
-    	format: 'DD/MM/YYYY'
-    });
+
+    $scope.stDate = {
+	    opened: false
+	};
+    
+    $scope.endDate = {
+	    opened: false
+	};
+
+    $scope.prStartDate = function() {
+	    $scope.stDate.opened = true;
+	};
+    
+	$scope.prEndDate = function() {
+	    $scope.endDate.opened = true;
+	};
 	
 	$scope.save = function(){
 		projectAPIservice.addProject($scope.data).success(function(response) {
 			vm.dtInstance.reloadData();
-			$scope.data.msg="Project Saved Successfully!";
+			$scope.msg="Project Saved Successfully!";
 		}).error(function(){
-			$scope.data.msg="An error occurred during save!";
+			$scope.msg="An error occurred during save!";
 		});
 	};
 	
@@ -30,39 +39,35 @@ mainApp.controller('projectController', function($scope, projectAPIservice, empl
 	$scope.update = function(){
 		projectAPIservice.updateProject($scope.data).success(function () {
 			vm.dtInstance.dataTable.fnUpdate($scope.data, rowIndex, undefined, false);
-			$scope.data.msg="Project Updated Successfully!";
+			$scope.msg="Project Updated Successfully!";
 		}).error(function(){
-			$scope.data.msg="An error occurred during update!";
+			$scope.msg="An error occurred during update!";
 		});
 	};
 	
-	$scope.addProjectMembers = function(){
-		projectAPIservice.loadProjects().success(function(response) {
-			$scope.projects = response;
+	$scope.deleteProject = function(){
+		projectAPIservice.deleteProject($scope.data).success(function () {
+			vm.dtInstance.reloadData();
+			$('#deleteProject').modal('hide');
+			$scope.msg="Project Deleted Successfully!";
+		}).error(function(){
+			$scope.msg="An error occurred during delete!";
 		});
-		employeeAPIservice.loadAllEmployees().success(function(response) {
-			$scope.employees = response;
-		});
-		pm.dtInstance.DataTable.clear().draw();
-		$('#projectMembersForm').modal();
-	};
-}).controller('ProjectMembersCtrl', function($scope, projectAPIservice){
-	$scope.save = function(){
-		console.log('in ProjectMembersCtrl ', $scope.selectedProject);
-		console.log('in ProjectMembersCtrl ', $scope.selectedEmployee);
-	};
-	
-	$scope.changedProject=function(item){
-		pm.dtInstance.DataTable.ajax.url(perfUrl['loadProjectMembersByProjectId']+item.pk).load();
 	};
 });
 
-mainApp.controller('ProjectsController', ProjectsController).controller('ProjectsUserController', ProjectsUserController);
+mainApp.controller('ProjectsController', ProjectsController);
 
 function ProjectsController($scope, $compile, DTOptionsBuilder, DTColumnBuilder, projectAPIservice) {
     vm = this;
     vm.dtColumns = [
-        DTColumnBuilder.newColumn('projectName').withTitle('Projects')
+        DTColumnBuilder.newColumn('projectName').withTitle('Projects'),
+        DTColumnBuilder.newColumn('startDate').withTitle('Start Date').renderWith(function(data, type, full) {
+            return moment(data).format("DD-MM-YYYY");
+        }),
+        DTColumnBuilder.newColumn('endDate').withTitle('End Date').renderWith(function(data, type, full) {
+            return moment(data).format("DD-MM-YYYY");
+        })
     ];
     var paramObj = {
     		"vm" : vm,
@@ -73,32 +78,8 @@ function ProjectsController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
     		"service" : projectAPIservice,
     		'loadListUrl' : perfUrl['loadProjects'],
     		'editFormId' : 'projectForm',
+    		'deleteFormId' : 'deleteProject',
     		'sortCol': '0'
-    };
-    perfDatatable.loadTable.init(paramObj);
-}
-
-function ProjectsUserController($scope, $compile, DTOptionsBuilder, DTColumnBuilder, projectAPIservice){
-	pm = this;
-	pm.dtColumns = [
-        DTColumnBuilder.newColumn('employeeId').withTitle('Members'),
-        DTColumnBuilder.newColumn('dtStarted').withTitle('Start Date').renderWith(function(data, type, full) {
-            return moment(data).format("DD-MM-YYYY");
-        }),
-        DTColumnBuilder.newColumn('dtEnded').withTitle('End Date').renderWith(function(data, type, full) {
-            return moment(data).format("DD-MM-YYYY");
-        })
-    ];
-    var paramObj = {
-    		"vm" : pm,
-    		"scope" : $scope,
-    		"compile" : $compile,
-    		"DtOptionsBuilder" : DTOptionsBuilder,
-    		"DTColumnBuilder" : DTColumnBuilder,
-    		"service" : projectAPIservice,
-    		'editFormId' : 'projectForm',
-    		'sortCol': '0',
-    		'editRow' : false
     };
     perfDatatable.loadTable.init(paramObj);
 }

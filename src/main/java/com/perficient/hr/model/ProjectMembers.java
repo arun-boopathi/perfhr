@@ -2,10 +2,13 @@ package com.perficient.hr.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,11 +21,13 @@ public class ProjectMembers  extends AbstractModel{
 	@Column(name = "pk", length = 11 )
 	private Long pk;
 	
-	@Column(name = "employee_pk")
-	private String employeeId;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "employee_pk")
+	private Employee employeeId;
 	
-	@Column(name = "project_pk")
-	private String projectId;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "project_pk")
+	private Projects projectId;
 	
 	@Column(name = "dt_started")
 	private Date dtStarted;
@@ -47,28 +52,28 @@ public class ProjectMembers  extends AbstractModel{
 	/**
 	 * @return the employeeId
 	 */
-	public String getEmployeeId() {
+	public Employee getEmployeeId() {
 		return employeeId;
 	}
 
 	/**
 	 * @param employeeId the employeeId to set
 	 */
-	public void setEmployeeId(String employeeId) {
+	public void setEmployeeId(Employee employeeId) {
 		this.employeeId = employeeId;
 	}
 
 	/**
 	 * @return the projectId
 	 */
-	public String getProjectId() {
+	public Projects getProjectId() {
 		return projectId;
 	}
 
 	/**
 	 * @param projectId the projectId to set
 	 */
-	public void setProjectId(String projectId) {
+	public void setProjectId(Projects projectId) {
 		this.projectId = projectId;
 	}
 

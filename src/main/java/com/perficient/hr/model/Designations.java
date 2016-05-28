@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
@@ -18,7 +20,8 @@ public class Designations  extends AbstractModel {
 	
 	@Column(name = "designation")
 	private String designation;
-		
+	
+			
 	/**
 	 * @return the pk
 	 */

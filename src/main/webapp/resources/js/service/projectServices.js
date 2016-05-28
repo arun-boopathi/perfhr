@@ -27,10 +27,11 @@ angular.module('project.services', []).
           url: perfUrl['updateProject']
         });
     };
-    projectAPI.loadProjectById = function(projectPk) {
+    projectAPI.deleteProject = function(project) {
         return $http({
-          method: 'get', 
-          url: perfUrl['loadProjectById']+projectPk
+          method: 'put', 
+          data : project,
+          url: perfUrl['deleteProject']
         });
     };
     return projectAPI; 

@@ -23,7 +23,7 @@
         </ul>
 	</div>
 	<div ng-controller="EmployeeTableCtrl as employeeTable">
-	    <p class="text-danger"><strong>{{ showCase.message }}</strong></p>
+	    <p class="text-danger"><strong>{{msg}}</strong></p>
 	    <table datatable="" dt-options="employeeTable.dtOptions" dt-columns="employeeTable.dtColumns" dt-instance="employeeTable.dtInstance"  width="100%" class="table perfhr-table"></table>
 	</div>
 </div>
