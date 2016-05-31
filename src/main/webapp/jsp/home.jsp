@@ -89,8 +89,8 @@
 <script src="js/lib/bootstrap-calendar.min.js"></script>
 <script src="js/lib/angular-bootstrap-calendar-tpls.js"></script>
 <script src="js/lib/ui-bootstrap-tpls-1.3.2.js"></script>
-<!--<script src="js/app.js"></script>
-<script src="js/common.js"></script>
+<!--<script src="js/app/app.js"></script>
+<script src="js/app/common.js"></script>
 <script src="js/constants/constants.js"></script>
 <script src="js/perfControllers.js"></script>
 <script src="js/controller/datatableController.js"></script>
