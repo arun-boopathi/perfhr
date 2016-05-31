@@ -4,12 +4,11 @@ background-image:url('../images/bg_theme1.jpg');
 background-size:cover;
 
 }
-
-
     
 .ch-thumb {
     background: rgba(0, 0, 0, 0.1) none repeat scroll 0 0;
-    box-shadow: 0 0 0 15px rgba(0, 0, 0, 0.1) inset;}
+    box-shadow: 0 0 0 15px rgba(0, 0, 0, 0.1) inset;
+}
 
 
 .ch-info {    
@@ -105,7 +104,24 @@ background-size:cover;
 
 .dataTables_wrapper .dataTables_info{display:none} 
 
-div.dt-buttons{    margin: 0 0 0 14px;}
+div.dt-buttons{margin: 0 0 0 14px;}
+
+button.dt-button, div.dt-button, a.dt-button{
+    background: transparent;
+    border-color: rgba(204, 204, 204, 0.19);
+    color: #FBF7F7;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+table.dataTable tbody tr.selected {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+button.dt-button:hover:not(.disabled), div.dt-button:hover:not(.disabled), a.dt-button:hover:not(.disabled) {
+	background-color: #666;
+	background-image: none;
+}
 
 .dataTables_wrapper .dataTables_paginate {
     float: right;
@@ -200,4 +216,22 @@ div.dataTables_length label, div.dataTables_filter label{    color: rgba(255, 25
 
 .perfhr-widget-footer {
     background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
+}
+
+.rightsided-elemet{
+    float: right;
+    margin: 0;
+    padding: 0;
+    list-style:none;
+
+    button{
+    background: #56ba83 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 2px;
+    margin: -10px 0 0;
+    padding: 6px 20px;
+    
+    i{margin: 0 7px 0 0;}
+    }
+
 }

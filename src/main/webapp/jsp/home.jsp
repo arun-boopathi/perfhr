@@ -57,12 +57,12 @@
 	</div>
 </body>
 <script src="js/lib/jquery.js"></script>
-<script src="js/lib/jquery-ui.min.js"></script>
+<script src="js/lib/jquery-ui.js"></script>
 <script src="js/lib/angular.js"></script>
-<script src="js/lib/bootstrap.min.js"></script>
-<script src="js/lib/angular-route.min.js"></script>
-<script src="js/lib/angular-resource.min.js"></script>
-<script src="js/lib/jquery.dataTables.min.js"></script>
+<script src="js/lib/bootstrap.js"></script>
+<script src="js/lib/angular-route.js"></script>
+<script src="js/lib/angular-resource.js"></script>
+<script src="js/lib/jquery.dataTables.js"></script>
 <script src="js/lib/angular-datatables.js"></script>
 <script src="js/lib/angular-datatables.util.js"></script>
 <script src="js/lib/angular-datatables.options.js"></script>
@@ -71,8 +71,7 @@
 <script src="js/lib/angular-datatables.renderer.js"></script>
 <script src="js/lib/angular-datatables.directive.js"></script>
 <script src="js/lib/jquery.mmenu.all.min.js"></script>
-<script src="js/lib/moment.min.js"></script>
-<script src="js/lib/bootstrap-datetimepicker.js"></script>
+<script src="js/lib/moment.js"></script>
 <script src="js/lib/angular-bootstrap.js"></script>
 <script src="js/lib/angular-animate.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.options.js"></script>
@@ -89,10 +88,11 @@
 <script src="js/lib/angular-datatables.buttons.flash.js"></script>
 <script src="js/lib/bootstrap-calendar.min.js"></script>
 <script src="js/lib/angular-bootstrap-calendar-tpls.js"></script>
-<script src="js/lib/ui-bootstrap-tpls-1.3.2.min.js"></script>
-<script src="js/app.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-1.3.2.js"></script>
+<!--<script src="js/app.js"></script>
 <script src="js/common.js"></script>
 <script src="js/constants/constants.js"></script>
+<script src="js/perfControllers.js"></script>
 <script src="js/controller/datatableController.js"></script>
 <script src="js/controller/profileController.js"></script>
 <script src="js/service/profileServices.js"></script>
@@ -111,5 +111,7 @@
 <script src="js/controller/importPtoController.js"></script>
 <script src="js/service/importPtoServices.js"></script>
 <script src="js/controller/leaveController.js"></script>
-<script src="js/service/leaveServices.js"></script>
+<script src="js/service/leaveServices.js"></script> -->
+<!-- <script src="dist/js/dev/lib.js"></script> -->
+<script src="dist/js/dev/perf.js"></script>
 </html>

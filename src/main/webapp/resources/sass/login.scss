@@ -1,3 +1,6 @@
+@import "vendors/font-awesome.min";
+@import "vendors/bootstrap.min";
+@import "vendors/bootstrap-responsive.min";
 /*--------------------------------------Variables--------------------------------------*/
 
 $ltr : left;
@@ -81,7 +84,7 @@ $white : #fff;
 /*-----------------------------------COMPOMENTS-------------------------------*/
 
 body.loginpage {
-    background-image: url('../images/home-big-ideas.jpg');
+    background-image: url('../../images/home-big-ideas.jpg');
     overflow: hidden;
 }
 
@@ -139,16 +142,16 @@ body.loginpage {
 
 
 .item:nth-child(1) {
-    background: url("../images/black.jpg") no-repeat center center fixed;
+    background: url("../../images/black.jpg") no-repeat center center fixed;
     @include background-size(cover);
 }
 
 .item:nth-child(2) {
-    background: url(http://www.perficient.com/-/media/images/homepage/home-big-ideas.ashx?h=669&w=1600&la=en&hash=20074F83C8647E3AB7F3C779F5680492643FAADE) no-repeat center center fixed;
+    background: url("../../images/home-big-ideas1.jpg") no-repeat center center fixed;
     @include background-size(cover);
 }
 .item:nth-child(3) {
-    background: url(http://www.perficient.com/-/media/images/homepage/hero-digital.ashx) no-repeat center center fixed;
+    background: url("../../images/hero-digital.jpg") no-repeat center center fixed;
     @include background-size(cover);
 }
 

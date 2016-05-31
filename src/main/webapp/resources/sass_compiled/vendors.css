@@ -246,7 +246,7 @@ ul.ColVis_collection {
   color: #333333;
 }
 
-/*
+/*!
  * angular-datatables - v0.5.4
  * https://github.com/l-lin/angular-datatables
  * License: MIT
@@ -332,7 +332,7 @@ table.dataTable tbody th, table.dataTable tbody td {
   border: 1px solid transparent;
 }
 
-/*
+/*!
  * Datetimepicker for Bootstrap 3
  * version : 4.17.37
  * https://github.com/Eonasdan/bootstrap-datetimepicker/
@@ -749,12 +749,12 @@ table.dataTable tbody th, table.dataTable tbody td {
   border: 0;
 }
 
-/*
+/*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-/* normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -942,10 +942,10 @@ td, th {
   padding: 0;
 }
 
-/* Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
   *, :after, :before {
-    color: black !important;
+    color: #000 !important;
     text-shadow: none !important;
     background: 0 0 !important;
     -webkit-box-shadow: none !important;
@@ -999,7 +999,7 @@ td, th {
   }
 
   .btn > .caret, .dropup > .btn > .caret {
-    border-top-color: black !important;
+    border-top-color: #000 !important;
   }
 
   .label {
@@ -1011,11 +1011,11 @@ td, th {
   }
 
   .table td, .table th {
-    background-color: white !important;
+    background-color: #fff !important;
   }
 
   .table-bordered td, .table-bordered th {
-    border: 1px solid #dddddd !important;
+    border: 1px solid #ddd !important;
   }
 }
 @font-face {
@@ -1023,7 +1023,6 @@ td, th {
   src: url(../fonts/glyphicons-halflings-regular.eot);
   src: url(../fonts/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"), url(../fonts/glyphicons-halflings-regular.woff2) format("woff2"), url(../fonts/glyphicons-halflings-regular.woff) format("woff"), url(../fonts/glyphicons-halflings-regular.ttf) format("truetype"), url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg");
 }
-
 .glyphicon {
   position: relative;
   top: 1px;
@@ -2098,7 +2097,7 @@ td, th {
 
 html {
   font-size: 10px;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -6233,32 +6232,26 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
   from {
     background-position: 40px 0;
   }
-
   to {
     background-position: 0 0;
   }
 }
-
 @-o-keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
   }
-
   to {
     background-position: 0 0;
   }
 }
-
 @keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
   }
-
   to {
     background-position: 0 0;
   }
 }
-
 .progress {
   height: 20px;
   margin-bottom: 20px;
@@ -7493,7 +7486,7 @@ button.close {
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   filter: alpha(opacity=50);
   opacity: .5;
 }
@@ -7578,8 +7571,8 @@ button.close {
   margin: 1px;
   text-indent: -999px;
   cursor: pointer;
-  background-color: black \9;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: #000 \9;
+  background-color: transparent;
   border: 1px solid #fff;
   border-radius: 10px;
 }
@@ -7688,7 +7681,6 @@ button.close {
 @-ms-viewport {
   width: device-width;
 }
-
 .visible-lg, .visible-md, .visible-sm, .visible-xs {
   display: none !important;
 }
@@ -7899,7 +7891,7 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.min.css.map */
-/*
+/*!
  *  Font Awesome 4.5.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
@@ -7910,7 +7902,6 @@ button.close {
   font-weight: normal;
   font-style: normal;
 }
-
 .fa {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -8022,25 +8013,21 @@ button.close {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
-
 @keyframes fa-spin {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
-
 .fa-rotate-90 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
   -webkit-transform: rotate(90deg);
@@ -10528,7 +10515,7 @@ button.close {
   content: "\f295";
 }
 
-/* jQuery UI - v1.11.4 - 2016-05-02
+/*! jQuery UI - v1.11.4 - 2016-05-02
 * http://jqueryui.com
 * Includes: core.css, draggable.css, resizable.css, selectable.css, sortable.css, accordion.css, autocomplete.css, button.css, datepicker.css, dialog.css, menu.css, progressbar.css, selectmenu.css, slider.css, spinner.css, tabs.css, tooltip.css, theme.css
 * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Arial%2Csans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=6px&bgColorHeader=cc0000&bgTextureHeader=highlight_soft&bgImgOpacityHeader=15&borderColorHeader=e3a1a1&fcHeader=ffffff&iconColorHeader=ffffff&bgColorContent=ffffff&bgTextureContent=flat&bgImgOpacityContent=75&borderColorContent=eeeeee&fcContent=333333&iconColorContent=cc0000&bgColorDefault=eeeeee&bgTextureDefault=highlight_hard&bgImgOpacityDefault=100&borderColorDefault=d8dcdf&fcDefault=004276&iconColorDefault=cc0000&bgColorHover=f6f6f6&bgTextureHover=highlight_hard&bgImgOpacityHover=100&borderColorHover=cdd5da&fcHover=111111&iconColorHover=cc0000&bgColorActive=ffffff&bgTextureActive=flat&bgImgOpacityActive=65&borderColorActive=eeeeee&fcActive=cc0000&iconColorActive=cc0000&bgColorHighlight=fbf8ee&bgTextureHighlight=glass&bgImgOpacityHighlight=55&borderColorHighlight=fcd3a1&fcHighlight=444444&iconColorHighlight=004276&bgColorError=f3d8d8&bgTextureError=diagonals_thick&bgImgOpacityError=75&borderColorError=cc0000&fcError=2e2e2e&iconColorError=cc0000&bgColorOverlay=a6a6a6&bgTextureOverlay=dots_small&bgImgOpacityOverlay=65&opacityOverlay=40&bgColorShadow=333333&bgTextureShadow=flat&bgImgOpacityShadow=0&opacityShadow=10&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px
@@ -11450,7 +11437,7 @@ body .ui-tooltip {
 
 .ui-widget-header {
   border: 1px solid #e3a1a1;
-  background: #cc0000 url("images/ui-bg_highlight-soft_15_cc0000_1x100.png") 50% 50% repeat-x;
+  background: #c00 url("images/ui-bg_highlight-soft_15_cc0000_1x100.png") 50% 50% repeat-x;
   color: #fff;
   font-weight: bold;
 }
@@ -11461,7 +11448,7 @@ body .ui-tooltip {
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
   border: 1px solid #d8dcdf;
-  background: #eeeeee url("images/ui-bg_highlight-hard_100_eeeeee_1x100.png") 50% 50% repeat-x;
+  background: #eee url("images/ui-bg_highlight-hard_100_eeeeee_1x100.png") 50% 50% repeat-x;
   font-weight: bold;
   color: #004276;
 }
@@ -15156,15 +15143,15 @@ a.dt-button.disabled {
   cursor: default;
   background-color: #f9f9f9;
   /* Fallback */
-  background-image: -webkit-linear-gradient(top, white 0%, #f9f9f9 100%);
+  background-image: -webkit-linear-gradient(top, #ffffff 0%, #f9f9f9 100%);
   /* Chrome 10+, Saf5.1+, iOS 5+ */
-  background-image: -moz-linear-gradient(top, white 0%, #f9f9f9 100%);
+  background-image: -moz-linear-gradient(top, #ffffff 0%, #f9f9f9 100%);
   /* FF3.6 */
-  background-image: -ms-linear-gradient(top, white 0%, #f9f9f9 100%);
+  background-image: -ms-linear-gradient(top, #ffffff 0%, #f9f9f9 100%);
   /* IE10 */
-  background-image: -o-linear-gradient(top, white 0%, #f9f9f9 100%);
+  background-image: -o-linear-gradient(top, #ffffff 0%, #f9f9f9 100%);
   /* Opera 11.10+ */
-  background-image: linear-gradient(top, white 0%, #f9f9f9 100%);
+  background-image: linear-gradient(top, #ffffff 0%, #f9f9f9 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#ffffff', EndColorStr='#f9f9f9');
 }
 
@@ -15403,7 +15390,7 @@ div.dt-button-background {
   }
 }
 /*# sourceMappingURL=buttons.dataTables.css.map */
-/*
+/*!
  * Bootstrap Responsive v2.3.2
  *
  * Copyright 2013 Twitter, Inc
@@ -15446,7 +15433,6 @@ div.dt-button-background {
 @-ms-viewport {
   width: device-width;
 }
-
 .hidden {
   display: none;
   visibility: hidden;
@@ -17236,3 +17222,5 @@ a.cal-event-week {
 .badge-important {
   background-color: #b94a48;
 }
+
+/*# sourceMappingURL=vendors.css.map */

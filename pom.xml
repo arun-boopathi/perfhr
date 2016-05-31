@@ -29,6 +29,9 @@
 
 		<!-- Test -->
 		<junit.version>4.11</junit.version>
+		
+		<!-- Grunt Environment property -->
+		<grunt.target>dev</grunt.target>
 
 	</properties>
 	
@@ -230,31 +233,51 @@
 	
 	<build>
 		<plugins>
-			<!-- Sass compiler -->
-            <plugin>
-                <groupId>org.jasig.maven</groupId>
-                <artifactId>sass-maven-plugin</artifactId>
-                <version>1.1.1</version>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>update-stylesheets</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <resources>
-                        <resource>
-                            <!-- Set source and destination dirs -->
-                            <source>
-                                <directory>${project.basedir}/src/main/webapp/resources/sass</directory>
-                            </source>
-                            <destination>${project.basedir}/src/main/webapp/resources/sass_compiled</destination>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
+			<!-- Grunt -->
+		    <plugin>
+		        <groupId>com.github.eirslett</groupId>
+		        <artifactId>frontend-maven-plugin</artifactId>
+		        <version>1.0</version>
+		        <executions>
+		            <execution>
+		                <id>install node and npm</id>
+		                <goals>
+		                    <goal>install-node-and-npm</goal>
+		                </goals>
+		                <configuration>
+		                    <nodeVersion>v0.10.36</nodeVersion>
+		                    <npmVersion>2.4.1</npmVersion>
+		                </configuration>
+		            </execution>
+		            <execution>
+		                <id>npm install</id>
+		                <goals>
+		                    <goal>npm</goal>
+		                </goals>
+		                <configuration>
+		                    <arguments>install</arguments>
+		                </configuration>
+		            </execution>
+		            <!-- <execution>
+		                <id>bower install</id>
+		                <goals>
+		                    <goal>bower</goal>
+		                </goals>
+		                <configuration>
+		                    <arguments>install</arguments>
+		                </configuration>
+		            </execution> -->
+		            <execution>
+		                <id>grunt build</id>
+		                <goals>
+		                    <goal>grunt</goal>
+		                </goals>
+		                <configuration>
+		                    <arguments>${grunt.target}</arguments>
+		                </configuration>
+		            </execution>
+		        </executions>
+		    </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

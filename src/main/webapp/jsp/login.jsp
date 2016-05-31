@@ -3,11 +3,8 @@
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Perficient</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="sass_compiled/vendors.css">
-<link rel="stylesheet" href="sass_compiled/login.css">
-<script src="js/lib/jquery.js"></script>
-<script src="js/lib/bootstrap.min.js"></script>
+<link rel="stylesheet" href="dist/css/dev/login.min.css">
+<script src="dist/js/dev/login.min.js"></script>
 </head>
 <body class="loginpage">
 	<section>
@@ -73,8 +70,5 @@
 		</div>
 	</div>
 </section>
-<script type="text/javascript">
-	$('.carousel').carousel();
-</script>
 </body>
 </html>

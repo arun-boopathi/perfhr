@@ -36,12 +36,6 @@
   font-size: 18px;
 }
 
-button.dt-button, div.dt-button, a.dt-button {
-  background: rgba(0, 0, 0, 0.18);
-  border-color: rgba(204, 204, 204, 0.19);
-  color: #FBF7F7;
-}
-
 .btn-update {
   background-color: #f0ad4e;
   border-color: #eea236;
@@ -108,8 +102,8 @@ button.dt-button, div.dt-button, a.dt-button {
 }
 
 table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting, table.dataTable thead .sorting_disabled {
-  background-color: #00cc66;
-  color: white;
+  background-color: #0c6;
+  color: #FFF;
   font-size: 13px;
 }
 table.dataTable thead th {
@@ -123,186 +117,6 @@ table.dataTable tbody td {
 }
 table.dataTable tbody td:last-child {
   text-align: center;
-}
-
-body {
-  background-image: url("../images/bg_theme1.jpg");
-  background-size: cover;
-}
-
-.ch-thumb {
-  background: rgba(0, 0, 0, 0.1) none repeat scroll 0 0;
-  box-shadow: 0 0 0 15px rgba(0, 0, 0, 0.1) inset;
-}
-
-.ch-info {
-  background: rgba(0, 0, 0, 0.2) none repeat scroll 0 0;
-}
-.ch-info h3 {
-  margin: 58px 0 8px;
-  font-size: 15px;
-  height: 44px;
-}
-
-.mm-menu.mm-theme-dark {
-  background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
-  color: #fff;
-}
-
-.mm-panel.mm-subopened {
-  transform: translate3d(-103%, 0px, 0px);
-}
-
-.panel-success.perfhr-panel > .panel-heading {
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 13px 18px;
-  position: relative;
-}
-
-.panel.perfhr-panel {
-  background-color: rgba(0, 0, 0, 0.37);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-.panel.perfhr-panel .section-title {
-  font-size: 17px;
-  padding: 0;
-  margin: 0;
-  width: auto;
-  display: inline-block;
-}
-.panel.perfhr-panel .controls {
-  height: 100%;
-  list-style: outside none none;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 9;
-}
-.panel.perfhr-panel .controls > li {
-  display: inline-block;
-  float: left;
-  height: 100%;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-}
-.panel.perfhr-panel .controls > li > button, .panel.perfhr-panel .controls > li > a {
-  float: left;
-  border: none;
-  border-left: 1px solid rgba(204, 204, 204, 0.42);
-  color: rgba(248, 244, 241, 0.81);
-  background: none;
-  box-shadow: none;
-  font-size: 16px;
-  height: 100%;
-  line-height: 51px;
-  min-width: 41px;
-  padding: 0 10px;
-  text-align: center;
-}
-.panel.perfhr-panel .controls > li > button:focus, .panel.perfhr-panel .controls > li > a:focus {
-  outline: none;
-}
-.panel.perfhr-panel .table > tbody > tr > td, .panel.perfhr-panel .table > tbody > tr > th, .panel.perfhr-panel .table > tfoot > tr > td,
-.panel.perfhr-panel .table > tfoot > tr > th, .panel.perfhr-panel .table > thead > tr > td, .panel.perfhr-panel .table > thead > tr > th {
-  color: #fff;
-  border-color: rgba(221, 221, 221, 0.18);
-  vertical-align: middle;
-}
-
-.dataTables_wrapper .dataTables_info {
-  display: none;
-}
-
-div.dt-buttons {
-  margin: 0 0 0 14px;
-}
-
-.dataTables_wrapper .dataTables_paginate {
-  float: right;
-  text-align: right;
-  padding-top: 0;
-  margin: 0 20px 8px 0;
-}
-
-table.dataTable, table.dataTable.no-footer {
-  border-top: 1px solid rgba(221, 221, 221, 0.28);
-}
-
-div.dataTables_length label, div.dataTables_filter label {
-  color: rgba(255, 255, 255, 0.48);
-}
-
-.dataTables_length select {
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(0, 0, 0, 0.37);
-  color: rgba(255, 255, 255, 0.75);
-  font-weight: normal;
-}
-
-.dataTables_filter input[type="search"] {
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(0, 0, 0, 0.37);
-  color: rgba(255, 255, 255, 0.75);
-  font-weight: normal;
-}
-
-.perfhr-widget {
-  clear: both;
-  overflow: hidden;
-  padding-bottom: 30px;
-  position: relative;
-  width: auto;
-}
-
-.perfhr-widget-header {
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  height: 60px;
-  line-height: 40px;
-  position: relative;
-}
-.perfhr-widget-header > h3 {
-  color: #fff;
-  display: inline-block;
-  font-size: 18px;
-  line-height: 18px;
-  margin: 20px 0 20px 20px;
-}
-
-.perfhr-widget-content {
-  background-color: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 20px 15px 15px;
-}
-.perfhr-widget-content .form-control {
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background-color: rgba(0, 0, 0, 0.35);
-  color: rgba(255, 255, 255, 0.68);
-}
-.perfhr-widget-content .form-control[disabled], .perfhr-widget-content .form-control[readonly], .perfhr-widget-content fieldset[disabled] .form-control {
-  background-color: rgba(238, 238, 238, 0.22);
-}
-.perfhr-widget-content .control-label {
-  color: #fff;
-  font-weight: normal;
-}
-.perfhr-widget-content .text-center img {
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  border-bottom: 1px solid #fff;
-}
-.perfhr-widget-content .img-circle {
-  border-radius: 50%;
-  height: 80px;
-  width: 80px;
-}
-
-.perfhr-widget-footer {
-  background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
 }
 
 .cal-slide-content {
@@ -617,6 +431,7 @@ h1 + .submenu {
   }
 
   #sidePanel {
+    background: #4bb5ef;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     opacity: 0.95;
     width: 100%;
@@ -833,7 +648,7 @@ h1 + .submenu {
   padding: 22px 0 0 0;
   height: 85px;
   font-family: 'Open Sans', Arial, sans-serif;
-  text-shadow: 0 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 1px #fff, 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 .ch-info p {
   color: #fff;
@@ -893,12 +708,42 @@ h1 + .submenu {
   transform: translateX(0px) rotate(0deg);
 }
 
-.form-horizontal .control-label.text-left {
-  text-align: left;
+.cal-slide-content {
+  padding: 20px;
+  color: #fff;
+  background-color: #555;
+  box-shadow: inset 0 0 15px 0 rgba(0, 0, 0, 0.5);
 }
 
-#leaveModal {
-  z-index: 1051;
+.cal-day-tick {
+  border: 1px solid #e1e1e1;
+  border-top: 0 solid;
+  border-radius: 0 0 5px 5px;
+  background-color: #ededed;
+  text-align: center;
+}
+
+.cal-day-tick {
+  right: 50%;
+  bottom: -21px;
+  padding: 0 5px;
+  z-index: 5;
+  text-align: center;
+  width: 26px;
+  margin-right: -17px;
+}
+
+#cal-week-box, .cal-day-tick {
+  position: absolute;
+  cursor: pointer;
+}
+
+.cal-day-tick .fa {
+  display: none;
+}
+
+.form-horizontal .control-label.text-left {
+  text-align: left;
 }
 
 body {
@@ -996,6 +841,23 @@ div.dt-buttons {
   margin: 0 0 0 14px;
 }
 
+button.dt-button, div.dt-button, a.dt-button {
+  background: transparent;
+  border-color: rgba(204, 204, 204, 0.19);
+  color: #FBF7F7;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+table.dataTable tbody tr.selected {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+button.dt-button:hover:not(.disabled), div.dt-button:hover:not(.disabled), a.dt-button:hover:not(.disabled) {
+  background-color: #666;
+  background-image: none;
+}
+
 .dataTables_wrapper .dataTables_paginate {
   float: right;
   text-align: right;
@@ -1080,3 +942,22 @@ div.dataTables_length label, div.dataTables_filter label {
 .perfhr-widget-footer {
   background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
 }
+
+.rightsided-elemet {
+  float: right;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rightsided-elemet button {
+  background: #56ba83 none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 2px;
+  margin: -10px 0 0;
+  padding: 6px 20px;
+}
+.rightsided-elemet button i {
+  margin: 0 7px 0 0;
+}
+
+/*# sourceMappingURL=main.css.map */
