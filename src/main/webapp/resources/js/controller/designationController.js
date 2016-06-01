@@ -61,8 +61,7 @@ function DesignationController($scope, $compile, DTOptionsBuilder, DTColumnBuild
     		"service" : designationAPIservice,
     		'loadListUrl' : perfUrl['loadDesignations'],
     		'editFormId' : 'designationForm',
-    		'deleteFormId' : 'deleteDesignation',
-    		'sortCol': '0'
+    		'deleteFormId' : 'deleteDesignation'
     };
     perfDatatable.loadTable.init(paramObj);
 }

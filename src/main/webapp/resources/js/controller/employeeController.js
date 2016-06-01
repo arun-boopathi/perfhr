@@ -1,5 +1,6 @@
 var vm, rowIndex, data, scope;
 /* Employee controller */
+
 mainApp.controller('employeeController', function($scope, employeeAPIservice, designationAPIservice) {
 	scope = $scope;
 	
@@ -17,6 +18,11 @@ mainApp.controller('employeeController', function($scope, employeeAPIservice, de
 		$scope.data = '';
 		$('#employeeForm').modal();
 	};
+	
+	$('#employeeForm').on('hidden.bs.modal', function (e) {
+		console.log('scope ', $scope);
+		$scope.$parent.data = '';
+	});
 	
 	$scope.submit = function() {
 		console.log('data ', $scope.data);
@@ -61,7 +67,7 @@ function EmployeeTableCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, 
     		"DTColumnBuilder" : DTColumnBuilder,
     		"service" : employeeAPIservice,
     		'editFormId' : 'employeeForm',
-    		'sortCol': '1',
+    		'sortCol': 1,
     		'sEmptyTable' : 'Loading..'
     };
     perfDatatable.loadTable.init(paramObj);

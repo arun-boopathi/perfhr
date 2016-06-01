@@ -4,38 +4,37 @@
 	perfDatatable.loadTable = {		
 		init: function(params){
 			params.vm.message = '';
-			params.vm.deleteRow = deleteRow;
 			params.vm.dtInstance = {};
 			params.vm.datalist = {};
 			var url = '';
 			if(params.loadListUrl)
 				url = params.loadListUrl;
 			params.vm.dtOptions = params.DtOptionsBuilder.fromSource(url)
-		        .withDisplayLength(7)
-		        .withDOM('pitrfl')
-		        .withBootstrap()
-		        .withOption('responsive', {
-		            details: true
-		        })
-		        .withOption('createdRow', createdRow)
-		        .withOption('aaSorting', [params.sortCol, 'asc'])
-		        .withOption('rowCallback', rowCallback)
-		        .withPaginationType('full_numbers')
-		        .withOption("oLanguage", {"sEmptyTable": params.vm.sEmptyTable != null ? params.vm.sEmptyTable: "No Records Found."})
-		        .withButtons([
-		            { 
-		            	extend : 'excel',
-		            	exportOptions: {
-		            		columns: ':not(:last-child)'
-		                }
-		            },
-		            {
-		            	extend : 'print',
-		            	exportOptions: {
-		            		columns: ':not(:last-child)'
-		                }
-		            }
-            	]);
+	        .withDisplayLength(7)
+	        .withDOM('pitrfl')
+	        .withBootstrap()
+	        .withOption('responsive', {
+	            details: true
+	        })
+	        .withOption('createdRow', createdRow)
+	        .withOption('aaSorting', [params.sortCol != undefined? params.sortCol: 0 , 'asc'])
+	        .withOption('rowCallback', rowCallback)
+	        .withPaginationType('full_numbers')
+	        .withOption("oLanguage", {"sEmptyTable": params.vm.sEmptyTable != null ? params.vm.sEmptyTable: "No Records Found."})
+	        .withButtons([
+	            { 
+	            	extend : 'excel',
+	            	exportOptions: {
+	            		columns: ':not(:last-child)'
+	                }
+	            },
+	            {
+	            	extend : 'print',
+	            	exportOptions: {
+	            		columns: ':not(:last-child)'
+	                }
+	            }
+        	]);
 			params.vm.dtColumns.push(params.DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml));
 		    		    
 		    function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -44,16 +43,14 @@
 		        	vm.dtInstance.DataTable.$('tr.selected').removeClass('selected');
 		        	$(nRow).addClass('selected');
 		        	rowIndex = aData.pk-1;
-		        	params.service.loadById(aData.pk).success(function (response) {
-			        	scope.data = response;
-			        });
+		        	scope.data = aData;
+		        	scope.$apply();
+		        	//$('#'+params.editFormId).modal();
+		        	/*params.service.loadById(aData.pk).success(function (response) {
+			        	scope.data = aData;
+			        });*/
 		        });
 		        return nRow;
-		    }
-		  	    
-		    function deleteRow(data) {
-		        vm.message = 'You are trying to remove Employee:  ' + data.lastName+', '+data.firstName ;
-		        params.vm.dtInstance.reloadData();
 		    }
 		    
 		    function createdRow(row, data, dataIndex) {

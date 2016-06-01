@@ -99,8 +99,6 @@ background-size:cover;
 	 }
  
  }
- 
- 
 
 .dataTables_wrapper .dataTables_info{display:none} 
 
@@ -112,6 +110,10 @@ button.dt-button, div.dt-button, a.dt-button{
     color: #FBF7F7;
     border-radius: 5px;
     font-size: 14px;
+}
+
+table.dataTable thead tr th{
+	background-color: #A50023;
 }
 
 table.dataTable tbody tr.selected {

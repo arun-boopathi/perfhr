@@ -849,6 +849,10 @@ button.dt-button, div.dt-button, a.dt-button {
   font-size: 14px;
 }
 
+table.dataTable thead tr th {
+  background-color: #A50023;
+}
+
 table.dataTable tbody tr.selected {
   background-color: rgba(0, 0, 0, 0.3);
 }

@@ -1,25 +1,10 @@
 <div class="panel panel-success  perfhr-panel">
 	<div class="panel-heading">
 		<h1 class="section-title">Employees</h1>
-		<ul class="controls">
-	        <li><button data-toggle="modal" ng-click="addEmployee()" ><i class="fa fa-plus"></i></button></li>
-	        <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle settings" tabindex="0" role="button" aria-expanded="true">
-                    <i class="fa fa-cog"></i>
-                </a>
-                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
-                    <li>
-                        <a class="tile-refresh" tabindex="0" role="button">
-                            <i class="fa fa-refresh"></i> Excel
-                        </a>
-                    </li>
-                    <li>
-                        <a class="tile-fullscreen" tabindex="0" role="button">
-                            <i class="fa fa-expand"></i> Print
-                        </a>
-                    </li>
-                </ul>
-            </li>
+		<ul class="rightsided-elemet">
+        	<li>
+        		<button data-toggle="modal" ng-click="addEmployee()" ><i class="fa fa-plus"></i>Add</button>
+        	</li>
         </ul>
 	</div>
 	<div ng-controller="EmployeeTableCtrl as employeeTable">
@@ -35,9 +20,16 @@
                 <h4 class="modal-title" ng-show="!data.pk" id="myModalLabel">Add Employee</h4>
                 <h4 class="modal-title" ng-show="data.pk" id="myModalLabel">Update Employee</h4>
             </div>
-            <form role="form" ng-submit="submit()" class="form-horizontal">
-            	<div ng-include="'html/employee.html'"></div>
-            </form>
+            <div class="modal-body">
+	            <form role="form" ng-submit="submit()" class="form-horizontal">
+	            	<div ng-include="'html/employee.html'"></div>
+	            </form>
+            </div>
+            <div class="modal-footer">
+			   <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">Close</button>
+			   <button type="submit" ng-show="!data.pk" class="btn btn-primary">Save</button>
+			   <button type="submit" ng-show="data.pk" class="btn btn-primary">Update</button>
+			</div>
         </div>
     </div>
 </div>

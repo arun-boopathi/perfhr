@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Perficient</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="dist/css/dev/login.min.css">
-<script src="dist/js/dev/login.min.js"></script>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Perficient</title>
+	<base href="${pageContext.request.contextPath}/">
+	<link rel="stylesheet" href="dist/css/dev/login.min.css">
+	<script src="dist/js/dev/login.min.js"></script>
 </head>
 <body class="loginpage">
 	<section>
@@ -18,7 +20,7 @@
 	</div>
 	<div class="opeiningscreen">
 		<div class="logodiv">
-			<a class="top-p" href="#"><img class="zoomin-p" src="images/p.png"></a>
+			<a class="top-p" href="#"><img class="zoomin-p" src="dist/images/p.png"></a>
 			<ul class="brandname">
 				<li>P</li>
 				<li>E</li>
@@ -32,9 +34,9 @@
 				<li>T</li>
 			</ul>
 			<ul class="brandbottom">
-				<li><img src="images/l1.png"></li>
-				<li><img src="images/l2.png"></li>
-				<li><img src="images/l3.png"></li>
+				<li><img src="dist/images/l1.png"></li>
+				<li><img src="dist/images/l2.png"></li>
+				<li><img src="dist/images/l3.png"></li>
 			</ul>
 		
 			<div class="registerbody opacityanim">

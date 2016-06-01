@@ -89,10 +89,9 @@
 <script src="js/lib/bootstrap-calendar.min.js"></script>
 <script src="js/lib/angular-bootstrap-calendar-tpls.js"></script>
 <script src="js/lib/ui-bootstrap-tpls-1.3.2.js"></script>
-<!--<script src="js/app/app.js"></script>
+<script src="js/app/app.js"></script>
 <script src="js/app/common.js"></script>
 <script src="js/constants/constants.js"></script>
-<script src="js/perfControllers.js"></script>
 <script src="js/controller/datatableController.js"></script>
 <script src="js/controller/profileController.js"></script>
 <script src="js/service/profileServices.js"></script>
@@ -111,7 +110,7 @@
 <script src="js/controller/importPtoController.js"></script>
 <script src="js/service/importPtoServices.js"></script>
 <script src="js/controller/leaveController.js"></script>
-<script src="js/service/leaveServices.js"></script> -->
+<script src="js/service/leaveServices.js"></script>
 <!-- <script src="dist/js/dev/lib.js"></script> -->
-<script src="dist/js/dev/perf.js"></script>
+<!-- <script src="dist/js/dev/perf.js"></script> -->
 </html>
