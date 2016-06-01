@@ -27,6 +27,9 @@ mainApp.config(function($routeProvider) {
 	    .when('/candidate', {
 	        templateUrl: 'html/candidate.html'
 	    })
+	    .when('/interview', {
+	        templateUrl: 'html/interview.html'
+	    })
 	    .when('/designations', {
 	        templateUrl: 'html/designations.html',
 	        controller: 'designationController'

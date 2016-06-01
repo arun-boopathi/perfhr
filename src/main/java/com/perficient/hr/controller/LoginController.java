@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Produces;
 
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,12 @@ public class LoginController {
 			@ModelAttribute("loginBean")LoginForm loginForm) {
 		ModelAndView model = null;
 		try {
+			HttpSession session = request.getSession();
+			logger.info("Random sess :"+session.getAttribute("ran"));
 			logger.info("Authenticating User :"+loginForm.getUsername());
 			User userExists = loginDao.checkLogin(loginForm.getUsername(),loginForm.getPassword());
 			if(userExists != null){
-				HttpSession session = request.getSession();
+				
 				session.setAttribute("userId", userExists.getEmployeePk());
 				logger.info("Authentication successful. Redirecting to home page.");
 				model = new ModelAndView("redirect:/home");

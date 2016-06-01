@@ -1,7 +1,6 @@
 /*Dashboard Controller*/
 mainApp.controller('dashboardController', function($scope, $interval, dashboardAPIservice, profileAPIservice) {
 	profileAPIservice.getProfileDetails().success(function (response) {
-  	  console.log('dashboard response ', response);
   	  user = response;
   	  $('#welcomeMsg').html('Welcome '+response.lastName+', '+response.firstName);
         $scope.profile = response; 

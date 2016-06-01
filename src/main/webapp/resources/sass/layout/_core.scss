@@ -550,7 +550,9 @@ h1 {
     text-align: center;
     width: 26px;
     margin-right: -17px;
+    display: none;
 }
+
 #cal-week-box, .cal-day-tick {
     position: absolute;
     cursor: pointer;
@@ -561,5 +563,21 @@ h1 {
 }
 .form-horizontal .control-label.text-left{text-align:left}
 
+#leaveModal{
+	z-index: 1051;
+}
 
+.events-list {
+    right: 0;
+    border-radius: 3px;
+    padding: 0 4px;
+}
 
+.event {
+    padding: 0px 7px;
+    font-size: 0.85em;
+    text-transform: capitalize;
+    background: #3b91ad;
+    box-shadow: none;
+    border-radius: 2px;
+}

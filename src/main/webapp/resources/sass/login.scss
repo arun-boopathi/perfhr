@@ -84,7 +84,7 @@ $white : #fff;
 /*-----------------------------------COMPOMENTS-------------------------------*/
 
 body.loginpage {
-    background-image: url('../../images/home-big-ideas.jpg');
+    background-image: url('../images/home-big-ideas.jpg');
     overflow: hidden;
 }
 
@@ -142,16 +142,16 @@ body.loginpage {
 
 
 .item:nth-child(1) {
-    background: url("../../images/black.jpg") no-repeat center center fixed;
+    background: url("../images/black.jpg") no-repeat center center fixed;
     @include background-size(cover);
 }
 
 .item:nth-child(2) {
-    background: url("../../images/home-big-ideas1.jpg") no-repeat center center fixed;
+    background: url("../images/home-big-ideas1.jpg") no-repeat center center fixed;
     @include background-size(cover);
 }
 .item:nth-child(3) {
-    background: url("../../images/hero-digital.jpg") no-repeat center center fixed;
+    background: url("../images/hero-digital.jpg") no-repeat center center fixed;
     @include background-size(cover);
 }
 

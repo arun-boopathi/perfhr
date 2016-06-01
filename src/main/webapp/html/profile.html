@@ -1,19 +1,24 @@
-<div class="panel panel-success perfhr-panel">
-	<div class="panel-heading">
-		<h1 class="section-title">Profile</h1>
+<div class="perfhr-widget">
+	<div class="perfhr-widget-header">
+		<h3 class="section-title">Profile</h3>
 	</div>
-	<!-- left column -->
-    <div class="col-md-3">
-      <div class="text-center">
-        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-        <h6>Upload a different photo...</h6>
-        <input type="file" class="form-control">
-      </div>
+	<div class="perfhr-widget-content">
+		<!-- left column -->
+	    <div class="col-md-3">
+	      <div class="text-center">
+	        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+	        <h6>Upload a different photo...</h6>
+	        <input type="file" class="form-control">
+	      </div>
+	    </div>
+	    <!-- edit form column -->
+	    <div class="col-md-9">
+	      <form role="form" ng-submit="submit()"  ng-init="form={}; data={}" class="form-horizontal">
+	      	<div onload="finishLoading()" data-ng-include src="'html/employee.html'"></div>
+	      </form>        
+	    </div>
     </div>
-    <!-- edit form column -->
-    <div class="col-md-9">
-      <form role="form" ng-submit="submit()"  ng-init="form={}; data={}" class="form-horizontal">
-      	<div onload="finishLoading()" data-ng-include src="'html/employee.html'"></div>
-      </form>        
+    <div class="perfhr-widget-footer">
+	    <button type="submit" ng-show="data.pk" class="btn btn-update">Update</button>
     </div>
 </div>

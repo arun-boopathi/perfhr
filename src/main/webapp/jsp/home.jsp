@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Perficient HR</title>
 <!-- Vendors CSS -->
-<link rel="stylesheet" href="sass_compiled/vendors.css">
+<link rel="stylesheet" href="css/vendors.css">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="sass_compiled/main.css">
+<link rel="stylesheet" href="css/perf.css">
 
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
@@ -40,6 +40,12 @@
             		<li><a href="#/candidate">Candidate</a></li>
             	</ul>
             </li>
+            <li>
+            	<a href="#">Interview</a>
+            	<ul>
+            		<li><a href="#/interview">L1</a></li>
+            	</ul>
+             </li>
             <li><a href="#/pto">PTO</a></li>
             <li><a href="#/wfh">WFH</a></li>
             <li><a href="#/notifications">Notifications</a></li>

@@ -5,10 +5,30 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Perficient</title>
 	<base href="${pageContext.request.contextPath}/">
-	<link rel="stylesheet" href="dist/css/dev/login.min.css">
-	<script src="dist/js/dev/login.min.js"></script>
+	<link rel="stylesheet" href="css/login.min.css">
+	<!-- <script src="dist/js/dev/login.min.js"></script> -->
+	<script src="js/lib/jquery.js"></script>
+	<script src="js/lib/bootstrap.js"></script>
+	<script src="js/hash/md5.js"></script>
+	<script src="js/hash/sha512.js"></script>
+	<script src="js/login/login.js"></script>
 </head>
 <body class="loginpage">
+<%
+ // Characters allowed for the salt string
+ String SALTCHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+ StringBuffer salt = new StringBuffer();
+ java.util.Random rnd = new java.util.Random();
+ // build a random 9 chars salt 
+ while (salt.length() < 9) {
+   int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+   salt.append(SALTCHARS.substring(index, index+1));
+ }
+ String saltStr=salt.toString();
+ // Salt String is stored in session so that  we can retrieve in the serverside which is used to add with encrypted(MD5) password retrieved from the database
+ session.setAttribute("ran",saltStr);  
+%>
+<html:hidden property="ran" value="<%=saltStr%>"/>
 	<section>
 	<div class="carousel slide carousel-fade" data-ride="carousel">
 	<!-- Wrapper for slides -->
@@ -20,7 +40,7 @@
 	</div>
 	<div class="opeiningscreen">
 		<div class="logodiv">
-			<a class="top-p" href="#"><img class="zoomin-p" src="dist/images/p.png"></a>
+			<a class="top-p" href="#"><img class="zoomin-p" src="images/p.png"></a>
 			<ul class="brandname">
 				<li>P</li>
 				<li>E</li>
@@ -34,14 +54,13 @@
 				<li>T</li>
 			</ul>
 			<ul class="brandbottom">
-				<li><img src="dist/images/l1.png"></li>
-				<li><img src="dist/images/l2.png"></li>
-				<li><img src="dist/images/l3.png"></li>
+				<li><img src="images/l1.png"></li>
+				<li><img src="images/l2.png"></li>
+				<li><img src="images/l3.png"></li>
 			</ul>
-		
 			<div class="registerbody opacityanim">
 				<div class="registerbody-left  col-xs-12">
-					<form name="loginForm" method="post" action="login" modelAttribute="loginBean">
+					<form name="loginForm" onsubmit="return submitLogin('<%=saltStr%>')"  method="post" action="login" modelAttribute="loginBean">
 						<ul>
 							<li>
 								<div class="form-group">

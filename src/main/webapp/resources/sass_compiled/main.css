@@ -1,35 +1,27 @@
 /*-----------------BUTTON COMPONENT---------------------*/
-/*--
-.btn-danger{background-color: rgba(217, 83, 79, 0.63);}
-.btn-warning { background-color: rgba(240, 173, 78, 0.72);}
-.btn-primary {background-color: rgba(51, 122, 183, 0.67);}
-
-
-
-.btn-success {
-    background-color: rgba(92, 184, 92, 0.55);
-    border-color: #4cae4c;
-    color: #ffffff;
-}
-
-.btn-info {
-    background-color: rgba(91, 192, 222, 0.55);
-    border-color: #46b8da;
-    color: #ffffff;
-}--*/
 .btn-default {
   background: rgba(222, 222, 222, 0.55);
   border-color: #cccccc;
   color: #333333;
 }
 
-.btn-save, .btn-primary {
+.btn-save {
   background: #55C188;
+  border: 2px solid #55C188;
+  color: #fff;
+}
+.btn-save:hover, .btn-save:active, .btn-save:focus {
+  background: rgba(85, 193, 136, 0.72);
   color: #fff;
 }
 
 .btn-close {
-  background: #fff;
+  color: #000;
+  background-color: #eee;
+  border: 2px solid #637586;
+}
+.btn-close:hover, .btn-close:active, .btn-close:focus {
+  background: #eea;
 }
 
 .btn .fa {
@@ -38,67 +30,22 @@
 
 .btn-update {
   background-color: #f0ad4e;
-  border-color: #eea236;
+  border: 2px solid #eea236;
+  color: #fff;
+}
+.btn-update:hover, .btn-update:focus, .btn-update:active {
+  background-color: rgba(240, 173, 78, 0.68);
   color: #fff;
 }
 
-/*-----------------TABLE COMPONENT---------------------*/
-.perfhr-table.table {
-  border: none;
-}
-.perfhr-table.table thead .sorting_asc, .perfhr-table.table thead .sorting_desc, .perfhr-table.table thead .sorting, .perfhr-table.table thead .sorting_disabled {
-  background: none;
-}
-.perfhr-table.table tbody tr {
-  background: none;
-}
-
-/*-----------------PAGNATION COMPONENT---------------------*/
-.pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover,
-.pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover,
-.pagination > li > span:focus,
-.pagination > li > span:hover, .pagination > li > a, .pagination > li > span {
-  color: rgba(255, 255, 255, 0.96);
-  background-color: inherit;
-  border-color: rgba(221, 221, 221, 0.87);
-}
-
-.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover, .pagination > li > a:focus, .pagination > li > a:hover {
-  z-index: 3;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.24);
-  border-color: rgba(255, 255, 255, 0.84);
-}
-
-/*-----------------------------MODAL-----------------------------*/
-.modal {
-  background: rgba(0, 0, 0, 0.47);
-}
-.modal .form-horizontal .control-label {
-  font-weight: normal;
+.btn-delete {
+  background: #F5474D;
+  border: 2px solid #F5474D;
   color: #fff;
 }
-.modal .form-control {
-  background: none;
+.btn-delete:hover, .btn-delete:focus, .btn-delete:active {
+  background: rgba(245, 71, 77, 0.61);
   color: #fff;
-}
-
-.modal-content {
-  background: #2C475E;
-}
-
-.modal-header {
-  padding: 15px;
-  border-bottom: 1px solid rgba(15, 51, 32, 0.38);
-  background: #55C188;
-  color: #fff;
-}
-
-.modal-footer {
-  padding: 15px;
-  text-align: right;
-  background: rgba(0, 0, 0, 0.14);
-  border-top: none;
 }
 
 table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting, table.dataTable thead .sorting_disabled {
@@ -731,6 +678,7 @@ h1 + .submenu {
   text-align: center;
   width: 26px;
   margin-right: -17px;
+  display: none;
 }
 
 #cal-week-box, .cal-day-tick {
@@ -744,6 +692,10 @@ h1 + .submenu {
 
 .form-horizontal .control-label.text-left {
   text-align: left;
+}
+
+#leaveModal {
+  z-index: 1051;
 }
 
 body {
@@ -837,20 +789,12 @@ body {
   display: none;
 }
 
-div.dt-buttons {
-  margin: 0 0 0 14px;
-}
-
 button.dt-button, div.dt-button, a.dt-button {
   background: transparent;
   border-color: rgba(204, 204, 204, 0.19);
   color: #FBF7F7;
   border-radius: 5px;
   font-size: 14px;
-}
-
-table.dataTable thead tr th {
-  background-color: #A50023;
 }
 
 table.dataTable tbody tr.selected {
@@ -866,11 +810,11 @@ button.dt-button:hover:not(.disabled), div.dt-button:hover:not(.disabled), a.dt-
   float: right;
   text-align: right;
   padding-top: 0;
-  margin: 0 20px 8px 0;
+  margin: 0 0px 8px 0;
 }
 
 table.dataTable, table.dataTable.no-footer {
-  border-top: 1px solid rgba(221, 221, 221, 0.28);
+  border: 1px solid rgba(221, 221, 221, 0.28);
 }
 
 div.dataTables_length label, div.dataTables_filter label {
@@ -896,7 +840,8 @@ div.dataTables_length label, div.dataTables_filter label {
   overflow: hidden;
   padding-bottom: 30px;
   position: relative;
-  width: auto;
+  width: 100%;
+  float: left;
 }
 
 .perfhr-widget-header {
@@ -905,6 +850,8 @@ div.dataTables_length label, div.dataTables_filter label {
   height: 60px;
   line-height: 40px;
   position: relative;
+  float: left;
+  width: 100%;
 }
 .perfhr-widget-header > h3 {
   color: #fff;
@@ -918,6 +865,8 @@ div.dataTables_length label, div.dataTables_filter label {
   background-color: rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 20px 15px 15px;
+  float: left;
+  width: 100%;
 }
 .perfhr-widget-content .form-control {
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -945,6 +894,10 @@ div.dataTables_length label, div.dataTables_filter label {
 
 .perfhr-widget-footer {
   background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
+  float: left;
+  width: 100%;
+  text-align: right;
+  padding: 15px 30px;
 }
 
 .rightsided-elemet {
@@ -962,6 +915,89 @@ div.dataTables_length label, div.dataTables_filter label {
 }
 .rightsided-elemet button i {
   margin: 0 7px 0 0;
+}
+
+/*-----------------------------MODAL-----------------------------*/
+.modal {
+  background: rgba(0, 0, 0, 0.47);
+}
+.modal .form-horizontal .control-label {
+  font-weight: normal;
+  color: #fff;
+}
+.modal .form-control {
+  background: none;
+  color: #fff;
+}
+
+.modal-content {
+  background: #2C475E;
+}
+
+.modal-header {
+  padding: 15px;
+  border-bottom: 1px solid rgba(15, 51, 32, 0.38);
+  background: #55C188;
+  color: #fff;
+}
+
+.modal-footer {
+  padding: 15px;
+  text-align: right;
+  background: rgba(0, 0, 0, 0.14);
+  border-top: none;
+}
+
+.modal select option {
+  background: #2C475E none repeat scroll 0 0;
+  color: #fff;
+}
+
+.modal-header .close {
+  color: #fff;
+  margin-top: 3px;
+  opacity: 1;
+}
+
+/*-----------------TABLE COMPONENT---------------------*/
+.perfhr-table.table {
+  border: none;
+}
+.perfhr-table.table thead .sorting_asc, .perfhr-table.table thead .sorting_desc, .perfhr-table.table thead .sorting, .perfhr-table.table thead .sorting_disabled {
+  box-shadow: 0 0px 0px 1px #0196E7;
+  background-color: rgba(61, 138, 247, 0.24);
+}
+.perfhr-table.table tbody tr {
+  background: none;
+}
+
+.dataTables_wrapper {
+  padding: 1rem 14px;
+}
+
+.dataTables_length {
+  margin: 0.2rem 0 0.8rem 0rem;
+}
+
+.dataTables_filter {
+  margin-right: 0;
+}
+
+/*-----------------PAGNATION COMPONENT---------------------*/
+.pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover,
+.pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover, .pagination > li > a, .pagination > li > span {
+  color: rgba(255, 255, 255, 0.96);
+  background-color: inherit;
+  border-color: rgba(221, 221, 221, 0.87);
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover, .pagination > li > a:focus, .pagination > li > a:hover {
+  z-index: 3;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.24);
+  border-color: rgba(255, 255, 255, 0.84);
 }
 
 /*# sourceMappingURL=main.css.map */

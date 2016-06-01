@@ -37,16 +37,18 @@ module.exports = function(grunt) {
         },
         dev: {
         	files: {
-        		'src/main/webapp/resources/dist/css/dev/login.min.css': ['src/main/webapp/resources/sass_compiled/login.css']
+        		'src/main/webapp/resources/css/login.min.css': ['src/main/webapp/resources/sass_compiled/login.css']
         	}
         }
     },
     concat: {
     	dev: {
         	files: {
-        		'src/main/webapp/resources/dist/js/dev/login.js': [grunt_uriSrc+'/js/lib/jquery.js', grunt_uriSrc+'js/lib/bootstrap.js', grunt_uriSrc+'js/login/login.js'],
-        		'src/main/webapp/resources/dist/js/dev/perf.js' : [grunt_uriSrc+'/js/**/*.js', '!'+grunt_uriSrc+'js/lib/*.js'],
-        		'src/main/webapp/resources/dist/js/dev/lib.js' : [grunt_uriSrc+'js/lib/*.js']
+        		'src/main/webapp/resources/js/dev/login.js': [grunt_uriSrc+'/js/lib/jquery.js', grunt_uriSrc+'js/lib/bootstrap.js', grunt_uriSrc+'js/login/login.js'],
+        		'src/main/webapp/resources/js/dev/perf.js' : [grunt_uriSrc+'/js/**/*.js', '!'+grunt_uriSrc+'js/lib/*.js'],
+        		'src/main/webapp/resources/js/dev/lib.js' : [grunt_uriSrc+'js/lib/*.js'],
+        		'src/main/webapp/resources/css/vendors.css' : grunt_uriSrc+'sass_compiled/vendors.css',
+        		'src/main/webapp/resources/css/perf.css' : grunt_uriSrc+'sass_compiled/main.css'
         	}
         }
     },
@@ -56,11 +58,10 @@ module.exports = function(grunt) {
         }, 
         dev: { 
         	files: { 
-        		'src/main/webapp/resources/dist/js/dev/login.min.js': [grunt_uriSrc+'/js/lib/jquery.js', grunt_uriSrc+'js/lib/bootstrap.js', grunt_uriSrc+'js/login/login.js']
+        		'src/main/webapp/resources/js/dev/login.min.js': [grunt_uriSrc+'/js/lib/jquery.js', grunt_uriSrc+'js/lib/bootstrap.js', grunt_uriSrc+'js/login/login.js']
         	}
         }, 
         production: {
-        	files: { 'dist/js/magic.min.js': 'src/**/*.js' } 
         }
      }
   });

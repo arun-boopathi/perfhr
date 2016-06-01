@@ -1,24 +1,4 @@
 /*-----------------BUTTON COMPONENT---------------------*/
-/*--
-.btn-danger{background-color: rgba(217, 83, 79, 0.63);}
-.btn-warning { background-color: rgba(240, 173, 78, 0.72);}
-.btn-primary {background-color: rgba(51, 122, 183, 0.67);}
-
-
-
-.btn-success {
-    background-color: rgba(92, 184, 92, 0.55);
-    border-color: #4cae4c;
-    color: #ffffff;
-}
-
-.btn-info {
-    background-color: rgba(91, 192, 222, 0.55);
-    border-color: #46b8da;
-    color: #ffffff;
-}--*/
-
-
 .btn-default {
     background: rgba(222, 222, 222, 0.55);
     border-color: #cccccc;
@@ -27,95 +7,52 @@
 
 .btn-save {
     background: #55C188;
+    border: 2px solid #55C188;
     color: #fff;
+    
+    &:hover, &:active, &:focus{ 
+    background: rgba(85, 193, 136, 0.72);
+    color: #fff;
+    }
 }
 
 .btn-close {
-    background: #fff;
+    color: #000;
+    background-color: #eee;
+    border: 2px solid rgb(99, 117, 134);
+    &:hover, &:active, &:focus{ 
+       background: #eea;
+    }
 }
 
 .btn{
 	.fa {font-size: 18px;}
 }
 
-.btn-primary{@extend .btn-save}
-
-
 .btn-update {
     background-color: #f0ad4e;
-    border-color: #eea236;
+    border:2px solid #eea236;
     color: #fff;
-}
-
-/*-----------------TABLE COMPONENT---------------------*/
-
-
-
-
-.perfhr-table{
-
-&.table{
-  border:none;
-	thead {
-	    .sorting_asc,  .sorting_desc, .sorting, .sorting_disabled{background:none}
-		}
-	tbody{
-	   tr{background:none}
-	}
- }
-	}
-
-/*-----------------PAGNATION COMPONENT---------------------*/
-	
-	.pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover,
-	 .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover,
-	  .pagination > li > span:focus,
-	  .pagination > li > span:hover, .pagination > li > a, .pagination > li > span {
-    color: rgba(255, 255, 255, 0.96);
-    background-color: inherit;
-    border-color: rgba(221, 221, 221, 0.87);
-}
-
-
-.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover, .pagination > li > a:focus, .pagination > li > a:hover, {
-    z-index: 3;
+    
+    &:hover, &:focus, &:active{
+    background-color: rgba(240, 173, 78, 0.68);
     color: #fff;
-
-    background-color: rgba(0, 0, 0, 0.24);
-    border-color: rgba(255, 255, 255, 0.84);
+    }
 }
 
-
-
-
-/*-----------------------------MODAL-----------------------------*/
-
-
-.modal{   
-   background: rgba(0, 0, 0, 0.47);
-   
-   .form-horizontal .control-label{font-weight:normal; color:#fff;}
-   .form-control{background:none; color:#fff;}
-   }
-
-
-.modal-content {
-    background: #2C475E;
-}
-
-
-  .modal-header {
-    padding: 15px;
-     border-bottom: 1px solid rgba(15, 51, 32, 0.38);
-    background: #55C188;
+.btn-delete {
+   background: #F5474D;
+    border:2px solid #F5474D;
     color: #fff;
+    
+    &:hover, &:focus, &:active{
+        background: rgba(245, 71, 77, 0.61);
+    color: #fff;
+    }
 }
 
-.modal-footer {
-    padding: 15px;
-    text-align: right;
-    background: rgba(0, 0, 0, 0.14);
-    border-top: none;
-}
+ 
+
+
 
 
