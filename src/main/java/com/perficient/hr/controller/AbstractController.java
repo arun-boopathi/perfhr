@@ -1,9 +1,12 @@
 package com.perficient.hr.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.perficient.hr.utils.PerfProperties;
 
 public class AbstractController {
 	
-	@Value("${ptoFilesOutputDir}")
-	public String ptoFilesOutputDir;
+	@Autowired
+	public PerfProperties perfProperties;
+	
 }

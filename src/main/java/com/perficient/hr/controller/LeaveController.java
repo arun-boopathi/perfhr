@@ -13,7 +13,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,13 +28,7 @@ import com.perficient.hr.model.EmployeeLeaves;
 
 @Controller
 @RequestMapping("/v-leave")
-public class LeaveController {
-
-	@Value("${wfh.total}")
-	private String wfhCount;
-	
-	@Value("${ptoFilesOutputDir}")
-	private String ptoFilesOutputDir;
+public class LeaveController extends AbstractController {
 		
 	@Autowired
 	private EmployeeLeavesDAO employeeLeavesDAO;
@@ -56,7 +49,7 @@ public class LeaveController {
      */
     private String writeToFileServer(InputStream inputStream, String fileName) throws IOException {
     	FileOutputStream outputStream = null;
-    	String qualifiedUploadFilePath =  this.ptoFilesOutputDir+fileName+".xls";
+    	String qualifiedUploadFilePath =  perfProperties.getPtoStoreLoc()+fileName+".xls";
         try {
             outputStream = new FileOutputStream(new File(qualifiedUploadFilePath));
             int read = 0;
@@ -77,6 +70,7 @@ public class LeaveController {
 	@Produces("application/json")
 	@ResponseBody
 	public List<EmployeeLeaves> loadAllLeaves(@RequestParam(value="leaveType") String leaveType){
+    	System.out.println("--- pto count -- "+perfProperties.getPtoCount());
 		return employeeLeavesDAO.loadAllLeaves(leaveType);
 	}
 
