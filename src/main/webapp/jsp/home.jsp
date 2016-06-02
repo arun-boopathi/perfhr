@@ -19,7 +19,7 @@
             <li>
             	<a href="#">Administration</a>
             	<ul>
-            		<li><a href="#/designations">Designations</a></li>
+            		<li><a href="#/designations">Job Title</a></li>
             		<li><a href="#/importpto">Import PTO</a></li>
             		<li><a href="#/projects">Projects</a></li>
             		<li><a href="#/projectmembers">Project Members</a></li>

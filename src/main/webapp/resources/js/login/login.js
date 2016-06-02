@@ -9,9 +9,10 @@ $(document).ready(function(){
 			return false;
 		} 
 		console.log('saltStr', saltStr);
-		var encSaltPass=encryptLoginPassword(saltStr,username,password);
-		var encSaltSHAPass=encryptSha2LoginPassword(md5keystring,username,password);
+		var encSaltPass = encryptLoginPassword(saltStr,username,password);
+		var encSaltSHAPass = encryptSha2LoginPassword(saltStr,username,password);
 		console.log('encSaltPass', encSaltPass);
-		return false;
+		console.log('encSaltSHAPass', encSaltSHAPass);
+		return true;
 	};
 });

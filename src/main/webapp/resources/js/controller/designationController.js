@@ -50,7 +50,7 @@ mainApp.controller('DesignationController', DesignationController);
 function DesignationController($scope, $compile, DTOptionsBuilder, DTColumnBuilder, designationAPIservice) {
     vm = this;
     vm.dtColumns = [
-        DTColumnBuilder.newColumn('designation').withTitle('Designations')
+        DTColumnBuilder.newColumn('designation').withTitle('Job Title')
     ];
     var paramObj = {
     		"vm" : vm,

@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,9 +50,10 @@ public class ProjectMembersController {
 	}
 	
 	@RequestMapping(value="/saveProjectMember", method=RequestMethod.POST)
+	@Consumes("application/json")
 	@Produces("application/json")
 	@ResponseBody
-	public ProjectMembers saveProjectMember(@RequestBody ProjectMembers projectMembers, HttpServletRequest request) throws RecordExistsException{
+	public ProjectMembers saveProjectMember(@ModelAttribute ProjectMembers projectMembers, HttpServletRequest request) throws RecordExistsException{
 		HttpSession session = request.getSession();
 		return projectMembersDAO.saveProjectMember(projectMembers, session.getAttribute("userId").toString());
 	}

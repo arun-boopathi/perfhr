@@ -10,7 +10,7 @@ var rand = Math.floor(Math.random()*(3-1+1)+1);
 mainApp.config(function($routeProvider) {
 	$routeProvider
 	    .when('/home', {
-	        templateUrl: 'html/dashboard1.html',
+	        templateUrl: 'html/dashboard'+rand+'.html',
 	        controller: 'dashboardController'
 	    })
 	    .when('/employees', {

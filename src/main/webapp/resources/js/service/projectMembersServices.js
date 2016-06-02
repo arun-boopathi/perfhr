@@ -15,7 +15,7 @@ angular.module('projectmember.services', []).
     };
     projectMembersAPI.saveProjectMember = function(projectMember) {
         return $http({
-		  method: 'post', 
+		  method: 'post',
 		  data : projectMember,
 		  url: perfUrl['saveProjectMember']
 		});

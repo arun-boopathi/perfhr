@@ -20,7 +20,13 @@
  StringBuffer salt = new StringBuffer();
  java.util.Random rnd = new java.util.Random();
  // build a random 9 chars salt 
- while (salt.length() < 9) {
+ int aStart = 6;
+ int aEnd = 10;
+ long range = (long)aEnd - (long)aStart + 1;
+ // compute a fraction of the range, 0 <= frac < range
+ long fraction = (long)(range * rnd.nextDouble());
+ int randomNumber =  (int)(fraction + aStart);
+ while (salt.length() < randomNumber) {
    int index = (int) (rnd.nextFloat() * SALTCHARS.length());
    salt.append(SALTCHARS.substring(index, index+1));
  }

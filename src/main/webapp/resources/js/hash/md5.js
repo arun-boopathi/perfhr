@@ -219,13 +219,10 @@ function encryptPassword(formname,strpwd){
 	}
 }
 
-function encryptLoginPassword(key,struser,strpwd){
-	var username=struser;
+function encryptLoginPassword(key,strpwd){
 	var password=strpwd;
-	var enc =MD5(MD5(username+"#"+password)+"#"+key);
-	struser="";
+	var enc =MD5(MD5(password)+"#"+key);
 	strpwd="";
-	username="";
 	password="";
 	return enc;
 }  
