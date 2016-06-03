@@ -46,8 +46,6 @@ module.exports = function(grunt) {
     	dev: {
         	files: {
         		'src/main/webapp/resources/js/dev/login.js': [grunt_uriSrc+'/js/lib/jquery.js', grunt_uriSrc+'js/lib/bootstrap.js', grunt_uriSrc+'js/login/login.js'],
-        		'src/main/webapp/resources/js/dev/perf.js' : [grunt_uriSrc+'/js/**/*.js', '!'+grunt_uriSrc+'js/lib/*.js'],
-        		'src/main/webapp/resources/js/dev/lib.js' : [grunt_uriSrc+'js/lib/*.js'],
         		'src/main/webapp/resources/css/vendors.css' : grunt_uriSrc+'sass_compiled/vendors.css',
         		'src/main/webapp/resources/css/perf.css' : grunt_uriSrc+'sass_compiled/main.css',
 				'src/main/webapp/resources/css/theme2.css' : grunt_uriSrc+'sass_compiled/theme2.css'

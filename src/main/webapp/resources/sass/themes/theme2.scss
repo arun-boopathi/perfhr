@@ -161,8 +161,9 @@ div.dataTables_length label, div.dataTables_filter label{
    }
 }
 
-.modal-content {
-    background: #2C475E;
+.modal-body {
+	background: #202020;
+	color: #fff;
 }
 
 .modal-header {
@@ -172,7 +173,7 @@ div.dataTables_length label, div.dataTables_filter label{
 }
 
 .modal-footer {
-    background: rgba(0, 0, 0, 0.14);
+    background: #2B2929;
 }
 
 .modal select option {
