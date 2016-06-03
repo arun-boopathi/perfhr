@@ -27,7 +27,8 @@ module.exports = function(grunt) {
 	      files: {                         // Dictionary of files
 	    	  'src/main/webapp/resources/sass_compiled/login.css': 'src/main/webapp/resources/sass/login.scss',       // 'destination': 'source'
 	    	  'src/main/webapp/resources/sass_compiled/main.css': 'src/main/webapp/resources/sass/main.scss',
-	    	  'src/main/webapp/resources/sass_compiled/vendors.css': 'src/main/webapp/resources/sass/vendors.scss'
+	    	  'src/main/webapp/resources/sass_compiled/vendors.css': 'src/main/webapp/resources/sass/vendors.scss',
+			  'src/main/webapp/resources/sass_compiled/theme2.css': 'src/main/webapp/resources/sass/themes/theme2.scss'
 	      }
 	    }
 	},
@@ -48,7 +49,8 @@ module.exports = function(grunt) {
         		'src/main/webapp/resources/js/dev/perf.js' : [grunt_uriSrc+'/js/**/*.js', '!'+grunt_uriSrc+'js/lib/*.js'],
         		'src/main/webapp/resources/js/dev/lib.js' : [grunt_uriSrc+'js/lib/*.js'],
         		'src/main/webapp/resources/css/vendors.css' : grunt_uriSrc+'sass_compiled/vendors.css',
-        		'src/main/webapp/resources/css/perf.css' : grunt_uriSrc+'sass_compiled/main.css'
+        		'src/main/webapp/resources/css/perf.css' : grunt_uriSrc+'sass_compiled/main.css',
+				'src/main/webapp/resources/css/theme2.css' : grunt_uriSrc+'sass_compiled/theme2.css'
         	}
         }
     },
@@ -79,11 +81,8 @@ module.exports = function(grunt) {
   // ===========================================================================
   // we can only load these if they are in our package.json
   // make sure you have run npm install so our app can find these
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-concat');
 

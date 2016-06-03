@@ -1,7 +1,5 @@
 table.dataTable thead {
    .sorting_asc, .sorting_desc, .sorting, .sorting_disabled{
- 	  background-color: $th-background-color;
-	  color: $th-color;
 	  font-size: $th-font-size;
    }
    th{
@@ -18,4 +16,49 @@ table.dataTable tbody {
    td:last-child {
    	  text-align: center;
    }
+}
+
+.dataTables_wrapper .dataTables_info{
+	display:none;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    float: right;
+    text-align: right;
+    padding-top: 0;
+    margin: 0 0px 8px 0;
+}
+
+.dataTables_length select {
+    font-weight: normal;
+}
+
+.dataTables_filter input[type="search"]{
+    font-weight: normal;
+}
+
+.dataTables_wrapper {    
+	padding: 1rem 14px;
+}
+
+.dataTables_length {    
+	margin: 0.2rem 0 0.8rem 0rem;
+}
+
+.dataTables_filter {    
+	margin-right: 0;
+}
+
+/*-----------------PAGNATION COMPONENT---------------------*/
+.pagination {
+	> .disabled, > li{
+		a:hover, a:focus {
+			z-index: 3;
+		}
+	}
+	.active {
+		a, a:focus, a:hover, span, span:focus, span:hover {
+			z-index: 3;
+		}
+	}
 }

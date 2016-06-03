@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/vendors.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css/perf.css">
-
+<link rel="stylesheet" href="css/theme2.css">
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
 	<nav id="menu" class="mm-menu" style="display: none;">

@@ -9,10 +9,9 @@
     background: #55C188;
     border: 2px solid #55C188;
     color: #fff;
-    
     &:hover, &:active, &:focus{ 
-    background: rgba(85, 193, 136, 0.72);
-    color: #fff;
+	    background: rgba(85, 193, 136, 0.72);
+	    color: #fff;
     }
 }
 
@@ -26,33 +25,39 @@
 }
 
 .btn{
-	.fa {font-size: 18px;}
+	.fa {
+		font-size: 18px;
+	}
 }
 
 .btn-update {
     background-color: #f0ad4e;
     border:2px solid #eea236;
     color: #fff;
-    
     &:hover, &:focus, &:active{
-    background-color: rgba(240, 173, 78, 0.68);
-    color: #fff;
+    	background-color: rgba(240, 173, 78, 0.68);
+    	color: #fff;
     }
 }
 
 .btn-delete {
-   background: #F5474D;
+    background: #F5474D;
     border:2px solid #F5474D;
     color: #fff;
-    
     &:hover, &:focus, &:active{
         background: rgba(245, 71, 77, 0.61);
-    color: #fff;
+    	color: #fff;
     }
 }
 
- 
+button.dt-button, div.dt-button, a.dt-button{
+    background: transparent;
+    border-color: rgba(204, 204, 204, 0.19);
+    color: #FBF7F7;
+    font-size: 14px;
+}
 
-
-
-
+button.dt-button:hover:not(.disabled), div.dt-button:hover:not(.disabled), a.dt-button:hover:not(.disabled) {
+	background-color: #666;
+	background-image: none;
+}

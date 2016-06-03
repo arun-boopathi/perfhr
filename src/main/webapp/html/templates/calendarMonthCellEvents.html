@@ -8,6 +8,6 @@
     ng-mouseenter="vm.highlightEvent(event, false)"
     ng-mouseleave="vm.highlightEvent(event, false)"
     mwl-draggable="event.draggable === true"
-    drop-data="{event: event, draggedFromDate: day.date.toDate()}"><div>{{($index == '2')?'+more..':event.title}}</div>
+    drop-data="{event: event, draggedFromDate: day.date.toDate()}"><div>{{($index == '2')?("+"+day.events.length-2+' more...'):event.title}}</div>
   </div>
 </div>

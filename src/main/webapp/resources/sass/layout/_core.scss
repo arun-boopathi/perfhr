@@ -1,4 +1,3 @@
-
 body {
     background: darken($body-background-color, 0%);
     font-family: $body-font-family;
@@ -29,6 +28,7 @@ body {
     z-index: 10000;
     display: none;
 }
+
 #loading {
     width: 50px;
     height: 57px;
@@ -46,7 +46,6 @@ body {
 	&:not(.mm-menu) {
 		display: none;
 	}
-	
 	.fa {
 		width: 15px;
 		color: #ccc;
@@ -215,7 +214,6 @@ h1 {
 }
 
 .submenu.fixed {
-	/*background: #294072;*/
 	opacity: 0.95;
 	display: none;
 	position: fixed;
@@ -238,14 +236,15 @@ h1 {
 	
 	 #sidePanel	{
 		top: 2px;
-		&:active, &:focus{outline:none}
+		&:active, &:focus{
+			outline:none
+		}
 	}
 }
 
 /* large screens */
 @media all and (min-width: 1430px) {
-	#sidePanel,
-	.lt-1430 {
+	#sidePanel,	.lt-1430 {
 		display: none;
 	}
 }
@@ -448,10 +447,10 @@ h1 {
 		text-transform: uppercase;
 		position: relative;
 		letter-spacing: 2px;
-		font-size: 11px;
-		margin: 8px 60px;
+		margin: 58px 0 8px;  
+   		font-size: 15px;  
+   		height: 44px;
 		padding: 22px 0 0 0;
-		height: 85px;
 		font-family: 'Open Sans', Arial, sans-serif;
 		text-shadow: 
 		0 0 1px #fff, 
@@ -516,68 +515,172 @@ h1 {
 	}
 }
 
-.ch-item:hover{
-	.ch-thumb {
-		box-shadow: inset 0 0 0 15px rgba(255,255,255, 0.5), 0 1px 3px rgba(0,0,0,0.2);
-		@include transform(-110deg);
-	}
-	.ch-info p a{
-		opacity: 1;
-		@include trans-rotat (0px , 0deg);
-	}
+.mm-panel.mm-subopened {
+    transform: translate3d(-103%, 0px, 0px);
 }
 
-.cal-slide-content{
-	padding: 20px;
-    color: #fff;
-    background-color: #555;
-    box-shadow: inset 0 0 15px 0 rgba(0,0,0,.5);
+.form-horizontal .control-label.text-left{
+	text-align:left
 }
-
-.cal-day-tick {
-    border: 1px solid #e1e1e1;
-    border-top: 0 solid;
-    border-radius: 0 0 5px 5px;
-    background-color: #ededed;
-    text-align: center;
-}
-
-.cal-day-tick {
-    right: 50%;
-    bottom: -21px;
-    padding: 0 5px;
-    z-index: 5;
-    text-align: center;
-    width: 26px;
-    margin-right: -17px;
-    display: none;
-}
-
-#cal-week-box, .cal-day-tick {
-    position: absolute;
-    cursor: pointer;
-}
-
-.cal-day-tick .fa {
-    display: none;
-}
-.form-horizontal .control-label.text-left{text-align:left}
 
 #leaveModal{
 	z-index: 1051;
 }
 
-.events-list {
-    right: 0;
-    border-radius: 3px;
-    padding: 0 4px;
+.panel-success.perfhr-panel > .panel-heading {
+	border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 13px 18px;
+    position:relative;
 }
 
-.event {
-    padding: 0px 7px;
-    font-size: 0.85em;
-    text-transform: capitalize;
-    background: #3b91ad;
-    box-shadow: none;
-    border-radius: 2px;
+.panel.perfhr-panel{
+   .section-title{
+	   font-size:17px;
+	   padding: 0;    
+	   margin: 0; 
+	   width:auto; 
+	   display:inline-block;
+   }
+   
+   .controls{
+	    height: 100%;
+	    list-style: outside none none;
+	    margin: 0;
+	    padding: 0;
+	    position: absolute;
+	    right: 0;
+	    top: 0;
+	    z-index: 9;
+    
+	   > li{
+		    display: inline-block;
+		    float: left;
+		    height: 100%;
+		    
+		    > button , > a {
+		        float: left;
+			    border: none;
+			    background: none;
+			    box-shadow: none;
+			    font-size: 16px;
+			    height: 100%;
+			    line-height: 51px;
+			    min-width: 41px;
+			    padding: 0 10px;
+			    text-align: center;
+			    
+			    &:focus{
+			    	outline:none
+			    }
+	  		}
+	  	}
+	}
+	.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td,
+	.table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th{
+	     vertical-align: middle;
+	 }
+}
+
+button.dt-button, div.dt-button, a.dt-button{
+    color: #FBF7F7;
+}
+
+.perfhr-widget{
+    clear: both;
+    overflow: hidden;
+    padding-bottom: 30px;
+    position: relative;
+    width: 100%;
+    float: left;
+}
+
+.perfhr-widget-header{
+    height: 60px;
+    line-height: 40px;
+    position: relative;
+    float: left;
+    width: 100%;
+    
+    > h3{
+	    display: inline-block;
+	    font-size: 18px;
+	    line-height: 18px;
+	    margin: 20px 0 20px 20px;
+   }
+}
+
+.perfhr-widget-content{
+    padding: 20px 15px 15px;
+    float: left;
+    width: 100%;
+
+    .form-control{
+        border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    
+    .control-label{
+        font-weight:normal;
+    }
+    
+    .text-center img{
+	    height: 80px;
+	    width: 80px;
+	    border-radius: 50%;
+    }
+   
+    .img-circle {
+	    border-radius: 50%;
+	    height: 80px;
+	    width: 80px;
+    }
+}
+
+.perfhr-widget-footer {
+    float: left;
+    width: 100%;
+    text-align: right;
+    padding: 15px 30px;
+}
+
+.rightsided-elemet{
+    float: right;
+    margin: 0;
+    padding: 0;
+    list-style:none;
+
+    button{
+	    border: medium none;
+	    border-radius: 2px;
+	    margin: -10px 0 0;
+	    padding: 6px 20px;
+	    i {
+	    	margin: 0 7px 0 0;
+	    }
+  	}
+}
+
+/*-----------------------------MODAL-----------------------------*/
+
+.modal{   
+   .form-horizontal .control-label{
+   		font-weight:normal; 
+   }
+   .form-control{
+   		background:none; 
+   }
+}
+
+.modal-header {
+    padding: 15px;
+}
+
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: none;
+}
+
+.modal-header .close {
+    margin-top: 3px;
+    opacity: 1;
 }

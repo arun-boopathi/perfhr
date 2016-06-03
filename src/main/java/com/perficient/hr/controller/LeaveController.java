@@ -70,7 +70,6 @@ public class LeaveController extends AbstractController {
 	@Produces("application/json")
 	@ResponseBody
 	public List<EmployeeLeaves> loadAllLeaves(@RequestParam(value="leaveType") String leaveType){
-    	System.out.println("--- pto count -- "+perfProperties.getPtoCount());
 		return employeeLeavesDAO.loadAllLeaves(leaveType);
 	}
 
