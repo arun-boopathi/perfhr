@@ -83,7 +83,6 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 		                		employeeLeaves.setComments(row.getCell(35).toString());
 		                		int hours = (Math.round(Float.parseFloat(row.getCell(31).toString())) < 4) ? 4:8;
 		                		Date dt = sdf.parse(row.getCell(28).toString());
-		                		System.out.println("---Title---- "+row.getCell(18).toString()+" - "+leaveType);
 		                		employeeLeaves.setTitle(row.getCell(18).toString()+" - "+leaveType);
 		                		employeeLeaves.setStartsAt(dt);
 		                		employeeLeaves.setEndsAt(dt);
@@ -250,7 +249,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String employeeId) {
 		Session session = sessionFactory.openSession();
 		List<String> leaveTypeList = new ArrayList<String>();
-		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId:employeeId";
+		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId";
 		Query query = session.createQuery(sqlQuery);
 		if(leaveType.equals(LeaveType.PTO.getLeaveType())){
 			leaveTypeList.add(LeaveType.PTO.getLeaveType());

@@ -1,12 +1,12 @@
-<div class = "alert alert-info" ng-show="data.msg">
-  {{data.msg}}
+<div class = "alert alert-info" ng-show="$parent.data.msg">
+  {{$parent.data.msg}}
 </div>
 <div class="row">
    <div class="col-sm-6 col-lg-6">
       <div class="form-group">
          <label class="col-md-4 control-label">Employee Id:</label>
          <div class="col-md-8">
-            <input type="text" id="employee_id" ng-model="data.employeeId" class="form-control" placeholder="Employee Id" value="{{data.employeeId}}" ng-disabled="data.pk">
+            <input type="text" id="employee_id" ng-model="$parent.data.employeeId" class="form-control" placeholder="Employee Id" value="{{$parent.data.employeeId}}" ng-disabled="$parent.data.pk">
          </div>
       </div>
    </div>
@@ -14,7 +14,7 @@
       <div class="form-group">
          <label class="col-md-4 control-label">Email Id:</label>
          <div class="col-md-8">
-            <input type="text" ng-model="data.email" class="form-control" required placeholder="Email" value="{{data.email}}">
+            <input type="text" ng-model="$parent.data.email" class="form-control" required placeholder="Email" value="{{$parent.data.email}}">
          </div>
       </div>
    </div>
@@ -24,7 +24,7 @@
       <div class="form-group">
          <label class="col-md-4 control-label">First Name:</label>
          <div class="col-md-8">
-            <input type="text" ng-model="data.firstName" class="form-control" required placeholder="First Name" value="{{data.firstName}}">
+            <input type="text" ng-model="$parent.data.firstName" class="form-control" required placeholder="First Name" value="{{$parent.data.firstName}}">
          </div>
       </div>
    </div>
@@ -32,7 +32,7 @@
       <div class="form-group">
          <label class="col-md-4 control-label">Last Name:</label>
          <div class="col-md-8">
-            <input type="text" ng-model="data.lastName" class="form-control" required placeholder="Last Name" value="{{data.lastName}}">
+            <input type="text" ng-model="$parent.data.lastName" class="form-control" required placeholder="Last Name" value="{{$parent.data.lastName}}">
          </div>
       </div>
    </div>
@@ -42,7 +42,7 @@
       <div class="form-group">
          <label class="col-md-4 control-label">Address</label>
          <div class="col-md-8">
-         	<textarea rows="3" cols="36" class="form-control" ng-model="data.address" value={{data.address}}></textarea>
+         	<textarea rows="3" cols="36" class="form-control" ng-model="$parent.data.address" value={{$parent.data.address}}></textarea>
          </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
       <div class="form-group">
       	<label for="inputEmail" class="col-md-4 control-label">PinCode</label>
          <div class="col-md-8">
-            <input type="text" ng-model="data.pincode" class="form-control" required placeholder="PinCode" value="{{data.pincode}}">
+            <input type="text" ng-model="$parent.data.pincode" class="form-control" required placeholder="PinCode" value="{{$parent.data.pincode}}">
          </div>
       </div>
     </div>
@@ -61,7 +61,7 @@
          <label class="col-md-4 control-label">D.O.B:</label>
          <div class="col-md-8">
             <p class="input-group">
-		        <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.dob}} ng-model="data.dob" is-open="dob.opened" 
+		        <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{$parent.data.dob}} ng-model="$parent.data.dob" is-open="dob.opened" 
 		         		datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
 		        <span class="input-group-btn">
 		           <button type="button" class="btn btn-default" ng-click="dobDate()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -74,7 +74,7 @@
       <div class="form-group">
          <label class="col-md-4 control-label">Contact No:</label>
          <div class="col-md-8">
-            <input type="text" ng-model="data.contactNo" class="form-control" required placeholder="Contact No" value="{{data.contactNo}}">
+            <input type="text" ng-model="$parent.data.contactNo" class="form-control" required placeholder="Contact No" value="{{$parent.data.contactNo}}">
          </div>
       </div>
    </div>
@@ -84,8 +84,8 @@
       <div class="form-group">
          <label class="col-md-4 control-label">Job Title:</label>
          <div class="col-md-8">
-            <select class="form-control" ng-model="data.designations"
-            		ng-selected="{{data.designations}}" ng-options="designation.designation for designation in designations track by designation.pk">
+            <select class="form-control" ng-model="$parent.data.designations"
+            		ng-selected="{{$parent.data.designations}}" ng-options="designation.designation for designation in designations track by designation.pk">
 			</select>
          </div>
       </div>
@@ -94,9 +94,9 @@
       <div class="form-group">
          <label class="col-md-4 control-label">Supervisor:</label>
          <div class="col-md-8">
-            <select name="supervisor" class="form-control" ng-model="data.superviser">
+            <select name="supervisor" class="form-control" ng-model="$parent.data.superviser">
 				<option ng-repeat='employee in employees | orderBy: "firstName" track by employee.pk' 
-					ng-selected="employee.pk == data.superviser" value="{{employee.pk}}">{{employee.firstName}} {{employee.lastName}}</option>
+					ng-selected="employee.pk == $parent.data.superviser" value="{{employee.pk}}">{{employee.firstName}} {{employee.lastName}}</option>
 			</select>
          </div>
       </div>
@@ -107,7 +107,7 @@
       <div class="form-group">
          <label for="inputEmail" class="col-md-4 control-label">Blood Group</label>
          <div class="col-md-8">
-            <input type="text" ng-model="data.bloodGroup" class="form-control" required placeholder="Blood Group" value="{{data.bloodGroup}}">
+            <input type="text" ng-model="$parent.data.bloodGroup" class="form-control" required placeholder="Blood Group" value="{{$parent.data.bloodGroup}}">
          </div>
       </div>
     </div>
@@ -115,7 +115,7 @@
       <div class="form-group">
          <label for="inputEmail" class="col-md-4 control-label">Pancard No</label>
          <div class="col-md-8">
-            <input type="text" ng-model="data.panCard" class="form-control" required placeholder="Pancard No" value="{{data.panCard}}">
+            <input type="text" ng-model="$parent.data.panCard" class="form-control" required placeholder="Pancard No" value="{{$parent.data.panCard}}">
          </div>
       </div>
     </div>
@@ -126,7 +126,7 @@
          <label class="col-md-4 control-label">Date of Join</label>
          <div class="col-md-8">
           <p class="input-group">
-	         <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.joinDate}} ng-model="data.joinDate" is-open="joinDate.opened" 
+	         <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{$parent.data.joinDate}} ng-model="$parent.data.joinDate" is-open="joinDate.opened" 
 	         		datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
 	         <span class="input-group-btn">
 	           <button type="button" class="btn btn-default" ng-click="joinDate()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -140,7 +140,7 @@
          <label class="col-md-4 control-label">Last Working Date:</label>
          <div class="col-md-8">
              <p class="input-group">
-	         	<input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.lastWorkDate}} ng-model="data.lastWorkDate" is-open="lastWorkDate.opened" 
+	         	<input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{$parent.data.lastWorkDate}} ng-model="$parent.data.lastWorkDate" is-open="lastWorkDate.opened" 
 	         		datepicker-options="dateOptions" close-text="Close"/>
 	         	<span class="input-group-btn">
 	           		<button type="button" class="btn btn-default" ng-click="lastWorkDateDate()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -155,7 +155,7 @@
       <div class="form-group">
          <label class="col-md-4 control-label">SBU:</label>
          <div class="col-md-8">
-            <input type="text" ng-model="data.sbu" class="form-control" required placeholder="SBU" value="{{data.sbu}}">
+            <input type="text" ng-model="$parent.data.sbu" class="form-control" required placeholder="SBU" value="{{$parent.data.sbu}}">
          </div>
       </div>
    </div>
@@ -163,7 +163,7 @@
       <div class="form-group">
          <label class="col-md-4 control-label">Skills:</label>
          <div class="col-md-8">
-            <textarea rows="3" cols="36" ng-model="data.skills" class="form-control" required placeholder="Skills" value="{{data.skills}}"></textarea>
+            <textarea rows="3" cols="36" ng-model="$parent.data.skills" class="form-control" required placeholder="Skills" value="{{$parent.data.skills}}"></textarea>
          </div>
       </div>
    </div>

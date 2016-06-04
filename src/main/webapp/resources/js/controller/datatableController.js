@@ -6,16 +6,18 @@
 			params.vm.message = '';
 			params.vm.dtInstance = {};
 			params.vm.datalist = {};
-			var url = '';
+			var url, responsive = '';
+			responsive = params.responsive?params.responsive: false; 
 			if(params.loadListUrl)
 				url = params.loadListUrl;
 			params.vm.dtOptions = params.DtOptionsBuilder.fromSource(url)
 	        .withDisplayLength(7)
 	        .withDOM('pitrfl')
 	        .withBootstrap()
-	        .withOption('responsive', {
+	        .withOption('responsive', responsive)
+	        /*.withOption('responsive', {
 	            details: true
-	        })
+	        })*/
 	        .withOption('createdRow', createdRow)
 	        .withOption('aaSorting', [params.sortCol != undefined? params.sortCol: 0 , 'asc'])
 	        .withOption('rowCallback', rowCallback)

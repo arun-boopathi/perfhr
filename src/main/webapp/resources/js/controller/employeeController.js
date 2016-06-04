@@ -53,7 +53,7 @@ function EmployeeTableCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, 
         DTColumnBuilder.newColumn('firstName').withTitle('First Name').renderWith(function(data, type, full) {
             return full.firstName+' '+full.lastName;
         }),
-        DTColumnBuilder.newColumn('superviserFirstName').withTitle('Superviser').withClass('none').renderWith(function(data, type, full) {
+        DTColumnBuilder.newColumn('superviserFirstName').withTitle('Supervisor').withClass('none').renderWith(function(data, type, full) {
             return full.superviserFirstName+' '+full.superviserLastName;
         }),
         DTColumnBuilder.newColumn('email').withTitle('Email'),

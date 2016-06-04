@@ -87,8 +87,7 @@ mainApp.controller('ProjectsUserController', function($scope, $compile, DTOption
     		"service" : projectMemberAPIservice,
     		'loadListUrl' : perfUrl['loadAllProjectMembers'],
     		'editFormId' : 'projectMembersForm',
-    		'deleteFormId' : 'deleteProjectMember',
-    		'sortCol': '0'
+    		'deleteFormId' : 'deleteProjectMember'
     };
     perfDatatable.loadTable.init(paramObj);
 });

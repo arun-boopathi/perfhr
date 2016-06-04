@@ -18,7 +18,6 @@ import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.dao.ProjectDAO;
 import com.perficient.hr.dao.ProjectMembersDAO;
 import com.perficient.hr.model.Employee;
-import com.perficient.hr.model.ProjectMembers;
 import com.perficient.hr.model.Projects;
 import com.perficient.hr.utils.PerfHrConstants;
 

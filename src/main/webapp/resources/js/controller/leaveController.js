@@ -20,6 +20,7 @@ mainApp.controller('ptoController', function($scope, $controller, leaveAPIservic
 	$scope.title="PTO";
 	$scope.leaveType="PTO";
 	$scope.isPto = true;
+	
     angular.extend(this, $controller('leaveController', {
         $scope: $scope
     }));
@@ -30,6 +31,8 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
 	//These variables MUST be set as a minimum for the calendar to work
 	obj.calendarView = 'month';
 	obj.viewDate = new Date();
+	obj.checkLeaves = 'all';
+	
 	scope = $scope;
 	$scope.data = {};
 	$scope.data.requestType = $scope.leaveType;
@@ -60,16 +63,31 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
     	$scope.openModal();
     };
     
-    leaveAPIservice.loadAllLeaves($scope.leaveType).success(function (response) {
-     	$.each(response, function(i, val){
+    $scope.toggleLeave = function(val){
+    	obj.checkLeaves = val;
+    	if(val == 'all'){
+    	    leaveAPIservice.loadAllLeaves($scope.leaveType).success(function (response) {
+    	    	$scope.displayLeave(response);
+    	  	});
+    	} else {
+    		leaveAPIservice.loadMyLeaves($scope.leaveType).success(function (response) {
+            	$scope.displayLeave(response);
+          	});
+    	}
+    };
+    
+    $scope.toggleLeave(obj.checkLeaves);
+    
+    $scope.displayLeave = function(data){
+    	$scope.scope.events.splice(0, $scope.scope.events.length);
+    	$.each(data, function(i, val){
      		val.startsAt = new Date(val.startsAt);
      		val.endsAt = new Date(val.endsAt);
      		val.type = $scope.displayType;
      		$scope.scope.events[val.pk] = val;
      		eventArr[val.pk] = i;
      	});
-     	console.log('$scope.scope.events ', $scope.scope.events, 'eventArr ',eventArr);
-  	});
+    };
     
     this.timeSpanClicked = function(calendarCell, $event){
     	if(calendarCell.events.length > 0){
@@ -164,8 +182,7 @@ function leaveControllerTable($scope, $compile, DTOptionsBuilder, DTColumnBuilde
  		"DtOptionsBuilder" : DTOptionsBuilder,
  		"DTColumnBuilder" : DTColumnBuilder,
  		"service" : leaveAPIservice,
- 		'editFormId' : 'leaveModal',
- 		'sortCol': '0'
+ 		'editFormId' : 'leaveModal'
      };
  	perfDatatable.loadTable.init(paramObj);
 }

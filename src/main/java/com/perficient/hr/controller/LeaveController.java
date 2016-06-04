@@ -83,8 +83,9 @@ public class LeaveController extends AbstractController {
     @RequestMapping(value="/loadMyLeaves",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public List<EmployeeLeaves> loadMyLeaves(@RequestParam(value="leaveType") String leaveType, @RequestParam(value="empId") String employeeId){
-		return employeeLeavesDAO.loadMyLeaves(leaveType, employeeId);
+	public List<EmployeeLeaves> loadMyLeaves(@RequestParam(value="leaveType") String leaveType, HttpServletRequest request){
+    	HttpSession session = request.getSession();
+		return employeeLeavesDAO.loadMyLeaves(leaveType, session.getAttribute("userId").toString());
 	}
     
     @RequestMapping(value="/applyLeave", method=RequestMethod.POST)

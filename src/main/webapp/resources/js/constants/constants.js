@@ -34,7 +34,7 @@ var perfUrl = {
     'updateLeave' : urlPrefix+'leave/updateLeave',
     'deleteLeave' : urlPrefix+'leave/deleteLeave',
     'loadLeaveById' : urlPrefix+'leave/loadLeaveById?leaveId=',
-    'loadMyLeaves' : urlPrefix+'leave/loadMyLeaves?empId='
+    'loadMyLeaves' : urlPrefix+'leave/loadMyLeaves?leaveType='
 };
 
 (function(){
