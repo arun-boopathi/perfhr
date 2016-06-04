@@ -8,5 +8,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.0.xsd">
       <!-- Configure SessionFactory -->
-  	  <import resource="db-config.xml"/>	
+  	  <import resource="db-config.xml"/>
+  	  	
 </beans>

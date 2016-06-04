@@ -21,7 +21,7 @@
                 <h4 class="modal-title" ng-show="data.pk" id="myModalLabel">Update Employee</h4>
             </div>
             <div class="modal-body">
-	            <form role="form" ng-submit="submit()" class="form-horizontal">
+	            <form role="form" ng-submit="submit()" ng-init="form={}; data={}" class="form-horizontal">
 	            	<div ng-include="'html/employee.html'"></div>
 	            </form>
             </div>
