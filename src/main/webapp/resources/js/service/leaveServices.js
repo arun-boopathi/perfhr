@@ -1,10 +1,10 @@
 angular.module('leave.services', []).
   factory('leaveAPIservice', function($http) {
 	var leaveAPI = {};
-	leaveAPI.loadAllLeaves = function(leaveType) {
+	leaveAPI.loadAllLeaves = function(leaveType, calYear) {
         return $http({
           method: 'get', 
-          url: perfUrl['loadAllLeaves']+leaveType
+          url: perfUrl['loadAllLeaves'].replace('{leaveType}', leaveType).replace('{calYear}', calYear)
         });
     };
     leaveAPI.applyLeave = function(data) {
@@ -34,10 +34,10 @@ angular.module('leave.services', []).
         url: perfUrl['loadLeaveById']+id
       });
     };
-    leaveAPI.loadMyLeaves = function(leaveType){
+    leaveAPI.loadMyLeaves = function(leaveType, calYear){
 	  return $http({
 	    method: 'get', 
-	    url: perfUrl['loadMyLeaves']+leaveType
+	    url: perfUrl['loadMyLeaves'].replace('{leaveType}', leaveType).replace('{calYear}', calYear)
 	  });
     };
     

@@ -98,6 +98,7 @@
 <script src="js/app/app.js"></script>
 <script src="js/app/common.js"></script>
 <script src="js/constants/constants.js"></script>
+<script src="js/constants/url.js"></script>
 <script src="js/controller/datatableController.js"></script>
 <script src="js/controller/profileController.js"></script>
 <script src="js/service/profileServices.js"></script>

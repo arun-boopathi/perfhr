@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,26 +67,26 @@ public class LeaveController extends AbstractController {
         return qualifiedUploadFilePath;
     }
     
-    @RequestMapping(value="/loadAllLeaves",method=RequestMethod.GET)
+    @RequestMapping(value="/loadAllLeaves/{leaveType}/{calYear}",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public List<EmployeeLeaves> loadAllLeaves(@RequestParam(value="leaveType") String leaveType){
-		return employeeLeavesDAO.loadAllLeaves(leaveType);
+	public List<EmployeeLeaves> loadAllLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear){
+		return employeeLeavesDAO.loadAllLeaves(leaveType, calYear);
 	}
 
+    @RequestMapping(value="/loadMyLeaves/{leaveType}/{calYear}",method=RequestMethod.GET)
+	@Produces("application/json")
+	@ResponseBody
+	public List<EmployeeLeaves> loadMyLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear, HttpServletRequest request){
+    	HttpSession session = request.getSession();
+		return employeeLeavesDAO.loadMyLeaves(leaveType, calYear, session.getAttribute("userId").toString());
+	}
+    
     @RequestMapping(value="/loadLeaveById",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
 	public EmployeeLeaves loadLeaveById(@RequestParam(value="leaveId") String leaveId){
 		return employeeLeavesDAO.loadLeaveById(leaveId);
-	}
-    
-    @RequestMapping(value="/loadMyLeaves",method=RequestMethod.GET)
-	@Produces("application/json")
-	@ResponseBody
-	public List<EmployeeLeaves> loadMyLeaves(@RequestParam(value="leaveType") String leaveType, HttpServletRequest request){
-    	HttpSession session = request.getSession();
-		return employeeLeavesDAO.loadMyLeaves(leaveType, session.getAttribute("userId").toString());
 	}
     
     @RequestMapping(value="/applyLeave", method=RequestMethod.POST)

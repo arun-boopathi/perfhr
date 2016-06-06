@@ -8,11 +8,11 @@ public interface EmployeeLeavesDAO {
 
 	public boolean pasrsePtoDocument(String fileName);
 	
-	public List<EmployeeLeaves> loadAllLeaves(String leaveType);
+	public List<EmployeeLeaves> loadAllLeaves(String leaveType, String calYear);
 	
 	public EmployeeLeaves loadLeaveById(String leaveId);
 	
-	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String employeeId);
+	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String calYear, String employeeId);
 	
 	public EmployeeLeaves applyLeave(EmployeeLeaves employeeLeaves, String userId);
 	

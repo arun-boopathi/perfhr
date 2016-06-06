@@ -31,7 +31,9 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
 	//These variables MUST be set as a minimum for the calendar to work
 	obj.calendarView = 'month';
 	obj.viewDate = new Date();
+	obj.viewChangeEnabled = true;
 	obj.checkLeaves = 'all';
+	obj.calYear = new Date(obj.viewDate).getFullYear();
 	
 	scope = $scope;
 	$scope.data = {};
@@ -41,13 +43,30 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
 	calendarConfig.templates.calendarSlideBox = 'html/templates/calendarSlideBoxTemplate.html';
 	calendarConfig.templates.calendarMonthCell = 'html/templates/calendarMonthCell.html';
 	calendarConfig.templates.calendarMonthCellEvents = 'html/templates/calendarMonthCellEvents.html';
-	
+
 	this.toggle = function($event, field, event) {
+	  console.log('in toggle');
       $event.preventDefault();
       $event.stopPropagation();
       event[field] = !event[field];
     };
-	
+    
+    this.timeSpanClicked = function(calendarCell, $event){
+    	console.log('on time span');
+    	if(calendarCell.events.length > 0){
+    		vm.dtInstance.DataTable.clear().draw();
+        	vm.dtInstance.DataTable.rows.add(calendarCell.events).draw();
+        	$('#leaveList').modal();	
+    	}
+    };
+    
+    $scope.toggleYear = function(calendarDate){
+    	if(obj.calYear != new Date(calendarDate).getFullYear()){
+    		obj.calYear = new Date(calendarDate).getFullYear();
+        	$scope.toggleLeave(obj.checkLeaves);
+    	}
+    };
+    
     $scope.openModal = function(){
     	$('#leaveModal').modal();
     };
@@ -66,11 +85,11 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
     $scope.toggleLeave = function(val){
     	obj.checkLeaves = val;
     	if(val == 'all'){
-    	    leaveAPIservice.loadAllLeaves($scope.leaveType).success(function (response) {
+    	    leaveAPIservice.loadAllLeaves($scope.leaveType, obj.calYear).success(function (response) {
     	    	$scope.displayLeave(response);
     	  	});
     	} else {
-    		leaveAPIservice.loadMyLeaves($scope.leaveType).success(function (response) {
+    		leaveAPIservice.loadMyLeaves($scope.leaveType, obj.calYear).success(function (response) {
             	$scope.displayLeave(response);
           	});
     	}
@@ -87,14 +106,6 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
      		$scope.scope.events[val.pk] = val;
      		eventArr[val.pk] = i;
      	});
-    };
-    
-    this.timeSpanClicked = function(calendarCell, $event){
-    	if(calendarCell.events.length > 0){
-    		vm.dtInstance.DataTable.clear().draw();
-        	vm.dtInstance.DataTable.rows.add(calendarCell.events).draw();
-        	$('#leaveList').modal();	
-    	}
     };
     
     $scope.saveLeave = function(){

@@ -2,7 +2,7 @@
 <div class="row">
 	<h2 class="text-center calendertitle">{{ scope.calendarTitle }}</h2>
     <div class="col-md-3 text-left">  
-      <div class="btn-group">
+      <div class="btn-group" ng-click="toggleYear(scope.viewDate)">
         <button class="btn btn-primary" mwl-date-modifier date="scope.viewDate" decrement="scope.calendarView">
           Previous
         </button>
@@ -32,14 +32,16 @@
 	</div>
 </div>
 <br>
-<mwl-calendar events="scope.events" view="scope.calendarView"
+<mwl-calendar 
+	events="scope.events" 
+	view="scope.calendarView"
     view-title="scope.calendarTitle"
     view-date="scope.viewDate"
-    toggleLeave = "scope.toggleLeave(calendarEvent)"
     on-event-click="scope.eventClicked(calendarEvent)"
     on-timespan-click="scope.timeSpanClicked(calendarCell, calendarEvent)"
     cell-is-open="scope.isCellOpen"
     cell-modifier="scope.modifyCell(calendarCell)"
+    on-view-change-click="scope.viewChangeClicked(calendarDate, calendarNextView)"
     on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd">
 </mwl-calendar>
 <!-- Modal -->
