@@ -7,11 +7,7 @@
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-   
-      <!-- Base package for checking the annoted classes -->
-      <context:component-scan base-package="com.perficient"></context:component-scan>
-      
       <!-- Configure SessionFactory -->
-  	  <import resource="db-config.xml"/>	
-
+  	  <import resource="db-config.xml"/>
+  	  	
 </beans>

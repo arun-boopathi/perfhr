@@ -5,6 +5,15 @@
     color: #333333;
 }
 
+
+.btn-warning {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+    padding: 8px 8px 4px 11px;
+}
+
+
 .btn-save {
     background: #55C188;
     border: 2px solid #55C188;
@@ -16,11 +25,12 @@
 }
 
 .btn-close {
-    color: #000;
-    background-color: #eee;
-    border: 2px solid rgb(99, 117, 134);
+    color: #fff;
+    background-color: #AAB2BE;
+    border: 2px solid #AAB2BE;
     &:hover, &:active, &:focus{ 
-       background: #eea;
+       background: #CCD1DA;
+       border-color:#AAB2BE;
     }
 }
 

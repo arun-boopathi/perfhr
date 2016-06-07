@@ -78,8 +78,7 @@ function ProjectsController($scope, $compile, DTOptionsBuilder, DTColumnBuilder,
     		"service" : projectAPIservice,
     		'loadListUrl' : perfUrl['loadProjects'],
     		'editFormId' : 'projectForm',
-    		'deleteFormId' : 'deleteProject',
-    		'sortCol': '0'
+    		'deleteFormId' : 'deleteProject'
     };
     perfDatatable.loadTable.init(paramObj);
 }

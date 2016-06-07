@@ -1,4 +1,4 @@
-package com.perficient.hr.utils;
+package com.perficient.hr.mail;
 
 import java.util.Properties;
 
@@ -10,6 +10,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.perficient.hr.utils.PerfProperties;
 
 public class MailHandler {
 

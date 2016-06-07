@@ -9,7 +9,15 @@
 	</div>
 	<div ng-controller="EmployeeTableCtrl as employeeTable">
 	    <p class="text-danger"><strong>{{msg}}</strong></p>
-	    <table datatable="" dt-options="employeeTable.dtOptions" dt-columns="employeeTable.dtColumns" dt-instance="employeeTable.dtInstance"  width="100%" class="table perfhr-table"></table>
+	    <table datatable="" dt-options="employeeTable.dtOptions" dt-columns="employeeTable.dtColumns" dt-instance="employeeTable.dtInstance"  width="100%" class="table perfhr-table">
+	    	<!-- <tfoot>
+	        	<tr>
+		            <th></th>
+		            <th></th>
+		            <th></th>
+		        </tr>
+	        </tfoot> -->
+	    </table>
 	</div>
 </div>
 <div class="modal fade bs-example-modal-lg" id="employeeForm" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -20,16 +28,16 @@
                 <h4 class="modal-title" ng-show="!data.pk" id="myModalLabel">Add Employee</h4>
                 <h4 class="modal-title" ng-show="data.pk" id="myModalLabel">Update Employee</h4>
             </div>
-            <div class="modal-body">
-	            <form role="form" ng-submit="submit()" class="form-horizontal">
-	            	<div ng-include="'html/employee.html'"></div>
-	            </form>
-            </div>
-            <div class="modal-footer">
-			   <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">Close</button>
-			   <button type="submit" ng-show="!data.pk" class="btn btn-primary">Save</button>
-			   <button type="submit" ng-show="data.pk" class="btn btn-primary">Update</button>
-			</div>
+            <form role="form" ng-submit="submit()" ng-init="form={}; data={}" class="form-horizontal">
+	            <div class="modal-body">
+	            	<div ng-include src="'html/employee.html'"></div>
+	            </div>
+	            <div class="modal-footer">
+				   <button type="button" id="closeBtn" class="btn btn-close" data-dismiss="modal">Close</button>
+				   <button type="submit" ng-show="!data.pk" class="btn btn-save">Save</button>
+				   <button type="submit" ng-show="data.pk" class="btn btn-update">Update</button>
+				</div>
+			</form>
         </div>
     </div>
 </div>

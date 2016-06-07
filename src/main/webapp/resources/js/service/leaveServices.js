@@ -1,30 +1,30 @@
 angular.module('leave.services', []).
   factory('leaveAPIservice', function($http) {
 	var leaveAPI = {};
-	leaveAPI.loadAllLeaves = function(leaveType) {
+	leaveAPI.loadAllLeaves = function(leaveType, calYear) {
         return $http({
           method: 'get', 
-          url: perfUrl['loadAllLeaves']+leaveType
+          url: perfUrl['loadAllLeaves'].replace('{leaveType}', leaveType).replace('{calYear}', calYear)
         });
     };
-    leaveAPI.applyLeave = function(wfh) {
+    leaveAPI.applyLeave = function(data) {
     	return $http({
           method: 'post', 
-          data : wfh,
+          data : data,
           url: perfUrl['applyLeave']
         });
     };
-    leaveAPI.updateLeave = function(wfh) {
+    leaveAPI.updateLeave = function(data) {
         return $http({
           method: 'put', 
-          data : wfh,
+          data : data,
           url: perfUrl['updateLeave']
         });
     };
-    leaveAPI.deleteLeave = function(wfh) {
+    leaveAPI.deleteLeave = function(data) {
         return $http({
           method: 'put', 
-          data : wfh,
+          data : data,
           url: perfUrl['deleteLeave']
         });
     };
@@ -34,12 +34,17 @@ angular.module('leave.services', []).
         url: perfUrl['loadLeaveById']+id
       });
     };
-    leaveAPI.loadMyLeaves = function(empId){
+    leaveAPI.loadMyLeaves = function(leaveType, calYear){
 	  return $http({
 	    method: 'get', 
-	    url: perfUrl['loadMyLeaves']+empId
+	    url: perfUrl['loadMyLeaves'].replace('{leaveType}', leaveType).replace('{calYear}', calYear)
 	  });
     };
-    
+    leaveAPI.getLeaveBalance = function(leaveType, calYear){
+  	  return $http({
+  	    method: 'get', 
+  	    url: perfUrl['getLeaveBalance'].replace('{leaveType}', leaveType).replace('{calYear}', calYear)
+  	  });
+    };
     return leaveAPI; 
 });

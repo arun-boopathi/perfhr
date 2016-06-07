@@ -1,16 +1,15 @@
 <div class="panel panel-success perfhr-panel">
 	<div class="panel-heading">
 		<h1 class="section-title">Projects</h1>
-		<ul class="controls">
-	        <li><button data-toggle="modal" ng-click="addProject()" ><i class="fa fa-plus"></i></button></li>
+		<ul class="rightsided-elemet">
+        	<li>
+        		<button data-toggle="modal" ng-click="addProject()" ><i class="fa fa-plus"></i>Add</button>
+        	</li>
         </ul>
 	</div>
 	<div ng-controller="ProjectsController as projectTable">
 	    <p class="text-danger"><strong>{{msg}}</strong></p>
 	    <table datatable="" dt-options="projectTable.dtOptions" dt-columns="projectTable.dtColumns" dt-instance="projectTable.dtInstance" class="table perfhr-table"></table>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-success btn-md" data-toggle="modal" ng-click="addProject()">Add Project</button>
 	</div>
 </div>
 <!-- Modal -->
@@ -58,9 +57,9 @@
 			   </form>
 		    </div>
 		    <div class="modal-footer">
-		    	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" ng-show="!data.pk" ng-click="save()">Save</button>
-				<button type="button" class="btn btn-primary" ng-show="data.pk" ng-click="update()">Update</button>
+		    	<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-save" ng-show="!data.pk" ng-click="save()">Save</button>
+				<button type="button" class="btn btn-update" ng-show="data.pk" ng-click="update()">Update</button>
 			</div>
 		</div>
 	</div>

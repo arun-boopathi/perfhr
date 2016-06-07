@@ -83,6 +83,7 @@
 <script src="js/lib/angular-datatables.bootstrap.options.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.tabletools.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.colvis.js"></script>
+<script src="js/lib/datatables.columnfilter.js"></script>
 <script src="js/lib/angular-datatables.columnfilter.js"></script>
 <script src="js/lib/angular-datatables.responsive.js"></script>
 <script src="js/lib/angular-datatables.buttons.js"></script>
@@ -98,6 +99,7 @@
 <script src="js/app/app.js"></script>
 <script src="js/app/common.js"></script>
 <script src="js/constants/constants.js"></script>
+<script src="js/constants/url.js"></script>
 <script src="js/controller/datatableController.js"></script>
 <script src="js/controller/profileController.js"></script>
 <script src="js/service/profileServices.js"></script>

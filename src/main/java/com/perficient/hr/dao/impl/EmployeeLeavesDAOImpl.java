@@ -1,6 +1,7 @@
 package com.perficient.hr.dao.impl;
 
 import java.io.FileInputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +14,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,6 +34,7 @@ import com.perficient.hr.model.Notification;
 import com.perficient.hr.model.type.LeaveType;
 import com.perficient.hr.model.type.NotificationStatusType;
 import com.perficient.hr.model.type.Notificationtype;
+import com.perficient.hr.utils.DateUtils;
 import com.perficient.hr.utils.PerfHrConstants;
 
 @Repository("employeeLeavesDAO")
@@ -83,7 +86,6 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 		                		employeeLeaves.setComments(row.getCell(35).toString());
 		                		int hours = (Math.round(Float.parseFloat(row.getCell(31).toString())) < 4) ? 4:8;
 		                		Date dt = sdf.parse(row.getCell(28).toString());
-		                		System.out.println("---Title---- "+row.getCell(18).toString()+" - "+leaveType);
 		                		employeeLeaves.setTitle(row.getCell(18).toString()+" - "+leaveType);
 		                		employeeLeaves.setStartsAt(dt);
 		                		employeeLeaves.setEndsAt(dt);
@@ -125,21 +127,29 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<EmployeeLeaves> loadAllLeaves(String leaveType) {
+	public List<EmployeeLeaves> loadAllLeaves(String leaveType, String calYear) {
 		Session session = sessionFactory.openSession();
-		List<String> leaveTypeList = new ArrayList<String>();
-		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active";
-		Query query = session.createQuery(sqlQuery);
-		if(leaveType.equals(LeaveType.PTO.getLeaveType())){
-			leaveTypeList.add(LeaveType.PTO.getLeaveType());
-			leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
-		} else {
-			leaveTypeList.add(LeaveType.WFH.getLeaveType());
+		List<EmployeeLeaves> list = new ArrayList<EmployeeLeaves>();
+		try {
+			String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active"
+					+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
+			Query query = session.createQuery(sqlQuery);
+			List<String> leaveTypeList = new ArrayList<String>();
+			if(leaveType.equals(LeaveType.PTO.getLeaveType())){
+				leaveTypeList.add(LeaveType.PTO.getLeaveType());
+				leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
+			} else {
+				leaveTypeList.add(LeaveType.WFH.getLeaveType());
+			}
+			query.setParameterList("requestTypes", leaveTypeList);
+			query.setParameter("active", PerfHrConstants.ACTIVE);
+			query.setParameter("startsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-01-01").getTime()));
+			query.setParameter("endsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-12-31").getTime()));
+			list = query.list();
+			session.close();
+		} catch (HibernateException | ParseException e) {
+			logger.error("Unable to load all leaves. Exception is: "+e);
 		}
-		query.setParameterList("requestTypes", leaveTypeList);
-		query.setParameter("active", PerfHrConstants.ACTIVE);
-		List<EmployeeLeaves> list = query.list();
-		session.close();
 		return list;
 	}
 
@@ -247,22 +257,60 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String employeeId) {
+	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String calYear, String employeeId) {
 		Session session = sessionFactory.openSession();
-		List<String> leaveTypeList = new ArrayList<String>();
-		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId:employeeId";
-		Query query = session.createQuery(sqlQuery);
-		if(leaveType.equals(LeaveType.PTO.getLeaveType())){
-			leaveTypeList.add(LeaveType.PTO.getLeaveType());
-			leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
-		} else {
-			leaveTypeList.add(LeaveType.WFH.getLeaveType());
+		List<EmployeeLeaves> list = new ArrayList<EmployeeLeaves>();
+		try {
+			String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"
+					+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
+			Query query = session.createQuery(sqlQuery);
+			List<String> leaveTypeList = new ArrayList<String>();
+			if(leaveType.equals(LeaveType.PTO.getLeaveType())){
+				leaveTypeList.add(LeaveType.PTO.getLeaveType());
+				leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
+			} else {
+				leaveTypeList.add(LeaveType.WFH.getLeaveType());
+			}
+			query.setParameterList("requestTypes", leaveTypeList);
+			query.setParameter("employeeId", Long.parseLong(employeeId));
+			query.setParameter("active", PerfHrConstants.ACTIVE);
+			query.setParameter("startsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-01-01").getTime()));
+			query.setParameter("endsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-12-31").getTime()));
+			list = query.list();
+			session.close();
+		} catch (HibernateException | ParseException e) {
+			logger.error("Unable to load leaves for employee: '"+employeeId+"'. Exception is: "+e);
 		}
-		query.setParameterList("requestTypes", leaveTypeList);
-		query.setParameter("employeeId", Long.parseLong(employeeId));
-		query.setParameter("active", PerfHrConstants.ACTIVE);
-		List<EmployeeLeaves> list = query.list();
-		session.close();
 		return list;
+	}
+
+	@Override
+	public Long getLeaveBalance(String leaveType, String calYear,
+			String employeeId, int totalLeaves) {
+		Session session = sessionFactory.openSession();
+		long leaveBalance = totalLeaves;
+		try {
+			String sqlQuery = "SELECT SUM(el.hours) from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"
+					+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
+			Query query = session.createQuery(sqlQuery);
+			List<String> leaveTypeList = new ArrayList<String>();
+			if(leaveType.equals(LeaveType.PTO.getLeaveType())){
+				leaveTypeList.add(LeaveType.PTO.getLeaveType());
+				leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
+			} else {
+				leaveTypeList.add(LeaveType.WFH.getLeaveType());
+			}
+			query.setParameterList("requestTypes", leaveTypeList);
+			query.setParameter("employeeId", Long.parseLong(employeeId));
+			query.setParameter("active", PerfHrConstants.ACTIVE);
+			query.setParameter("startsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-01-01").getTime()));
+			query.setParameter("endsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-12-31").getTime()));
+			leaveBalance = leaveBalance - ((Long) query.uniqueResult())/8;
+		} catch (HibernateException | ParseException e) {
+			logger.error("Unable to load leaves for employee: '"+employeeId+"'. Exception is: "+e);
+		} catch (Exception e) {
+			logger.error("Unable to load leaves for employee: '"+employeeId+"'. Exception is: "+e);
+		}
+		return leaveBalance;
 	}
 }

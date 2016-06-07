@@ -5,10 +5,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,8 +54,9 @@ public class EmployeeController {
 	
 	@RequestMapping(value="/updateEmployee", method=RequestMethod.PUT)
 	@Produces("application/json")
+	@Consumes("application/json")
 	@ResponseBody
-	public boolean updateEmployee(HttpServletResponse response, @RequestBody Employee employee) throws RecordNotFoundException{
+	public boolean updateEmployee(@RequestBody Employee employee, HttpServletResponse response) throws RecordNotFoundException{
 		if(employeeDAO.loadById(String.valueOf(employee.getPk())) == null){
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			throw new RecordNotFoundException();

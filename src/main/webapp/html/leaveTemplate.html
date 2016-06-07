@@ -1,17 +1,8 @@
 
 <div class="row">
-	<!--  <div class="col-md-2 text-center">
-	  <div class="btn-group">
-       	<button class="btn btn-success pull-right" data-toggle="modal" ng-click="applyLeave()">
-	      Apply {{title}}
-	    </button>
-      </div>-->
-	</div>
-	<br class="visible-xs visible-sm">
-	
 	<h2 class="text-center calendertitle">{{ scope.calendarTitle }}</h2>
     <div class="col-md-3 text-left">  
-      <div class="btn-group">
+      <div class="btn-group" ng-click="toggleYear(scope.viewDate)">
         <button class="btn btn-primary" mwl-date-modifier date="scope.viewDate" decrement="scope.calendarView">
           Previous
         </button>
@@ -35,23 +26,22 @@
     <br class="visible-xs visible-sm">
     <div class="pull-right">
 	    <div class="btn-group" data-toggle="buttons">
-		  <label class="btn btn-primary active">
-		    <input type="radio" name="options" id="option1" autocomplete="off" checked> All
-		  </label>
-		  <label class="btn btn-primary">
-		    <input type="radio" name="options" id="option2" autocomplete="off"> Mine
-		  </label>
+		    <label class="btn btn-primary" ng-model="scope.checkLeaves" ng-click="toggleLeave('all')" uib-btn-radio="'all'">All</label>
+        	<label class="btn btn-primary" ng-model="scope.checkLeaves" ng-click="toggleLeave('mine')" uib-btn-radio="'mine'">Mine</label>
 		</div>
 	</div>
 </div>
 <br>
-<mwl-calendar events="scope.events" view="scope.calendarView"
+<mwl-calendar 
+	events="scope.events" 
+	view="scope.calendarView"
     view-title="scope.calendarTitle"
     view-date="scope.viewDate"
     on-event-click="scope.eventClicked(calendarEvent)"
     on-timespan-click="scope.timeSpanClicked(calendarCell, calendarEvent)"
     cell-is-open="scope.isCellOpen"
     cell-modifier="scope.modifyCell(calendarCell)"
+    on-view-change-click="scope.viewChangeClicked(calendarDate, calendarNextView)"
     on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd">
 </mwl-calendar>
 <!-- Modal -->
@@ -133,9 +123,9 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-			  <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-			  <button type="button" class="btn btn-success" ng-show="!data.pk" ng-click="saveLeave()">Save</button>
-			  <button type="button" class="btn btn-info" ng-show="data.pk" ng-click="updateLeave()">Update</button>
+			  <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+			  <button type="button" class="btn btn-save" ng-show="!data.pk" ng-click="saveLeave()">Save</button>
+			  <button type="button" class="btn btn-update" ng-show="data.pk" ng-click="updateLeave()">Update</button>
 			  <button type="button" class="btn btn-danger" ng-show="data.pk" ng-click="deleteLeave()">Delete</button>
 			</div>
 		</div>
@@ -154,25 +144,9 @@
 				<div ng-controller="leaveControllerTable as leaveTable">
 					<table datatable="" dt-options="leaveTable.dtOptions" dt-columns="leaveTable.dtColumns" dt-instance="leaveTable.dtInstance" class="row-border hover"></table>
 				</div>
-			    <!-- <table class="table" fixed-header>
-			    	<thead>
-						<tr>
-							<th><span>Title</span></th>
-							<th><span>Start From</span></th>
-							<th><span>Ends At</span></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr data-ng-repeat="event in datalist | orderBy:'title'" data-ng-click="editLeave(event)">
-							<td>{{event.title}}</td>
-							<td>{{event.startsAt | date:'medium'}}</td>
-							<td>{{event.endsAt | date:'medium'}}</td>
-						</tr>
-					</tbody>
-				</table> -->
 			</div>
 			<div class="modal-footer">
-			  <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+			  <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
