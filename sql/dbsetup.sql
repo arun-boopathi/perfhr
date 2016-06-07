@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS `designations`;
 CREATE TABLE `designations` (
   `pk` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designation` varchar(45) NOT NULL,
+  `sbu` varchar(45) NOT NULL,
   `active` BOOLEAN default true NOT NULL,
   `dt_created` datetime NOT NULL,
   `created_by` int(10) unsigned NOT NULL,
@@ -117,6 +118,7 @@ DROP TABLE IF EXISTS `notification_type`;
 CREATE TABLE `notification_type` (
   `pk` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type_value` varchar(45) NOT NULL,
+  `category` varchar(45) ,
   `active` BOOLEAN default true NOT NULL,
   `dt_created` datetime NOT NULL,
   `created_by` int(10) unsigned NOT NULL,
@@ -185,6 +187,7 @@ DROP TABLE IF EXISTS `employee_leaves`;
 CREATE TABLE `employee_leaves` (
   `pk` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `employee_pk` int(10) unsigned NOT NULL,
+  `applied_by_pk` int(10) unsigned NOT NULL,
   `request_type` varchar(45) NOT NULL,
   `request_title` varchar(100) NOT NULL,
   `comments` varchar(100) NOT NULL,
@@ -413,7 +416,8 @@ CREATE TABLE `notification` (
   `notification_type` varchar(45) NOT NULL,
   `notification_to` int(10) unsigned NOT NULL, -- Shall we maintain Mailids or Employee Ids?
   `notification_status` varchar(45) NOT NULL,
-  `comments` varchar(45),
+  `comments` varchar(256),
+  `read` BOOLEAN default false NOT NULL,
   `active` BOOLEAN default true NOT NULL,
   `dt_created` datetime NOT NULL,
   `created_by` int(10) unsigned NOT NULL,
@@ -446,3 +450,10 @@ CREATE TABLE `login_track` (
   KEY `FK_created_by_lt` (`created_by`),
   CONSTRAINT `FK_created_by_lt` FOREIGN KEY (`created_by`) REFERENCES `employee` (`pk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- VIEW for Employee tale
+create or replace view perficient.vw_employee_superviser as
+select e.*, s.employee_id as sup_employee_id, s.firstname as sup_firstname, s.lastname as sup_lastname 
+from perficient.employee e 
+inner join perficient.employee s on s.pk = e.superviser;

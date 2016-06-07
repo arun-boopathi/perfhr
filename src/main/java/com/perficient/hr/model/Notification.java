@@ -30,6 +30,9 @@ public class Notification extends AbstractModel{
 	
 	@Column(name = "comments")
 	private String comments;
+	
+	@Column(name = "read")
+	private int read;
 
 	/**
 	 * @return the pk
@@ -113,6 +116,14 @@ public class Notification extends AbstractModel{
 	 */
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+
+	public int getRead() {
+		return read;
+	}
+
+	public void setRead(int read) {
+		this.read = read;
 	}
 	
 }
