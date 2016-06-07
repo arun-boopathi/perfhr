@@ -29,7 +29,7 @@ import com.perficient.hr.model.EmployeeLeaves;
 
 @Controller
 @RequestMapping("/v-leave")
-public class LeaveController extends AbstractController {
+public class EmployeeLeaveController extends AbstractController {
 		
 	@Autowired
 	private EmployeeLeavesDAO employeeLeavesDAO;
@@ -72,6 +72,14 @@ public class LeaveController extends AbstractController {
 	@ResponseBody
 	public List<EmployeeLeaves> loadAllLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear){
 		return employeeLeavesDAO.loadAllLeaves(leaveType, calYear);
+	}
+    
+    @RequestMapping(value="/getLeaveBalance/{leaveType}/{calYear}",method=RequestMethod.GET)
+	@Produces("application/json")
+	@ResponseBody
+	public Long getLeaveBalance(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear, HttpServletRequest request){
+    	HttpSession session = request.getSession();
+		return employeeLeavesDAO.getLeaveBalance(leaveType, calYear, session.getAttribute("userId").toString(), Integer.parseInt(perfProperties.getPtoCount()));
 	}
 
     @RequestMapping(value="/loadMyLeaves/{leaveType}/{calYear}",method=RequestMethod.GET)

@@ -1,13 +1,16 @@
 <div class="panel panel-success perfhr-panel">
 	<div class="panel-heading">
 		<h1 class="section-title">Job Title</h1>
-		<ul class="controls">
-	        <li><button data-toggle="modal" ng-click="addDesignation()" ><i class="fa fa-plus"></i></button></li>
+		<ul class="rightsided-elemet">
+        	<li>
+        		<button data-toggle="modal" ng-click="addDesignation()" ><i class="fa fa-plus"></i>Add</button>
+        	</li>
         </ul>
 	</div>
 	<div ng-controller="DesignationController as designationTable">
 	    <p class="text-info"><strong>{{ msg }}</strong></p>
-	    <table datatable="" dt-options="designationTable.dtOptions" dt-columns="designationTable.dtColumns" dt-instance="designationTable.dtInstance" class="table perfhr-table"></table>
+	    <table datatable="" dt-options="designationTable.dtOptions" dt-columns="designationTable.dtColumns" dt-instance="designationTable.dtInstance" class="table perfhr-table">\
+	    </table>
 	</div>
 </div>
 <!-- Modal -->

@@ -83,6 +83,7 @@
 <script src="js/lib/angular-datatables.bootstrap.options.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.tabletools.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.colvis.js"></script>
+<script src="js/lib/datatables.columnfilter.js"></script>
 <script src="js/lib/angular-datatables.columnfilter.js"></script>
 <script src="js/lib/angular-datatables.responsive.js"></script>
 <script src="js/lib/angular-datatables.buttons.js"></script>

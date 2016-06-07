@@ -1,17 +1,13 @@
 var vm, rowIndex, data, scope;
 /* Employee controller */
 
-mainApp.controller('employeeController', function($scope, employeeAPIservice, designationAPIservice) {
+mainApp.controller('employeeController', function($scope, $controller, employeeAPIservice, designationAPIservice) {
 	scope = $scope;
 	
 	employeeAPIservice.loadAllEmployees().success(function (response) {
 		$scope.employees = response;
 		vm.dtInstance.DataTable.clear().draw();
     	vm.dtInstance.DataTable.rows.add($scope.employees).draw();
-	});
-	
-	designationAPIservice.getDesignationDetails().success(function (response) {
-	   $scope.designations = response;
 	});
 	
 	$scope.addEmployee = function(){
@@ -27,6 +23,7 @@ mainApp.controller('employeeController', function($scope, employeeAPIservice, de
 	$scope.submit = function() {
 		console.log('data ', $scope.data);
         if ($scope.data.pk) {
+//           $scope.data.designations = $scope.data.designations.pk;
            employeeAPIservice.updateEmployee($scope.data).success(function (response) {
           	   vm.dtInstance.dataTable.fnUpdate($scope.data, rowIndex, undefined, false);
           	   $scope.msg = 'Employee updated successfully.';         	
@@ -42,6 +39,10 @@ mainApp.controller('employeeController', function($scope, employeeAPIservice, de
   	       });
         }
     };
+    
+    angular.extend(this, $controller('empProfileController', {
+        $scope: $scope
+    }));
 });
 
 mainApp.controller('EmployeeTableCtrl', EmployeeTableCtrl);

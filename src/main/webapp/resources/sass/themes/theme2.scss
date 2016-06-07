@@ -142,7 +142,7 @@ div.dataTables_length label, div.dataTables_filter label{
 	.active {
 		a, a:focus, a:hover, span, span:focus, span:hover {
 		    color: #fff;
-		    background-color: rgba(0, 0, 0, 0.24);
+		    background-color: #C53A26;
 		    border-color: rgba(255, 255, 255, 0.84);
 		}
 	}
@@ -173,7 +173,7 @@ div.dataTables_length label, div.dataTables_filter label{
 }
 
 .modal-footer {
-    background: #2B2929;
+    background: rgba(0, 0, 0, 0.14);
 }
 
 .modal select option {

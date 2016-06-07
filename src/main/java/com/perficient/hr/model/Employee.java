@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "employee")
@@ -85,6 +86,11 @@ public class Employee extends AbstractModel {
 	@Column(name = "gender")
 	private String gender;
 	
+	@Transient
+	private String superviserFirstName;
+	
+	@Transient
+	private String superviserLastName;
 	
 	/**
 	 * @return the pk
@@ -258,14 +264,14 @@ public class Employee extends AbstractModel {
 	/**
 	 * @return the superviser
 	 */
-	public long getSuperviser() {
+	public Long getSuperviser() {
 		return superviser;
 	}
 
 	/**
 	 * @param superviser the superviser to set
 	 */
-	public void setSuperviser(long superviser) {
+	public void setSuperviser(Long superviser) {
 		this.superviser = superviser;
 	}
 
@@ -396,10 +402,31 @@ public class Employee extends AbstractModel {
 	}
 
 	/**
-	 * @param superviser the superviser to set
+	 * @return the superviserFirstName
 	 */
-	public void setSuperviser(Long superviser) {
-		this.superviser = superviser;
+	public String getSuperviserFirstName() {
+		return superviserFirstName;
+	}
+
+	/**
+	 * @param superviserFirstName the superviserFirstName to set
+	 */
+	public void setSuperviserFirstName(String superviserFirstName) {
+		this.superviserFirstName = superviserFirstName;
+	}
+
+	/**
+	 * @return the superviserLastName
+	 */
+	public String getSuperviserLastName() {
+		return superviserLastName;
+	}
+
+	/**
+	 * @param superviserLastName the superviserLastName to set
+	 */
+	public void setSuperviserLastName(String superviserLastName) {
+		this.superviserLastName = superviserLastName;
 	}
 	
 }

@@ -24,6 +24,7 @@
 	        .withOption('fnDrawCallback', drawCallback)
 	        .withPaginationType('full_numbers')
 	        .withOption("oLanguage", {"sEmptyTable": params.vm.sEmptyTable != null ? params.vm.sEmptyTable: "No Records Found."})
+	        .withColumnFilter()
 	        .withButtons([
 	            { 
 	            	extend : 'excel',
@@ -39,8 +40,8 @@
 	            }
         	]);
 			params.vm.dtColumns.push(params.DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml));
-		    		    
-		    function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+			function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 		        $('td', nRow).unbind('click');
 		        $('td:last button', nRow).bind('click', function() {
 		        	vm.dtInstance.DataTable.$('tr.selected').removeClass('selected');
@@ -48,10 +49,6 @@
 		        	rowIndex = aData.pk-1;
 		        	scope.data = aData;
 		        	scope.$apply();
-		        	//$('#'+params.editFormId).modal();
-		        	/*params.service.loadById(aData.pk).success(function (response) {
-			        	scope.data = aData;
-			        });*/
 		        });
 		        return nRow;
 		    }

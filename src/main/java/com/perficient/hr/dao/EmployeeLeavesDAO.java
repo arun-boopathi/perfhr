@@ -20,4 +20,6 @@ public interface EmployeeLeavesDAO {
 	
 	public boolean deleteLeave(EmployeeLeaves employeeLeaves, String userId);
 	
+	public Long getLeaveBalance(String leaveType, String calYear, String employeeId, int totalLeaves);
+	
 }

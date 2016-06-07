@@ -37,6 +37,7 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
 	
 	scope = $scope;
 	$scope.data = {};
+	$scope.leaveBalance = 0;
 	$scope.data.requestType = $scope.leaveType;
 	var eventArr = [];
 	calendarConfig.displayEventEndTimes = true;
@@ -45,14 +46,12 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
 	calendarConfig.templates.calendarMonthCellEvents = 'html/templates/calendarMonthCellEvents.html';
 
 	this.toggle = function($event, field, event) {
-	  console.log('in toggle');
       $event.preventDefault();
       $event.stopPropagation();
       event[field] = !event[field];
     };
     
     this.timeSpanClicked = function(calendarCell, $event){
-    	console.log('on time span');
     	if(calendarCell.events.length > 0){
     		vm.dtInstance.DataTable.clear().draw();
         	vm.dtInstance.DataTable.rows.add(calendarCell.events).draw();
@@ -93,6 +92,9 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
             	$scope.displayLeave(response);
           	});
     	}
+    	leaveAPIservice.getLeaveBalance($scope.leaveType, obj.calYear).success(function (response) {
+    		$scope.leaveBalance = response;
+	  	});
     };
     
     $scope.toggleLeave(obj.checkLeaves);

@@ -40,6 +40,11 @@ angular.module('leave.services', []).
 	    url: perfUrl['loadMyLeaves'].replace('{leaveType}', leaveType).replace('{calYear}', calYear)
 	  });
     };
-    
+    leaveAPI.getLeaveBalance = function(leaveType, calYear){
+  	  return $http({
+  	    method: 'get', 
+  	    url: perfUrl['getLeaveBalance'].replace('{leaveType}', leaveType).replace('{calYear}', calYear)
+  	  });
+    };
     return leaveAPI; 
 });

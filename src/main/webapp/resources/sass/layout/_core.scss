@@ -684,3 +684,71 @@ button.dt-button, div.dt-button, a.dt-button{
     margin-top: 3px;
     opacity: 1;
 }
+
+.cal-before-eventlist{
+	display:inline-block;
+	width:100%;
+}
+
+.calender-main{
+    display: inline-block;
+    margin: 10px 0 0;
+    width: 100%;
+}
+
+
+.cal-year-box{
+
+    [class*="span"]{
+    border-bottom: 1px solid #eee;
+    min-height: 140px;
+    width: 25%;
+    }
+
+	span[data-cal-date] {
+	    font-size: 15px;
+	    margin: 10px 0 0;
+	    opacity: 1;
+	}
+
+	.cal-events-num {
+    margin-top: 5px;
+    }
+}
+
+.modal{
+
+table.dataTable{
+	thead {
+		.sorting,  .sorting_asc , th {
+		    background-color: rgba(0 , 0, 0, .3);
+		    color: #fff;
+		}
+
+	}
+
+	&.hover tbody tr:hover, &.display tbody tr:hover {
+	    background-color: rgba(245, 245, 245, 0.35);
+	}
+
+	tbody{
+
+		td{
+		color:#fff;
+		border-left: 1px solid rgba(189, 187, 187, 0.43);
+	    border-bottom: none;
+		}
+
+		tr{
+	    background-color: rgba(255, 255, 255, 0.01);
+		}
+	}
+}
+
+	.dataTables_wrapper .dataTables_info {
+    display: block;
+    color: #fff;
+    padding: 0;
+    margin: -8px 0 4px 0;
+    }
+}

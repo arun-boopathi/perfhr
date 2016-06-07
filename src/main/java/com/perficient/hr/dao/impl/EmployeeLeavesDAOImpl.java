@@ -283,4 +283,34 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 		}
 		return list;
 	}
+
+	@Override
+	public Long getLeaveBalance(String leaveType, String calYear,
+			String employeeId, int totalLeaves) {
+		Session session = sessionFactory.openSession();
+		long leaveBalance = totalLeaves;
+		try {
+			String sqlQuery = "SELECT SUM(el.hours) from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"
+					+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
+			Query query = session.createQuery(sqlQuery);
+			List<String> leaveTypeList = new ArrayList<String>();
+			if(leaveType.equals(LeaveType.PTO.getLeaveType())){
+				leaveTypeList.add(LeaveType.PTO.getLeaveType());
+				leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
+			} else {
+				leaveTypeList.add(LeaveType.WFH.getLeaveType());
+			}
+			query.setParameterList("requestTypes", leaveTypeList);
+			query.setParameter("employeeId", Long.parseLong(employeeId));
+			query.setParameter("active", PerfHrConstants.ACTIVE);
+			query.setParameter("startsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-01-01").getTime()));
+			query.setParameter("endsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-12-31").getTime()));
+			leaveBalance = leaveBalance - ((Long) query.uniqueResult())/8;
+		} catch (HibernateException | ParseException e) {
+			logger.error("Unable to load leaves for employee: '"+employeeId+"'. Exception is: "+e);
+		} catch (Exception e) {
+			logger.error("Unable to load leaves for employee: '"+employeeId+"'. Exception is: "+e);
+		}
+		return leaveBalance;
+	}
 }
