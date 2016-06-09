@@ -22,6 +22,9 @@ public class EmployeeLeaves extends AbstractModel{
 	@Column(name = "employee_pk")
 	private Long employeeId;
 	
+	@Column(name = "applied_by_pk")
+	private Long appliedById;
+	
 	@Column(name = "request_type")
 	private String requestType;
 	
@@ -202,6 +205,19 @@ public class EmployeeLeaves extends AbstractModel{
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
+	/**
+	 * @return the appliedById
+	 */
+	public Long getAppliedById() {
+		return appliedById;
+	}
+
+	/**
+	 * @param appliedById the appliedById to set
+	 */
+	public void setAppliedById(Long appliedById) {
+		this.appliedById = appliedById;
+	}
 	
 }

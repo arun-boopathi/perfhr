@@ -19,6 +19,8 @@ public class Designations  extends AbstractModel {
 	@Column(name = "designation")
 	private String designation;
 	
+	@Column(name = "sbu")
+	private String sbu;
 			
 	/**
 	 * @return the pk
@@ -47,4 +49,19 @@ public class Designations  extends AbstractModel {
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
+
+	/**
+	 * @return the sbu
+	 */
+	public String getSbu() {
+		return sbu;
+	}
+
+	/**
+	 * @param sbu the sbu to set
+	 */
+	public void setSbu(String sbu) {
+		this.sbu = sbu;
+	}
+	
 }

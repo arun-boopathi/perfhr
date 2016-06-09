@@ -26,6 +26,7 @@
             		<li>
             			<a href="#">Reports</a>
             			<ul>
+            				<li><a href="#/report/jobtitle">Job Title</a></li>
             				<li><a href="#">WFH Reports</a></li>
             				<li><a href="#">PTO Reports</a></li>
             			</ul>	
@@ -56,6 +57,44 @@
 	<a id="sidePanel" class="mm-slideout" href="#"><span></span></a>
 	
 	<div class="submenu fixed mm-slideout">
+		<div class="header" ng-controller="headerController"> 
+		    <h1><a href="#/dashboard"><img class="" src="images/logo2.png"></a></h1>
+		    <ul class="nav-right pull-right list-inline">
+               <li class="dropdown nav-profile">
+                   <a data-toggle="dropdown" class="dropdown-toggle rightheader" href="" aria-expanded="true">
+  				   	   <figure class="user-image"><img src="images/user.jpg"></figure>
+				   	   <label>{{user.firstName}}, {{user.lastName}}<i class="fa fa-angle-down"></i></label>
+                   </a>
+                   <ul role="menu" class="dropdown-menu animated littleFadeInRight">
+                       <li>
+                           <a href="#/profile"> 
+                               <i class="fa fa-user"></i>Profile
+                           </a>
+                       </li>
+                       <li>
+                           <a href="logout">
+                               <i class="fa fa-sign-out"></i>Logout
+                           </a>
+                       </li>
+                       <li class="divider"></li>
+                         <li>
+                           <a href="#">
+                               <i class="fa fa-cog"></i>Theme Settings
+                           </a>
+                       </li>
+                       <ul class="colortheme">
+	                        <li class="lime themecolor"></li>
+	                        <li class="black themecolor"></li>
+	                        <li class="bright-red themecolor"></li>
+	                          
+	                        <li class="dark-blue themecolor"></li>
+	                        <li class="cyan themecolor"></li>
+	                        <li class="scorpion themecolor"></li>
+                       </ul>
+                   </ul>
+               </li>
+           </ul>
+		</div>
 		<div class="divContainer" id="divContainer">
 			<div id="overlay"><img id="loading" src="images/gears.gif"></div>
 			<ng-view></ng-view>
@@ -100,6 +139,7 @@
 <script src="js/app/common.js"></script>
 <script src="js/constants/constants.js"></script>
 <script src="js/constants/url.js"></script>
+<script src="js/controller/headerController.js"></script>
 <script src="js/controller/datatableController.js"></script>
 <script src="js/controller/profileController.js"></script>
 <script src="js/service/profileServices.js"></script>
@@ -119,6 +159,8 @@
 <script src="js/service/importPtoServices.js"></script>
 <script src="js/controller/leaveController.js"></script>
 <script src="js/service/leaveServices.js"></script>
+<script src="js/controller/reportsJobtitleController.js"></script>
+<script src="js/service/reportsJobtitleServices.js"></script>
 <!-- <script src="dist/js/dev/lib.js"></script> -->
 <!-- <script src="dist/js/dev/perf.js"></script> -->
 </html>

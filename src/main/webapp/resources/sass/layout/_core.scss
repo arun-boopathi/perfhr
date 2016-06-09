@@ -79,7 +79,8 @@ html:not(.mm-opening):not(.mm-opened) #sidePanel {
 
 #sidePanel {
 	&:before, &:after, span {
-		background: #FF432E;
+		background: #c52026
+		;
 		content: '';
 		display: block;
 		width: 30px;
@@ -262,7 +263,6 @@ h1 {
 		display: none;
 	}
 	#sidePanel {
-		background: #4bb5ef;
 		border-bottom: 1px solid rgba( 255, 255, 255, 0.5 );
 		opacity: 0.95;
 		width: 100%;
@@ -752,3 +752,82 @@ table.dataTable{
     margin: -8px 0 4px 0;
     }
 }
+
+.header{
+    background: rgba(0, 0, 0, 0) url("../images/black_bg.jpg") repeat scroll 0 0 / cover ;
+    display: inline-block;
+    left: 0;
+    padding: 6px 30px;
+    position: fixed;
+    top: 0;
+     right: 23px;
+    z-index:9;
+
+    h1{
+    margin:0;
+    paading:0;
+    float:left;
+    }
+
+}
+
+.rightheader{
+    float:right;
+    
+    figure {
+	    border-radius: 50%;
+	    height: 40px;
+	    overflow: hidden;
+	    width: 40px;
+	    float:left;
+	    
+	    > img{
+	    width:100%;
+	    }
+    }
+    
+    >label {
+    color: #fff;
+    float: left;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 10px 0 0 10px;
+    }
+    
+}
+
+.colortheme {
+    float: left;
+    padding: 3px 22px 3px 43px;
+    width: 100%;
+}
+
+.themecolor{
+	display:inline-block;
+	height: 20px;
+    margin: 0 0px 5px 0;
+    width: 20px;
+}
+
+.lime{background:$lime;}
+.black{background:black;}
+.bright-red{background:$bright-red}
+.dark-blue{background:$dark-blue}
+.cyan{background:$cyan}
+.scorpion{background:$scorpion}
+
+
+
+.dropdown-toggle{
+     cursor:pointer;
+}
+
+.dropdown-menu > li > a{
+	 color: #636363;
+	 font-size: 13px;
+	 
+	> i{
+	   margin: 0 10px 0 0;
+	  }	 
+}
+

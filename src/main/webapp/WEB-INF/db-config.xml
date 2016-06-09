@@ -11,7 +11,7 @@
    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
   	   <property name="locations">
            <list>
-               <value>classpath:config.properties</value>
+               <value>classpath:dbconfig.properties</value>
            </list>
        </property>
    	   <property name="ignoreUnresolvablePlaceholders" value="true"/>

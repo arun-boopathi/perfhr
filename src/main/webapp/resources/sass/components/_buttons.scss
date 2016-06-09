@@ -1,18 +1,13 @@
 /*-----------------BUTTON COMPONENT---------------------*/
-.btn-default {
-    background: rgba(222, 222, 222, 0.55);
-    border-color: #cccccc;
-    color: #333333;
-}
-
-
-.btn-warning {
+.btn-edit {
     color: #fff;
-    background-color: #f0ad4e;
-    border-color: #eea236;
+    background-color: #FF7043;
     padding: 8px 8px 4px 11px;
 }
 
+.btn-edit:hover{
+	color: #fff;
+}
 
 .btn-save {
     background: #55C188;
@@ -25,7 +20,7 @@
 }
 
 .btn-close {
-    color: #fff;
+    color: #000;
     background-color: #AAB2BE;
     border: 2px solid #AAB2BE;
     &:hover, &:active, &:focus{ 
@@ -41,7 +36,7 @@
 }
 
 .btn-update {
-    background-color: #f0ad4e;
+    background-color: #FF7043;
     border:2px solid #eea236;
     color: #fff;
     &:hover, &:focus, &:active{

@@ -31,6 +31,9 @@ public class Notification extends AbstractModel{
 	@Column(name = "comments")
 	private String comments;
 
+	@Column(name = "flag")
+	private int flag;
+	
 	/**
 	 * @return the pk
 	 */
@@ -113,6 +116,20 @@ public class Notification extends AbstractModel{
 	 */
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+
+	/**
+	 * @return the flag
+	 */
+	public int getFlag() {
+		return flag;
+	}
+
+	/**
+	 * @param flag the flag to set
+	 */
+	public void setFlag(int flag) {
+		this.flag = flag;
 	}
 	
 }
