@@ -417,7 +417,7 @@ CREATE TABLE `notification` (
   `notification_to` int(10) unsigned NOT NULL, -- Shall we maintain Mailids or Employee Ids?
   `notification_status` varchar(45) NOT NULL,
   `comments` varchar(256),
-  `read` BOOLEAN default false NOT NULL,
+  `flag` BOOLEAN default false NOT NULL,
   `active` BOOLEAN default true NOT NULL,
   `dt_created` datetime NOT NULL,
   `created_by` int(10) unsigned NOT NULL,

@@ -162,6 +162,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 
 			Employee employee = employeeDAO.loadById(userId);
 			empLeaves.setEmployeeId(employee.getPk());
+			empLeaves.setAppliedById(employee.getPk());
 			empLeaves.setRequestType(employeeLeaves.getRequestType());
 			empLeaves.setComments(employeeLeaves.getComments());
     		empLeaves.setTitle(employeeLeaves.getTitle());
@@ -170,6 +171,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     		empLeaves.setDtFromHalf(employeeLeaves.getDtFromHalf());
     		empLeaves.setDtEndHalf(employeeLeaves.getDtEndHalf());
     		empLeaves.setHours(getHours(employeeLeaves));
+    		empLeaves.setActive(PerfHrConstants.ACTIVE);
     		empLeaves.setDtCreated(new Date());
     		empLeaves.setDtModified(new Date());
     		empLeaves.setCreatedBy(employee.getPk());
@@ -181,7 +183,9 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     		notification.setIdGeneric(empLeaves.getPk());
     		notification.setNotificationTo(employee.getSuperviser());
     		notification.setNotificationStatus(NotificationStatusType.SUBMITTED.getNotificationStatusType());
-    		notification.setNotificationType(Notificationtype.WFH.getLeaveType());
+    		notification.setNotificationType(employeeLeaves.getRequestType());
+    		notification.setFlag(PerfHrConstants.UNREAD);
+    		notification.setActive(PerfHrConstants.ACTIVE);
     		notification.setDtCreated(new Date());
     		notification.setDtModified(new Date());
     		notification.setCreatedBy(employee.getPk());
@@ -288,7 +292,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	public Long getLeaveBalance(String leaveType, String calYear,
 			String employeeId, int totalLeaves) {
 		Session session = sessionFactory.openSession();
-		long leaveBalance = totalLeaves;
+		long leaveBalance = totalLeaves*8;
 		try {
 			String sqlQuery = "SELECT SUM(el.hours) from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"
 					+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
@@ -305,7 +309,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			query.setParameter("active", PerfHrConstants.ACTIVE);
 			query.setParameter("startsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-01-01").getTime()));
 			query.setParameter("endsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-12-31").getTime()));
-			leaveBalance = leaveBalance - ((Long) query.uniqueResult())/8;
+			leaveBalance = leaveBalance - ((Long) query.uniqueResult());
 		} catch (HibernateException | ParseException e) {
 			logger.error("Unable to load leaves for employee: '"+employeeId+"'. Exception is: "+e);
 		} catch (Exception e) {

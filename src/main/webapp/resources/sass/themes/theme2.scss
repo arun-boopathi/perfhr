@@ -86,7 +86,7 @@ table.dataTable, table.dataTable.no-footer{
 }
 
 div.dataTables_length label, div.dataTables_filter label{    
-	color: rgba(255, 255, 255, 0.48);
+  color: #fff;
 }
 
 .dataTables_length select {
@@ -161,9 +161,8 @@ div.dataTables_length label, div.dataTables_filter label{
    }
 }
 
-.modal-body {
-	background: #202020;
-	color: #fff;
+.modal-content {
+    background: #2C475E;
 }
 
 .modal-header {
@@ -173,7 +172,7 @@ div.dataTables_length label, div.dataTables_filter label{
 }
 
 .modal-footer {
-    background: rgba(0, 0, 0, 0.14);
+    background: rgba(0, 0, 0, 0.81);
 }
 
 .modal select option {
@@ -183,4 +182,11 @@ div.dataTables_length label, div.dataTables_filter label{
 
 .modal-header .close {
     color: #fff;
+}
+
+
+/*---------calender-------------------*/
+
+.calender-top .btn-primary{
+  background:#3A8CA6;
 }

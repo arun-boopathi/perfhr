@@ -9,7 +9,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @Configuration
 @PropertySources({
     @PropertySource("classpath:appconfig.properties"),
-    @PropertySource("classpath:config.properties")
+    @PropertySource("classpath:dbconfig.properties")
 })
 public class PropertyUtils {
 

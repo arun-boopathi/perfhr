@@ -92,8 +92,12 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
             	$scope.displayLeave(response);
           	});
     	}
+    	$scope.getLeaveBalance();
+    };
+    
+    $scope.getLeaveBalance = function(){
     	leaveAPIservice.getLeaveBalance($scope.leaveType, obj.calYear).success(function (response) {
-    		$scope.leaveBalance = response;
+    		$scope.leaveBalance = (response)/8;
 	  	});
     };
     
@@ -117,6 +121,8 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
     		response.endsAt = new Date(response.endsAt);
     		$scope.scope.events[response.pk] = response;
 			$scope.msg = $scope.title+" Saved Successfully!";
+			
+			$scope.getLeaveBalance();
 		}).error(function(){
 			$scope.msg="An error occurred during Save!";
 		});
@@ -131,6 +137,7 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
         	    return element.pk == $scope.data.pk;
         	});
 			$scope.msg=$scope.title+" Updated Successfully!";
+			$scope.getLeaveBalance();
 		}).error(function(){
 			$scope.msg="An error occurred during Update!";
 		});
@@ -145,6 +152,7 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
         	    return element.pk == $scope.data.pk;
         	});
 			$scope.msg=$scope.title+" Deleted Successfully!";
+			$scope.getLeaveBalance();
 		}).error(function(){
 			$scope.msg="An error occurred during Delete!";
 		});
@@ -186,6 +194,9 @@ function leaveControllerTable($scope, $compile, DTOptionsBuilder, DTColumnBuilde
         }),
         DTColumnBuilder.newColumn('endsAt').withTitle('endsAt').renderWith(function(data, type, full) {
             return moment(data).format("DD-MM-YYYY hh:mm A");
+        }),
+        DTColumnBuilder.newColumn('hours').withTitle('Days').renderWith(function(data, type, full) {
+            return (data/8);
         })
  	];
      var paramObj = {

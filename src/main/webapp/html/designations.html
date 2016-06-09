@@ -28,7 +28,16 @@
 		         <div class="form-group">
 			         <label class="col-md-4 control-label text-left">Designation :</label>
 		             <div class="col-md-8">
-		               <input type="Text" class="form-control" id="add" autofocus ng-model="data.designation"/>
+		               <input type="Text" class="form-control" autofocus ng-model="data.designation"/>
+		             </div>
+   		         </div>
+   		         <div class="form-group">
+			         <label class="col-md-4 control-label text-left">SBU :</label>
+		             <div class="col-md-8">
+		               <select class="form-control" ng-model="data.sbu"  ng-selected="{{data.sbu}}">
+		               		<option>CHENNAI ADMIN</option>
+		               		<option>CHENNAI CONSULTING</option>
+						</select>
 		             </div>
    		         </div>
 			   </form>

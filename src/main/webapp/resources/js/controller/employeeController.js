@@ -1,9 +1,8 @@
 var vm, rowIndex, data, scope;
 /* Employee controller */
-
-mainApp.controller('employeeController', function($scope, $controller, employeeAPIservice, designationAPIservice) {
+mainApp.controller('employeeController', function($scope, $controller, employeeAPIservice, designationAPIservice, user) {
 	scope = $scope;
-	
+	console.log('logged user', user.loggedUser);
 	employeeAPIservice.loadAllEmployees().success(function (response) {
 		$scope.employees = response;
 		vm.dtInstance.DataTable.clear().draw();

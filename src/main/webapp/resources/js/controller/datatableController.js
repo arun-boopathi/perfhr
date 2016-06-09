@@ -91,7 +91,7 @@
 		        vm.datalist[data.pk] = data;
 		        var editRecord='', deleteRecord ='';
 		        if(params.editRow == undefined){
-		        	editRecord = '<button class="btn btn-warning" data-toggle="modal" data-target="#'+params.editFormId+'">' +
+		        	editRecord = '<button class="btn btn-edit" data-toggle="modal" data-target="#'+params.editFormId+'">' +
 		            '   <i class="fa fa-edit"></i>' +
 		            '</button>&nbsp;';	
 		        }
