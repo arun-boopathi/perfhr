@@ -56,5 +56,5 @@ mainApp.controller('empProfileController', function($scope, designationAPIservic
 	
 	designationAPIservice.getDesignationDetails().success(function (response) {
 	    $scope.designations = response;
-	 });
+	});
 });

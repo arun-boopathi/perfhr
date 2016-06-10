@@ -39,7 +39,8 @@
 	                }
 	            }
         	]);
-			params.vm.dtColumns.push(params.DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml));
+			if(params.actions != false)
+				params.vm.dtColumns.push(params.DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml));
 
 			function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 		        $('td', nRow).unbind('click');
@@ -92,7 +93,7 @@
 		        var editRecord='', deleteRecord ='';
 		        if(params.editRow == undefined){
 		        	editRecord = '<button class="btn btn-edit" data-toggle="modal" data-target="#'+params.editFormId+'">' +
-		            '   <i class="fa fa-edit"></i>' +
+		            '   <i class="fa fa-pencil"></i>' +
 		            '</button>&nbsp;';	
 		        }
 		        if(params.deleteRow == undefined){

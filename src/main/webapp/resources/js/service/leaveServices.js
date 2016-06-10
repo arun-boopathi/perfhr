@@ -46,5 +46,13 @@ angular.module('leave.services', []).
   	    url: perfUrl['getLeaveBalance'].replace('{leaveType}', leaveType).replace('{calYear}', calYear)
   	  });
     };
+    leaveAPI.loadLeaveReport = function(data){
+	  return $http({
+	    method: 'post', 
+	    data : data,
+	    url: perfUrl['loadLeaveReport']
+	  });
+    };
+    
     return leaveAPI; 
 });

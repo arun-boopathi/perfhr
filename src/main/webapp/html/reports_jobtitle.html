@@ -1,0 +1,44 @@
+<div class="perfhr-widget">
+	<div class="perfhr-widget-header">
+		<h3 class="section-title">Reports - Job Title</h3>
+	</div>
+	<form ng-submit="submit()" class="form-inline">
+		<div class="perfhr-widget-content">
+		    <div class="col-md-12">
+		      	<div class="row">
+					<div class="form-group">
+					    <label class="control-label">From Date:</label>
+					    <p class="input-group">
+				            <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.startsAt}} ng-model="data.startsAt" is-open="stDate.opened" 
+			          			datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+				          	<span class="input-group-btn">
+				            	<button type="button" class="btn btn-default" ng-click="reportStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+				          	</span>
+				        </p>
+					</div>
+				    <div class="form-group">
+				    	<label class="control-label">To Date:</label>
+				    	<p class="input-group date">
+				          	<input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.endsAt}} ng-model="data.endsAt" is-open="endDate.opened" 
+				          		datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+				          	<span class="input-group-btn">
+				            	<button type="button" class="btn btn-default" ng-click="reportEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+				          	</span>
+			            </p>
+				    </div>
+				    <div class="form-group">
+				    	<button class="btn btn-success" ng-click="searchLeave()">Search</button>
+				    </div>
+	    		</div>
+	    		<div>
+	    			<ol class="breadcrumb">
+					  <li><a href="#">SBU</a></li>
+					</ol>
+	    		</div>
+				<div ng-controller="leaveReportControllerTable as leaveTable">
+					<table datatable="" dt-options="leaveTable.dtOptions" dt-columns="leaveTable.dtColumns" dt-instance="leaveTable.dtInstance" class="table perfhr-table"></table>
+				</div>
+		    </div>
+	    </div>
+    </form>
+</div>

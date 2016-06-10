@@ -45,6 +45,16 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
 	calendarConfig.templates.calendarMonthCell = 'html/templates/calendarMonthCell.html';
 	calendarConfig.templates.calendarMonthCellEvents = 'html/templates/calendarMonthCellEvents.html';
 
+	$scope.data.itemArray = [
+        {id: 1, name: 'first'},
+        {id: 2, name: 'second'},
+        {id: 3, name: 'third'},
+        {id: 4, name: 'fourth'},
+        {id: 5, name: 'fifth'},
+    ];
+
+    $scope.data.selectedItem = $scope.data.itemArray[0];
+	
 	this.toggle = function($event, field, event) {
       $event.preventDefault();
       $event.stopPropagation();
@@ -189,10 +199,10 @@ function leaveControllerTable($scope, $compile, DTOptionsBuilder, DTColumnBuilde
 	vm = this;
 	vm.dtColumns = [
         DTColumnBuilder.newColumn('title').withTitle('Title'),
-        DTColumnBuilder.newColumn('startsAt').withTitle('startsAt').renderWith(function(data, type, full) {
+        DTColumnBuilder.newColumn('startsAt').withTitle('Starts').renderWith(function(data, type, full) {
             return moment(data).format("DD-MM-YYYY hh:mm A");
         }),
-        DTColumnBuilder.newColumn('endsAt').withTitle('endsAt').renderWith(function(data, type, full) {
+        DTColumnBuilder.newColumn('endsAt').withTitle('Ends').renderWith(function(data, type, full) {
             return moment(data).format("DD-MM-YYYY hh:mm A");
         }),
         DTColumnBuilder.newColumn('hours').withTitle('Days').renderWith(function(data, type, full) {

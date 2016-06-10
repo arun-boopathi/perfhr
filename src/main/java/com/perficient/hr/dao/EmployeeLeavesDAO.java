@@ -22,4 +22,5 @@ public interface EmployeeLeavesDAO {
 	
 	public Long getLeaveBalance(String leaveType, String calYear, String employeeId, int totalLeaves);
 	
+	public List<EmployeeLeaves> loadLeaveReport(EmployeeLeaves employeeLeaves);
 }

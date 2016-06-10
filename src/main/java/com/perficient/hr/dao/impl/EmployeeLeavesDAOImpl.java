@@ -28,6 +28,7 @@ import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.dao.EmployeeLeavesDAO;
+import com.perficient.hr.dao.NotificationDAO;
 import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.EmployeeLeaves;
 import com.perficient.hr.model.Notification;
@@ -56,6 +57,9 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     @Autowired
     EmployeeDAO employeeDAO;
     
+    @Autowired
+    NotificationDAO notificationDAO;
+    
 	@Override
 	public boolean pasrsePtoDocument(String fileName) {
 		boolean returnVal = false;
@@ -82,6 +86,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	                		if(employee != null) {
 	                			EmployeeLeaves employeeLeaves = new EmployeeLeaves();
 	                			employeeLeaves.setEmployeeId(employee.getPk());
+	                			employeeLeaves.setAppliedById(employee.getPk());
 	                			employeeLeaves.setRequestType(row.getCell(11).toString());
 		                		employeeLeaves.setComments(row.getCell(35).toString());
 		                		int hours = (Math.round(Float.parseFloat(row.getCell(31).toString())) < 4) ? 4:8;
@@ -184,12 +189,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     		notification.setNotificationTo(employee.getSuperviser());
     		notification.setNotificationStatus(NotificationStatusType.SUBMITTED.getNotificationStatusType());
     		notification.setNotificationType(employeeLeaves.getRequestType());
-    		notification.setFlag(PerfHrConstants.UNREAD);
-    		notification.setActive(PerfHrConstants.ACTIVE);
-    		notification.setDtCreated(new Date());
-    		notification.setDtModified(new Date());
-    		notification.setCreatedBy(employee.getPk());
-    		notification.setModifiedBy(employee.getPk());
+    		
     		session.save(notification);
     		
 			tx.commit();
@@ -316,5 +316,34 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			logger.error("Unable to load leaves for employee: '"+employeeId+"'. Exception is: "+e);
 		}
 		return leaveBalance;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<EmployeeLeaves> loadLeaveReport(EmployeeLeaves employeeLeaves) {
+		Session session = sessionFactory.openSession();
+		List<EmployeeLeaves> list = new ArrayList<EmployeeLeaves>();
+		try {
+			String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"
+					+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
+			Query query = session.createQuery(sqlQuery);
+			List<String> leaveTypeList = new ArrayList<String>();
+			if(employeeLeaves.getRequestType().equals(LeaveType.ALL_PTO.getLeaveType())){
+				leaveTypeList.add(LeaveType.PTO.getLeaveType());
+				leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
+			} else {
+				leaveTypeList.add(employeeLeaves.getRequestType());
+			}
+			query.setParameterList("requestTypes", leaveTypeList);
+			query.setParameter("employeeId", employeeLeaves.getEmployeeId());
+			query.setParameter("active", PerfHrConstants.ACTIVE);
+			query.setParameter("startsAt", new java.sql.Timestamp(employeeLeaves.getStartsAt().getTime()));
+			query.setParameter("endsAt", new java.sql.Timestamp(employeeLeaves.getEndsAt().getTime()));
+			list = query.list();
+			session.close();
+		} catch (Exception e) {
+			logger.error("Unable to load leaves for employee: '"+employeeLeaves.getEmployeeId()+"'. Exception is: "+e);
+		}
+		return list;
 	}
 }

@@ -19,8 +19,8 @@
       <div class="btn-group">
         <label class="btn btn-primary" ng-model="scope.calendarView" uib-btn-radio="'year'">Year</label>
         <label class="btn btn-primary" ng-model="scope.calendarView" uib-btn-radio="'month'">Month</label>
-        <label class="btn btn-primary" ng-model="scope.calendarView" uib-btn-radio="'week'">Week</label>
-        <label class="btn btn-primary" ng-model="scope.calendarView" uib-btn-radio="'day'">Day</label>
+        <!-- <label class="btn btn-primary" ng-model="scope.calendarView" uib-btn-radio="'week'">Week</label>
+        <label class="btn btn-primary" ng-model="scope.calendarView" uib-btn-radio="'day'">Day</label> -->
       </div>
     </div>
     <br class="visible-xs visible-sm">
@@ -80,6 +80,22 @@
 						        	<option value="PTO">PTO</option>
 						        	<option value="Unplanned PTO">Unplanned PTO</option>
 						         </select>
+					         </div>
+				         </div>
+				         <div class="form-group">
+					         <label class="col-md-4 control-label">Notify:</label>
+					         <div class="col-md-8 input-group">
+					         	 <select class="form-control" ng-model="data.itemArray.id"  ng-selected="{{data.itemArray.id}}"
+										ng-options="item.name for item in itemArray">
+								</select>
+								 <!-- <ui-select ng-model="data.selected.value">
+								    <ui-select-match>
+								        <span ng-bind="$select.data.selected.name"></span>
+								    </ui-select-match>
+								    <ui-select-choices repeat="item in (data.itemArray | filter: $select.data.search) track by item.id">
+								        <span ng-bind="item.name"></span>
+								    </ui-select-choices>
+								</ui-select> -->
 					         </div>
 				         </div>
 				         <div class="form-group date">

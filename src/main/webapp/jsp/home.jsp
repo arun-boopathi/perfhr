@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="css/theme2.css">
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
-	<nav id="menu" class="mm-menu" style="display: none;">
+	<nav id="menu" class="mm-menu" style="display: none;" ng-controller="menuController">
         <ul>
             <li><a href="#/dashboard">Dashboard</a></li>
             <li>
@@ -27,8 +27,8 @@
             			<a href="#">Reports</a>
             			<ul>
             				<li><a href="#/report/jobtitle">Job Title</a></li>
-            				<li><a href="#">WFH Reports</a></li>
-            				<li><a href="#">PTO Reports</a></li>
+            				<li><a href="#/report/reports_wfh">WFH Reports</a></li>
+            				<li><a href="#/report/reports_pto">PTO Reports</a></li>
             			</ul>	
             		</li>
             	</ul>
@@ -49,7 +49,7 @@
              </li>
             <li><a href="#/pto">PTO</a></li>
             <li><a href="#/wfh">WFH</a></li>
-            <li><a href="#/notifications">Notifications</a></li>
+            <li><a href="#/notifications">Notifications - {{notificationCount}}</a></li>
             <li><a href="logout">Logout</a></li>
         </ul>        
 	</nav>
@@ -135,11 +135,13 @@
 <script src="js/lib/bootstrap-calendar.min.js"></script>
 <script src="js/lib/angular-bootstrap-calendar-tpls.js"></script>
 <script src="js/lib/ui-bootstrap-tpls-1.3.2.js"></script>
+<script src="js/lib/select.js"></script>
 <script src="js/app/app.js"></script>
 <script src="js/app/common.js"></script>
 <script src="js/constants/constants.js"></script>
 <script src="js/constants/url.js"></script>
 <script src="js/controller/headerController.js"></script>
+<script src="js/controller/menuController.js"></script>
 <script src="js/controller/datatableController.js"></script>
 <script src="js/controller/profileController.js"></script>
 <script src="js/service/profileServices.js"></script>
@@ -161,6 +163,9 @@
 <script src="js/service/leaveServices.js"></script>
 <script src="js/controller/reportsJobtitleController.js"></script>
 <script src="js/service/reportsJobtitleServices.js"></script>
+<script src="js/controller/notificationController.js"></script>
+<script src="js/service/notificationServices.js"></script>
+<script src="js/controller/leaveReportsController.js"></script>
 <!-- <script src="dist/js/dev/lib.js"></script> -->
 <!-- <script src="dist/js/dev/perf.js"></script> -->
 </html>

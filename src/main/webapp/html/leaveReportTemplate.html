@@ -1,0 +1,65 @@
+<div class="row">
+	<div  class="col-sm-2">
+      <div class="form-group date">
+         <label class="control-label">From Date:</label>
+         <div>
+          <p class="input-group">
+	         <input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.startDate}} ng-model="data.startsAt" is-open="stDate.opened" 
+          		datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+	          <span class="input-group-btn">
+	            <button type="button" class="btn btn-default" ng-click="reportStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+	          </span>
+	       </p>
+   		 </div>
+      </div>
+   </div>
+   <div  class="col-sm-2">
+      <div class="form-group">
+         <label class="control-label">To Date:</label>
+         <div>
+             <p class="input-group">
+	          	<input type="text" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.endDate}} ng-model="data.endsAt" is-open="endDate.opened" 
+	          		datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+	          	<span class="input-group-btn">
+	            	<button type="button" class="btn btn-default" ng-click="reportEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+	          	</span>
+	          </p>
+	   	 </div>
+      </div>
+   </div>
+   <div class="col-sm-3">
+      <div class="form-group">
+         <label class="control-label">Employee :</label>
+         <div>
+            <select class="form-control" ng-model="data.employeeId">
+				<option ng-repeat='employee in employees | orderBy: "firstName" track by employee.pk' 
+					value="{{employee.pk}}">{{employee.firstName}} {{employee.lastName}}</option>
+			</select>
+         </div>
+      </div>
+   </div>
+   <div class="col-sm-2">
+      <div class="form-group">
+         <label class="control-label">Leave Type:</label>
+         <div>
+            <select class="form-control" ng-disabled="!isPto" ng-model="data.requestType">
+            	<option value="ALL_PTO">All</option>
+			 	<option value="WFH" ng-selected="!isPto" ng-show="!isPto">WFH</option>
+	        	<option value="PTO">PTO</option>
+	        	<option value="Unplanned PTO">Unplanned PTO</option>
+	         </select>
+         </div>
+      </div>
+   </div>
+   <div class="col-sm-2">
+      <div class="form-group">
+      	<label class="control-label"></label>
+      	<div>
+        	<button class="btn btn-success" ng-click="searchLeave()">Search</button>
+        </div>
+      </div>
+   </div>
+</div>
+<div ng-controller="leaveReportControllerTable as leaveTable">
+	<table datatable="" dt-options="leaveTable.dtOptions" dt-columns="leaveTable.dtColumns" dt-instance="leaveTable.dtInstance" class="table perfhr-table"></table>
+</div>

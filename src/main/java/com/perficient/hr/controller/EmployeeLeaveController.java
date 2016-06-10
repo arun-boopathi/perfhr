@@ -90,6 +90,13 @@ public class EmployeeLeaveController extends AbstractController {
 		return employeeLeavesDAO.loadMyLeaves(leaveType, calYear, session.getAttribute("userId").toString());
 	}
     
+    @RequestMapping(value="/loadLeaveReport",method=RequestMethod.POST)
+	@Produces("application/json")
+	@ResponseBody
+	public List<EmployeeLeaves> loadLeaveReport(@RequestBody EmployeeLeaves employeeLeaves){
+		return employeeLeavesDAO.loadLeaveReport(employeeLeaves);
+	}
+    
     @RequestMapping(value="/loadLeaveById",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody

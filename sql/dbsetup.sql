@@ -46,7 +46,7 @@ CREATE TABLE `employee` (
   `pan_card_no` varchar(20) DEFAULT NULL,
   `img_src` varchar(45) DEFAULT NULL,
   `designation` int(10) unsigned NOT NULL,
-  `joindate` varchar(45) DEFAULT NULL,
+  `joindate` date DEFAULT NULL,
   `superviser` int(10) unsigned NOT NULL,
   `department` varchar(45) DEFAULT NULL,
   `billable` int(1) unsigned DEFAULT NULL,

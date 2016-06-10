@@ -1,14 +1,19 @@
 var mainApp = angular.module("perficientHr", 
 		['profile.services','employee.services','dashboard.services',
 		 'designation.services','project.services', 'projectmember.services', 'pto.services', 'leave.services',
-		 'reportJobtitle.services',
+		 'reportJobtitle.services', 'notification.services',
 		 'ngRoute', 'ngResource', 'ngAnimate',
 		 'mwl.calendar', 'ui.bootstrap',
-		 'datatables', 'datatables.bootstrap', 'datatables.buttons', 'datatables.columnfilter']);
+		 'datatables', 'datatables.bootstrap', 'datatables.buttons', 'datatables.columnfilter',
+		 'ui.select']);
 
 mainApp.value('user', {
     loggedUser:{}
 });
+
+/*Set the selected menu/sub-menu open on refresh/reload*/
+var pageEle = '#'+window.location.href.split('#')[1];
+$("#menu li a[href='"+pageEle+"']").parent().addClass('Selected');
 
 var rand = Math.floor(Math.random()*(3-1+1)+1);
 
@@ -58,8 +63,14 @@ mainApp.config(function($routeProvider) {
         templateUrl: 'html/notifications.html'
     })
     .when('/report/jobtitle', {
-        templateUrl: 'html/jobtitle_reports.html',
+        templateUrl: 'html/reports_jobtitle.html',
         controller : 'reportsJobtitleController'
+    })
+    .when('/report/reports_pto', {
+        templateUrl: 'html/reports_pto.html'
+    })
+    .when('/report/reports_wfh', {
+        templateUrl: 'html/reports_wfh.html'
     })
     .otherwise({
         redirectTo: '/home'
@@ -69,6 +80,10 @@ mainApp.config(function($routeProvider) {
 var $menu = $('#menu');
 var $btnMenu = $('.btn-menu');
 var $img = $('img'); 
+
+/*$("#menu").mmenu({
+    setSelected: true
+});*/
 
 // mmenu customization
 $menu.mmenu({
@@ -81,6 +96,10 @@ $menu.mmenu({
   offCanvas: {
     position  : "left",
     zposition : "back"
+  },
+  setSelected: true,
+  onClick: {
+	  setSelected: true
   },
   searchfield: true
 }).on('click', 'a[href^="#/"]', function() {

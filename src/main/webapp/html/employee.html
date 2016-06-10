@@ -85,7 +85,7 @@
          <label class="col-md-4 control-label">Job Title:</label>
          <div class="col-md-8">
             <select class="form-control" ng-model="$parent.data.designations"
-            		ng-selected="{{$parent.data.designations}}" ng-options="designation.designation for designation in designations track by designation.pk">
+            	ng-selected="{{$parent.data.designations}}" ng-options="designation.designation for designation in designations | orderBy: 'designation' track by designation.pk">
 			</select>
          </div>
       </div>
@@ -155,10 +155,7 @@
       <div class="form-group">
          <label class="col-md-4 control-label">SBU:</label>
          <div class="col-md-8">
-            <select class="form-control" ng-model="$parent.data.sbu" class="form-control" required placeholder="SBU" value="{{$parent.data.sbu}}" ng-selected="{{data.sbu}}">
-          		<option>CHENNAI ADMIN</option>
-          		<option>CHENNAI CONSULTING</option>
-			</select>
+         	<input type="text" class="form-control" readonly="readonly" value="data.designations.sbu" ng-model="data.designations.sbu">
          </div>
       </div>
    </div>

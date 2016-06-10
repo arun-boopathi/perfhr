@@ -4,7 +4,8 @@ public enum LeaveType {
 
 	PTO("PTO"),
 	UNPLANNED_PTO("Unplanned PTO"),
-	WFH("WFH");
+	WFH("WFH"),
+	ALL_PTO("ALL_PTO");
 	
 	private String leaveType;
 	

@@ -28,5 +28,7 @@ var perfUrl = {
     'deleteLeave' : urlPrefix+'leave/deleteLeave',
     'loadLeaveById' : urlPrefix+'leave/loadLeaveById?leaveId=',
     'loadMyLeaves' : urlPrefix+'leave/loadMyLeaves/{leaveType}/{calYear}',
-    'getLeaveBalance' : urlPrefix+'leave/getLeaveBalance/{leaveType}/{calYear}'
+    'getLeaveBalance' : urlPrefix+'leave/getLeaveBalance/{leaveType}/{calYear}',
+    'loadLeaveReport': urlPrefix+'leave/loadLeaveReport',
+    'loadNotificationCount' : urlPrefix+'notification/loadNotificationCount'
 };
