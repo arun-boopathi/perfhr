@@ -30,7 +30,7 @@ public class Notification extends AbstractModel{
 	
 	@Column(name = "comments")
 	private String comments;
-
+	
 	@Column(name = "flag")
 	private int flag;
 	
