@@ -1,5 +1,6 @@
 package com.perficient.hr.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.NotificationDAO;
+import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.Notification;
 import com.perficient.hr.utils.PerfHrConstants;
 
@@ -69,12 +71,30 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 		return count;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Notification> loadNotifications() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Notification> loadNotificationsByGenericId(long genericId) {
+		List<Notification> notificationList = new ArrayList<Notification>();
+		Session session = sessionFactory.openSession();
+		String sqlQuery = " from Notification n WHERE n.active=:active";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter("active", PerfHrConstants.ACTIVE);
+		notificationList = query.list();
+		session.close();
+		return notificationList;
 	}
 
-	
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Employee> loadNotificationsToByGenericId(long genericId) {
+		List<Employee> notificationToList = new ArrayList<Employee>();
+		Session session = sessionFactory.openSession();
+		String sqlQuery = "SELECT n.notificationTo from Notification n WHERE n.active=:active";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter("active", PerfHrConstants.ACTIVE);
+		notificationToList = query.list();
+		session.close();
+		return notificationToList;
+	}
+
 }

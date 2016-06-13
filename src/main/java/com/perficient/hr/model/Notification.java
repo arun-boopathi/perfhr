@@ -1,9 +1,12 @@
 package com.perficient.hr.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,8 +25,9 @@ public class Notification extends AbstractModel{
 	@Column(name = "notification_type")
 	private String notificationType;
 		
-	@Column(name = "notification_to")
-	private Long notificationTo;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "notification_to")
+	private Employee notificationTo;
 	
 	@Column(name = "notification_status")
 	private String notificationStatus;
@@ -79,14 +83,14 @@ public class Notification extends AbstractModel{
 	/**
 	 * @return the notificationTo
 	 */
-	public Long getNotificationTo() {
+	public Employee getNotificationTo() {
 		return notificationTo;
 	}
 
 	/**
 	 * @param notificationTo the notificationTo to set
 	 */
-	public void setNotificationTo(Long notificationTo) {
+	public void setNotificationTo(Employee notificationTo) {
 		this.notificationTo = notificationTo;
 	}
 

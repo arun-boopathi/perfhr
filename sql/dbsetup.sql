@@ -46,13 +46,12 @@ CREATE TABLE `employee` (
   `pan_card_no` varchar(20) DEFAULT NULL,
   `img_src` varchar(45) DEFAULT NULL,
   `designation` int(10) unsigned NOT NULL,
-  `joindate` date DEFAULT NULL,
-  `superviser` int(10) unsigned NOT NULL,
+  `joindate` date NOT NULL,
+  `supervisor` int(10) unsigned NOT NULL,
   `department` varchar(45) DEFAULT NULL,
   `billable` int(1) unsigned DEFAULT NULL,
   `skills` varchar(255) DEFAULT NULL,
   `last_working_date` date DEFAULT NULL,
-  `sbu` varchar(45) DEFAULT NULL,
   `active` BOOLEAN default true NOT NULL,
   `dt_created` datetime DEFAULT NULL,
   `dt_modified` datetime DEFAULT NULL,
@@ -62,9 +61,9 @@ CREATE TABLE `employee` (
   `city` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`pk`),
   KEY `FK_employee_1` (`designation`),
-  KEY `FK_employee_2` (`superviser`),
+  KEY `FK_employee_2` (`supervisor`),
   CONSTRAINT `FK_employee_1` FOREIGN KEY (`designation`) REFERENCES `designations` (`pk`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_employee_2` FOREIGN KEY (`superviser`) REFERENCES `employee` (`pk`)
+  CONSTRAINT `FK_employee_2` FOREIGN KEY (`supervisor`) REFERENCES `employee` (`pk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=latin1;
 
 
@@ -162,7 +161,7 @@ CREATE TABLE `employee_designation_history` (
   `employee_pk` int(10) unsigned NOT NULL,
   `designation_pk` int(10) unsigned NOT NULL,
   `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
+  `end_date` date ,
   `active` BOOLEAN default true NOT NULL,
   `dt_created` datetime NOT NULL,
   `dt_modified` datetime NOT NULL,
@@ -453,7 +452,7 @@ CREATE TABLE `login_track` (
 
 
 -- VIEW for Employee tale
-create or replace view perficient.vw_employee_superviser as
+create or replace view perficient.vw_employee_supervisor as
 select e.*, s.employee_id as sup_employee_id, s.firstname as sup_firstname, s.lastname as sup_lastname 
 from perficient.employee e 
-inner join perficient.employee s on s.pk = e.superviser;
+inner join perficient.employee s on s.pk = e.supervisor;

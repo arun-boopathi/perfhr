@@ -5,7 +5,7 @@ var mainApp = angular.module("perficientHr",
 		 'ngRoute', 'ngResource', 'ngAnimate',
 		 'mwl.calendar', 'ui.bootstrap',
 		 'datatables', 'datatables.bootstrap', 'datatables.buttons', 'datatables.columnfilter',
-		 'ui.select']);
+		 'ngSanitize', 'ui.select', 'isteven-multi-select']);
 
 mainApp.value('user', {
     loggedUser:{}

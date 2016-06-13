@@ -134,6 +134,7 @@
 <script src="js/lib/angular-datatables.buttons.flash.js"></script>
 <script src="js/lib/bootstrap-calendar.min.js"></script>
 <script src="js/lib/angular-bootstrap-calendar-tpls.js"></script>
+<script src="js/lib/angular-sanitize.js"></script>
 <script src="js/lib/ui-bootstrap-tpls-1.3.2.js"></script>
 <script src="js/lib/select.js"></script>
 <script src="js/app/app.js"></script>

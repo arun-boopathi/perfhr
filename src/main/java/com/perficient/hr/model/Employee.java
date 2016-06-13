@@ -56,8 +56,8 @@ public class Employee extends AbstractModel {
 	@Column(name = "nationality")
 	private String nationality;
 	
-	@Column(name = "superviser")
-	private Long superviser;
+	@Column(name = "supervisor")
+	private Long supervisor;
 	
 	@Column(name = "dob")
 	private Date dob;
@@ -262,17 +262,17 @@ public class Employee extends AbstractModel {
 	}
 
 	/**
-	 * @return the superviser
+	 * @return the supervisor
 	 */
-	public Long getSuperviser() {
-		return superviser;
+	public Long getSupervisor() {
+		return supervisor;
 	}
 
 	/**
-	 * @param superviser the superviser to set
+	 * @param supervisor the supervisor to set
 	 */
-	public void setSuperviser(Long superviser) {
-		this.superviser = superviser;
+	public void setSupervisor(Long supervisor) {
+		this.supervisor = supervisor;
 	}
 
 	/**

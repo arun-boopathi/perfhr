@@ -20,13 +20,49 @@ mainApp.controller('ptoController', function($scope, $controller, leaveAPIservic
 	$scope.title="PTO";
 	$scope.leaveType="PTO";
 	$scope.isPto = true;
-	
     angular.extend(this, $controller('leaveController', {
         $scope: $scope
     }));
 });
 
-mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, calendarConfig) {
+/**
+ * AngularJS default filter with the following expression:
+ * "person in people | filter: {name: $select.search, age: $select.search}"
+ * performs an AND between 'name: $select.search' and 'age: $select.search'.
+ * We want to perform an OR.
+ */
+mainApp.filter('propsFilter', function() {
+  return function(items, props) {
+    var out = [];
+    if (angular.isArray(items)) {
+      var keys = Object.keys(props);
+        
+      items.forEach(function(item) {
+        var itemMatches = false;
+
+        for (var i = 0; i < keys.length; i++) {
+          var prop = keys[i];
+          var text = props[prop].toLowerCase();
+          if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+            itemMatches = true;
+            break;
+          }
+        }
+
+        if (itemMatches) {
+          out.push(item);
+        }
+      });
+    } else {
+      // Let the output be the input untouched
+      out = items;
+    }
+    //console.log('out ', out);
+    return out;
+  };
+});
+
+mainApp.controller('leaveController', function($scope, moment, user, leaveAPIservice, employeeAPIservice, calendarConfig) {
 	var obj = this;
 	//These variables MUST be set as a minimum for the calendar to work
 	obj.calendarView = 'month';
@@ -37,6 +73,8 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
 	
 	scope = $scope;
 	$scope.data = {};
+	$scope.employees = [];
+	$scope.employeesList;
 	$scope.leaveBalance = 0;
 	$scope.data.requestType = $scope.leaveType;
 	var eventArr = [];
@@ -44,16 +82,6 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
 	calendarConfig.templates.calendarSlideBox = 'html/templates/calendarSlideBoxTemplate.html';
 	calendarConfig.templates.calendarMonthCell = 'html/templates/calendarMonthCell.html';
 	calendarConfig.templates.calendarMonthCellEvents = 'html/templates/calendarMonthCellEvents.html';
-
-	$scope.data.itemArray = [
-        {id: 1, name: 'first'},
-        {id: 2, name: 'second'},
-        {id: 3, name: 'third'},
-        {id: 4, name: 'fourth'},
-        {id: 5, name: 'fifth'},
-    ];
-
-    $scope.data.selectedItem = $scope.data.itemArray[0];
 	
 	this.toggle = function($event, field, event) {
       $event.preventDefault();
@@ -82,14 +110,18 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
     
     $scope.applyLeave = function(){
     	$scope.data = {};
+    	$scope.data.employeeId = user.loggedUser.pk;
     	$scope.data.requestType = $scope.leaveType;
         $scope.openModal();
     };
-    
-    $scope.editLeave = function(data){
-    	$scope.data = data;
-    	$scope.openModal();
-    };
+        
+    employeeAPIservice.loadAllEmployees().success(function(response) {
+    	$scope.employeesList = response;
+		$.each(response, function(i, val){
+			$scope.employees[val.pk] = val;
+		});
+		$scope.toggleLeave(obj.checkLeaves);
+	});
     
     $scope.toggleLeave = function(val){
     	obj.checkLeaves = val;
@@ -111,27 +143,33 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
 	  	});
     };
     
-    $scope.toggleLeave(obj.checkLeaves);
-    
     $scope.displayLeave = function(data){
     	$scope.scope.events.splice(0, $scope.scope.events.length);
     	$.each(data, function(i, val){
      		val.startsAt = new Date(val.startsAt);
      		val.endsAt = new Date(val.endsAt);
      		val.type = $scope.displayType;
+     		var notifyListPk = [];
+     		$.each(val.notificationToList, function(i, item){
+     			notifyListPk.push(item.pk);
+     		});
+     		val.notificationToList.splice(0, val.notificationToList.length);
+     		$.each(notifyListPk, function(i, item){
+     			val.notificationToList.push($scope.employees[1]);
+     		});
      		$scope.scope.events[val.pk] = val;
      		eventArr[val.pk] = i;
      	});
     };
     
     $scope.saveLeave = function(){
+    	console.log('on save ', $scope.data);
     	$scope.data.requestType = $scope.leaveType;
     	leaveAPIservice.applyLeave($scope.data).success(function (response) {
     		response.startsAt = new Date(response.startsAt);
     		response.endsAt = new Date(response.endsAt);
     		$scope.scope.events[response.pk] = response;
 			$scope.msg = $scope.title+" Saved Successfully!";
-			
 			$scope.getLeaveBalance();
 		}).error(function(){
 			$scope.msg="An error occurred during Save!";
@@ -139,6 +177,7 @@ mainApp.controller('leaveController', function($scope, moment, leaveAPIservice, 
     };
     
     $scope.updateLeave = function(){
+    	console.log('on save ', $scope.data);
     	leaveAPIservice.updateLeave($scope.data).success(function (response) {
     		$.grep($scope.scope.events, function (element, index) {
         		if($scope.data.pk == element.pk){

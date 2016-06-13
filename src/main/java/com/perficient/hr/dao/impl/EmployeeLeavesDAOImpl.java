@@ -19,8 +19,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
+import org.joda.time.DateTimeConstants;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,9 +102,11 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 		                		
 		                		session.save(employeeLeaves);
 		                		
+		                		Employee supervisor = (Employee) employeeDAO.loadById(String.valueOf(employee.getSupervisor()));
+		                		
 		                		Notification notification = new Notification();
 		                		notification.setIdGeneric(employeeLeaves.getPk());
-		                		notification.setNotificationTo((long)1);
+		                		notification.setNotificationTo(supervisor);
 		                		notification.setNotificationStatus(NotificationStatusType.APPROVED.getNotificationStatusType());
 		                		notification.setNotificationType(Notificationtype.PTO.getLeaveType());
 		                		notification.setDtCreated(new Date());
@@ -151,8 +153,15 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			query.setParameter("startsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-01-01").getTime()));
 			query.setParameter("endsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-12-31").getTime()));
 			list = query.list();
+			
+			for(EmployeeLeaves empLeaves: list){
+				empLeaves.setNotificationToList(notificationDAO.loadNotificationsToByGenericId(empLeaves.getPk()));
+			}
+			
 			session.close();
 		} catch (HibernateException | ParseException e) {
+			logger.error("Unable to load all leaves. Exception is: "+e);
+		} catch (Exception e) {
 			logger.error("Unable to load all leaves. Exception is: "+e);
 		}
 		return list;
@@ -166,7 +175,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			Transaction tx = session.beginTransaction();
 
 			Employee employee = employeeDAO.loadById(userId);
-			empLeaves.setEmployeeId(employee.getPk());
+			empLeaves.setEmployeeId(employeeLeaves.getEmployeeId());
 			empLeaves.setAppliedById(employee.getPk());
 			empLeaves.setRequestType(employeeLeaves.getRequestType());
 			empLeaves.setComments(employeeLeaves.getComments());
@@ -183,18 +192,22 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     		empLeaves.setModifiedBy(employee.getPk());
     		
 			session.save(empLeaves);
+    		Employee supervisor = (Employee) employeeDAO.loadById(String.valueOf(employee.getSupervisor()));
 			
 			Notification notification = new Notification();
     		notification.setIdGeneric(empLeaves.getPk());
-    		notification.setNotificationTo(employee.getSuperviser());
+    		notification.setNotificationTo(supervisor);
     		notification.setNotificationStatus(NotificationStatusType.SUBMITTED.getNotificationStatusType());
     		notification.setNotificationType(employeeLeaves.getRequestType());
-    		
+    		notification.setCreatedBy(employee.getPk());
+    		notification.setModifiedBy(employee.getPk());
+    		notification.setDtCreated(new Date());
+    		notification.setDtModified(new Date());
     		session.save(notification);
     		
 			tx.commit();
 		} catch(Exception e){
-			logger.error("Unable to apply WFH: "+employeeLeaves.getTitle()+" Exception is: "+e);
+			logger.error("Unable to apply Leave: "+employeeLeaves.getTitle()+" Exception is: "+e);
 		} finally{
 			session.close();	
 		}
@@ -207,13 +220,20 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
+			Employee employee = employeeDAO.loadById(userId);
     		employeeLeaves.setHours(getHours(employeeLeaves));
+    		employeeLeaves.setModifiedBy(employee.getPk());
 			employeeLeaves.setDtModified(new Date());
 			session.merge(employeeLeaves);
+			
+			for(Employee notify: employeeLeaves.getNotificationToList()){
+				
+			}
+			
 			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
-			logger.error("Unable to update designation: "+employeeLeaves.getTitle()+" Exception is: "+e);
+			logger.error("Unable to update leave: "+employeeLeaves.getTitle()+" Exception is: "+e);
 		} finally{
 			session.close();	
 		}
@@ -221,8 +241,23 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	}
 	
 	private int getHours(EmployeeLeaves employeeLeaves){
-		int hours = (Days.daysBetween(new DateTime(employeeLeaves.getStartsAt()), 
-				new DateTime(employeeLeaves.getEndsAt())).getDays()+1)*8;
+		List<LocalDate> dateList = new ArrayList<LocalDate>();
+		final LocalDate start = new LocalDate(employeeLeaves.getStartsAt().getTime());
+	    final LocalDate end = new LocalDate(employeeLeaves.getEndsAt().getTime());
+	    LocalDate weekday = start;
+	    if (start.getDayOfWeek() == DateTimeConstants.SATURDAY ||
+	            start.getDayOfWeek() == DateTimeConstants.SUNDAY) {
+	        weekday = weekday.plusWeeks(1).withDayOfWeek(DateTimeConstants.MONDAY);
+	    }
+	    while (weekday.isBefore(end) || weekday.isEqual(end)) {
+	        System.out.println(weekday);
+	        dateList.add(weekday);
+	        if (weekday.getDayOfWeek() == DateTimeConstants.FRIDAY)
+	            weekday = weekday.plusDays(3);
+	        else
+	            weekday = weekday.plusDays(1);
+	    }
+	    int hours = dateList.size()*8;
 		if(employeeLeaves.getDtFromHalf().equals(PerfHrConstants.SECOND_HALF)){
 			hours = hours -4;
 		}
@@ -244,7 +279,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
-			logger.error("Unable to update designation: "+employeeLeaves.getTitle()+" Exception is: "+e);
+			logger.error("Unable to delete  employee Leaves: "+employeeLeaves.getTitle()+" Exception is: "+e);
 		} finally{
 			session.close();	
 		}
@@ -254,8 +289,14 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	@Override
 	public EmployeeLeaves loadLeaveById(String leaveId) {
 		Session session = sessionFactory.openSession();
-		EmployeeLeaves employeeLeave = (EmployeeLeaves)session.get(EmployeeLeaves.class, Long.parseLong(leaveId));
-		session.close();
+		EmployeeLeaves employeeLeave = new EmployeeLeaves();
+		try{
+			employeeLeave = (EmployeeLeaves)session.get(EmployeeLeaves.class, Long.parseLong(leaveId));
+		} catch(Exception e){
+			logger.error("Unable to load leave Id:"+leaveId+" Exception is: "+e);
+		} finally {
+			session.close();	
+		}
 		return employeeLeave;
 	}
 
@@ -281,13 +322,44 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			query.setParameter("startsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-01-01").getTime()));
 			query.setParameter("endsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-12-31").getTime()));
 			list = query.list();
-			session.close();
 		} catch (HibernateException | ParseException e) {
 			logger.error("Unable to load leaves for employee: '"+employeeId+"'. Exception is: "+e);
+		} finally {
+			session.close();
 		}
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<EmployeeLeaves> loadLeaveReport(EmployeeLeaves employeeLeaves) {
+		Session session = sessionFactory.openSession();
+		List<EmployeeLeaves> list = new ArrayList<EmployeeLeaves>();
+		try {
+			String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"
+					+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
+			Query query = session.createQuery(sqlQuery);
+			List<String> leaveTypeList = new ArrayList<String>();
+			if(employeeLeaves.getRequestType().equals(LeaveType.ALL_PTO.getLeaveType())){
+				leaveTypeList.add(LeaveType.PTO.getLeaveType());
+				leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
+			} else {
+				leaveTypeList.add(employeeLeaves.getRequestType());
+			}
+			query.setParameterList("requestTypes", leaveTypeList);
+			query.setParameter("employeeId", employeeLeaves.getEmployeeId());
+			query.setParameter("active", PerfHrConstants.ACTIVE);
+			query.setParameter("startsAt", new java.sql.Timestamp(employeeLeaves.getStartsAt().getTime()));
+			query.setParameter("endsAt", new java.sql.Timestamp(employeeLeaves.getEndsAt().getTime()));
+			list = query.list();
+		} catch (Exception e) {
+			logger.error("Unable to load leaves for employee: '"+employeeLeaves.getEmployeeId()+"'. Exception is: "+e);
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
 	@Override
 	public Long getLeaveBalance(String leaveType, String calYear,
 			String employeeId, int totalLeaves) {
@@ -314,36 +386,10 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			logger.error("Unable to load leaves for employee: '"+employeeId+"'. Exception is: "+e);
 		} catch (Exception e) {
 			logger.error("Unable to load leaves for employee: '"+employeeId+"'. Exception is: "+e);
+		} finally {
+			session.close();
 		}
 		return leaveBalance;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<EmployeeLeaves> loadLeaveReport(EmployeeLeaves employeeLeaves) {
-		Session session = sessionFactory.openSession();
-		List<EmployeeLeaves> list = new ArrayList<EmployeeLeaves>();
-		try {
-			String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"
-					+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
-			Query query = session.createQuery(sqlQuery);
-			List<String> leaveTypeList = new ArrayList<String>();
-			if(employeeLeaves.getRequestType().equals(LeaveType.ALL_PTO.getLeaveType())){
-				leaveTypeList.add(LeaveType.PTO.getLeaveType());
-				leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
-			} else {
-				leaveTypeList.add(employeeLeaves.getRequestType());
-			}
-			query.setParameterList("requestTypes", leaveTypeList);
-			query.setParameter("employeeId", employeeLeaves.getEmployeeId());
-			query.setParameter("active", PerfHrConstants.ACTIVE);
-			query.setParameter("startsAt", new java.sql.Timestamp(employeeLeaves.getStartsAt().getTime()));
-			query.setParameter("endsAt", new java.sql.Timestamp(employeeLeaves.getEndsAt().getTime()));
-			list = query.list();
-			session.close();
-		} catch (Exception e) {
-			logger.error("Unable to load leaves for employee: '"+employeeLeaves.getEmployeeId()+"'. Exception is: "+e);
-		}
-		return list;
-	}
 }

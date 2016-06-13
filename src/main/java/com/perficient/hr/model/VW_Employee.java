@@ -59,8 +59,8 @@ public class VW_Employee implements Serializable{
 	@Column(name = "active")
 	private int active;
 	
-	@Column(name = "superviser")
-	private Long superviser;
+	@Column(name = "supervisor")
+	private Long supervisor;
 	
 	@Column(name = "sup_firstname")
 	private String superviserFirstName;
@@ -262,19 +262,19 @@ public class VW_Employee implements Serializable{
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
-
+	
 	/**
-	 * @return the superviser
+	 * @return the supervisor
 	 */
-	public Long getSuperviser() {
-		return superviser;
+	public Long getSupervisor() {
+		return supervisor;
 	}
 
 	/**
-	 * @param superviser the superviser to set
+	 * @param supervisor the supervisor to set
 	 */
-	public void setSuperviser(Long superviser) {
-		this.superviser = superviser;
+	public void setSupervisor(Long supervisor) {
+		this.supervisor = supervisor;
 	}
 
 	/**

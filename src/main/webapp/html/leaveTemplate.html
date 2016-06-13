@@ -67,9 +67,18 @@
 				             </div>
 				         </div>
 				         <div class="form-group">
+					         <label class="col-md-4 control-label">Employee :</label>
+							<div class="col-md-8 input-group">
+								<select ng-disabled="data.pk" name="supervisor" class="form-control" ng-model="data.employeeId">
+									<option ng-repeat='employee in employeesList | orderBy: "firstName" track by employee.pk' 
+										ng-selected="employee.pk == data.employeeId" value="{{employee.pk}}">{{employee.firstName}} {{employee.lastName}}</option>
+								</select>
+							</div>
+				         </div>
+				         <div class="form-group">
 					         <label class="col-md-4 control-label">Comment:</label>
 					         <div class="col-md-8 input-group">
-					         	<textarea class="form-control" ng-model="data.comments" value="{{data.comments}}" rows="5" cols="45" id="comment"></textarea>
+					         	<textarea class="form-control" ng-model="data.comments" value="{{data.comments}}" rows="4" cols="45" id="comment"></textarea>
 					         </div>
 				         </div>
 				         <div class="form-group">
@@ -85,17 +94,25 @@
 				         <div class="form-group">
 					         <label class="col-md-4 control-label">Notify:</label>
 					         <div class="col-md-8 input-group">
-					         	 <select class="form-control" ng-model="data.itemArray.id"  ng-selected="{{data.itemArray.id}}"
-										ng-options="item.name for item in itemArray">
-								</select>
-								 <!-- <ui-select ng-model="data.selected.value">
-								    <ui-select-match>
-								        <span ng-bind="$select.data.selected.name"></span>
-								    </ui-select-match>
-								    <ui-select-choices repeat="item in (data.itemArray | filter: $select.data.search) track by item.id">
-								        <span ng-bind="item.name"></span>
+								  <ui-select multiple ng-model="data.notificationToList" sortable="true" close-on-select="false" style="width: 340px;">
+								    <ui-select-match placeholder="Select...">{{$item.email}}</ui-select-match>
+								    <ui-select-choices repeat="employee in employees | propsFilter: {firstName: $select.search, lastName: $select.search}">
+								      <div ng-bind-html="employee.firstName | highlight: $select.search"></div>
+								      <small>
+								        email: {{employee.email}}
+								      </small>
 								    </ui-select-choices>
-								</ui-select> -->
+								  </ui-select>
+								<!-- <div
+								    isteven-multi-select
+								    input-model="notificationToList"
+								    output-model="outputBrowsers"
+								    button-label="email"
+								    item-label="firstName lastName email"
+								    selection-mode="multiple"
+								    max-height="200px"
+								    tick-property="selected">
+								</div> -->
 					         </div>
 				         </div>
 				         <div class="form-group date">

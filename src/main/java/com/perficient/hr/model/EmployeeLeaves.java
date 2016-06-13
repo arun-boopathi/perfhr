@@ -1,6 +1,7 @@
 package com.perficient.hr.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,6 +52,9 @@ public class EmployeeLeaves extends AbstractModel{
 	
 	@Transient
 	private String type;
+	
+	@Transient
+	private List<Employee> notificationToList;
 
 	/**
 	 * @return the pk
@@ -219,5 +223,19 @@ public class EmployeeLeaves extends AbstractModel{
 	public void setAppliedById(Long appliedById) {
 		this.appliedById = appliedById;
 	}
-	
+
+	/**
+	 * @return the notificationToList
+	 */
+	public List<Employee> getNotificationToList() {
+		return notificationToList;
+	}
+
+	/**
+	 * @param notificationToList the notificationToList to set
+	 */
+	public void setNotificationToList(List<Employee> notificationToList) {
+		this.notificationToList = notificationToList;
+	}
+
 }

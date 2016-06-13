@@ -62,7 +62,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	@SuppressWarnings("unchecked")
 	public List<VW_Employee> loadEmployees() {
 		Session session = sessionFactory.openSession();
-		String sqlQuery =" from VW_Employee e where e.active=:active";
+		String sqlQuery =" from VW_Employee e where e.active=:active order by e.firstName asc";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("active", PerfHrConstants.ACTIVE);
 		List<VW_Employee> list = query.list();

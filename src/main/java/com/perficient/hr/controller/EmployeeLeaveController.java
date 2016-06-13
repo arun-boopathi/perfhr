@@ -113,7 +113,8 @@ public class EmployeeLeaveController extends AbstractController {
 	}
     
     @RequestMapping(value="/updateLeave", method=RequestMethod.PUT)
-	@Produces("application/json")
+    @Produces("application/json")
+	@Consumes("application/json")
 	@ResponseBody
 	public boolean updateLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
     	HttpSession session = request.getSession();
