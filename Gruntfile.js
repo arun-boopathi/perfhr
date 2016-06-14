@@ -28,7 +28,8 @@ module.exports = function(grunt) {
 	    	  'src/main/webapp/resources/sass_compiled/login.css': 'src/main/webapp/resources/sass/login.scss',       // 'destination': 'source'
 	    	  'src/main/webapp/resources/sass_compiled/main.css': 'src/main/webapp/resources/sass/main.scss',
 	    	  'src/main/webapp/resources/sass_compiled/vendors.css': 'src/main/webapp/resources/sass/vendors.scss',
-			  'src/main/webapp/resources/sass_compiled/theme2.css': 'src/main/webapp/resources/sass/themes/theme2.scss'
+			  'src/main/webapp/resources/sass_compiled/theme2.css': 'src/main/webapp/resources/sass/themes/theme2.scss',
+			  'src/main/webapp/resources/sass_compiled/theme1.css': 'src/main/webapp/resources/sass/themes/theme1.scss'
 	      }
 	    }
 	},
@@ -48,7 +49,8 @@ module.exports = function(grunt) {
         		'src/main/webapp/resources/js/dev/login.js': [grunt_uriSrc+'/js/lib/jquery.js', grunt_uriSrc+'js/lib/bootstrap.js', grunt_uriSrc+'js/login/login.js'],
         		'src/main/webapp/resources/css/vendors.css' : grunt_uriSrc+'sass_compiled/vendors.css',
         		'src/main/webapp/resources/css/perf.css' : grunt_uriSrc+'sass_compiled/main.css',
-				'src/main/webapp/resources/css/theme2.css' : grunt_uriSrc+'sass_compiled/theme2.css'
+				'src/main/webapp/resources/css/theme2.css' : grunt_uriSrc+'sass_compiled/theme2.css',
+				'src/main/webapp/resources/css/theme1.css' : grunt_uriSrc+'sass_compiled/theme1.css',
         	}
         }
     },

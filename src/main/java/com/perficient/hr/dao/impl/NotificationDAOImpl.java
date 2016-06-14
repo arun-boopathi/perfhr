@@ -36,8 +36,19 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 	
 	@Override
 	public boolean saveNotification(Notification notification) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean returnVal = false;
+		Session session = sessionFactory.openSession();
+		try{
+			Transaction tx = session.beginTransaction();
+			session.save(notification);
+			tx.commit();
+			returnVal = true;
+		} catch(Exception e){
+			logger.error("Unable to save notification: "+notification.getPk()+" Exception is: "+e);
+		} finally{
+			session.close();	
+		}
+		return returnVal;
 	}
 
 	@Override
@@ -45,10 +56,7 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 		boolean returnVal = false;
 		Session session = sessionFactory.openSession();
 		try{
-			Transaction tx = session.beginTransaction();
-    		
 			session.merge(notification);
-			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
 			logger.error("Unable to update designation: "+notification.getPk()+" Exception is: "+e);
@@ -76,9 +84,10 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 	public List<Notification> loadNotificationsByGenericId(long genericId) {
 		List<Notification> notificationList = new ArrayList<Notification>();
 		Session session = sessionFactory.openSession();
-		String sqlQuery = " from Notification n WHERE n.active=:active";
+		String sqlQuery = " from Notification n WHERE n.active=:active AND n.idGeneric=:genericId";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("active", PerfHrConstants.ACTIVE);
+		query.setParameter("genericId", genericId);
 		notificationList = query.list();
 		session.close();
 		return notificationList;
@@ -89,9 +98,10 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 	public List<Employee> loadNotificationsToByGenericId(long genericId) {
 		List<Employee> notificationToList = new ArrayList<Employee>();
 		Session session = sessionFactory.openSession();
-		String sqlQuery = "SELECT n.notificationTo from Notification n WHERE n.active=:active";
+		String sqlQuery = "SELECT n.notificationTo from Notification n WHERE n.active=:active AND n.idGeneric=:genericId";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("active", PerfHrConstants.ACTIVE);
+		query.setParameter("genericId", genericId);
 		notificationToList = query.list();
 		session.close();
 		return notificationToList;

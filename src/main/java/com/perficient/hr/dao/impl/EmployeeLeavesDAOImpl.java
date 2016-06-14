@@ -29,6 +29,7 @@ import org.springframework.stereotype.Repository;
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.dao.EmployeeLeavesDAO;
 import com.perficient.hr.dao.NotificationDAO;
+import com.perficient.hr.exception.GenericException;
 import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.EmployeeLeaves;
 import com.perficient.hr.model.Notification;
@@ -192,19 +193,25 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     		empLeaves.setModifiedBy(employee.getPk());
     		
 			session.save(empLeaves);
-    		Employee supervisor = (Employee) employeeDAO.loadById(String.valueOf(employee.getSupervisor()));
-			
-			Notification notification = new Notification();
-    		notification.setIdGeneric(empLeaves.getPk());
-    		notification.setNotificationTo(supervisor);
-    		notification.setNotificationStatus(NotificationStatusType.SUBMITTED.getNotificationStatusType());
-    		notification.setNotificationType(employeeLeaves.getRequestType());
-    		notification.setCreatedBy(employee.getPk());
-    		notification.setModifiedBy(employee.getPk());
-    		notification.setDtCreated(new Date());
-    		notification.setDtModified(new Date());
-    		session.save(notification);
     		
+			for(Employee notify: employeeLeaves.getNotificationToList()){
+				Notification notification = new Notification();
+	    		notification.setIdGeneric(empLeaves.getPk());
+	    		notification.setNotificationTo(notify);
+	    		if(userId.equals(notify.getPk()))
+	    			notification.setNotificationStatus(NotificationStatusType.SUBMITTED.getNotificationStatusType());
+	    		else
+	    			notification.setNotificationStatus(NotificationStatusType.PENDING.getNotificationStatusType());
+	    		notification.setNotificationType(employeeLeaves.getRequestType());
+	    		notification.setActive(PerfHrConstants.ACTIVE);
+	    		notification.setCreatedBy(employee.getPk());
+	    		notification.setModifiedBy(employee.getPk());
+	    		notification.setDtCreated(new Date());
+	    		notification.setDtModified(new Date());
+	    		if(!notificationDAO.saveNotification(notification)){
+	    			throw new GenericException();
+	    		}
+			}
 			tx.commit();
 		} catch(Exception e){
 			logger.error("Unable to apply Leave: "+employeeLeaves.getTitle()+" Exception is: "+e);
@@ -226,9 +233,11 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			employeeLeaves.setDtModified(new Date());
 			session.merge(employeeLeaves);
 			
-			for(Employee notify: employeeLeaves.getNotificationToList()){
-				
-			}
+			List<Employee> notifyList = new ArrayList<Employee>();
+			notifyList.addAll(notificationDAO.loadNotificationsToByGenericId(employeeLeaves.getPk()));
+			
+			List<Employee> updNotifyList = new ArrayList<Employee>();
+			updNotifyList.addAll(employeeLeaves.getNotificationToList());
 			
 			tx.commit();
 			returnVal = true;
@@ -250,7 +259,6 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	        weekday = weekday.plusWeeks(1).withDayOfWeek(DateTimeConstants.MONDAY);
 	    }
 	    while (weekday.isBefore(end) || weekday.isEqual(end)) {
-	        System.out.println(weekday);
 	        dateList.add(weekday);
 	        if (weekday.getDayOfWeek() == DateTimeConstants.FRIDAY)
 	            weekday = weekday.plusDays(3);

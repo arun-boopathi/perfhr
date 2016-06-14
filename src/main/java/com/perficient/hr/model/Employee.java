@@ -76,10 +76,7 @@ public class Employee extends AbstractModel {
 	
 	@Column(name = "last_working_Date")
 	private Date lastWorkDate;
-	
-	@Column(name = "sbu")
-	private String sbu;
-	
+		
 	@Column(name = "billable")
 	private int billable;
 	
@@ -357,20 +354,6 @@ public class Employee extends AbstractModel {
 	 */
 	public void setLastWorkDate(Date lastWorkDate) {
 		this.lastWorkDate = lastWorkDate;
-	}
-
-	/**
-	 * @return the sbu
-	 */
-	public String getSbu() {
-		return sbu;
-	}
-
-	/**
-	 * @param sbu the sbu to set
-	 */
-	public void setSbu(String sbu) {
-		this.sbu = sbu;
 	}
 
 	/**

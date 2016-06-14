@@ -3,6 +3,7 @@ package com.perficient.hr.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,7 +26,7 @@ public class Notification extends AbstractModel{
 	@Column(name = "notification_type")
 	private String notificationType;
 		
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "notification_to")
 	private Employee notificationTo;
 	

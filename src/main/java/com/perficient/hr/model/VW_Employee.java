@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "vw_employee_superviser")
+@Table(name = "vw_employee_supervisor")
 @SuppressWarnings("serial")
 public class VW_Employee implements Serializable{
 
@@ -85,9 +85,6 @@ public class VW_Employee implements Serializable{
 	
 	@Column(name = "last_working_Date")
 	private Date lastWorkDate;
-	
-	@Column(name = "sbu")
-	private String sbu;
 	
 	@Column(name = "billable")
 	private int billable;
@@ -401,20 +398,6 @@ public class VW_Employee implements Serializable{
 	 */
 	public void setLastWorkDate(Date lastWorkDate) {
 		this.lastWorkDate = lastWorkDate;
-	}
-
-	/**
-	 * @return the sbu
-	 */
-	public String getSbu() {
-		return sbu;
-	}
-
-	/**
-	 * @param sbu the sbu to set
-	 */
-	public void setSbu(String sbu) {
-		this.sbu = sbu;
 	}
 
 	/**

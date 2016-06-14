@@ -111,6 +111,8 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
     $scope.applyLeave = function(){
     	$scope.data = {};
     	$scope.data.employeeId = user.loggedUser.pk;
+    	$scope.data.notificationToList = [];
+    	$scope.data.notificationToList.push($scope.employees[user.loggedUser.pk], $scope.employees[user.loggedUser.supervisor]);
     	$scope.data.requestType = $scope.leaveType;
         $scope.openModal();
     };
@@ -150,13 +152,15 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
      		val.endsAt = new Date(val.endsAt);
      		val.type = $scope.displayType;
      		var notifyListPk = [];
-     		$.each(val.notificationToList, function(i, item){
-     			notifyListPk.push(item.pk);
-     		});
-     		val.notificationToList.splice(0, val.notificationToList.length);
-     		$.each(notifyListPk, function(i, item){
-     			val.notificationToList.push($scope.employees[1]);
-     		});
+     		if(val.notificationToList){
+     			$.each(val.notificationToList, function(i, item){
+         			notifyListPk.push(item.pk);
+         		});
+         		val.notificationToList.splice(0, val.notificationToList.length);
+         		$.each(notifyListPk, function(i, item){
+         			val.notificationToList.push($scope.employees[item]);
+         		});
+     		}
      		$scope.scope.events[val.pk] = val;
      		eventArr[val.pk] = i;
      	});
@@ -177,7 +181,12 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
     };
     
     $scope.updateLeave = function(){
-    	console.log('on save ', $scope.data);
+    	$.each($scope.data.notificationToList, function(i, val){
+    		if(val['_uiSelectChoiceDisabled'] != undefined){
+    			console.log('remove');
+    			delete val['_uiSelectChoiceDisabled'];
+    		}
+    	});
     	leaveAPIservice.updateLeave($scope.data).success(function (response) {
     		$.grep($scope.scope.events, function (element, index) {
         		if($scope.data.pk == element.pk){
