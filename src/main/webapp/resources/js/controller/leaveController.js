@@ -112,7 +112,7 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
     	$scope.data = {};
     	$scope.data.employeeId = user.loggedUser.pk;
     	$scope.data.notificationToList = [];
-    	$scope.data.notificationToList.push($scope.employees[user.loggedUser.pk], $scope.employees[user.loggedUser.supervisor]);
+    	//$scope.data.notificationToList.push($scope.employees[user.loggedUser.pk], $scope.employees[user.loggedUser.supervisor]);
     	$scope.data.requestType = $scope.leaveType;
         $scope.openModal();
     };

@@ -2,10 +2,11 @@
 	<div class="perfhr-widget-header">
 		<h3 class="section-title">Reports - Job Title</h3>
 	</div>
-	<form ng-submit="submit()" class="form-inline">
+	<form ng-submit="submit()" class="form-vertical">
 		<div class="perfhr-widget-content">
 		    <div class="col-md-12">
-		      	<div class="row">
+		      	<div class="perfhr-filter">
+		      	<div class="col-md-4">
 					<div class="form-group">
 					    <label class="control-label">From Date:</label>
 					    <p class="input-group">
@@ -16,6 +17,8 @@
 				          	</span>
 				        </p>
 					</div>
+					</div>
+					<div class="col-md-4">
 				    <div class="form-group">
 				    	<label class="control-label">To Date:</label>
 				    	<p class="input-group date">
@@ -26,15 +29,19 @@
 				          	</span>
 			            </p>
 				    </div>
+				    </div>
+				    <div class="col-md-2">
 				    <div class="form-group">
-				    	<button class="btn btn-success" ng-click="searchLeave()">Search</button>
+				    <label class="control-label"></label>
+				    <div> <button class="btn btn-success" ng-click="searchLeave()">Search</button></div>
+				    </div>
 				    </div>
 	    		</div>
-	    		<div>
+	    		<!--  <div>
 	    			<ol class="breadcrumb">
 					  <li><a href="#">SBU</a></li>
 					</ol>
-	    		</div>
+	    		</div>-->
 				<div ng-controller="leaveReportControllerTable as leaveTable">
 					<table datatable="" dt-options="leaveTable.dtOptions" dt-columns="leaveTable.dtColumns" dt-instance="leaveTable.dtInstance" class="table perfhr-table"></table>
 				</div>

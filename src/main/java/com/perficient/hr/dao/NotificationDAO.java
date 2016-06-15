@@ -17,4 +17,6 @@ public interface NotificationDAO {
 	
 	public boolean updateNotification(Notification notification);
 	
+	public Notification loadByGenericAndEmployeeId(long genericId, long employeeId, int active);
+	
 }

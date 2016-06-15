@@ -412,4 +412,34 @@ public class Employee extends AbstractModel {
 		this.superviserLastName = superviserLastName;
 	}
 	
+	@Override 
+	public boolean equals(Object obj) {
+	  if (obj == this) {
+		  return true;
+	  }
+	  if (obj == null || obj.getClass() != this.getClass()) {
+		  return false;
+	  }
+	  Employee employee = (Employee) obj;
+	  return pk == employee.pk 
+			  && (address == employee.address || (address != null && address.equals(employee.getAddress())))
+			  && (bloodGroup == employee.bloodGroup || (bloodGroup != null && bloodGroup.equals(employee.getBloodGroup())))
+			  && (city == employee.city || (city != null && city.equals(employee.getCity())))
+			  && (contactNo == employee.contactNo || (contactNo != null && contactNo.equals(employee.getContactNo())))
+			  && (email == employee.email || (email != null && email.equals(employee.getEmail())))
+			  && (employeeId == employee.employeeId || (employeeId != null && employeeId.equals(employee.getEmployeeId())))
+			  && (firstName == employee.firstName || (firstName != null && firstName.equals(employee.getFirstName())))
+			  && (gender == employee.gender || (gender != null && gender.equals(employee.getGender())))
+			  && (lastName == employee.lastName || (lastName != null && lastName.equals(employee.getLastName())))
+			  && (lastWorkDate == employee.lastWorkDate || (lastWorkDate != null && lastWorkDate.equals(employee.getLastWorkDate())))
+			  && (middleName == employee.middleName || (middleName != null && middleName.equals(employee.getMiddleName())))
+			  && (nationality == employee.nationality || (nationality != null && nationality.equals(employee.getNationality())))
+			  && (panCard == employee.panCard || (panCard != null && panCard.equals(employee.getPanCard())))
+			  && (pincode == employee.pincode || (pincode != null && pincode.equals(employee.getPincode())))
+			  && (skills == employee.skills || (skills != null && skills.equals(employee.getSkills())))
+			  && (supervisor == employee.supervisor || (null != supervisor && supervisor.equals(employee.getSupervisor())))
+			  && (superviserFirstName == employee.superviserFirstName || (superviserFirstName != null && superviserFirstName.equals(employee.getSuperviserFirstName())))
+			  && (superviserLastName == employee.superviserLastName || (superviserLastName != null && superviserLastName.equals(employee.getSuperviserLastName())));
+	 }
+	
 }

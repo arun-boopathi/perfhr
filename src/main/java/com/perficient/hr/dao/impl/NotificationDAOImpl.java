@@ -56,7 +56,9 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 		boolean returnVal = false;
 		Session session = sessionFactory.openSession();
 		try{
+			Transaction tx = session.beginTransaction();
 			session.merge(notification);
+			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
 			logger.error("Unable to update designation: "+notification.getPk()+" Exception is: "+e);
@@ -105,6 +107,20 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 		notificationToList = query.list();
 		session.close();
 		return notificationToList;
+	}
+
+	@Override
+	public Notification loadByGenericAndEmployeeId(long genericId, long employeeId, int active) {
+		Notification notification = new Notification();
+		Session session = sessionFactory.openSession();
+		String sqlQuery = "from Notification n WHERE n.active=:active AND n.idGeneric=:genericId AND n.notificationTo.pk=:employeeId";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter("active", active);
+		query.setParameter("genericId", genericId);
+		query.setParameter("employeeId", employeeId);
+		notification = (Notification) query.uniqueResult();
+		session.close();
+		return notification;
 	}
 
 }

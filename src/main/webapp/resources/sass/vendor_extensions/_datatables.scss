@@ -1,6 +1,8 @@
 table.dataTable thead {
    .sorting_asc, .sorting_desc, .sorting, .sorting_disabled{
 	  font-size: $th-font-size;
+      color:#fff;
+      font-weight:normal;
    }
    th{
  	  text-align: center;

@@ -5,8 +5,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -198,7 +200,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 				Notification notification = new Notification();
 	    		notification.setIdGeneric(empLeaves.getPk());
 	    		notification.setNotificationTo(notify);
-	    		if(userId.equals(notify.getPk()))
+	    		if(employee.getPk().equals(notify.getPk()))
 	    			notification.setNotificationStatus(NotificationStatusType.SUBMITTED.getNotificationStatusType());
 	    		else
 	    			notification.setNotificationStatus(NotificationStatusType.PENDING.getNotificationStatusType());
@@ -232,12 +234,63 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     		employeeLeaves.setModifiedBy(employee.getPk());
 			employeeLeaves.setDtModified(new Date());
 			session.merge(employeeLeaves);
+
+			Map<Long, Employee> notifyMap = new HashMap<Long, Employee>();
+			for(Employee emp : notificationDAO.loadNotificationsToByGenericId(employeeLeaves.getPk())){
+				notifyMap.put(emp.getPk(), emp);
+			}
 			
-			List<Employee> notifyList = new ArrayList<Employee>();
-			notifyList.addAll(notificationDAO.loadNotificationsToByGenericId(employeeLeaves.getPk()));
+			Map<Long, Employee> updNotifyMap = new HashMap<Long, Employee>();
+			for(Employee emp : employeeLeaves.getNotificationToList()){
+				updNotifyMap.put(emp.getPk(), emp);
+			}
 			
-			List<Employee> updNotifyList = new ArrayList<Employee>();
-			updNotifyList.addAll(employeeLeaves.getNotificationToList());
+			Map<Long, Employee> removedMap = new HashMap<Long, Employee>(notifyMap);
+			removedMap.keySet().removeAll(updNotifyMap.keySet());
+			
+			for(Employee removedNotifier : removedMap.values()){
+				Notification notification = notificationDAO.loadByGenericAndEmployeeId(employeeLeaves.getPk(), removedNotifier.getPk(), PerfHrConstants.ACTIVE);
+				notification.setActive(PerfHrConstants.INACTIVE);
+				notification.setModifiedBy(employee.getPk());
+				notification.setDtModified(new Date());
+				if(!notificationDAO.updateNotification(notification)){
+	    			throw new GenericException();
+	    		}
+			}
+			
+			Map<Long, Employee> newNotifierMap = new HashMap<Long, Employee>(updNotifyMap);
+			newNotifierMap.keySet().removeAll(notifyMap.keySet());
+			
+			for(Employee newNotifier : newNotifierMap.values()){
+				Notification notification = new Notification();
+				
+				//check if the user already exists for this leave
+				notification = notificationDAO.loadByGenericAndEmployeeId(employeeLeaves.getPk(), newNotifier.getPk(), PerfHrConstants.INACTIVE); 
+				if(notification.getPk() != null){
+					notification.setActive(PerfHrConstants.ACTIVE);
+					notification.setModifiedBy(employee.getPk());
+					notification.setDtModified(new Date());
+					if(!notificationDAO.updateNotification(notification)){
+		    			throw new GenericException();
+		    		}
+				} else {
+					notification.setIdGeneric(employeeLeaves.getPk());
+		    		notification.setNotificationTo(newNotifier);
+		    		if(employee.getPk().equals(newNotifier.getPk()))
+		    			notification.setNotificationStatus(NotificationStatusType.SUBMITTED.getNotificationStatusType());
+		    		else
+		    			notification.setNotificationStatus(NotificationStatusType.PENDING.getNotificationStatusType());
+		    		notification.setNotificationType(employeeLeaves.getRequestType());
+		    		notification.setActive(PerfHrConstants.ACTIVE);
+		    		notification.setCreatedBy(employee.getPk());
+		    		notification.setModifiedBy(employee.getPk());
+		    		notification.setDtCreated(new Date());
+		    		notification.setDtModified(new Date());
+		    		if(!notificationDAO.saveNotification(notification)){
+		    			throw new GenericException();
+		    		}
+				}
+			}
 			
 			tx.commit();
 			returnVal = true;

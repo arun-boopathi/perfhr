@@ -4,7 +4,7 @@ body {
 }
 
 .divContainer {
-	margin: $divContainer-margin;
+	margin: 75px 10px 0px 10px;
 	padding: $divContainer-padding;
 }
 
@@ -38,6 +38,10 @@ body {
     margin: -28px 0 0 -25px;
 }
 
+
+ul.nav-right.pull-right.list-inline{
+	margin-bottom:0
+}
 /*----------------------LAYOUT CSS------------------*/
 
 /*MENU*/
@@ -79,8 +83,7 @@ html:not(.mm-opening):not(.mm-opened) #sidePanel {
 
 #sidePanel {
 	&:before, &:after, span {
-		background: #c52026
-		;
+		background: #c52026;
 		content: '';
 		display: block;
 		width: 30px;
@@ -698,11 +701,10 @@ button.dt-button, div.dt-button, a.dt-button{
 
 
 .cal-year-box{
-
     [class*="span"]{
-    border-bottom: 1px solid #eee;
-    min-height: 140px;
-    width: 25%;
+	    border-bottom: 1px solid #eee;
+	    min-height: 140px;
+	    width: 25%;
     }
 
 	span[data-cal-date] {
@@ -712,38 +714,34 @@ button.dt-button, div.dt-button, a.dt-button{
 	}
 
 	.cal-events-num {
-    margin-top: 5px;
+    	margin-top: 5px;
     }
 }
 
 .modal{
-
-table.dataTable{
-	thead {
-		.sorting,  .sorting_asc , th {
-		    background-color: rgba(0 , 0, 0, .3);
-		    color: #fff;
+	table.dataTable{
+		thead {
+			.sorting,  .sorting_asc , th {
+			    background-color: rgba(0 , 0, 0, .3);
+			    color: #fff;
+			}
 		}
-
-	}
-
-	&.hover tbody tr:hover, &.display tbody tr:hover {
-	    background-color: rgba(245, 245, 245, 0.35);
-	}
-
-	tbody{
-
-		td{
-		color:#fff;
-		border-left: 1px solid rgba(189, 187, 187, 0.43);
-	    border-bottom: none;
+	
+		&.hover tbody tr:hover, &.display tbody tr:hover {
+		    background-color: rgba(245, 245, 245, 0.35);
 		}
-
-		tr{
-	    background-color: rgba(255, 255, 255, 0.01);
+	
+		tbody{
+			td{
+				color:#fff;
+				border-left: 1px solid rgba(189, 187, 187, 0.43);
+		    	border-bottom: none;
+			}
+			tr{
+		    	background-color: rgba(255, 255, 255, 0.01);
+			}
 		}
 	}
-}
 
 	.dataTables_wrapper .dataTables_info {
     display: block;
@@ -754,21 +752,20 @@ table.dataTable{
 }
 
 .header{
-    background: rgba(0, 0, 0, 0) url("../images/black_bg.jpg") repeat scroll 0 0 / cover ;
-    display: inline-block;
-    left: 0;
-    padding: 6px 30px;
-    position: fixed;
-    top: 0;
-     right: 23px;
-    z-index:9;
+	background: rgba(0, 0, 0, 0) url("../images/black_bg.jpg") repeat scroll 0 0 / cover ;
+	display: inline-block;
+	left: 0;
+	padding: 6px 30px 6px 48px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index:9;
 
     h1{
-    margin:0;
-    paading:0;
-    float:left;
+	    margin:0;
+	    paading:0;
+	    float:left;
     }
-
 }
 
 .rightheader{
@@ -782,18 +779,25 @@ table.dataTable{
 	    float:left;
 	    
 	    > img{
-	    width:100%;
+	 	   width:100%;
 	    }
     }
     
     >label {
-    color: #fff;
-    float: left;
-    font-size: 12px;
-    font-weight: normal;
-    margin: 10px 0 0 10px;
-    }
-    
+	    color: #fff;
+	    float: left;
+	    font-size: 14px;
+	    font-weight: normal;
+	    margin: 10px 0 0 10px;
+	    cursor:pointer;
+	
+	    .fa {
+		    cursor: pointer;
+		    margin: 0 0 0 7px;
+		    font-size: 20px;
+		    float: right; 
+    	}
+	}
 }
 
 .colortheme {
@@ -809,17 +813,32 @@ table.dataTable{
     width: 20px;
 }
 
-.lime{background:$lime;}
-.black{background:black;}
-.bright-red{background:$bright-red}
-.dark-blue{background:$dark-blue}
-.cyan{background:$cyan}
-.scorpion{background:$scorpion}
+.lime{
+	background:$lime;
+}
 
+.black{
+	background:black;
+}
 
+.bright-red{
+	background:$bright-red;
+}
+
+.dark-blue{
+	background:$dark-blue;
+}
+
+.cyan{
+	background:$cyan;
+}
+
+.scorpion{	
+	background:$scorpion;
+}
 
 .dropdown-toggle{
-     cursor:pointer;
+    cursor:pointer;
 }
 
 .dropdown-menu > li > a{
@@ -831,14 +850,43 @@ table.dataTable{
 	  }	 
 }
 
-.ui-select-search{
-	width: 100% !important;
+.topangle{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-bottom: 10px dashed;
+    border-right: 9px solid transparent;
+    border-left: 9px solid transparent;
+    float: right;
+    margin: -15px 10px 0 0;
+    color: #fff;
+    font-size: 22px;
 }
 
-.multiSelect > button{
-    width: 100%;
+.perfhr-filter{
+    .control-label{
+      float:left;
+      margin: 5px 4px 0 0;
+    }
+    
+    .form-control{
+      width: 100%;
+      margin: 0 0 0 10px;
+    }
+}
+ 
+.input-holder{
+	float:left;
+	width:73%;
 }
 
-.multiSelect .checkboxLayer{
-    width: 100%;
+.input-holder-sm{
+	float:left;
+	width:53%;
+}
+
+option {
+    background: rgb(24, 24, 24);
 }

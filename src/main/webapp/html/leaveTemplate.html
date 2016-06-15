@@ -46,7 +46,7 @@
 </mwl-calendar>
 <!-- Modal -->
 <div class="modal fade bs-example-modal-lg" id="leaveModal" role="dialog">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
@@ -59,13 +59,15 @@
 			    </div>
 				<form role="form" class="form-horizontal">
 			   	  <div class="row">
-				      <div class="col-sm-10">
+			   	  	  <div class="col-sm-6 col-lg-6">
 				         <div class="form-group">
 					         <label class="col-md-4 control-label">Title:</label>
 				             <div class="col-md-8 input-group">
 				               <input type="Text" class="form-control" required autofocus ng-model="data.title" value="{{data.title}}"/>
 				             </div>
 				         </div>
+				       </div>
+				       <div class="col-sm-6 col-lg-6">
 				         <div class="form-group">
 					         <label class="col-md-4 control-label">Employee :</label>
 							<div class="col-md-8 input-group">
@@ -75,12 +77,18 @@
 								</select>
 							</div>
 				         </div>
+				      </div>
+				    </div>
+				    <div class="row">
+				      <div class="col-sm-6 col-lg-6">
 				         <div class="form-group">
 					         <label class="col-md-4 control-label">Comment:</label>
 					         <div class="col-md-8 input-group">
 					         	<textarea class="form-control" ng-model="data.comments" value="{{data.comments}}" rows="4" cols="45" id="comment"></textarea>
 					         </div>
 				         </div>
+				       </div>
+				       <div class="col-sm-6 col-lg-6">
 				         <div class="form-group">
 					         <label class="col-md-4 control-label">Leave Type:</label>
 					         <div class="col-md-8 input-group">
@@ -91,30 +99,10 @@
 						         </select>
 					         </div>
 				         </div>
-				         <div class="form-group">
-					         <label class="col-md-4 control-label">Notify:</label>
-					         <div class="col-md-8 input-group">
-								  <ui-select multiple ng-model="data.notificationToList" sortable="true" close-on-select="false" style="width: 340px;">
-								    <ui-select-match placeholder="Select...">{{$item.email}}</ui-select-match>
-								    <ui-select-choices repeat="employee in employees | propsFilter: {firstName: $select.search, lastName: $select.search}">
-								      <div ng-bind-html="employee.firstName | highlight: $select.search"></div>
-								      <small>
-								        email: {{employee.email}}
-								      </small>
-								    </ui-select-choices>
-								  </ui-select>
-								<!-- <div
-								    isteven-multi-select
-								    input-model="notificationToList"
-								    output-model="outputBrowsers"
-								    button-label="email"
-								    item-label="firstName lastName email"
-								    selection-mode="multiple"
-								    max-height="200px"
-								    tick-property="selected">
-								</div> -->
-					         </div>
-				         </div>
+				      </div>
+				    </div>
+				    <div class="row">
+				      <div class="col-sm-6 col-lg-6">
 				         <div class="form-group date">
 					         <label class="col-md-4 control-label">Starts at:</label>
 					         <div class="col-md-8 input-group">
@@ -127,12 +115,22 @@
 						            </button>
 						          </span>
 						        </p>
+				             </div>
+				         </div>
+					  </div>
+					  <div class="col-sm-6 col-lg-6">
+				         <div class="form-group date">
+				         	<div class="col-md-8 input-group">
 						        <select ng-change="onDtChange()" class="form-control" ng-model="data.dtFromHalf" ng-selected="{{data.dtFromHalf}}">
 						        	<option value="FIRST">First Half</option>
 						        	<option value="SECOND">Second Half</option>
 						        </select>
-				             </div>
+						    </div>
 				         </div>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="col-sm-6 col-lg-6">			      
 				         <div class="form-group">
 					         <label class="col-md-4 control-label">Ends at:</label>
 				             <div class="col-md-8 input-group">
@@ -145,11 +143,35 @@
 						            </button>
 						          </span>
 						        </p>
+				             </div>
+				         </div>
+				      </div>
+					  <div class="col-sm-6 col-lg-6">			      
+				         <div class="form-group">
+				             <div class="col-md-8 input-group">
 						        <select class="form-control" ng-change="onDtChange()" ng-model="data.dtEndHalf" ng-selected="{{data.dtEndHalf}}">
 						        	<option value="FIRST">First Half</option>
 						        	<option value="SECOND">Second Half</option>
 						        </select>
 				             </div>
+				         </div>
+				      </div>
+				   </div>
+				   <div class="row">
+				      <div class="col-sm-12 col-lg-12">
+				         <div class="form-group">
+					         <label class="col-md-2 control-label">Notify:</label>
+					         <div class="col-md-10 input-group">
+								  <ui-select multiple ng-model="data.notificationToList" sortable="true" close-on-select="false">
+								    <ui-select-match placeholder="Select...">{{$item.email}}</ui-select-match>
+								    <ui-select-choices repeat="employee in employees | propsFilter: {firstName: $select.search, lastName: $select.search}">
+								      <div ng-bind-html="employee.firstName | highlight: $select.search"></div>
+								      <small>
+								        email: {{employee.email}}
+								      </small>
+								    </ui-select-choices>
+								  </ui-select>
+					         </div>
 				         </div>
 				      </div>
 				   </div>
