@@ -1,10 +1,10 @@
 angular.module('reportJobtitle.services', []).
   factory('reportJobtitleAPIservice', function($http) {
 	var reportJobtitleAPI = {};
-	reportJobtitleAPI.getDesignationDetails = function() {
+	reportJobtitleAPI.reportsLoadBySbu = function(fromDate, toDate, sbu, designation) {
         return $http({
           method: 'get', 
-          url: perfUrl['loadDesignations']
+          url: perfUrl['reportsLoadBySbu'].replace('{fromDate}', fromDate).replace('{toDate}', toDate).replace('{sbu}', sbu).replace('{designation}', designation)
         });
     };
     return reportJobtitleAPI; 

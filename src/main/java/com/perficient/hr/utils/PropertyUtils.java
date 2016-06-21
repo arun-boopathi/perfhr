@@ -12,7 +12,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
     @PropertySource("classpath:dbconfig.properties")
 })
 public class PropertyUtils {
-
+	
 	/*
      * PropertySourcesPlaceHolderConfigurer Bean only required for @Value("{}") annotations.
      * Remove this bean if you are not using @Value annotations for injecting properties.

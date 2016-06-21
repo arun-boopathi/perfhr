@@ -14,7 +14,7 @@ perfHrApp.factory('perfInterceptor', ['$q', function($q, $window) {
     	config.headers = config.headers || {};
         return config;
     },
-   'requestError': function(rejection) {
+    'requestError': function(rejection) {
         return $q.reject(rejection);
     },
     'response': function(response) {

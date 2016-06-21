@@ -5,6 +5,7 @@ var perfUrl = {
 	'loadEmployeeById' : urlPrefix+'employee/loadEmployeeById?employeeId=',
 	'updateEmployee'   : urlPrefix+'employee/updateEmployee',
 	'addEmployee'      : urlPrefix+'employee/addEmployee',
+	'loadEmployeeByDesHistory' : urlPrefix+'employee/loadEmployeeByDesHistory/{fromDate}/{toDate}/{designation}',
 	'loadDesignations' : urlPrefix+'designation/loadDesignations',
 	'loadDesignationById' : urlPrefix+'designation/loadDesignationById?id=',
     'addDesignation'   : urlPrefix+'designation/addDesignation',
@@ -30,5 +31,6 @@ var perfUrl = {
     'loadMyLeaves' : urlPrefix+'leave/loadMyLeaves/{leaveType}/{calYear}',
     'getLeaveBalance' : urlPrefix+'leave/getLeaveBalance/{leaveType}/{calYear}',
     'loadLeaveReport': urlPrefix+'leave/loadLeaveReport',
-    'loadNotificationCount' : urlPrefix+'notification/loadNotificationCount'
+    'loadNotificationCount' : urlPrefix+'notification/loadNotificationCount',
+    'reportsLoadBySbu' : urlPrefix+'reportJobTitle/loadBySbu/{fromDate}/{toDate}/{sbu}/{designation}'
 };

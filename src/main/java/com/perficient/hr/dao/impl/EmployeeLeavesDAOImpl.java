@@ -32,12 +32,15 @@ import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.dao.EmployeeLeavesDAO;
 import com.perficient.hr.dao.NotificationDAO;
 import com.perficient.hr.exception.GenericException;
+import com.perficient.hr.form.NotificationMail;
 import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.EmployeeLeaves;
 import com.perficient.hr.model.Notification;
 import com.perficient.hr.model.type.LeaveType;
+import com.perficient.hr.model.type.MailStatusType;
 import com.perficient.hr.model.type.NotificationStatusType;
 import com.perficient.hr.model.type.Notificationtype;
+import com.perficient.hr.service.MailService;
 import com.perficient.hr.utils.DateUtils;
 import com.perficient.hr.utils.PerfHrConstants;
 
@@ -62,6 +65,10 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     
     @Autowired
     NotificationDAO notificationDAO;
+    
+    @Autowired
+    MailService mailService;
+    
     
 	@Override
 	public boolean pasrsePtoDocument(String fileName) {
@@ -195,8 +202,9 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     		empLeaves.setModifiedBy(employee.getPk());
     		
 			session.save(empLeaves);
-    		
+			List<String> recipientList = new ArrayList<String>();
 			for(Employee notify: employeeLeaves.getNotificationToList()){
+				recipientList.add(notify.getEmail());
 				Notification notification = new Notification();
 	    		notification.setIdGeneric(empLeaves.getPk());
 	    		notification.setNotificationTo(notify);
@@ -215,6 +223,14 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	    		}
 			}
 			tx.commit();
+			if(recipientList.size() > 0){
+				NotificationMail notificationMail = setNotificationMail(employeeLeaves, recipientList);
+				notificationMail.setSubject(employeeLeaves.getTitle());
+				notificationMail.setSummary(employeeLeaves.getTitle());
+				notificationMail.setRequestType(MailStatusType.REQUEST.getMailStatusType());
+				notificationMail.setStatusType(MailStatusType.CONFIRMED.getMailStatusType());
+				mailService.sendNotifcationMail(notificationMail);
+			}
 		} catch(Exception e){
 			logger.error("Unable to apply Leave: "+employeeLeaves.getTitle()+" Exception is: "+e);
 		} finally{
@@ -248,7 +264,9 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			Map<Long, Employee> removedMap = new HashMap<Long, Employee>(notifyMap);
 			removedMap.keySet().removeAll(updNotifyMap.keySet());
 			
+			List<String> removedNotifierList = new ArrayList<String>();
 			for(Employee removedNotifier : removedMap.values()){
+				removedNotifierList.add(removedNotifier.getEmail());
 				Notification notification = notificationDAO.loadByGenericAndEmployeeId(employeeLeaves.getPk(), removedNotifier.getPk(), PerfHrConstants.ACTIVE);
 				notification.setActive(PerfHrConstants.INACTIVE);
 				notification.setModifiedBy(employee.getPk());
@@ -261,12 +279,12 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			Map<Long, Employee> newNotifierMap = new HashMap<Long, Employee>(updNotifyMap);
 			newNotifierMap.keySet().removeAll(notifyMap.keySet());
 			
+			List<String> recipientList = new ArrayList<String>();
 			for(Employee newNotifier : newNotifierMap.values()){
-				Notification notification = new Notification();
-				
+				recipientList.add(newNotifier.getEmail());
 				//check if the user already exists for this leave
-				notification = notificationDAO.loadByGenericAndEmployeeId(employeeLeaves.getPk(), newNotifier.getPk(), PerfHrConstants.INACTIVE); 
-				if(notification.getPk() != null){
+				Notification notification = notificationDAO.loadByGenericAndEmployeeId(employeeLeaves.getPk(), newNotifier.getPk(), PerfHrConstants.INACTIVE); 
+				if(notification != null){
 					notification.setActive(PerfHrConstants.ACTIVE);
 					notification.setModifiedBy(employee.getPk());
 					notification.setDtModified(new Date());
@@ -274,6 +292,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 		    			throw new GenericException();
 		    		}
 				} else {
+					notification = new Notification();
 					notification.setIdGeneric(employeeLeaves.getPk());
 		    		notification.setNotificationTo(newNotifier);
 		    		if(employee.getPk().equals(newNotifier.getPk()))
@@ -291,6 +310,24 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 		    		}
 				}
 			}
+
+			if(removedNotifierList.size() > 0){
+				NotificationMail notificationMail = setNotificationMail(employeeLeaves, recipientList);
+				notificationMail.setSubject("CANCELLED-"+employeeLeaves.getTitle());
+				notificationMail.setSummary(employeeLeaves.getTitle());
+				notificationMail.setRequestType(MailStatusType.CANCEL.getMailStatusType());
+				notificationMail.setStatusType(MailStatusType.CANCELLED.getMailStatusType());
+				mailService.sendNotifcationMail(notificationMail);
+			}
+			
+			if(recipientList.size() > 0){
+				NotificationMail notificationMail = setNotificationMail(employeeLeaves, recipientList);
+				notificationMail.setSubject("UPDATED-"+employeeLeaves.getTitle());
+				notificationMail.setSummary(employeeLeaves.getTitle());
+				notificationMail.setRequestType(MailStatusType.REQUEST.getMailStatusType());
+				notificationMail.setStatusType(MailStatusType.CONFIRMED.getMailStatusType());
+				mailService.sendNotifcationMail(notificationMail);
+			}
 			
 			tx.commit();
 			returnVal = true;
@@ -300,6 +337,17 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			session.close();	
 		}
 		return returnVal;
+	}
+	
+	private NotificationMail setNotificationMail(EmployeeLeaves employeeLeaves, List<String> recipientList){
+		NotificationMail notificationMail = new NotificationMail();
+		notificationMail.setCalendar(true);
+		notificationMail.setDescription(employeeLeaves.getComments());
+		notificationMail.setDT_END(employeeLeaves.getEndsAt());
+		notificationMail.setDT_START(employeeLeaves.getStartsAt());
+		notificationMail.setMsgBody(employeeLeaves.getComments());
+		notificationMail.setRecipientsList(recipientList);
+		return notificationMail;
 	}
 	
 	private int getHours(EmployeeLeaves employeeLeaves){
@@ -338,6 +386,21 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			employeeLeaves.setDtModified(new Date());
 			session.merge(employeeLeaves);
 			tx.commit();
+			
+			List<String> recipientList = new ArrayList<String>();
+			for(Employee emp : notificationDAO.loadNotificationsToByGenericId(employeeLeaves.getPk())){
+				recipientList.add(emp.getEmail());
+			}
+			
+			if(recipientList.size() > 0){
+				NotificationMail notificationMail = setNotificationMail(employeeLeaves, recipientList);
+				notificationMail.setSubject("CANCELLED-"+employeeLeaves.getTitle());
+				notificationMail.setSummary(employeeLeaves.getTitle());
+				notificationMail.setRequestType(MailStatusType.CANCEL.getMailStatusType());
+				notificationMail.setStatusType(MailStatusType.CANCELLED.getMailStatusType());
+				mailService.sendNotifcationMail(notificationMail);
+			}
+			
 			returnVal = true;
 		} catch(Exception e){
 			logger.error("Unable to delete  employee Leaves: "+employeeLeaves.getTitle()+" Exception is: "+e);

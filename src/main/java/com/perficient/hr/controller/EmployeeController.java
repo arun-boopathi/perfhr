@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.exception.RecordNotFoundException;
+import com.perficient.hr.form.JobTitle;
 import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.VW_Employee;
 
@@ -73,5 +75,13 @@ public class EmployeeController {
 			throw new RecordExistsException();
 		}
 		return returnVal;
+	}
+	
+	@RequestMapping(value="/loadEmployeeByDesHistory/{fromDate}/{toDate}/{designation}",method=RequestMethod.GET)
+	@Produces("application/json")
+	@ResponseBody
+	public List<VW_Employee> loadEmployeeByDesHistory(@PathVariable("fromDate") String fromDate, @PathVariable("toDate") String toDate, 
+			@PathVariable("designation") String designation){
+		return employeeDAO.loadEmployeeByDesHistory(fromDate, toDate, designation);
 	}
 }

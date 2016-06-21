@@ -16,4 +16,6 @@ public interface EmployeeDAO {
 	public boolean updateEmployee(Employee employee);
 	
 	public boolean addEmployee(Employee employee);
+	
+	public List<VW_Employee> loadEmployeeByDesHistory(String stDate, String endDate, String desingation); 
 }

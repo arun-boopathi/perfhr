@@ -1,4 +1,3 @@
-
 <div class="row">
 	<h2 class="text-center calendertitle">{{ scope.calendarTitle }}</h2>
     <div class="col-md-3 text-left">  
@@ -58,15 +57,17 @@
 			  	  {{msg}}
 			    </div>
 				<form role="form" class="form-horizontal">
-			   	  <div class="row">
-			   	  	  <div class="col-sm-6 col-lg-6">
+			   	    <div class="row">
+			   	  	  <div class="col-sm-12 col-md-12">
 				         <div class="form-group">
-					         <label class="col-md-4 control-label">Title:</label>
-				             <div class="col-md-8 input-group">
+					         <label class="col-md-2 control-label">Title:</label>
+				             <div class="col-md-10 input-group">
 				               <input type="Text" class="form-control" required autofocus ng-model="data.title" value="{{data.title}}"/>
 				             </div>
 				         </div>
 				       </div>
+			         </div>
+			         <div class="row">
 				       <div class="col-sm-6 col-lg-6">
 				         <div class="form-group">
 					         <label class="col-md-4 control-label">Employee :</label>
@@ -78,17 +79,7 @@
 							</div>
 				         </div>
 				      </div>
-				    </div>
-				    <div class="row">
 				      <div class="col-sm-6 col-lg-6">
-				         <div class="form-group">
-					         <label class="col-md-4 control-label">Comment:</label>
-					         <div class="col-md-8 input-group">
-					         	<textarea class="form-control" ng-model="data.comments" value="{{data.comments}}" rows="4" cols="45" id="comment"></textarea>
-					         </div>
-				         </div>
-				       </div>
-				       <div class="col-sm-6 col-lg-6">
 				         <div class="form-group">
 					         <label class="col-md-4 control-label">Leave Type:</label>
 					         <div class="col-md-8 input-group">
@@ -157,6 +148,16 @@
 				         </div>
 				      </div>
 				   </div>
+				   <div class="row">
+				      <div class="col-sm-12 col-lg-12">
+				         <div class="form-group">
+					         <label class="col-md-2 control-label">Comment:</label>
+					         <div class="col-md-10 input-group">
+					         	<textarea class="form-control" ng-model="data.comments" value="{{data.comments}}" rows="4" cols="45" id="comment"></textarea>
+					         </div>
+				         </div>
+				       </div>
+				    </div>
 				   <div class="row">
 				      <div class="col-sm-12 col-lg-12">
 				         <div class="form-group">

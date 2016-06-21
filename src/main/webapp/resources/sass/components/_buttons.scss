@@ -1,12 +1,13 @@
 /*-----------------BUTTON COMPONENT---------------------*/
 .btn-edit {
     color: #fff;
-    background-color: #FF7043;
+    background-color: #f7a35c;
     padding: 8px 8px 4px 11px;
 }
 
 .btn-edit:hover{
 	color: #fff;
+	background-color: rgba(255, 188, 117, 1);
 }
 
 .btn-save {
@@ -36,12 +37,12 @@
 }
 
 .btn-update {
-    background-color: #FF7043;
+    background-color: #f7a35c;
     border:2px solid #eea236;
     color: #fff;
     &:hover, &:focus, &:active{
-    	background-color: rgba(240, 173, 78, 0.68);
-    	color: #fff;
+    	background-color: rgba(255, 188, 117, 1);
+    	color: #000;
     }
 }
 

@@ -27,5 +27,11 @@ angular.module('employee.services', []).
           url: perfUrl['updateEmployee']
         });
     };
+    employeeAPI.loadEmployeeByDesHistory = function(fromDate, toDate, designation) {
+        return $http({
+          method: 'get', 
+          url: perfUrl['loadEmployeeByDesHistory'].replace('{fromDate}', fromDate).replace('{toDate}', toDate).replace('{designation}', designation)
+        });
+    };
     return employeeAPI; 
 });

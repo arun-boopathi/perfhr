@@ -57,7 +57,6 @@ mainApp.filter('propsFilter', function() {
       // Let the output be the input untouched
       out = items;
     }
-    //console.log('out ', out);
     return out;
   };
 });
@@ -112,7 +111,7 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
     	$scope.data = {};
     	$scope.data.employeeId = user.loggedUser.pk;
     	$scope.data.notificationToList = [];
-    	//$scope.data.notificationToList.push($scope.employees[user.loggedUser.pk], $scope.employees[user.loggedUser.supervisor]);
+    	$scope.data.notificationToList.push($scope.employees[user.loggedUser.pk], $scope.employees[user.loggedUser.supervisor]);
     	$scope.data.requestType = $scope.leaveType;
         $scope.openModal();
     };
@@ -122,6 +121,9 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
 		$.each(response, function(i, val){
 			$scope.employees[val.pk] = val;
 		});
+		/*$scope.employees.sort(function(a, b){
+		   return a.firstName-b.firstName;
+		});*/
 		$scope.toggleLeave(obj.checkLeaves);
 	});
     
@@ -167,8 +169,13 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
     };
     
     $scope.saveLeave = function(){
-    	console.log('on save ', $scope.data);
     	$scope.data.requestType = $scope.leaveType;
+    	$.each($scope.data.notificationToList, function(i, val){
+    		if(val['_uiSelectChoiceDisabled'] != undefined){
+    			console.log('remove');
+    			delete val['_uiSelectChoiceDisabled'];
+    		}
+    	});
     	leaveAPIservice.applyLeave($scope.data).success(function (response) {
     		response.startsAt = new Date(response.startsAt);
     		response.endsAt = new Date(response.endsAt);
@@ -264,7 +271,8 @@ function leaveControllerTable($scope, $compile, DTOptionsBuilder, DTColumnBuilde
  		"DtOptionsBuilder" : DTOptionsBuilder,
  		"DTColumnBuilder" : DTColumnBuilder,
  		"service" : leaveAPIservice,
- 		'editFormId' : 'leaveModal'
+ 		'editFormId' : 'leaveModal',
+ 		"deleteRow" : false
      };
  	perfDatatable.loadTable.init(paramObj);
 }
