@@ -3,7 +3,6 @@ package com.perficient.hr.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
@@ -20,6 +19,7 @@ import com.perficient.hr.dao.ProjectMembersDAO;
 import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.exception.RecordNotFoundException;
 import com.perficient.hr.model.ProjectMembers;
+import com.perficient.hr.utils.PerfUtils;
 
 @Controller
 @RequestMapping("/v-projectmembers")
@@ -54,23 +54,20 @@ public class ProjectMembersController {
 	@Produces("application/json")
 	@ResponseBody
 	public ProjectMembers saveProjectMember(@ModelAttribute ProjectMembers projectMembers, HttpServletRequest request) throws RecordExistsException{
-		HttpSession session = request.getSession();
-		return projectMembersDAO.saveProjectMember(projectMembers, session.getAttribute("userId").toString());
+		return projectMembersDAO.saveProjectMember(projectMembers, PerfUtils.getUserId(request.getSession()));
 	}
 	
 	@RequestMapping(value="/updateProjectMember", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
 	public boolean updateProjectMember(@RequestBody ProjectMembers projectMembers, HttpServletRequest request) throws RecordNotFoundException {
-		HttpSession session = request.getSession();
-		return projectMembersDAO.updateProjectMember(projectMembers, session.getAttribute("userId").toString());
+		return projectMembersDAO.updateProjectMember(projectMembers, PerfUtils.getUserId(request.getSession()));
 	}
 	
 	@RequestMapping(value="/deleteProjectMember", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
 	public boolean deleteDesignation(@RequestBody ProjectMembers projectMembers, HttpServletRequest request) throws RecordNotFoundException{
-		HttpSession session = request.getSession();
-		return projectMembersDAO.deleteProjectMember(projectMembers, session.getAttribute("userId").toString());
+		return projectMembersDAO.deleteProjectMember(projectMembers, PerfUtils.getUserId(request.getSession()));
 	}
 }

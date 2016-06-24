@@ -94,9 +94,9 @@
       <div class="form-group">
          <label class="col-md-4 control-label">Supervisor:</label>
          <div class="col-md-8">
-            <select name="supervisor" class="form-control" ng-model="$parent.data.superviser">
+            <select name="supervisor" class="form-control" ng-model="$parent.data.supervisor">
 				<option ng-repeat='employee in employees | orderBy: "firstName" track by employee.pk' 
-					ng-selected="employee.pk == $parent.data.superviser" value="{{employee.pk}}">{{employee.firstName}} {{employee.lastName}}</option>
+					ng-selected="employee.pk == $parent.data.supervisor" value="{{employee.pk}}">{{employee.firstName}} {{employee.lastName}}</option>
 			</select>
          </div>
       </div>

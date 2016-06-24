@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.perficient.hr.dao.LoginDAO;
+import com.perficient.hr.utils.PerfUtils;
 
 @Controller
 @RequestMapping("/user")
@@ -25,7 +26,7 @@ public class UserController {
 	public ModelAndView validateSession(HttpServletRequest request){
 		logger.info("validateSession");
 		ModelAndView model = null;
-		if(request.getSession().getAttribute("userId") == null) {
+		if(PerfUtils.getUserId(request.getSession()) == null) {
 			request.getSession().invalidate();
 			model = new ModelAndView("redirect:/logout");
 		}

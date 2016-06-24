@@ -3,7 +3,6 @@ package com.perficient.hr.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Produces;
 
 import org.slf4j.Logger;
@@ -20,6 +19,7 @@ import com.perficient.hr.dao.ProjectDAO;
 import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.exception.RecordNotFoundException;
 import com.perficient.hr.model.Projects;
+import com.perficient.hr.utils.PerfUtils;
 
 @Controller
 @RequestMapping("/v-projects")
@@ -48,23 +48,20 @@ protected Logger logger = LoggerFactory.getLogger(ProjectController.class);
 	@Produces("application/json")
 	@ResponseBody
 	public Projects addProject(@RequestBody Projects project, HttpServletRequest request) throws RecordExistsException{
-		HttpSession session = request.getSession();
-		return projectDAO.addProject(project, session.getAttribute("userId").toString());
+		return projectDAO.addProject(project, PerfUtils.getUserId(request.getSession()));
 	}
 	
 	@RequestMapping(value="/updateProject", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
 	public boolean updateProject(@RequestBody Projects project, HttpServletRequest request) throws RecordNotFoundException{
-		HttpSession session = request.getSession();
-		return projectDAO.updateProject(project, session.getAttribute("userId").toString());
+		return projectDAO.updateProject(project, PerfUtils.getUserId(request.getSession()));
 	}
 	
 	@RequestMapping(value="/deleteProject", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
 	public boolean deleteProject(@RequestBody Projects project, HttpServletRequest request) throws RecordNotFoundException{
-		HttpSession session = request.getSession();
-		return projectDAO.deleteProject(project, session.getAttribute("userId").toString());
+		return projectDAO.deleteProject(project, PerfUtils.getUserId(request.getSession()));
 	}
 }

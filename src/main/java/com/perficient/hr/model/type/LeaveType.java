@@ -7,14 +7,14 @@ public enum LeaveType {
 	WFH("WFH"),
 	ALL_PTO("ALL_PTO");
 	
-	private String leaveType;
+	private String leavesType;
 	
-	LeaveType(String leaveType){
-		this.leaveType = leaveType;
+	LeaveType(String leavesType){
+		this.leavesType = leavesType;
 	}
 	
 	public String getLeaveType() {
-        return leaveType;
+        return leavesType;
     }
 	
 }

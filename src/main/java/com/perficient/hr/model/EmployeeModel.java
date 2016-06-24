@@ -5,23 +5,14 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-@Table(name = "vw_employee_supervisor")
+@MappedSuperclass
 @SuppressWarnings("serial")
-public class VW_Employee implements Serializable{
+public class EmployeeModel extends AbstractModel implements Serializable{
 
-	@Id
-	@GeneratedValue
-	@Column(name = "pk", length = 11 )
-	private Long pk;
-	
 	@Column(name = "employee_id")
 	private String employeeId;
 	
@@ -56,17 +47,8 @@ public class VW_Employee implements Serializable{
 	@Column(name = "nationality")
 	private String nationality;
 	
-	@Column(name = "active")
-	private int active;
-	
 	@Column(name = "supervisor")
 	private Long supervisor;
-	
-	@Column(name = "sup_firstname")
-	private String superviserFirstName;
-	
-	@Column(name = "sup_lastname")
-	private String superviserLastName;
 	
 	@Column(name = "dob")
 	private Date dob;
@@ -85,27 +67,14 @@ public class VW_Employee implements Serializable{
 	
 	@Column(name = "last_working_Date")
 	private Date lastWorkDate;
-	
+		
 	@Column(name = "billable")
 	private int billable;
 	
 	@Column(name = "gender")
 	private String gender;
 
-	/**
-	 * @return the pk
-	 */
-	public Long getPk() {
-		return pk;
-	}
-
-	/**
-	 * @param pk the pk to set
-	 */
-	public void setPk(Long pk) {
-		this.pk = pk;
-	}
-
+	
 	/**
 	 * @return the employeeId
 	 */
@@ -259,7 +228,7 @@ public class VW_Employee implements Serializable{
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
-	
+
 	/**
 	 * @return the supervisor
 	 */
@@ -272,48 +241,6 @@ public class VW_Employee implements Serializable{
 	 */
 	public void setSupervisor(Long supervisor) {
 		this.supervisor = supervisor;
-	}
-
-	/**
-	 * @return the superviserFirstName
-	 */
-	public String getSuperviserFirstName() {
-		return superviserFirstName;
-	}
-
-	/**
-	 * @param superviserFirstName the superviserFirstName to set
-	 */
-	public void setSuperviserFirstName(String superviserFirstName) {
-		this.superviserFirstName = superviserFirstName;
-	}
-
-	/**
-	 * @return the superviserLastName
-	 */
-	public String getSuperviserLastName() {
-		return superviserLastName;
-	}
-
-	/**
-	 * @param superviserLastName the superviserLastName to set
-	 */
-	public void setSuperviserLastName(String superviserLastName) {
-		this.superviserLastName = superviserLastName;
-	}
-
-	/**
-	 * @return the active
-	 */
-	public int getActive() {
-		return active;
-	}
-
-	/**
-	 * @param active the active to set
-	 */
-	public void setActive(int active) {
-		this.active = active;
 	}
 
 	/**
@@ -427,5 +354,5 @@ public class VW_Employee implements Serializable{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
+	
 }

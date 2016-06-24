@@ -24,7 +24,10 @@ import com.perficient.hr.utils.PerfHrConstants;
 public class ProjectMembersDAOImpl implements ProjectMembersDAO{
 
 protected Logger logger = LoggerFactory.getLogger(ProjectMembersDAOImpl.class);
-	
+
+	@Autowired
+	EmployeeDAO employeeDAO;
+
 	@Resource(name="sessionFactory")
     protected SessionFactory sessionFactory;
 
@@ -36,22 +39,17 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersDAOImpl.class);
        return sessionFactory.openSession();
     }
     
-    @Autowired
-    EmployeeDAO employeeDAO;
-	
     @SuppressWarnings("unchecked")
 	@Override
 	public List<ProjectMembers> loadAllProjectMembers() {
-    	List<ProjectMembers> projectMembers = null;
     	Session session = sessionFactory.openSession();
 		String sqlQuery = " from ProjectMembers pm where pm.active=:active";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("active", PerfHrConstants.ACTIVE);
-		projectMembers = query.list();
+		List<ProjectMembers> projectMembers = query.list();
 		session.close();
 		return projectMembers;
 	}
-	
     
     @SuppressWarnings("unchecked")
 	@Override
@@ -88,27 +86,6 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersDAOImpl.class);
 	}
 
 	@Override
-	public boolean deleteProjectMember(ProjectMembers projectMembers,
-			String userId) {
-		boolean returnVal = false;
-		Session session = sessionFactory.openSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			projectMembers.setActive(PerfHrConstants.INACTIVE);
-			projectMembers.setDtModified(new Date());
-			projectMembers.setModifiedBy(employeeDAO.loadById(userId).getPk());
-			session.merge(projectMembers);
-			tx.commit();
-			returnVal = true;
-		} catch(Exception e){
-			logger.error("Unable to update project Members: "+projectMembers.getPk()+" Exception is: "+e);
-		} finally{
-			session.close();	
-		}
-		return returnVal;
-	}
-
-	@Override
 	public ProjectMembers loadProjectMemberById(String projectMemberId) {
 		Session session = sessionFactory.openSession();
 		ProjectMembers projectMember = (ProjectMembers)session.get(ProjectMembers.class, Long.parseLong(projectMemberId));
@@ -129,11 +106,23 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersDAOImpl.class);
 			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
-			logger.error("Unable to update project Members: "+projectMembers.getPk()+" Exception is: "+e);
+			logger.error("Unable to update/delete project Members: "+projectMembers.getPk()+" Exception is: "+e);
 		} finally{
 			session.close();	
 		}
 		return returnVal;
 	}
 	
+	@Override
+	public boolean deleteProjectMember(ProjectMembers projectMembers,
+			String userId) {
+		boolean returnVal = false;
+		try{
+			projectMembers.setActive(PerfHrConstants.INACTIVE);
+			returnVal = updateProjectMember(projectMembers, userId);
+		} catch(Exception e){
+			logger.error("Unable to update project Members: "+projectMembers.getPk()+" Exception is: "+e);
+		}
+		return returnVal;
+	}
 }

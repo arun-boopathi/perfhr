@@ -66,7 +66,7 @@
 			</ul>
 			<div class="registerbody opacityanim">
 				<div class="registerbody-left  col-xs-12">
-					<form name="loginForm" onsubmit="return submitLogin('<%=saltStr%>')"  method="post" action="login" modelAttribute="loginBean">
+					<form name="loginForm" onsubmit="return submitLogin('<%=saltStr%>')"  method="post" action="doLogin" modelAttribute="loginBean">
 						<ul>
 							<li>
 								<div class="form-group">

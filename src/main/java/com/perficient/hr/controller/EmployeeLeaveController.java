@@ -7,11 +7,11 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -26,11 +26,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.perficient.hr.dao.EmployeeLeavesDAO;
 import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.model.EmployeeLeaves;
+import com.perficient.hr.utils.PerfUtils;
 
 @Controller
 @RequestMapping("/v-leave")
 public class EmployeeLeaveController extends AbstractController {
 		
+	protected Logger logger = LoggerFactory.getLogger(EmployeeLeaveController.class);
+	
 	@Autowired
 	private EmployeeLeavesDAO employeeLeavesDAO;
 	
@@ -38,8 +41,8 @@ public class EmployeeLeaveController extends AbstractController {
 	@Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
 	@Produces("application/json")
 	@ResponseBody
-	public boolean uploadExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("uploadFiles") MultipartFile file) throws IOException{
-		return employeeLeavesDAO.pasrsePtoDocument(writeToFileServer(file.getInputStream(), file.getName()));
+	public boolean uploadExcel(@RequestParam("uploadFiles") MultipartFile file) throws IOException{
+		return employeeLeavesDAO.parseDocument(writeToFileServer(file.getInputStream(), file.getName()));
 	}
 	
 	/**
@@ -49,20 +52,17 @@ public class EmployeeLeaveController extends AbstractController {
      * @throws IOException
      */
     private String writeToFileServer(InputStream inputStream, String fileName) throws IOException {
-    	FileOutputStream outputStream = null;
     	String qualifiedUploadFilePath =  perfProperties.getPtoStoreLoc()+fileName+".xls";
-        try {
-            outputStream = new FileOutputStream(new File(qualifiedUploadFilePath));
-            int read = 0;
+        try(FileOutputStream outputStream = new FileOutputStream(new File(qualifiedUploadFilePath));) {
+            int read;
             byte[] bytes = new byte[1024];
             while ((read = inputStream.read(bytes)) != -1) {
                 outputStream.write(bytes, 0, read);
             }
             outputStream.flush();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } finally {
             outputStream.close();
+        } catch (IOException ioe) {
+            logger.error("Unable to import file "+fileName+" IO Exception is: "+ioe);
         }
         return qualifiedUploadFilePath;
     }
@@ -74,20 +74,20 @@ public class EmployeeLeaveController extends AbstractController {
 		return employeeLeavesDAO.loadAllLeaves(leaveType, calYear);
 	}
     
-    @RequestMapping(value="/getLeaveBalance/{leaveType}/{calYear}",method=RequestMethod.GET)
+    @RequestMapping(value="/getLeaveBalance/{leaveType}/{calYear}/{calMonth}",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public Long getLeaveBalance(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear, HttpServletRequest request){
-    	HttpSession session = request.getSession();
-		return employeeLeavesDAO.getLeaveBalance(leaveType, calYear, session.getAttribute("userId").toString(), Integer.parseInt(perfProperties.getPtoCount()));
+	public Long getLeaveBalance(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear,
+			@PathVariable("calMonth") String calMonth, HttpServletRequest request){
+		return employeeLeavesDAO.getLeaveBalance(leaveType, calYear, calMonth,
+				PerfUtils.getUserId(request.getSession()), Integer.parseInt(perfProperties.getPtoCount()));
 	}
 
     @RequestMapping(value="/loadMyLeaves/{leaveType}/{calYear}",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
 	public List<EmployeeLeaves> loadMyLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear, HttpServletRequest request){
-    	HttpSession session = request.getSession();
-		return employeeLeavesDAO.loadMyLeaves(leaveType, calYear, session.getAttribute("userId").toString());
+		return employeeLeavesDAO.loadMyLeaves(leaveType, calYear, PerfUtils.getUserId(request.getSession()));
 	}
     
     @RequestMapping(value="/loadLeaveReport",method=RequestMethod.POST)
@@ -108,8 +108,7 @@ public class EmployeeLeaveController extends AbstractController {
 	@Produces("application/json")
 	@ResponseBody
 	public EmployeeLeaves applyLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request) throws RecordExistsException{
-    	HttpSession session = request.getSession();
-		return employeeLeavesDAO.applyLeave(employeeLeaves, session.getAttribute("userId").toString());
+		return employeeLeavesDAO.applyLeave(employeeLeaves, PerfUtils.getUserId(request.getSession()));
 	}
     
     @RequestMapping(value="/updateLeave", method=RequestMethod.PUT)
@@ -117,15 +116,13 @@ public class EmployeeLeaveController extends AbstractController {
 	@Consumes("application/json")
 	@ResponseBody
 	public boolean updateLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
-    	HttpSession session = request.getSession();
-		return employeeLeavesDAO.updateLeave(employeeLeaves, session.getAttribute("userId").toString());
+		return employeeLeavesDAO.updateLeave(employeeLeaves, PerfUtils.getUserId(request.getSession()));
 	}
     
     @RequestMapping(value="/deleteLeave", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
 	public boolean deleteLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
-    	HttpSession session = request.getSession();
-		return employeeLeavesDAO.deleteLeave(employeeLeaves, session.getAttribute("userId").toString());
+		return employeeLeavesDAO.deleteLeave(employeeLeaves, PerfUtils.getUserId(request.getSession()));
 	}
 }

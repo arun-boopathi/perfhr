@@ -7,14 +7,14 @@ public enum NotificationStatusType {
 	APPROVED("APPROVED"),
 	REJECTED("REJECTED");
 	
-	private String notificationStatusType;
+	private String statusType;
 	
-	NotificationStatusType(String notificationStatusType){
-		this.notificationStatusType = notificationStatusType;
+	NotificationStatusType(String statusType){
+		this.statusType = statusType;
 	}
 	
 	public String getNotificationStatusType() {
-        return notificationStatusType;
+        return statusType;
     }
 	
 }

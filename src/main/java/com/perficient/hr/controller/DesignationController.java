@@ -3,7 +3,6 @@ package com.perficient.hr.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Produces;
 
 import org.slf4j.Logger;
@@ -20,6 +19,7 @@ import com.perficient.hr.dao.DesignationsDAO;
 import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.exception.RecordNotFoundException;
 import com.perficient.hr.model.Designations;
+import com.perficient.hr.utils.PerfUtils;
 
 @Controller
 @RequestMapping("/v-designation")
@@ -48,23 +48,20 @@ public class DesignationController {
 	@Produces("application/json")
 	@ResponseBody
 	public Designations addDesignation(@RequestBody Designations designations, HttpServletRequest request) throws RecordExistsException{
-		HttpSession session = request.getSession();
-		return designationsDAO.addDesignation(designations, session.getAttribute("userId").toString());
+		return designationsDAO.addDesignation(designations, PerfUtils.getUserId(request.getSession()));
 	}
 	
 	@RequestMapping(value="/updateDesignation", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
 	public boolean updateDesignation(@RequestBody Designations designations, HttpServletRequest request) throws RecordNotFoundException {
-		HttpSession session = request.getSession();
-		return designationsDAO.updateDesignation(designations, session.getAttribute("userId").toString());
+		return designationsDAO.updateDesignation(designations, PerfUtils.getUserId(request.getSession()));
 	}
 	
 	@RequestMapping(value="/deleteDesignation", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
 	public boolean deleteDesignation(@RequestBody Designations designation, HttpServletRequest request) throws RecordNotFoundException{
-		HttpSession session = request.getSession();
-		return designationsDAO.deleteDesignation(designation, session.getAttribute("userId").toString());
+		return designationsDAO.deleteDesignation(designation, PerfUtils.getUserId(request.getSession()));
 	}
 }

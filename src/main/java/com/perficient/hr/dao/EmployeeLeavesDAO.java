@@ -6,7 +6,7 @@ import com.perficient.hr.model.EmployeeLeaves;
 
 public interface EmployeeLeavesDAO {
 
-	public boolean pasrsePtoDocument(String fileName);
+	public boolean parseDocument(String fileName);
 	
 	public List<EmployeeLeaves> loadAllLeaves(String leaveType, String calYear);
 	
@@ -20,7 +20,7 @@ public interface EmployeeLeavesDAO {
 	
 	public boolean deleteLeave(EmployeeLeaves employeeLeaves, String userId);
 	
-	public Long getLeaveBalance(String leaveType, String calYear, String employeeId, int totalLeaves);
+	public Long getLeaveBalance(String leaveType, String calYear, String calMonth, String employeeId, int totalLeaves);
 	
 	public List<EmployeeLeaves> loadLeaveReport(EmployeeLeaves employeeLeaves);
 }

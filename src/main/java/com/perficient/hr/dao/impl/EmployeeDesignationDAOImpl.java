@@ -37,8 +37,8 @@ protected Logger logger = LoggerFactory.getLogger(EmployeeDesignationDAOImpl.cla
 	@Override
 	public List<JobTitle> loadBySbu(String stDate, String endDate,String sbu, String designation) {
 		Session session = sessionFactory.openSession();
-		String startDt = DateUtils.ConvertMilliSecondsToFormattedDate(stDate);
-		String endDt = DateUtils.ConvertMilliSecondsToFormattedDate(endDate);
+		String startDt = DateUtils.convertMilliSecondsToStringDate(stDate);
+		String endDt = DateUtils.convertMilliSecondsToStringDate(endDate);
 		String sqlQuery = "SELECT designation, pk as designationId, sbu, count(*) as employeeCount from"
 				+ " (SELECT t.employee_pk, t.designation_pk, t.start_date, d.designation,d.pk, d.sbu FROM ( "
 				+ " SELECT employee_pk, max(start_date) AS maxtimestamp"

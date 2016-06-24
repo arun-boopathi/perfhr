@@ -1,26 +1,32 @@
 package com.perficient.hr.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "vw_employee_supervisor")
 @SuppressWarnings("serial")
-public class Employee extends EmployeeModel {
+public class EmployeeView extends EmployeeModel {
 	
 	@Id
 	@GeneratedValue
 	@Column(name = "pk", length = 11 )
 	private Long pk;
 	
-	@Transient
+	@OneToMany(fetch=FetchType.LAZY, mappedBy = "employeeId")
+	private Set<EmployeeDesignation> employeeDesignation;
+		
+	@Column(name = "sup_firstname")
 	private String superviserFirstName;
 	
-	@Transient
+	@Column(name = "sup_lastname")
 	private String superviserLastName;
 	
 	/**

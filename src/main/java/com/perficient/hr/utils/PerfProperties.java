@@ -6,11 +6,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PerfProperties {
 
-	private static PerfProperties instance = new PerfProperties();
-	
-	public static PerfProperties getInstance() {
-        return instance;
-    }
 	
 	@Value("${email.host}")
 	private String host;

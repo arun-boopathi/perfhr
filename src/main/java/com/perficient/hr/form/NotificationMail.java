@@ -13,9 +13,9 @@ public class NotificationMail {
 	
 	private boolean isCalendar;
 	
-	private Date DT_START;
+	private Date dateStart;
 	
-	private Date DT_END;
+	private Date dateEnd;
 	
 	private String description;
 	
@@ -26,6 +26,8 @@ public class NotificationMail {
 	private String statusType;
 	
 	private String sequence;
+	
+	private String uid;
 
 	/**
 	 * @return the recipientsList
@@ -83,32 +85,33 @@ public class NotificationMail {
 		this.isCalendar = isCalendar;
 	}
 
+	
 	/**
-	 * @return the dT_START
+	 * @return the dateStart
 	 */
-	public Date getDT_START() {
-		return DT_START;
+	public Date getDateStart() {
+		return dateStart;
 	}
 
 	/**
-	 * @param dT_START the dT_START to set
+	 * @param dateStart the dateStart to set
 	 */
-	public void setDT_START(Date dT_START) {
-		DT_START = dT_START;
+	public void setDateStart(Date dateStart) {
+		this.dateStart = dateStart;
 	}
 
 	/**
-	 * @return the dT_END
+	 * @return the dateEnd
 	 */
-	public Date getDT_END() {
-		return DT_END;
+	public Date getDateEnd() {
+		return dateEnd;
 	}
 
 	/**
-	 * @param dT_END the dT_END to set
+	 * @param dateEnd the dateEnd to set
 	 */
-	public void setDT_END(Date dT_END) {
-		DT_END = dT_END;
+	public void setDateEnd(Date dateEnd) {
+		this.dateEnd = dateEnd;
 	}
 
 	/**
@@ -179,6 +182,20 @@ public class NotificationMail {
 	 */
 	public void setSequence(String sequence) {
 		this.sequence = sequence;
+	}
+
+	/**
+	 * @return the uid
+	 */
+	public String getUid() {
+		return uid;
+	}
+
+	/**
+	 * @param uid the uid to set
+	 */
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 	
 }

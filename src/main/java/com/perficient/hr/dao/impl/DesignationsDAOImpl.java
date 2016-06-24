@@ -25,6 +25,9 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 
 	protected Logger logger = LoggerFactory.getLogger(DesignationsDAOImpl.class);
 	
+	@Autowired
+    EmployeeDAO employeeDAO;
+	
 	@Resource(name="sessionFactory")
     protected SessionFactory sessionFactory;
 
@@ -36,10 +39,7 @@ public class DesignationsDAOImpl implements DesignationsDAO {
        return sessionFactory.openSession();
     }
 	
-    @Autowired
-    EmployeeDAO employeeDAO;
-    
-	@Override
+    @Override
 	@SuppressWarnings("unchecked")
 	public List<Designations> loadDesignations() {
 	    Session session = sessionFactory.openSession();
@@ -74,6 +74,14 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 	}
 
 	@Override
+	public Designations loadDesignationById(String designationId) {
+		Session session = sessionFactory.openSession();
+		Designations desingation = (Designations)session.get(Designations.class, Long.parseLong(designationId));
+		session.close();
+		return desingation;
+	}
+
+	@Override
 	public boolean updateDesignation(Designations designation, String userId) {
 		boolean returnVal = false;
 		Session session = sessionFactory.openSession();
@@ -85,39 +93,35 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
-			logger.error("Unable to update designation: "+designation.getDesignation()+" Exception is: "+e);
+			logger.error("Unable to update/delete designation: "+designation.getDesignation()+" Exception is: "+e);
 		} finally{
 			session.close();	
 		}
 		return returnVal;
 	}
-
-	@Override
-	public Designations loadDesignationById(String designationId) {
-		Session session = sessionFactory.openSession();
-		Designations desingation = (Designations)session.get(Designations.class, Long.parseLong(designationId));
-		session.close();
-		return desingation;
-	}
-
+	
 	@Override
 	public boolean deleteDesignation(Designations designation, String userId) {
 		boolean returnVal = false;
-		Session session = sessionFactory.openSession();
 		try{
-			Transaction tx = session.beginTransaction();
 			designation.setActive(PerfHrConstants.INACTIVE);
-			designation.setDtModified(new Date());
-			designation.setModifiedBy(employeeDAO.loadById(userId).getPk());
-			session.merge(designation);
-			tx.commit();
-			returnVal = true;
+			returnVal = updateDesignation(designation, userId);
 		} catch(Exception e){
 			logger.error("Unable to update designation: "+designation.getDesignation()+" Exception is: "+e);
-		} finally{
-			session.close();	
 		}
 		return returnVal;
+	}
+
+	@Override
+	public Designations loadDesignationByName(String designationName) {
+		Session session = sessionFactory.openSession();
+		String sqlQuery = " FROM Designations d where d.active=:active and d.designation=:designationName";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter("active", PerfHrConstants.ACTIVE);		
+		query.setParameter("designationName", designationName);
+		Designations desingation = (Designations) query.uniqueResult();
+		session.close();
+		return desingation;
 	}
 
 }

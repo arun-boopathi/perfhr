@@ -8,10 +8,10 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @SuppressWarnings("serial")
-public class AbstractModel implements Serializable {
+public abstract class AbstractModel implements Serializable {
 
 	@Column(name = "active")
-	private int active;
+	private boolean active;
 	
 	@Column(name = "dt_created")
 	private Date dtCreated;
@@ -28,14 +28,14 @@ public class AbstractModel implements Serializable {
 	/**
 	 * @return the active
 	 */
-	public int getActive() {
+	public boolean isActive() {
 		return active;
 	}
 
 	/**
 	 * @param active the active to set
 	 */
-	public void setActive(int active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 

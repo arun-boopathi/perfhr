@@ -456,3 +456,25 @@ create or replace view perficient.vw_employee_supervisor as
 select e.*, s.employee_id as sup_employee_id, s.firstname as sup_firstname, s.lastname as sup_lastname 
 from perficient.employee e 
 inner join perficient.employee s on s.pk = e.supervisor;
+
+DROP PROCEDURE if exists perficient.getEmployeeDesignationByRange;
+
+DELIMITER $$
+CREATE PROCEDURE perficient.getEmployeeDesignationByRange(
+IN startDate date,  IN endDate date, IN designationInput varchar(50))
+BEGIN
+Select * from perficient.vw_employee_supervisor emp where pk In (
+SELECT t.employee_pk FROM (
+    SELECT employee_pk, max(start_date) AS maxtimestamp
+    FROM employee_designation_history s
+    where (s.start_date >= startDate and s.start_date <= endDate)
+or  ((s.end_date >= startDate and s.end_date <= endDate)
+or (s.start_date >= startDate and s.start_date <= endDate and s.end_date is null))
+    GROUP BY employee_pk
+) AS tmax inner join employee_designation_history as t on
+t.employee_pk = tmax.employee_pk and t.start_date = tmax.maxtimestamp
+LEFT OUTER JOIN designations d on t.designation_pk = d.pk
+where d.designation=designationInput
+GROUP BY t.employee_pk order by t.start_date desc);
+END$$
+DELIMITER ;

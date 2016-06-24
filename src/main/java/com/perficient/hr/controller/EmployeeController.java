@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
@@ -20,9 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.exception.RecordNotFoundException;
-import com.perficient.hr.form.JobTitle;
 import com.perficient.hr.model.Employee;
-import com.perficient.hr.model.VW_Employee;
+import com.perficient.hr.model.EmployeeView;
+import com.perficient.hr.utils.PerfUtils;
 
 @Controller
 @RequestMapping("/v-employee")
@@ -35,8 +34,7 @@ public class EmployeeController {
 	@Produces("application/json")
 	@ResponseBody
 	public Employee loadEmployee(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		return employeeDAO.loadById(session.getAttribute("userId").toString());
+		return employeeDAO.loadById(PerfUtils.getUserId(request.getSession()));
 	}
 	
 	@RequestMapping(value="/loadEmployeeById",method=RequestMethod.GET)
@@ -49,7 +47,7 @@ public class EmployeeController {
 	@RequestMapping(value="/loadAllEmployee",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public List<VW_Employee> loadAllEmployee(){
+	public List<EmployeeView> loadAllEmployee(){
 		return employeeDAO.loadEmployees();
 	}
 	
@@ -57,12 +55,12 @@ public class EmployeeController {
 	@Produces("application/json")
 	@Consumes("application/json")
 	@ResponseBody
-	public boolean updateEmployee(@RequestBody Employee employee, HttpServletResponse response) throws RecordNotFoundException{
+	public boolean updateEmployee(@RequestBody Employee employee, HttpServletRequest request, HttpServletResponse response) throws RecordNotFoundException{
 		if(employeeDAO.loadById(String.valueOf(employee.getPk())) == null){
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			throw new RecordNotFoundException();
 		}
-		return employeeDAO.updateEmployee(employee);
+		return employeeDAO.updateEmployee(employee, PerfUtils.getUserId(request.getSession()));
 	}
 	
 	@RequestMapping(value="/addEmployee", method=RequestMethod.POST)
@@ -80,7 +78,7 @@ public class EmployeeController {
 	@RequestMapping(value="/loadEmployeeByDesHistory/{fromDate}/{toDate}/{designation}",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public List<VW_Employee> loadEmployeeByDesHistory(@PathVariable("fromDate") String fromDate, @PathVariable("toDate") String toDate, 
+	public List<EmployeeView> loadEmployeeByDesHistory(@PathVariable("fromDate") String fromDate, @PathVariable("toDate") String toDate, 
 			@PathVariable("designation") String designation){
 		return employeeDAO.loadEmployeeByDesHistory(fromDate, toDate, designation);
 	}

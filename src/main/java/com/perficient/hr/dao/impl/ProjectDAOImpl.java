@@ -26,6 +26,12 @@ public class ProjectDAOImpl implements ProjectDAO {
 
 	protected Logger logger = LoggerFactory.getLogger(ProjectDAOImpl.class);
 	
+	@Autowired
+    EmployeeDAO employeeDAO;
+    
+    @Autowired
+	private ProjectMembersDAO projectMembersDAO;
+	
 	@Resource(name="sessionFactory")
     protected SessionFactory sessionFactory;
 
@@ -36,13 +42,7 @@ public class ProjectDAOImpl implements ProjectDAO {
     protected Session getSession(){
         return sessionFactory.openSession();
     }
-    
-    @Autowired
-    EmployeeDAO employeeDAO;
-    
-    @Autowired
-	private ProjectMembersDAO projectMembersDAO;
-    
+ 
 	@Override
 	public Projects loadProjectById(String projectPk) {
 		logger.info("Loading employee record for: "+projectPk);

@@ -1,38 +1,38 @@
 angular.module('project.services', []).
   factory('projectAPIservice', function($http) {
-	var projectAPI = {};
-	projectAPI.loadById = function(projectPk) {
+    var projectAPI = {};
+    projectAPI.loadById = function(projectPk) {
         return $http({
-          method: 'get', 
+          method: 'get',
           url: perfUrl['loadProjectById']+projectPk
         });
     };
-	projectAPI.loadProjects = function() {
+    projectAPI.loadProjects = function() {
         return $http({
-          method: 'get', 
+          method: 'get',
           url: perfUrl['loadProjects']
         });
     };
     projectAPI.addProject = function(project) {
-    	        return $http({
-          method: 'post', 
+        return $http({
+          method: 'post',
           data : project,
           url: perfUrl['addProject']
         });
     };
     projectAPI.updateProject = function(project) {
         return $http({
-          method: 'put', 
+          method: 'put',
           data : project,
           url: perfUrl['updateProject']
         });
     };
     projectAPI.deleteProject = function(project) {
         return $http({
-          method: 'put', 
+          method: 'put',
           data : project,
           url: perfUrl['deleteProject']
         });
     };
-    return projectAPI; 
+    return projectAPI;
 });

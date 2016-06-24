@@ -6,6 +6,11 @@
 		<div class="perfhr-widget-content">
 		    <div class="col-md-12">
 		      	<div class="row perfhr-filter">
+		      		<div class="col-md-5">
+		    			<ol id="jobTitleBreadCrumb" class="breadcrumb">
+						  <li index="0">SBU</li>
+						</ol>
+					</div>
 		      		<div class="col-md-3">
 						<div class="form-group">
 						    <label class="control-label">From Date:</label>
@@ -30,7 +35,7 @@
 				            </p>
 					    </div>
 				    </div>
-				    <div class="col-md-2">
+				    <div class="col-md-1">
 					    <div class="form-group">
 					    	<label class="control-label"></label>
 					    	<div> 
@@ -39,19 +44,10 @@
 					    </div>
 				    </div>
 	    		</div>
-	    		<div class="row">
-	    			<div class="col-md-1"></div>
-	    			<div class="col-md-10">
-		    			<ol id="jobTitleBreadCrumb" class="breadcrumb">
-						  <li index="0">SBU</li>
-						</ol>
-					</div>
-					<div class="col-md-1"></div>
-	    		</div>
-				<div id="reportJobTitleTable" ng-show="brIndex <= 1" ng-controller="ReportJobTitleControllerTable as jobTitleReport">
+				<div id="reportJobTitleTable" ng-show="brIndex <= 1" ng-controller="reportJobTitleControllerTable as jobTitleReport">
 					<table datatable="" dt-options="jobTitleReport.dtOptions" dt-columns="jobTitleReport.dtColumns" dt-instance="jobTitleReport.dtInstance" class="table perfhr-table"></table>
 				</div>
-				<div id="reportEmpTable" ng-show="brIndex > 1" ng-controller="EmployeeTableCtrl as employeeTable">
+				<div id="reportEmpTable" ng-show="brIndex > 1" ng-controller="employeeTableCtrl as employeeTable">
 				    <table datatable="" dt-options="employeeTable.dtOptions" dt-columns="employeeTable.dtColumns" dt-instance="employeeTable.dtInstance"  width="100%" class="table perfhr-table">
 				    </table>
 				</div>

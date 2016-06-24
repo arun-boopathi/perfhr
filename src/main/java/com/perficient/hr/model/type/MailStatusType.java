@@ -7,14 +7,14 @@ public enum MailStatusType {
 	CANCEL("CANCEL"),
 	CANCELLED("CANCELLED");
 	
-	private String mailStatusType;
+	private String statusType;
 	
-	MailStatusType(String mailStatusType){
-		this.mailStatusType = mailStatusType;
+	MailStatusType(String statusType){
+		this.statusType = statusType;
 	}
 	
 	public String getMailStatusType() {
-        return mailStatusType;
+        return statusType;
     }
 	
 }

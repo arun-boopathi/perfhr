@@ -1,6 +1,5 @@
 angular.module('dashboard.services', []).
-  factory('dashboardAPIservice', function($http) {
-	var dashboardAPI = {};
-	
-    return dashboardAPI; 
+  factory('dashboardAPIservice', function() {
+    var dashboardAPI = {};
+    return dashboardAPI;
 });

@@ -33,6 +33,9 @@
 		<!-- Grunt Environment property -->
 		<grunt.target>dev</grunt.target>
 
+		<!-- Sonar Exclusion property -->
+		<sonar.exclusions>src/main/webapp/resources/js/lib/**,src/main/webapp/resources/js/login/**,
+		src/main/webapp/resources/js/dev/**,src/main/webapp/resources/js/hash/**</sonar.exclusions>
 	</properties>
 	
 	<dependencies>
@@ -238,6 +241,7 @@
                  <sonar.jdbc.driver>org.apache.derby.jdbc.ClientDriver</sonar.jdbc.driver>
                  <sonar.jdbc.username>sonar</sonar.jdbc.username>
                  <sonar.jdbc.password>sonar</sonar.jdbc.password>
+                 
             </properties>
           </profile>
   	</profiles>

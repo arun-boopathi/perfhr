@@ -1,6 +1,5 @@
 package com.perficient.hr.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -70,13 +69,12 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 
 	@Override
 	public long getNotificationCount(String employeeId) {
-		long count = 0;
 		Session session = sessionFactory.openSession();
 		String sqlQuery = "Select count(*) from Notification n where n.active=:active AND n.flag=:flag ";
 		Query query = session.createQuery(sqlQuery);
-		query.setParameter("active", PerfHrConstants.ACTIVE);
+		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
 		query.setParameter("flag", PerfHrConstants.UNREAD);
-		count = (long) query.uniqueResult();
+		long count = (long) query.uniqueResult();
 		session.close();
 		return count;
 	}
@@ -84,13 +82,12 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Notification> loadNotificationsByGenericId(long genericId) {
-		List<Notification> notificationList = new ArrayList<Notification>();
 		Session session = sessionFactory.openSession();
 		String sqlQuery = " from Notification n WHERE n.active=:active AND n.idGeneric=:genericId";
 		Query query = session.createQuery(sqlQuery);
-		query.setParameter("active", PerfHrConstants.ACTIVE);
-		query.setParameter("genericId", genericId);
-		notificationList = query.list();
+		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
+		query.setParameter(PerfHrConstants.GENERIC_ID_COLUMN, genericId);
+		List<Notification> notificationList = query.list();
 		session.close();
 		return notificationList;
 	}
@@ -98,27 +95,25 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Employee> loadNotificationsToByGenericId(long genericId) {
-		List<Employee> notificationToList = new ArrayList<Employee>();
 		Session session = sessionFactory.openSession();
 		String sqlQuery = "SELECT n.notificationTo from Notification n WHERE n.active=:active AND n.idGeneric=:genericId";
 		Query query = session.createQuery(sqlQuery);
-		query.setParameter("active", PerfHrConstants.ACTIVE);
-		query.setParameter("genericId", genericId);
-		notificationToList = query.list();
+		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
+		query.setParameter(PerfHrConstants.GENERIC_ID_COLUMN, genericId);
+		List<Employee> notificationToList = query.list();
 		session.close();
 		return notificationToList;
 	}
 
 	@Override
-	public Notification loadByGenericAndEmployeeId(long genericId, long employeeId, int active) {
-		Notification notification = new Notification();
+	public Notification loadByGenericAndEmployeeId(long genericId, long employeeId, boolean active) {
 		Session session = sessionFactory.openSession();
 		String sqlQuery = "from Notification n WHERE n.active=:active AND n.idGeneric=:genericId AND n.notificationTo.pk=:employeeId";
 		Query query = session.createQuery(sqlQuery);
-		query.setParameter("active", active);
-		query.setParameter("genericId", genericId);
+		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, active);
+		query.setParameter(PerfHrConstants.GENERIC_ID_COLUMN, genericId);
 		query.setParameter("employeeId", employeeId);
-		notification = (Notification) query.uniqueResult();
+		Notification notification = (Notification) query.uniqueResult();
 		session.close();
 		return notification;
 	}

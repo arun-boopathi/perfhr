@@ -2,10 +2,13 @@ package com.perficient.hr.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,7 +32,11 @@ public class EmployeeDesignation extends AbstractModel {
 	
 	@Column(name = "end_date")
 	private Date endDate;
-
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "employee_pk", insertable=false, updatable=false)
+	private EmployeeView employeeView;
+	
 	/**
 	 * @return the pk
 	 */
@@ -99,4 +106,19 @@ public class EmployeeDesignation extends AbstractModel {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+
+	/**
+	 * @return the employeeView
+	 */
+	public EmployeeView getEmployeeView() {
+		return employeeView;
+	}
+
+	/**
+	 * @param employeeView the employeeView to set
+	 */
+	public void setEmployeeView(EmployeeView employeeView) {
+		this.employeeView = employeeView;
+	}
+
 }

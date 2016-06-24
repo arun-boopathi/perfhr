@@ -10,6 +10,8 @@ public interface DesignationsDAO {
 	
 	public Designations loadDesignationById(String designationId);
 	
+	public Designations loadDesignationByName(String designationName);
+	
 	public Designations addDesignation(Designations designation, String userId);
 	
 	public boolean updateDesignation(Designations designation, String userId);

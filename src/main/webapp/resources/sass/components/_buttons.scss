@@ -42,16 +42,17 @@
     color: #fff;
     &:hover, &:focus, &:active{
     	background-color: rgba(255, 188, 117, 1);
-    	color: #000;
+    	color: #fff;
     }
 }
 
 .btn-delete {
-    background: #F5474D;
-    border:2px solid #F5474D;
+	background: #c9302c;
+    border: 2px solid #ac2925;
     color: #fff;
     &:hover, &:focus, &:active{
-        background: rgba(245, 71, 77, 0.61);
+    	background: #d9534f;
+    	border:2px solid #d43f3a;    
     	color: #fff;
     }
 }

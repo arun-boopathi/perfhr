@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/vendors.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css/perf.css">
-<link rel="stylesheet" href="css/theme2.css">
+<link rel="stylesheet" href="css/theme1.css">
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
 	<nav id="menu" class="mm-menu" style="display: none;" ng-controller="menuController">
@@ -116,7 +116,7 @@
 <script src="js/lib/angular-datatables.renderer.js"></script>
 <script src="js/lib/angular-datatables.directive.js"></script>
 <script src="js/lib/jquery.mmenu.all.min.js"></script>
-<script src="js/lib/moment.js"></script>
+<script src="js/lib/moment.min.js"></script>
 <script src="js/lib/angular-bootstrap.js"></script>
 <script src="js/lib/angular-animate.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.options.js"></script>
@@ -152,8 +152,6 @@
 <script src="js/service/dashboardServices.js"></script>
 <script src="js/controller/designationController.js"></script>
 <script src="js/service/designationServices.js"></script>
-<script src="js/directives/directives.js"></script>
-<script src="js/filters/filters.js"></script>
 <script src="js/controller/projectController.js"></script>
 <script src="js/service/projectServices.js"></script>
 <script src="js/controller/projectMembersController.js"></script>

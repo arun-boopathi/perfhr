@@ -1,5 +1,8 @@
 <div class="row">
-	<h2 class="text-center calendertitle">{{ scope.calendarTitle }}</h2>
+	<div class="col-md-1 text-left"></div>
+	<div class="col-md-2 text-left">
+		<h2 class="text-center calendertitle">{{ scope.calendarTitle }}</h2>
+	</div>
     <div class="col-md-3 text-left">  
       <div class="btn-group" ng-click="toggleYear(scope.viewDate)">
         <button class="btn btn-primary" mwl-date-modifier date="scope.viewDate" decrement="scope.calendarView">
@@ -14,7 +17,7 @@
       </div>
     </div>
   	<br class="visible-xs visible-sm">
-    <div class="col-md-4 text-center">
+    <div class="col-md-3 text-left">
       <div class="btn-group">
         <label class="btn btn-primary" ng-model="scope.calendarView" uib-btn-radio="'year'">Year</label>
         <label class="btn btn-primary" ng-model="scope.calendarView" uib-btn-radio="'month'">Month</label>
@@ -23,7 +26,7 @@
       </div>
     </div>
     <br class="visible-xs visible-sm">
-    <div class="pull-right">
+    <div class="col-md-2 text-left">
 	    <div class="btn-group" data-toggle="buttons">
 		    <label class="btn btn-primary" ng-model="scope.checkLeaves" ng-click="toggleLeave('all')" uib-btn-radio="'all'">All</label>
         	<label class="btn btn-primary" ng-model="scope.checkLeaves" ng-click="toggleLeave('mine')" uib-btn-radio="'mine'">Mine</label>
@@ -66,11 +69,12 @@
 				             </div>
 				         </div>
 				       </div>
+				       
 			         </div>
 			         <div class="row">
 				       <div class="col-sm-6 col-lg-6">
 				         <div class="form-group">
-					         <label class="col-md-4 control-label">Employee :</label>
+					        <label class="col-md-4 control-label">Employee :</label>
 							<div class="col-md-8 input-group">
 								<select ng-disabled="data.pk" name="supervisor" class="form-control" ng-model="data.employeeId">
 									<option ng-repeat='employee in employeesList | orderBy: "firstName" track by employee.pk' 
@@ -98,6 +102,12 @@
 					         <label class="col-md-4 control-label">Starts at:</label>
 					         <div class="col-md-8 input-group">
 				               <p class="input-group">
+				               	  <span class="input-group-addon  input-group-time">
+				               	  	<select ng-change="onDtChange()" ng-model="data.dtFromHalf" ng-selected="{{data.dtFromHalf}}">
+							        	<option value="FIRST">9:00 A.M</option>
+							        	<option value="SECOND">1:30 P.M</option>
+							        </select>
+				               	  </span>
 						          <input type="text" class="form-control" readonly ng-change="onDtChange()" uib-datepicker-popup="dd-MM-yyyy hh:mm a"
 						           ng-model="data.startsAt" value="{{data.startsAt}}" is-open="scope.startOpen" close-text="Close">
 						          <span class="input-group-btn">
@@ -110,26 +120,45 @@
 				         </div>
 					  </div>
 					  <div class="col-sm-6 col-lg-6">
-				         <div class="form-group date">
-				         	<div class="col-md-8 input-group">
-						        <select ng-change="onDtChange()" class="form-control" ng-model="data.dtFromHalf" ng-selected="{{data.dtFromHalf}}">
-						        	<option value="FIRST">First Half</option>
-						        	<option value="SECOND">Second Half</option>
-						        </select>
-						    </div>
-				         </div>
-					  </div>
-					</div>
-					<div class="row">
-					  <div class="col-sm-6 col-lg-6">			      
 				         <div class="form-group">
 					         <label class="col-md-4 control-label">Ends at:</label>
 				             <div class="col-md-8 input-group">
 				               <p class="input-group">
+				               	  <span class="input-group-addon input-group-time">
+				               	  	<select ng-change="onDtChange()" ng-model="data.dtEndHalf" ng-selected="{{data.dtEndHalf}}">
+							        	<option value="FIRST">1:30 P.M</option>
+							        	<option value="SECOND">5:30 P.M</option>
+						          	</select>
+				               	  </span>
 						          <input type="text" class="form-control" readonly ng-change="onDtChange()" uib-datepicker-popup="dd-MM-yyyy hh:mm a" 
-						          ng-model="data.endsAt" value="{{data.endsAt}}" is-open="scope.endOpen" close-text="Close" >
+						          	ng-model="data.endsAt" value="{{data.endsAt}}" is-open="scope.endOpen" close-text="Close" >
 						          <span class="input-group-btn">
 						            <button type="button" class="btn btn-default" ng-click="scope.toggle($event, 'endOpen', scope)">
+						              <i class="glyphicon glyphicon-calendar"></i>
+						            </button>
+						          </span>
+						        </p>
+				             </div>
+				         </div>
+					  </div>
+					</div>
+					<!-- <div class="row">
+					  <div class="col-sm-6 col-lg-6">			      
+				         <div class="form-group">
+					         <label class="col-md-4 control-label">Starts at:</label>
+				             <div class="col-md-8 input-group">
+						      <p class="input-group">
+						      	  <span class="input-group-addon">
+							        <input type="checkbox">Full Day
+							        <select class="" ng-change="onDtChange()" ng-model="data.dtEndHalf" ng-selected="{{data.dtEndHalf}}">
+							        	<option value="FIRST">1:00 P.M</option>
+							        	<option value="SECOND">5:00 P.M</option>
+						          	</select>
+							      </span>
+						          <input type="text" class="form-control" readonly ng-change="onDtChange()" uib-datepicker-popup="dd-MM-yyyy hh:mm a"
+						           ng-model="data.startsAt" value="{{data.startsAt}}" is-open="scope.startOpen" close-text="Close">
+						          <span class="input-group-btn">
+						            <button type="button" class="btn btn-default" ng-click="scope.toggle($event, 'startOpen', scope)">
 						              <i class="glyphicon glyphicon-calendar"></i>
 						            </button>
 						          </span>
@@ -139,15 +168,18 @@
 				      </div>
 					  <div class="col-sm-6 col-lg-6">			      
 				         <div class="form-group">
-				             <div class="col-md-8 input-group">
+				         	 <label class="col-md-3 control-label">To:</label>
+				             <div class="col-md-7 input-group">
 						        <select class="form-control" ng-change="onDtChange()" ng-model="data.dtEndHalf" ng-selected="{{data.dtEndHalf}}">
 						        	<option value="FIRST">First Half</option>
 						        	<option value="SECOND">Second Half</option>
 						        </select>
+						        <div class="col-md-6"><input type="checkbox" name="" ng-model>9:00 A.M</div>
+						        <div class="col-md-6"><input type="checkbox" name="" ng-model>1:30 P.M</div>
 				             </div>
 				         </div>
 				      </div>
-				   </div>
+				   </div> -->
 				   <div class="row">
 				      <div class="col-sm-12 col-lg-12">
 				         <div class="form-group">
@@ -182,7 +214,7 @@
 			  <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
 			  <button type="button" class="btn btn-save" ng-show="!data.pk" ng-click="saveLeave()">Save</button>
 			  <button type="button" class="btn btn-update" ng-show="data.pk" ng-click="updateLeave()">Update</button>
-			  <button type="button" class="btn btn-danger" ng-show="data.pk" ng-click="deleteLeave()">Delete</button>
+			  <button type="button" class="btn btn-delete" ng-show="data.pk" data-toggle="modal" data-target="#deleteLeave">Delete</button>
 			</div>
 		</div>
 	</div>
@@ -203,6 +235,28 @@
 			</div>
 			<div class="modal-footer">
 			  <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div>
+	<!-- Modal -->
+	<div class="modal fade" id="deleteLeave" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Delete {{title}}</h4>
+				</div>
+				<div class="modal-body">
+					Are you sure you want to delete - <b>{{data.title}}</b>?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
+					<button type="button" class="btn btn-danger" ng-click="deleteLeave()">Yes</button>
+				</div>
 			</div>
 		</div>
 	</div>

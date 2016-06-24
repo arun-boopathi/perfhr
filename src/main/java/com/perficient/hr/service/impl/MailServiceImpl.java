@@ -1,6 +1,5 @@
 package com.perficient.hr.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
@@ -9,7 +8,6 @@ import javax.activation.MailcapCommandMap;
 import javax.activation.MimetypesFileTypeMap;
 import javax.mail.BodyPart;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -19,16 +17,21 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.perficient.hr.form.NotificationMail;
 import com.perficient.hr.service.MailService;
+import com.perficient.hr.utils.DateUtils;
 import com.perficient.hr.utils.PerfProperties;
 
 @Service("mailService")
 public class MailServiceImpl implements MailService{
 
+	protected Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
+	
 	@Autowired
 	public PerfProperties perfProperties;
 	
@@ -46,7 +49,7 @@ public class MailServiceImpl implements MailService{
 	}
 	
 	@Override
-	public void sendNotifcationMail(NotificationMail notificationMail) throws Exception {
+	public void sendNotifcationMail(NotificationMail notificationMail) {
 		try {
 			 //register the text/calendar mime type
 	         MimetypesFileTypeMap mimetypes = (MimetypesFileTypeMap)MimetypesFileTypeMap.getDefaultFileTypeMap();
@@ -61,11 +64,11 @@ public class MailServiceImpl implements MailService{
 	         MimeMessage message = new MimeMessage(session);
 	         message.setFrom(new InternetAddress(perfProperties.getUsername()));
 	         message.setSubject(notificationMail.getSubject());
-	         InternetAddress[] mailAddress_TO = new InternetAddress [notificationMail.getRecipientsList().size()];
-	         for(int i=0;i<mailAddress_TO.length;i++){
-	             mailAddress_TO[i] = new InternetAddress(notificationMail.getRecipientsList().get(i));
+	         InternetAddress[] mailAddressTO = new InternetAddress [notificationMail.getRecipientsList().size()];
+	         for(int i=0;i<mailAddressTO.length;i++){
+	        	 mailAddressTO[i] = new InternetAddress(notificationMail.getRecipientsList().get(i));
 	         }
-	         message.addRecipients(Message.RecipientType.TO, mailAddress_TO);
+	         message.addRecipients(Message.RecipientType.TO, mailAddressTO);
 	         
 	         // Create an alternative Multipart
 	         Multipart multipart = new MimeMultipart("alternative");
@@ -90,48 +93,49 @@ public class MailServiceImpl implements MailService{
 	         transport.connect();
 	         transport.sendMessage(message, message.getAllRecipients());
 	         transport.close();
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+		} catch (Exception e) {
+			logger.error("Unable to send mail "+notificationMail.getSubject()+" Exception is "+e);
 		}
 	}
 	
-	private static SimpleDateFormat iCalendarDateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmm'00'");
+	private  BodyPart buildCalendarPart(NotificationMail notificationMail) {
+		BodyPart calendarPart = new MimeBodyPart();
+		try {
+			StringBuilder sb = new StringBuilder();
+	       //check the icalendar spec in order to build a more complicated meeting request
+	       StringBuilder builder = sb.append("BEGIN:VCALENDAR\n" +
+	               "PRODID:-//Microsoft Corporation//Outlook 9.0 MIMEDIR//EN\n" +
+	               "VERSION:2.0\n" +
+	               "METHOD:"+notificationMail.getRequestType()+"\n" +
+	               "BEGIN:VEVENT\n" +
+	               "ATTENDEE;ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:s.ellappan@perficient.com\n" +
+	               "ORGANIZER:MAILTO:no-reply@perficient.com\n" +
+	               "DTSTAMP:"+new Date()+"\n" +
+	               "DTSTART:"+DateUtils.getiCalDateFormat().format(notificationMail.getDateStart())+"\n" +
+	               "DTEND:"+DateUtils.getiCalDateFormat().format(notificationMail.getDateEnd())+"\n" +
+	               "LOCATION:\n" +
+	               "TRANSP:OPAQUE\n" +
+	               "SEQUENCE:"+notificationMail.getSequence()+"\n" +
+	               "STATUS:"+notificationMail.getStatusType()+"\n" +
+	               "UID:"+notificationMail.getUid()+"\n" +
+	               "CATEGORIES:Meeting\n" +
+	               "SUMMARY:"+notificationMail.getSummary()+"\n" +
+	               "PRIORITY:5\n" +
+	               "CLASS:PUBLIC\n" +
+	               "BEGIN:VALARM\n" +
+	               "TRIGGER:PT1440M\n" +
+	               "ACTION:DISPLAY\n" +
+	               "DESCRIPTION:Reminder\n" +
+	               "END:VALARM\n" +
+	               "END:VEVENT\n" +
+	               "END:VCALENDAR");
 	
-	private static BodyPart buildCalendarPart(NotificationMail notificationMail) throws Exception {
-       BodyPart calendarPart = new MimeBodyPart();
-       StringBuffer sb = new StringBuffer();
-       //check the icalendar spec in order to build a more complicated meeting request
-       StringBuffer buffer = sb.append("BEGIN:VCALENDAR\n" +
-               "PRODID:-//Microsoft Corporation//Outlook 9.0 MIMEDIR//EN\n" +
-               "VERSION:2.0\n" +
-               "METHOD:"+notificationMail.getRequestType()+"\n" +
-               "BEGIN:VEVENT\n" +
-               "ATTENDEE;ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:s.ellappan@perficient.com\n" +
-               "ORGANIZER:MAILTO:no-reply@perficient.com\n" +
-               "DTSTAMP:"+new Date()+"\n" +
-               "DTSTART:"+iCalendarDateFormat.format(notificationMail.getDT_START())+"\n" +
-               "DTEND:"+iCalendarDateFormat.format(notificationMail.getDT_END())+"\n" +
-               "LOCATION:\n" +
-               "TRANSP:OPAQUE\n" +
-               "SEQUENCE:"+notificationMail.getSequence()+"\n" +
-               "STATUS:"+notificationMail.getStatusType()+"\n" +
-               "UID:123\n" +
-               "CATEGORIES:Meeting\n" +
-               "SUMMARY:"+notificationMail.getSummary()+"\n" +
-               "PRIORITY:5\n" +
-               "CLASS:PUBLIC\n" +
-               "BEGIN:VALARM\n" +
-               "TRIGGER:PT1440M\n" +
-               "ACTION:DISPLAY\n" +
-               "DESCRIPTION:Reminder\n" +
-               "END:VALARM\n" +
-               "END:VEVENT\n" +
-               "END:VCALENDAR");
-
-       calendarPart.addHeader("Content-Class", "urn:content-classes:calendarmessage");
-       calendarPart.setDataHandler(new DataHandler(
-               new ByteArrayDataSource(buffer.toString(), "text/calendar;method="+notificationMail.getRequestType()+"")));// very important
-
+			calendarPart.addHeader("Content-Class", "urn:content-classes:calendarmessage");
+            calendarPart.setDataHandler(new DataHandler(
+	               new ByteArrayDataSource(builder.toString(), "text/calendar;method="+notificationMail.getRequestType()+"")));// very important
+		} catch (Exception e) {
+			logger.error("Unable to build calendar part and send mail "+notificationMail.getSubject()+" Exception is "+e);
+		}
        return calendarPart;
    }
 }

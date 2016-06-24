@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.perficient.hr.dao.LoginDAO;
 import com.perficient.hr.form.LoginForm;
 import com.perficient.hr.model.User;
+import com.perficient.hr.utils.PerfHrConstants;
 
 @Controller
 public class LoginController {
@@ -29,10 +30,10 @@ public class LoginController {
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public ModelAndView doLogin(){
-		return new ModelAndView("login");
+		return new ModelAndView(PerfHrConstants.LOGIN_MODEL);
 	}
 
-	@RequestMapping(value="/login",method=RequestMethod.POST)
+	@RequestMapping(value="/doLogin",method=RequestMethod.POST)
 	public ModelAndView executeLogin(HttpServletRequest request, 
 			@ModelAttribute("loginBean")LoginForm loginForm) {
 		ModelAndView model = null;
@@ -42,18 +43,17 @@ public class LoginController {
 			logger.info("Authenticating User :"+loginForm.getUsername());
 			User userExists = loginDao.checkLogin(loginForm.getUsername(),loginForm.getPassword());
 			if(userExists != null){
-				
-				session.setAttribute("userId", userExists.getEmployeePk());
+				session.setAttribute(PerfHrConstants.USER_ID, userExists.getEmployeePk());
 				logger.info("Authentication successful. Redirecting to home page.");
 				model = new ModelAndView("redirect:/home");
 			} else {
 				logger.error("Invalid Credentials provided for User: "+loginForm.getUsername());
-				model = new ModelAndView("login");
+				model = new ModelAndView(PerfHrConstants.LOGIN_MODEL);
 				model.addObject("msg", "Invalid UserName/Password!");
 			}
 		} catch(Exception e) {
 			logger.info("Unable to Authenticate User: "+loginForm.getUsername()+" Exception is "+e);
-			model = new ModelAndView("login");
+			model = new ModelAndView(PerfHrConstants.LOGIN_MODEL);
 			model.addObject("msg", "An Error occured during login!");
 		}
 		return model;
@@ -69,7 +69,7 @@ public class LoginController {
 		User userExists = loginDao.checkLogin(username, password);
 		if(userExists != null){
 			HttpSession session = request.getSession();
-			session.setAttribute("userId", userExists.getEmployeePk());
+			session.setAttribute(PerfHrConstants.USER_ID, userExists.getEmployeePk());
 			returnVal = "success";
 			logger.info("Authentication successful");
 		} else {
@@ -80,10 +80,9 @@ public class LoginController {
 	
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
 	public ModelAndView doLogut(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		session.invalidate();
+		request.getSession().invalidate();
 		logger.info("User logged out successfully");
-		ModelAndView model = new ModelAndView("login");
+		ModelAndView model = new ModelAndView(PerfHrConstants.LOGIN_MODEL);
 		model.addObject("msg", "Logged out Successfully!");
 		return model;
 	}
