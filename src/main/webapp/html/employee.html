@@ -6,7 +6,7 @@
       <div class="form-group">
          <label class="col-md-4 control-label">Employee Id:</label>
          <div class="col-md-8">
-            <input type="text" id="employee_id" ng-model="$parent.data.employeeId" class="form-control" placeholder="Employee Id" value="{{$parent.data.employeeId}}" ng-disabled="$parent.data.pk">
+            <input type="text" required id="employee_id" ng-model="$parent.data.employeeId" class="form-control" placeholder="Employee Id" value="{{$parent.data.employeeId}}" ng-disabled="$parent.data.pk">
          </div>
       </div>
    </div>
@@ -14,7 +14,7 @@
       <div class="form-group">
          <label class="col-md-4 control-label">Email Id:</label>
          <div class="col-md-8">
-            <input type="text" ng-model="$parent.data.email" class="form-control" required placeholder="Email" value="{{$parent.data.email}}">
+            <input type="email" required ng-model="$parent.data.email" class="form-control" placeholder="Email" value="{{$parent.data.email}}">
          </div>
       </div>
    </div>

@@ -136,9 +136,10 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
     };
 
     $scope.getLeaveBalance = function(){
-        leaveAPIservice.getLeaveBalance($scope.leaveType, obj.calYear, (obj.calMonth+1)).success(function (response) {
-            $scope.leaveBalance = ((response)/8).toFixed(1);
-          });
+    	var month = (obj.calMonth+1);
+        leaveAPIservice.getLeaveBalance($scope.leaveType, obj.calYear, month).success(function (response) {
+            $scope.leaveBalance = ((response)/8).toFixed(1)+"/"+(month*1.67).toFixed(1);
+        });
     };
 
     $scope.displayLeave = function(data){
@@ -246,6 +247,9 @@ function leaveControllerTable($scope, $compile, DTOptionsBuilder, DTColumnBuilde
     lc = this;
     lc.dtColumns = [
         DTColumnBuilder.newColumn('title').withTitle('Title'),
+        DTColumnBuilder.newColumn('employeeView').withTitle('Employee Name').renderWith(function(data, type, full) {
+            return full.employeeView.firstName+' '+full.employeeView.lastName;
+        }),
         DTColumnBuilder.newColumn('startsAt').withTitle('Starts').renderWith(function(data) {
             return moment(data).format("DD-MM-YYYY hh:mm A");
         }),

@@ -5,13 +5,14 @@ mainApp.controller('designationController', function($scope, designationAPIservi
     scope = $scope;
 
     $scope.save = function(){
-        designationAPIservice.addDesignation($scope.data).success(function () {
+    	console.log('in save');
+        /*designationAPIservice.addDesignation($scope.data).success(function () {
             $scope.closeModal();
             dc.dtInstance.reloadData();
             $scope.msg="Designation Saved Successfully!";
         }).error(function(){
             $scope.msg="An error occurred during save!";
-        });
+        });*/
     };
     $scope.addDesignation = function(){
         $scope.msg='';

@@ -50,6 +50,9 @@ function leaveReportControllerTable($scope, $compile, DTOptionsBuilder, DTColumn
     lr = this;
     lr.dtColumns = [
         DTColumnBuilder.newColumn('title').withTitle('Title'),
+        DTColumnBuilder.newColumn('employeeView').withTitle('Employee Name').renderWith(function(data, type, full) {
+            return full.employeeView.firstName+' '+full.employeeView.lastName;
+        }),
         DTColumnBuilder.newColumn('startsAt').withTitle('Starts').renderWith(function(data) {
             return moment(data).format("DD-MM-YYYY hh:mm A");
         }),
