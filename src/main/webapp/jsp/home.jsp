@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/vendors.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css/perf.css">
-<link rel="stylesheet" href="css/theme1.css">
+<link rel="stylesheet" href="css/theme2.css">
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
 	<nav id="menu" class="mm-menu" style="display: none;" ng-controller="menuController">
@@ -119,6 +119,7 @@
 <script src="js/lib/moment.min.js"></script>
 <script src="js/lib/angular-bootstrap.js"></script>
 <script src="js/lib/angular-animate.js"></script>
+<script src="js/lib/angular-messages.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.options.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.tabletools.js"></script>
 <script src="js/lib/angular-datatables.bootstrap.colvis.js"></script>
