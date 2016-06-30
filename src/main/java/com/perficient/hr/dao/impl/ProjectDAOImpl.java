@@ -70,7 +70,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
-			Employee employee = employeeDAO.loadById(userId);
+			Employee employee = employeeDAO.loadById(userId, session);
 			project.setDtCreated(new Date());
 			project.setDtModified(new Date());
 			project.setCreatedBy(employee.getPk());
@@ -92,7 +92,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
-			Employee employee = employeeDAO.loadById(userId);
+			Employee employee = employeeDAO.loadById(userId, session);
 			project.setDtModified(new Date());
 			project.setModifiedBy(employee.getPk());
 			session.merge(project);
@@ -112,7 +112,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
-			Employee employee = employeeDAO.loadById(userId);
+			Employee employee = employeeDAO.loadById(userId, session);
 			project.setActive(PerfHrConstants.INACTIVE);
 			project.setDtModified(new Date());
 			project.setModifiedBy(employee.getPk());

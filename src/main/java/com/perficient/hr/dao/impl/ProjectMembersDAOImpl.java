@@ -69,7 +69,7 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersDAOImpl.class);
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
-			Employee employee = employeeDAO.loadById(userId);
+			Employee employee = employeeDAO.loadById(userId, session);
 			projectMembers.setDtCreated(new Date());
 			projectMembers.setDtModified(new Date());
 			projectMembers.setCreatedBy(employee.getPk());
@@ -101,7 +101,7 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersDAOImpl.class);
 		try{
 			Transaction tx = session.beginTransaction();
 			projectMembers.setDtModified(new Date());
-			projectMembers.setModifiedBy(employeeDAO.loadById(userId).getPk());
+			projectMembers.setModifiedBy(employeeDAO.loadById(userId, session).getPk());
 			session.merge(projectMembers);
 			tx.commit();
 			returnVal = true;

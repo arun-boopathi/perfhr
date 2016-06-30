@@ -1,18 +1,16 @@
 package com.perficient.hr.dao;
 
-import java.util.List;
-
 import com.perficient.hr.model.EmployeeLeaves;
 
 public interface EmployeeLeavesDAO {
 
 	public boolean parseDocument(String fileName);
 	
-	public List<EmployeeLeaves> loadAllLeaves(String leaveType, String calYear);
+	public Object loadAllLeaves(String leaveType, String calYear);
 	
 	public EmployeeLeaves loadLeaveById(String leaveId);
 	
-	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String calYear, String employeeId);
+	public Object loadMyLeaves(String leaveType, String calYear, String employeeId);
 	
 	public EmployeeLeaves applyLeave(EmployeeLeaves employeeLeaves, String userId);
 	
@@ -22,5 +20,5 @@ public interface EmployeeLeavesDAO {
 	
 	public Long getLeaveBalance(String leaveType, String calYear, String calMonth, String employeeId, int totalLeaves);
 	
-	public List<EmployeeLeaves> loadLeaveReport(EmployeeLeaves employeeLeaves);
+	public Object loadLeaveReport(EmployeeLeaves employeeLeaves);
 }

@@ -33,14 +33,14 @@ public class EmployeeController {
 	@RequestMapping(value="/loadEmployee",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public Employee loadEmployee(HttpServletRequest request){
+	public Object loadEmployee(HttpServletRequest request){
 		return employeeDAO.loadById(PerfUtils.getUserId(request.getSession()));
 	}
 	
 	@RequestMapping(value="/loadEmployeeById",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public Employee loadEmployeeById(@RequestParam(value="employeeId") String employeeId){
+	public Object loadEmployeeById(@RequestParam(value="employeeId") String employeeId){
 		return employeeDAO.loadById(employeeId);
 	}
 	

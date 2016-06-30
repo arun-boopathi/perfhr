@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,6 +21,7 @@ import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.EmployeeView;
 import com.perficient.hr.utils.DateUtils;
 import com.perficient.hr.utils.PerfHrConstants;
+import com.perficient.hr.utils.WsError;
 
 @Repository("employeeDAO")
 public class EmployeeDAOImpl implements EmployeeDAO{
@@ -54,17 +56,34 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	}
 
     @Override
-	public Employee loadById(String pk) {
+	public Object loadById(String pk) {
 		logger.info("Loading employee record for: "+pk);
-		Session session = sessionFactory.openSession();
-		String sqlQuery =" from Employee as o where o.pk=:pk and o.active=:active";
-		Query query = session.createQuery(sqlQuery);
-		query.setParameter("pk", Long.parseLong(pk));
-		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
-		Employee employee = (Employee)query.uniqueResult();
-		session.close();
+		Session session = null;
+		Employee employee = null;
+		try {
+			session = sessionFactory.openSession();
+			employee = loadById(pk, session);;
+		} catch (Exception e) {
+			logger.error("Unable to get employee: "+pk +" Exception is: "+e);
+			return new WsError("Unable to get employee: "+pk +" Exception is: "+e, e);
+		}
+		finally
+		{
+			session.close();
+		}
 		return employee;
 	}
+    
+    @Override
+   	public Employee loadById(String pk, Session session) throws Exception{
+   		logger.info("Loading employee record for: "+pk);
+   		String sqlQuery =" from Employee as o where o.pk=:pk and o.active=:active";
+   		Query query = session.createQuery(sqlQuery);
+   		query.setParameter("pk", Long.parseLong(pk));
+   		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
+   		Employee employee = (Employee)query.uniqueResult();
+   		return employee;
+   	}
     
     @Override
 	@SuppressWarnings("unchecked")
@@ -84,7 +103,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
-			employee.setModifiedBy(loadById(userId).getPk());
+			employee.setModifiedBy(loadById(userId, session).getPk());
 			employee.setDtModified(new Date());
 			session.merge(employee);
 			tx.commit();

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -70,7 +69,7 @@ public class EmployeeLeaveController extends AbstractController {
     @RequestMapping(value="/loadAllLeaves/{leaveType}/{calYear}",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public List<EmployeeLeaves> loadAllLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear){
+	public Object loadAllLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear){
 		return employeeLeavesDAO.loadAllLeaves(leaveType, calYear);
 	}
     
@@ -86,14 +85,14 @@ public class EmployeeLeaveController extends AbstractController {
     @RequestMapping(value="/loadMyLeaves/{leaveType}/{calYear}",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public List<EmployeeLeaves> loadMyLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear, HttpServletRequest request){
+	public Object loadMyLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear, HttpServletRequest request){
 		return employeeLeavesDAO.loadMyLeaves(leaveType, calYear, PerfUtils.getUserId(request.getSession()));
 	}
     
     @RequestMapping(value="/loadLeaveReport",method=RequestMethod.POST)
 	@Produces("application/json")
 	@ResponseBody
-	public List<EmployeeLeaves> loadLeaveReport(@RequestBody EmployeeLeaves employeeLeaves){
+	public Object loadLeaveReport(@RequestBody EmployeeLeaves employeeLeaves){
 		return employeeLeavesDAO.loadLeaveReport(employeeLeaves);
 	}
     

@@ -57,7 +57,7 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 		Session session = sessionFactory.openSession();
 		try{
 			Transaction tx = session.beginTransaction();
-			Employee employee = employeeDAO.loadById(userId);
+			Employee employee = employeeDAO.loadById(userId, session);
 			designation.setDtCreated(new Date());
 			designation.setDtModified(new Date());
 			designation.setCreatedBy(employee.getPk());
@@ -88,7 +88,7 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 		try{
 			Transaction tx = session.beginTransaction();
 			designation.setDtModified(new Date());
-			designation.setModifiedBy(employeeDAO.loadById(userId).getPk());
+			designation.setModifiedBy(employeeDAO.loadById(userId, session).getPk());
 			session.merge(designation);
 			tx.commit();
 			returnVal = true;
