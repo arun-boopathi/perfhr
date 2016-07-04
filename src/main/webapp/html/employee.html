@@ -53,6 +53,12 @@
             <input type="text" ng-model="$parent.data.pincode" class="form-control" required placeholder="PinCode" value="{{$parent.data.pincode}}">
          </div>
       </div>
+      <div class="form-group">
+      	<label class="col-md-4 control-label">Contact No:</label>
+         <div class="col-md-8">
+            <input type="text" ng-model="$parent.data.contactNo" class="form-control" required placeholder="Contact No" value="{{$parent.data.contactNo}}">
+         </div>
+      </div>
     </div>
 </div>
 <div class="row">
@@ -72,9 +78,12 @@
    </div>
    <div class="col-sm-6 col-lg-6">
       <div class="form-group">
-         <label class="col-md-4 control-label">Contact No:</label>
+         <label class="col-md-4 control-label">Supervisor:</label>
          <div class="col-md-8">
-            <input type="text" ng-model="$parent.data.contactNo" class="form-control" required placeholder="Contact No" value="{{$parent.data.contactNo}}">
+            <select name="supervisor" class="form-control" ng-model="$parent.data.supervisor">
+				<option ng-repeat='employee in employees | orderBy: "firstName" track by employee.pk' 
+					ng-selected="employee.pk == $parent.data.supervisor" value="{{employee.pk}}">{{employee.firstName}} {{employee.lastName}}</option>
+			</select>
          </div>
       </div>
    </div>
@@ -92,12 +101,9 @@
    </div>
    <div class="col-sm-6 col-lg-6">
       <div class="form-group">
-         <label class="col-md-4 control-label">Supervisor:</label>
+         <label class="col-md-4 control-label">SBU:</label>
          <div class="col-md-8">
-            <select name="supervisor" class="form-control" ng-model="$parent.data.supervisor">
-				<option ng-repeat='employee in employees | orderBy: "firstName" track by employee.pk' 
-					ng-selected="employee.pk == $parent.data.supervisor" value="{{employee.pk}}">{{employee.firstName}} {{employee.lastName}}</option>
-			</select>
+         	<input type="text" class="form-control" readonly="readonly" value="data.designations.sbu" ng-model="data.designations.sbu">
          </div>
       </div>
    </div>
@@ -147,24 +153,6 @@
 	         	</span>
 	       	 </p>
 	   	 </div>
-      </div>
-   </div>
-</div>
-<div class="row">
-   <div class="col-sm-6 col-lg-6">
-      <div class="form-group">
-         <label class="col-md-4 control-label">SBU:</label>
-         <div class="col-md-8">
-         	<input type="text" class="form-control" readonly="readonly" value="data.designations.sbu" ng-model="data.designations.sbu">
-         </div>
-      </div>
-   </div>
-   <div class="col-sm-6 col-lg-6">
-      <div class="form-group">
-         <label class="col-md-4 control-label">Skills:</label>
-         <div class="col-md-8">
-            <textarea rows="3" cols="36" ng-model="$parent.data.skills" class="form-control" required placeholder="Skills" value="{{$parent.data.skills}}"></textarea>
-         </div>
       </div>
    </div>
 </div>
