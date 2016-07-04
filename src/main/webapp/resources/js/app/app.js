@@ -2,7 +2,7 @@ var mainApp = angular.module("perficientHr",
         ['profile.services','employee.services','dashboard.services',
          'designation.services','project.services', 'projectmember.services', 'pto.services', 'leave.services',
          'reportJobtitle.services', 'notification.services', 'reportJobtitle.services',
-         'ngRoute', 'ngResource', 'ngAnimate',
+         'ngRoute', 'ngResource', 'ngAnimate', 'ngMessages',
          'mwl.calendar', 'ui.bootstrap',
          'datatables', 'datatables.bootstrap', 'datatables.buttons', 'datatables.columnfilter',
          'ngSanitize', 'ui.select']);
