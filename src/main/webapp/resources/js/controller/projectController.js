@@ -19,8 +19,6 @@ mainApp.controller('projectController', function($scope, projectAPIservice) {
         projectAPIservice.addProject($scope.data).success(function() {
             pc.dtInstance.reloadData();
             $scope.msg="Project Saved Successfully!";
-        }).error(function(){
-            $scope.msg="An error occurred during save!";
         });
     };
 
@@ -30,21 +28,17 @@ mainApp.controller('projectController', function($scope, projectAPIservice) {
     };
 
     $scope.update = function(){
-        projectAPIservice.updateProject($scope.data).success(function () {
+        projectAPIservice.updateProject($scope.data).success(function() {
             pc.dtInstance.dataTable.fnUpdate($scope.data, pc.dtInstance.DataTable.$('tr.selected'), undefined, false);
             $scope.msg="Project Updated Successfully!";
-        }).error(function(){
-            $scope.msg="An error occurred during update!";
         });
     };
 
     $scope.deleteProject = function(){
-        projectAPIservice.deleteProject($scope.data).success(function () {
+        projectAPIservice.deleteProject($scope.data).success(function() {
             pc.dtInstance.reloadData();
             $('#deleteProject').modal('hide');
             $scope.msg="Project Deleted Successfully!";
-        }).error(function(){
-            $scope.msg="An error occurred during delete!";
         });
     };
 });

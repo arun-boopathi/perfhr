@@ -127,18 +127,22 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
         if(val === 'all'){
             leaveAPIservice.loadAllLeaves($scope.leaveType, obj.calYear).success(function (response) {
                 $scope.displayLeave(response);
-              });
+            });
         } else {
             leaveAPIservice.loadMyLeaves($scope.leaveType, obj.calYear).success(function (response) {
                 $scope.displayLeave(response);
-              });
+            });
         }
     };
 
+    function round(value) {
+        return Math.round(value * 2) / 2;
+    }
+    
     $scope.getLeaveBalance = function(){
-    	var month = (obj.calMonth+1);
+        var month = (obj.calMonth+1);
         leaveAPIservice.getLeaveBalance($scope.leaveType, obj.calYear, month).success(function (response) {
-            $scope.leaveBalance = ((response)/8).toFixed(1)+"/"+(month*1.67).toFixed(1);
+            $scope.leaveBalance = round(((response)/8).toFixed(1))+"/"+round((month*1.67).toFixed(1));
         });
     };
 

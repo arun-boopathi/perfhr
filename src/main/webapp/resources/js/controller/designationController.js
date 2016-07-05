@@ -5,14 +5,11 @@ mainApp.controller('designationController', function($scope, designationAPIservi
     scope = $scope;
 
     $scope.save = function(){
-    	console.log('in save');
-        /*designationAPIservice.addDesignation($scope.data).success(function () {
+        designationAPIservice.addDesignation($scope.data).success(function () {
             $scope.closeModal();
             dc.dtInstance.reloadData();
             $scope.msg="Designation Saved Successfully!";
-        }).error(function(){
-            $scope.msg="An error occurred during save!";
-        });*/
+        });
     };
     $scope.addDesignation = function(){
         $scope.msg='';
@@ -28,8 +25,6 @@ mainApp.controller('designationController', function($scope, designationAPIservi
             dc.dtInstance.dataTable.fnUpdate($scope.data, dc.dtInstance.DataTable.$('tr.selected'), undefined, false);
             $scope.closeModal();
             $scope.msg="Designation Updated Successfully!";
-        }).error(function(){
-            $scope.msg="An error occurred during update!";
         });
     };
 
@@ -38,8 +33,6 @@ mainApp.controller('designationController', function($scope, designationAPIservi
             dc.dtInstance.DataTable.row('.selected').remove().draw(false);
             $('#deleteDesignation').modal('hide');
             $scope.msg="Designation Deleted Successfully!";
-        }).error(function(){
-            $scope.msg="An error occurred during delete!";
         });
     };
 });
