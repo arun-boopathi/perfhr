@@ -49,7 +49,7 @@
              </li>
             <li><a href="#/pto">PTO</a></li>
             <li><a href="#/wfh">WFH</a></li>
-            <li><a href="#/notifications">Notifications - {{notificationCount}}</a></li>
+            <li><a href="#/notifications">Notifications - <span class="badge">{{notificationCount}}</span></a></li>
             <li><a href="logout">Logout</a></li>
         </ul>        
 	</nav>
@@ -96,7 +96,7 @@
            </ul>
 		</div>
 		<div class="divContainer" id="divContainer">
-			<div id="overlay"><img id="loading" src="images/gears.gif"></div>
+			<div id="overlay" ajax-loading><img id="loading" src="images/gears.gif"></div>
 			<ng-view></ng-view>
 		</div>
 	</div>
@@ -142,6 +142,7 @@
 <script src="js/app/common.js"></script>
 <script src="js/constants/constants.js"></script>
 <script src="js/constants/url.js"></script>
+<script src="js/directive/perfdirective.js"></script>
 <script src="js/controller/headerController.js"></script>
 <script src="js/controller/menuController.js"></script>
 <script src="js/controller/datatableController.js"></script>
