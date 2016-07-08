@@ -81,15 +81,12 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 	}
 
 	@Override
-	public long getNotificationCount(String employeeId) {
-		Session session = sessionFactory.openSession();
+	public long getNotificationCount(String employeeId, Session session) throws Exception {
 		String sqlQuery = "Select count(*) from Notification n where n.active=:active AND n.flag=:flag ";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
 		query.setParameter("flag", PerfHrConstants.UNREAD);
-		long count = (long) query.uniqueResult();
-		session.close();
-		return count;
+		return  (long) query.uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -128,6 +125,7 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
 		query.setParameter(PerfHrConstants.GENERIC_ID_COLUMN, genericId);
+		@SuppressWarnings("unchecked")
 		List<Employee> notificationToList = query.list();
 		return notificationToList;
 	}

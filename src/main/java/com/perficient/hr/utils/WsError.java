@@ -19,6 +19,10 @@ public class WsError {
 		this.errorMessage = errorMessage;
 		this.exceptionObj = exceptionObj;
 	}
+	
+	public WsError(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
 
 	public String getErrorMessage() {
 		return errorMessage;

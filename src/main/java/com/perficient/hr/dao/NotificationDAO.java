@@ -9,7 +9,7 @@ import com.perficient.hr.model.Notification;
 
 public interface NotificationDAO {
 
-	public long getNotificationCount(String employeeId);
+	public long getNotificationCount(String employeeId, Session session) throws Exception;
 	
 	public List<Notification> loadNotificationsByGenericId(long genericId);
 	

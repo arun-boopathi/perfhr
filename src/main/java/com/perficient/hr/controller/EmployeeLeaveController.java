@@ -8,6 +8,7 @@ import java.io.InputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.perficient.hr.dao.EmployeeLeavesDAO;
 import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.model.EmployeeLeaves;
+import com.perficient.hr.service.EmployeeLeavesService;
 import com.perficient.hr.utils.PerfUtils;
+import com.perficient.hr.utils.ResponseHandlingUtil;
 
 @Controller
 @RequestMapping("/v-leave")
@@ -34,14 +36,14 @@ public class EmployeeLeaveController extends AbstractController {
 	protected Logger logger = LoggerFactory.getLogger(EmployeeLeaveController.class);
 	
 	@Autowired
-	private EmployeeLeavesDAO employeeLeavesDAO;
+	private EmployeeLeavesService employeeLeavesService;
 	
 	@RequestMapping(value="/fetchExcel", method=RequestMethod.POST)
 	@Consumes(MediaType.MULTIPART_FORM_DATA_VALUE)
 	@Produces("application/json")
 	@ResponseBody
-	public boolean uploadExcel(@RequestParam("uploadFiles") MultipartFile file) throws IOException{
-		return employeeLeavesDAO.parseDocument(writeToFileServer(file.getInputStream(), file.getName()));
+	public Response uploadExcel(@RequestParam("uploadFiles") MultipartFile file) throws IOException{
+		return  ResponseHandlingUtil.prepareResponse(employeeLeavesService.parseDocument(writeToFileServer(file.getInputStream(), file.getName())));
 	}
 	
 	/**
@@ -63,65 +65,65 @@ public class EmployeeLeaveController extends AbstractController {
         } catch (IOException ioe) {
             logger.error("Unable to import file "+fileName+" IO Exception is: "+ioe);
         }
-        return qualifiedUploadFilePath;
+        return  qualifiedUploadFilePath;
     }
     
     @RequestMapping(value="/loadAllLeaves/{leaveType}/{calYear}",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public Object loadAllLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear){
-		return employeeLeavesDAO.loadAllLeaves(leaveType, calYear);
+	public Response loadAllLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear){
+		return  ResponseHandlingUtil.prepareResponse(employeeLeavesService.loadAllLeaves(leaveType, calYear));
 	}
     
     @RequestMapping(value="/getLeaveBalance/{leaveType}/{calYear}/{calMonth}",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public Long getLeaveBalance(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear,
+	public Response getLeaveBalance(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear,
 			@PathVariable("calMonth") String calMonth, HttpServletRequest request){
-		return employeeLeavesDAO.getLeaveBalance(leaveType, calYear, calMonth,
-				PerfUtils.getUserId(request.getSession()), Integer.parseInt(perfProperties.getPtoCount()));
+		return  ResponseHandlingUtil.prepareResponse(employeeLeavesService.getLeaveBalance(leaveType, calYear, calMonth,
+				PerfUtils.getUserId(request.getSession()), Integer.parseInt(perfProperties.getPtoCount())));
 	}
 
     @RequestMapping(value="/loadMyLeaves/{leaveType}/{calYear}",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public Object loadMyLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear, HttpServletRequest request){
-		return employeeLeavesDAO.loadMyLeaves(leaveType, calYear, PerfUtils.getUserId(request.getSession()));
+	public Response loadMyLeaves(@PathVariable("leaveType") String leaveType, @PathVariable("calYear") String calYear, HttpServletRequest request){
+		return  ResponseHandlingUtil.prepareResponse(employeeLeavesService.loadMyLeaves(leaveType, calYear, PerfUtils.getUserId(request.getSession())));
 	}
     
     @RequestMapping(value="/loadLeaveReport",method=RequestMethod.POST)
 	@Produces("application/json")
 	@ResponseBody
-	public Object loadLeaveReport(@RequestBody EmployeeLeaves employeeLeaves){
-		return employeeLeavesDAO.loadLeaveReport(employeeLeaves);
+	public Response loadLeaveReport(@RequestBody EmployeeLeaves employeeLeaves){
+		return  ResponseHandlingUtil.prepareResponse(employeeLeavesService.loadLeaveReport(employeeLeaves));
 	}
     
     @RequestMapping(value="/loadLeaveById",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public EmployeeLeaves loadLeaveById(@RequestParam(value="leaveId") String leaveId){
-		return employeeLeavesDAO.loadLeaveById(leaveId);
+	public Response loadLeaveById(@RequestParam(value="leaveId") String leaveId){
+		return  ResponseHandlingUtil.prepareResponse(employeeLeavesService.loadLeaveById(leaveId));
 	}
     
     @RequestMapping(value="/applyLeave", method=RequestMethod.POST)
 	@Produces("application/json")
 	@ResponseBody
-	public EmployeeLeaves applyLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request) throws RecordExistsException{
-		return employeeLeavesDAO.applyLeave(employeeLeaves, PerfUtils.getUserId(request.getSession()));
+	public Response applyLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request) throws RecordExistsException{
+		return  ResponseHandlingUtil.prepareResponse(employeeLeavesService.applyLeave(employeeLeaves, PerfUtils.getUserId(request.getSession())));
 	}
     
     @RequestMapping(value="/updateLeave", method=RequestMethod.PUT)
     @Produces("application/json")
 	@Consumes("application/json")
 	@ResponseBody
-	public boolean updateLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
-		return employeeLeavesDAO.updateLeave(employeeLeaves, PerfUtils.getUserId(request.getSession()));
+	public Response updateLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
+		return  ResponseHandlingUtil.prepareResponse(employeeLeavesService.updateLeave(employeeLeaves, PerfUtils.getUserId(request.getSession())));
 	}
     
     @RequestMapping(value="/deleteLeave", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
-	public boolean deleteLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
-		return employeeLeavesDAO.deleteLeave(employeeLeaves, PerfUtils.getUserId(request.getSession()));
+	public Response deleteLeave(@RequestBody EmployeeLeaves employeeLeaves, HttpServletRequest request){
+		return  ResponseHandlingUtil.prepareResponse(employeeLeavesService.deleteLeave(employeeLeaves, PerfUtils.getUserId(request.getSession())));
 	}
 }

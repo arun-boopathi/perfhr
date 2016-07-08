@@ -1,24 +1,29 @@
 package com.perficient.hr.dao;
 
+import java.util.List;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.hibernate.Session;
+
 import com.perficient.hr.model.EmployeeLeaves;
 
 public interface EmployeeLeavesDAO {
 
-	public boolean parseDocument(String fileName);
+	public List<EmployeeLeaves> loadAllLeaves(String leaveType, String calYear, Session session) throws Exception;
 	
-	public Object loadAllLeaves(String leaveType, String calYear);
+	public EmployeeLeaves loadLeaveById(String leaveId, Session session)throws Exception;
 	
-	public EmployeeLeaves loadLeaveById(String leaveId);
+	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String calYear, String employeeId, Session session)throws Exception;
 	
-	public Object loadMyLeaves(String leaveType, String calYear, String employeeId);
+	public EmployeeLeaves saveLeave(EmployeeLeaves employeeLeaves, Session session)throws Exception;
 	
-	public EmployeeLeaves applyLeave(EmployeeLeaves employeeLeaves, String userId);
+	public boolean updateLeave(EmployeeLeaves employeeLeaves, Session session)throws Exception;
 	
-	public boolean updateLeave(EmployeeLeaves employeeLeaves, String userId);
+	public Long getLeaveBalance(String leaveType, String calYear, String calMonth, String employeeId, 
+			int totalLeaves, Session session)throws Exception;
 	
-	public boolean deleteLeave(EmployeeLeaves employeeLeaves, String userId);
-	
-	public Long getLeaveBalance(String leaveType, String calYear, String calMonth, String employeeId, int totalLeaves);
-	
-	public Object loadLeaveReport(EmployeeLeaves employeeLeaves);
+	public List<EmployeeLeaves> loadLeaveReport(EmployeeLeaves employeeLeaves, Session session)throws Exception;
+
+	public void saveLeave(Session session, Row row) throws Exception;
+
 }
