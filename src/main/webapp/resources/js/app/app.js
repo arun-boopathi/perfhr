@@ -20,7 +20,7 @@ var rand = Math.floor(Math.random()*(3-1+1)+1);
 mainApp.config(function($routeProvider) {
   $routeProvider
     .when('/home', {
-        templateUrl: 'html/dashboard2.html',
+        templateUrl: 'html/dashboard1.html',
         controller: 'dashboardController'
     })
     .when('/employees', {
@@ -60,7 +60,7 @@ mainApp.config(function($routeProvider) {
         templateUrl: 'html/wfh.html'
     })
     .when('/notifications', {
-        templateUrl: 'html/notifications.html'
+        templateUrl: 'html/dashboard1.html'
     })
     .when('/report/jobtitle', {
         templateUrl: 'html/reports_jobtitle.html',
