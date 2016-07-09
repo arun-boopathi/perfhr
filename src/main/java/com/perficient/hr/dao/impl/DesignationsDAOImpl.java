@@ -1,14 +1,9 @@
 package com.perficient.hr.dao.impl;
 
-import java.util.Date;
 import java.util.List;
-
-import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import com.perficient.hr.dao.DesignationsDAO;
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.model.Designations;
-import com.perficient.hr.model.Employee;
 import com.perficient.hr.utils.PerfHrConstants;
 
 @Repository("designationsDAO")
@@ -27,81 +21,34 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 	
 	@Autowired
     EmployeeDAO employeeDAO;
-	
-	@Resource(name="sessionFactory")
-    protected SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-       this.sessionFactory = sessionFactory;
-    }
-   
-    protected Session getSession(){
-       return sessionFactory.openSession();
-    }
-	
-    @Override
+	@Override
 	@SuppressWarnings("unchecked")
-	public List<Designations> loadDesignations() {
-	    Session session = sessionFactory.openSession();
+	public List<Designations> loadDesignations(Session session) {
 		String sqlQuery = " from Designations d where d.active=:active";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("active", PerfHrConstants.ACTIVE);
-		List<Designations> list = query.list();
-		session.close();
-		return list;
+		return query.list();
 	}
 
 	@Override
-	public Designations addDesignation(Designations designation, String userId) {
-		Designations returnVal = null;
-		Session session = sessionFactory.openSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			Employee employee = employeeDAO.loadById(userId);
-			designation.setDtCreated(new Date());
-			designation.setDtModified(new Date());
-			designation.setCreatedBy(employee.getPk());
-			designation.setModifiedBy(employee.getPk());
-			session.save(designation);
-			tx.commit();
-			returnVal = designation;
-		} catch(Exception e){
-			logger.error("Unable to add designation: "+designation.getDesignation()+" Exception is: "+e);
-		} finally{
-			session.close();	
-		}
-		return returnVal;
+	public Designations addDesignation(Designations designation , Session session) throws Exception {
+		return (Designations) session.save(designation);
 	}
 
 	@Override
-	public Designations loadDesignationById(String designationId) {
-		Session session = sessionFactory.openSession();
-		Designations desingation = (Designations)session.get(Designations.class, Long.parseLong(designationId));
-		session.close();
-		return desingation;
+	public Designations loadDesignationById(String designationId, Session session) {
+		return (Designations)session.get(Designations.class, Long.parseLong(designationId));
 	}
 
 	@Override
-	public boolean updateDesignation(Designations designation, String userId) {
-		boolean returnVal = false;
-		Session session = sessionFactory.openSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			designation.setDtModified(new Date());
-			designation.setModifiedBy(employeeDAO.loadById(userId).getPk());
-			session.merge(designation);
-			tx.commit();
-			returnVal = true;
-		} catch(Exception e){
-			logger.error("Unable to update/delete designation: "+designation.getDesignation()+" Exception is: "+e);
-		} finally{
-			session.close();	
-		}
-		return returnVal;
+	public boolean updateDesignation(Designations designation, Session session) throws Exception {
+		session.merge(designation);
+		return true;
 	}
 	
-	@Override
-	public boolean deleteDesignation(Designations designation, String userId) {
+	/*@Override
+	public boolean deleteDesignation(Designations designation, String userId, Session session) {
 		boolean returnVal = false;
 		try{
 			designation.setActive(PerfHrConstants.INACTIVE);
@@ -110,18 +57,15 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 			logger.error("Unable to update designation: "+designation.getDesignation()+" Exception is: "+e);
 		}
 		return returnVal;
-	}
+	}*/
 
 	@Override
-	public Designations loadDesignationByName(String designationName) {
-		Session session = sessionFactory.openSession();
+	public Designations loadDesignationByName(String designationName, Session session) {
 		String sqlQuery = " FROM Designations d where d.active=:active and d.designation=:designationName";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("active", PerfHrConstants.ACTIVE);		
 		query.setParameter("designationName", designationName);
-		Designations desingation = (Designations) query.uniqueResult();
-		session.close();
-		return desingation;
+		return (Designations) query.uniqueResult();
 	}
 
 }

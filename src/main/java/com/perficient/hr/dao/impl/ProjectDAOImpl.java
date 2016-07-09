@@ -1,14 +1,9 @@
 package com.perficient.hr.dao.impl;
 
-import java.util.Date;
 import java.util.List;
-
-import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.dao.ProjectDAO;
-import com.perficient.hr.dao.ProjectMembersDAO;
-import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.Projects;
 import com.perficient.hr.utils.PerfHrConstants;
 
@@ -29,108 +22,46 @@ public class ProjectDAOImpl implements ProjectDAO {
 	@Autowired
     EmployeeDAO employeeDAO;
     
-    @Autowired
-	private ProjectMembersDAO projectMembersDAO;
-	
-	@Resource(name="sessionFactory")
-    protected SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-       this.sessionFactory = sessionFactory;
-    }
-    
-    protected Session getSession(){
-        return sessionFactory.openSession();
-    }
- 
 	@Override
-	public Projects loadProjectById(String projectPk) {
+	public Projects loadProjectById(String projectPk, Session session) throws  Exception{
 		logger.info("Loading employee record for: "+projectPk);
-		Session session = sessionFactory.openSession();
 		Projects projects = (Projects) session.get(Projects.class, Long.parseLong(projectPk));
-		session.close();
 		return projects;
 	}
     
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Projects> loadProjects() {
-		Session session = sessionFactory.openSession();
+	public List<Projects> loadProjects(Session session) throws  Exception {
 		String sqlQuery = " from Projects p where p.active=:active";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("active", PerfHrConstants.ACTIVE);
+		@SuppressWarnings("unchecked")
 		List<Projects> list = query.list();
-		session.close();
 		return list;
 	}
 
 	@Override
-	public Projects addProject(Projects project, String userId) {
-		Projects returnVal = null;
-		Session session = sessionFactory.openSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			Employee employee = employeeDAO.loadById(userId);
-			project.setDtCreated(new Date());
-			project.setDtModified(new Date());
-			project.setCreatedBy(employee.getPk());
-			project.setModifiedBy(employee.getPk());
-			session.save(project);
-			tx.commit();
-			returnVal = project;
-		} catch(Exception e){
-			logger.error("Unable to add designation: "+project.getProjectName()+" Exception is: "+e);
-		} finally{
-			session.close();	
-		}
-		return returnVal;
+	public Projects addProject(Projects project, Session session) throws  Exception {
+		session.save(project);
+		return  project;
 	}
 
 	@Override
-	public boolean updateProject(Projects project, String userId) {
-		boolean returnVal = false;
-		Session session = sessionFactory.openSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			Employee employee = employeeDAO.loadById(userId);
-			project.setDtModified(new Date());
-			project.setModifiedBy(employee.getPk());
-			session.merge(project);
-			tx.commit();
-			returnVal = true;
-		} catch(Exception e){
-			logger.error("Unable to update designation: "+project.getProjectName()+" Exception is: "+e);
-		} finally{
-			session.close();	
-		}
-		return returnVal;
+	public boolean updateProject(Projects project, Session session) throws  Exception {
+		session.merge(project);
+		return true;
 	}
 
 	@Override
-	public boolean deleteProject(Projects project, String userId) {
-		boolean returnVal = false;
-		Session session = sessionFactory.openSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			Employee employee = employeeDAO.loadById(userId);
-			project.setActive(PerfHrConstants.INACTIVE);
-			project.setDtModified(new Date());
-			project.setModifiedBy(employee.getPk());
-			session.merge(project);
+	public boolean deleteProject(Projects project, Session session) throws  Exception {
+
+		session.merge(project);
+		
+		String sqlQuery = "UPDATE ProjectMembers pm SET pm.active=:active WHERE pm.projectId.pk=:projectId";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter("active", PerfHrConstants.INACTIVE);
+		query.setParameter("projectId", project.getPk());
+		query.executeUpdate();
 			
-			String sqlQuery = "UPDATE ProjectMembers pm SET pm.active=:active WHERE pm.projectId.pk=:projectId";
-			Query query = session.createQuery(sqlQuery);
-			query.setParameter("active", PerfHrConstants.INACTIVE);
-			query.setParameter("projectId", project.getPk());
-			query.executeUpdate();
-			
-			tx.commit();
-			returnVal = true;
-		} catch(Exception e){
-			logger.error("Unable to delete project: "+project.getProjectName()+" Exception is: "+e);
-		} finally{
-			session.close();	
-		}
-		return returnVal;
+		return true;
 	}
 }

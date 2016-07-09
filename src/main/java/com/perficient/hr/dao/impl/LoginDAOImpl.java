@@ -2,11 +2,8 @@ package com.perficient.hr.dao.impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -19,21 +16,9 @@ public class LoginDAOImpl implements LoginDAO {
 			 
 	protected Logger logger = LoggerFactory.getLogger(LoginDAO.class);
 	
-    @Resource(name="sessionFactory")
-    protected SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-       this.sessionFactory = sessionFactory;
-    }
-  
-    protected Session getSession(){
-       return sessionFactory.openSession();
-    }
-
 	@SuppressWarnings("unchecked")
 	@Override
-    public User checkLogin(String userName, String userPwd){
-		Session session = sessionFactory.openSession();
+    public User checkLogin(String userName, String userPwd, Session session) throws Exception{
 		User user = null;
 		String sqlQuery =" from User as o where o.emailId=:email and o.pwd=:pwd";
 		Query query = session.createQuery(sqlQuery);
@@ -43,7 +28,6 @@ public class LoginDAOImpl implements LoginDAO {
 		if ((list != null) && (!list.isEmpty())) {
 			user = list.get(0);
 		}
-		session.close();
 		return user;              
     }
 }

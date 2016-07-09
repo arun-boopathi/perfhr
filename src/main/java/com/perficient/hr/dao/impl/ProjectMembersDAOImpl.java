@@ -1,14 +1,9 @@
 package com.perficient.hr.dao.impl;
 
-import java.util.Date;
 import java.util.List;
-
-import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.dao.ProjectMembersDAO;
-import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.ProjectMembers;
 import com.perficient.hr.utils.PerfHrConstants;
 
@@ -28,101 +22,38 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersDAOImpl.class);
 	@Autowired
 	EmployeeDAO employeeDAO;
 
-	@Resource(name="sessionFactory")
-    protected SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-       this.sessionFactory = sessionFactory;
-    }
-   
-    protected Session getSession(){
-       return sessionFactory.openSession();
-    }
-    
     @SuppressWarnings("unchecked")
 	@Override
-	public List<ProjectMembers> loadAllProjectMembers() {
-    	Session session = sessionFactory.openSession();
+	public List<ProjectMembers> loadAllProjectMembers(Session session) throws Exception {
 		String sqlQuery = " from ProjectMembers pm where pm.active=:active";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("active", PerfHrConstants.ACTIVE);
-		List<ProjectMembers> projectMembers = query.list();
-		session.close();
-		return projectMembers;
+		return  query.list();
 	}
     
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProjectMembers> loadProjectMembersByProjectId(String projectPk) {
-		Session session = sessionFactory.openSession();
+	public List<ProjectMembers> loadProjectMembersByProjectId(String projectPk, Session session) throws Exception {
 		String sqlQuery = " from ProjectMembers as pm where pm.projectId.pk=:projectPk";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("projectPk", Long.parseLong(projectPk));
-		List<ProjectMembers> list = query.list();
-		session.close();
-		return list;
+		return  query.list();
 	}
 
 	@Override
-	public ProjectMembers saveProjectMember(ProjectMembers projectMembers, String userId) {
-		ProjectMembers returnVal = null;
-		Session session = sessionFactory.openSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			Employee employee = employeeDAO.loadById(userId);
-			projectMembers.setDtCreated(new Date());
-			projectMembers.setDtModified(new Date());
-			projectMembers.setCreatedBy(employee.getPk());
-			projectMembers.setModifiedBy(employee.getPk());
-			session.save(projectMembers);
-			tx.commit();
-			returnVal = projectMembers;
-		} catch(Exception e){
-			logger.error("Unable to save project member: "+projectMembers.getEmployeeId()+" Exception is: "+e);
-		} finally{
-			session.close();	
-		}
-		return returnVal;
+	public ProjectMembers saveProjectMember(ProjectMembers projectMembers, Session session) throws Exception {
+		session.save(projectMembers);
+		return projectMembers;
 	}
 
 	@Override
-	public ProjectMembers loadProjectMemberById(String projectMemberId) {
-		Session session = sessionFactory.openSession();
-		ProjectMembers projectMember = (ProjectMembers)session.get(ProjectMembers.class, Long.parseLong(projectMemberId));
-		session.close();
-		return projectMember;
+	public ProjectMembers loadProjectMemberById(String projectMemberId, Session session) throws Exception {
+		return  (ProjectMembers)session.get(ProjectMembers.class, Long.parseLong(projectMemberId));
 	}
 
 	@Override
-	public boolean updateProjectMember(ProjectMembers projectMembers,
-			String userId) {
-		boolean returnVal = false;
-		Session session = sessionFactory.openSession();
-		try{
-			Transaction tx = session.beginTransaction();
-			projectMembers.setDtModified(new Date());
-			projectMembers.setModifiedBy(employeeDAO.loadById(userId).getPk());
-			session.merge(projectMembers);
-			tx.commit();
-			returnVal = true;
-		} catch(Exception e){
-			logger.error("Unable to update/delete project Members: "+projectMembers.getPk()+" Exception is: "+e);
-		} finally{
-			session.close();	
-		}
-		return returnVal;
-	}
-	
-	@Override
-	public boolean deleteProjectMember(ProjectMembers projectMembers,
-			String userId) {
-		boolean returnVal = false;
-		try{
-			projectMembers.setActive(PerfHrConstants.INACTIVE);
-			returnVal = updateProjectMember(projectMembers, userId);
-		} catch(Exception e){
-			logger.error("Unable to update project Members: "+projectMembers.getPk()+" Exception is: "+e);
-		}
-		return returnVal;
+	public boolean updateProjectMember(ProjectMembers projectMembers, Session session) throws Exception {
+		session.merge(projectMembers);
+		return true;
 	}
 }

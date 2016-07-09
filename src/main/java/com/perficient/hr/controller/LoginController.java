@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.perficient.hr.dao.LoginDAO;
 import com.perficient.hr.form.LoginForm;
 import com.perficient.hr.model.User;
+import com.perficient.hr.service.LoginService;
+import com.perficient.hr.utils.LoggerUtil;
 import com.perficient.hr.utils.PerfHrConstants;
 
 @Controller
@@ -26,7 +27,7 @@ public class LoginController {
 	protected Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
-	public LoginDAO loginDao;
+	public LoginService loginService;
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public ModelAndView doLogin(){
@@ -41,7 +42,7 @@ public class LoginController {
 			HttpSession session = request.getSession();
 			logger.info("Random sess :"+session.getAttribute("ran"));
 			logger.info("Authenticating User :"+loginForm.getUsername());
-			User userExists = loginDao.checkLogin(loginForm.getUsername(),loginForm.getPassword());
+			User userExists = loginService.checkLogin(loginForm.getUsername(),loginForm.getPassword());
 			if(userExists != null){
 				session.setAttribute(PerfHrConstants.USER_ID, userExists.getEmployeePk());
 				logger.info("Authentication successful. Redirecting to home page.");
@@ -52,7 +53,7 @@ public class LoginController {
 				model.addObject("msg", "Invalid UserName/Password!");
 			}
 		} catch(Exception e) {
-			logger.info("Unable to Authenticate User: "+loginForm.getUsername()+" Exception is "+e);
+			LoggerUtil.errorLog(logger, "Unable to Authenticate User: "+loginForm.getUsername() , e);
 			model = new ModelAndView(PerfHrConstants.LOGIN_MODEL);
 			model.addObject("msg", "An Error occured during login!");
 		}
@@ -66,7 +67,13 @@ public class LoginController {
 			@RequestHeader(value="username") String username, @RequestHeader(value="password") String password){
 		String returnVal="failed";
 		logger.info("Authenticating User :"+username);
-		User userExists = loginDao.checkLogin(username, password);
+		User userExists = null;
+		try {
+			userExists = loginService.checkLogin(username, password);
+		} catch (Exception e) {
+			LoggerUtil.errorLog(logger, "Unable to Authenticate User: "+username , e);
+			return returnVal; 
+		}
 		if(userExists != null){
 			HttpSession session = request.getSession();
 			session.setAttribute(PerfHrConstants.USER_ID, userExists.getEmployeePk());

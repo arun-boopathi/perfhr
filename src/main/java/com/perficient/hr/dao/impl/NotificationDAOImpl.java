@@ -16,6 +16,7 @@ import com.perficient.hr.dao.NotificationDAO;
 import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.Notification;
 import com.perficient.hr.utils.PerfHrConstants;
+import com.perficient.hr.utils.WsError;
 
 @Repository("notificationDAO")
 public class NotificationDAOImpl implements NotificationDAO{
@@ -49,6 +50,12 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 		}
 		return returnVal;
 	}
+	
+	@Override
+	public boolean saveNotification(Notification notification, Session session) throws Exception {
+		session.save(notification);
+		return true;
+	}
 
 	@Override
 	public boolean updateNotification(Notification notification) {
@@ -66,17 +73,20 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 		}
 		return returnVal;
 	}
+	
+	@Override
+	public boolean updateNotification(Notification notification, Session session) {
+		session.merge(notification);
+		return true;
+	}
 
 	@Override
-	public long getNotificationCount(String employeeId) {
-		Session session = sessionFactory.openSession();
+	public long getNotificationCount(String employeeId, Session session) throws Exception {
 		String sqlQuery = "Select count(*) from Notification n where n.active=:active AND n.flag=:flag ";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
 		query.setParameter("flag", PerfHrConstants.UNREAD);
-		long count = (long) query.uniqueResult();
-		session.close();
-		return count;
+		return  (long) query.uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -92,16 +102,31 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 		return notificationList;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Employee> loadNotificationsToByGenericId(long genericId) {
-		Session session = sessionFactory.openSession();
+	public Object loadNotificationsToByGenericId(long genericId) {
+		Session session = null;
+		List<Employee> notificationToList = null;
+		try {
+			session = sessionFactory.openSession();
+			notificationToList = loadNotificationsToByGenericId(genericId, session);
+		} catch (Exception e) {
+			logger.error("Unable to Load Notification: " + genericId + " Exception is: "+e);
+			return new WsError("Unable to Load Notification: " + genericId + " Exception is: "+e, e);
+		}
+		finally	{
+			session.close();
+		}
+		return notificationToList;
+	}
+	
+	@Override
+	public List<Employee> loadNotificationsToByGenericId(long genericId, Session session) throws Exception{
 		String sqlQuery = "SELECT n.notificationTo from Notification n WHERE n.active=:active AND n.idGeneric=:genericId";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
 		query.setParameter(PerfHrConstants.GENERIC_ID_COLUMN, genericId);
+		@SuppressWarnings("unchecked")
 		List<Employee> notificationToList = query.list();
-		session.close();
 		return notificationToList;
 	}
 

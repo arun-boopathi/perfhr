@@ -2,11 +2,8 @@ package com.perficient.hr.dao.impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StringType;
 import org.slf4j.Logger;
@@ -22,21 +19,9 @@ public class EmployeeDesignationDAOImpl implements EmployeeDesignationDAO{
 
 protected Logger logger = LoggerFactory.getLogger(EmployeeDesignationDAOImpl.class);
 	
-	@Resource(name="sessionFactory")
-    protected SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-       this.sessionFactory = sessionFactory;
-    }
-   
-    protected Session getSession(){
-       return sessionFactory.openSession();
-    }
-	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<JobTitle> loadBySbu(String stDate, String endDate,String sbu, String designation) {
-		Session session = sessionFactory.openSession();
+	public List<JobTitle> loadBySbu(String stDate, String endDate,String sbu, String designation, Session session) throws Exception{
 		String startDt = DateUtils.convertMilliSecondsToStringDate(stDate);
 		String endDt = DateUtils.convertMilliSecondsToStringDate(endDate);
 		String sqlQuery = "SELECT designation, pk as designationId, sbu, count(*) as employeeCount from"
@@ -68,7 +53,6 @@ protected Logger logger = LoggerFactory.getLogger(EmployeeDesignationDAOImpl.cla
 		query.addScalar("employeeCount", new StringType());
 		query.setResultTransformer(Transformers.aliasToBean(JobTitle.class));
 		List<JobTitle> list = (List<JobTitle>)query.list();
-		session.close();
 		return list;
 	}
 	
