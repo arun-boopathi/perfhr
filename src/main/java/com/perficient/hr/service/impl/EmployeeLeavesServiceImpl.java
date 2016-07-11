@@ -44,8 +44,6 @@ import com.perficient.hr.utils.PerfHrConstants;
 public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 
 	protected Logger logger = LoggerFactory.getLogger(EmployeeLeavesServiceImpl.class);
-
-	/*private SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");*/
 	
 	@Autowired
     EmployeeDAO employeeDAO;
@@ -75,10 +73,8 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 		LoggerUtil.infoLog(logger, "Document Parsing. File :" + fileName );
 		Session session = null;
 		Transaction tx = null;
-		try
-		{
+		try(FileInputStream fis = new FileInputStream(fileName);) {
 			session = sessionFactory.openSession();
-		    FileInputStream fis = new FileInputStream(fileName);
 			tx = session.beginTransaction();
 	        Workbook workbook = new XSSFWorkbook(fis);
 	        int numberOfSheets = workbook.getNumberOfSheets();

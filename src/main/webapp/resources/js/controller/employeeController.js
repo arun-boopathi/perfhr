@@ -3,7 +3,7 @@ var em, data, scope;
 mainApp.controller('employeeController', function($scope, $controller, employeeAPIservice) {
     scope = $scope;
     employeeAPIservice.loadAllEmployees().success(function (response) {
-        $scope.employees = response;
+        $scope.employees = response.entity;
         em.dtInstance.DataTable.clear().draw();
         em.dtInstance.DataTable.rows.add($scope.employees).draw();
     });
@@ -17,22 +17,21 @@ mainApp.controller('employeeController', function($scope, $controller, employeeA
         $scope.$parent.data = '';
     });
 
-    $scope.submit = function() {
-        if ($scope.data.pk) {
-           employeeAPIservice.updateEmployee($scope.data).success(function (){
-                 em.dtInstance.dataTable.fnUpdate($scope.data, em.dtInstance.DataTable.$('tr.selected'), undefined, false);
-                 $scope.msg = 'Employee updated successfully.';
-           }).error(function(){
-               $scope.msg = 'An Error Occured. Unable to update Employee.';
-           });
-        } else {
-           employeeAPIservice.addEmployee($scope.data).success(function (){
-               $scope.msg = 'Employee saved successfully.';
-                 em.dtInstance.reloadData();
-             }).error(function(){
-                 $scope.msg = 'An Error Occured. Unable to save Employee.';
-             });
-        }
+    $scope.save = function(){
+        employeeAPIservice.addEmployee($scope.data).success(function (){
+            $scope.msg = 'Employee saved successfully.';
+            em.dtInstance.reloadData();
+        }).error(function(){
+            $scope.msg = 'An Error Occured. Unable to save Employee.';
+        });
+    };
+    $scope.update = function(){
+        employeeAPIservice.updateEmployee($scope.data).success(function (){
+            em.dtInstance.dataTable.fnUpdate($scope.data, em.dtInstance.DataTable.$('tr.selected'), undefined, false);
+            $scope.msg = 'Employee updated successfully.';
+        }).error(function(){
+            $scope.msg = 'An Error Occured. Unable to update Employee.';
+        });
     };
 
     angular.extend(this, $controller('empProfileController', {

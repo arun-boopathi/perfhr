@@ -8,8 +8,8 @@
         </ul>
 	</div>
 	<div ng-controller="designationTableController as designationTable">
-	    <p class="text-info"><strong>{{ msg }}</strong></p>
-	    <table datatable="" dt-options="designationTable.dtOptions" dt-columns="designationTable.dtColumns" dt-instance="designationTable.dtInstance" class="table perfhr-table">\
+	    <p class="text-info"><strong>{{msg}}</strong></p>
+	    <table datatable="" dt-options="designationTable.dtOptions" dt-columns="designationTable.dtColumns" dt-instance="designationTable.dtInstance" class="table perfhr-table">
 	    </table>
 	</div>
 </div>
@@ -26,27 +26,33 @@
 					<h4 class="modal-title" ng-show="data.pk" id="myModalLabel">Update Designation</h4>
 				</div>
 			    <div class="modal-body">
-			    	<div class="form-group">
-			    	 	<div class="col-md-8">
-			    	 		<div class="help-block" ng-messages="desingationForm.$error">
-						    </div>
-			    	 	</div>
-			    	 </div>
-			         <div class="form-group">
-				         <label class="col-md-4 control-label text-left">Designation :</label>
-			             <div class="col-md-8">
-			               <input type="text" name="Designation" class="form-control" required validType="text-only" ng-minlength="5"
-                				ng-maxlength="20" ng-model="data.designation"/>
-			             </div>
-	   		         </div>
-	   		         <div class="form-group">
-				         <label class="col-md-4 control-label text-left">SBU :</label>
-			             <div class="col-md-8">
-			                <select class="form-control" name="SBU" ng-model="data.sbu" required validType="select" ng-selected="{{data.sbu}}">
-			               		<option>CHENNAI ADMIN</option>
-			               		<option>CHENNAI CONSULTING</option>
-							</select>
-			             </div>
+			    	<div class="row">
+					      <div class="col-md-11">
+					    	 <div class="form-group">
+					      	    <div class="col-md-1"></div>
+					    	 	<div class="col-md-8">
+					    	 		<div class="help-block">
+								    </div>
+					    	 	</div>
+					    	 	<div class="col-md-1"></div>
+					    	 </div>
+					         <div class="form-group">
+						         <label class="col-md-4 control-label">Designation :</label>
+					             <div class="col-md-8">
+					               <input type="text" name="Designation" class="form-control" required validType="text-only" ng-minlength="3"
+		                				ng-maxlength="45" ng-model="data.designation"/>
+					             </div>
+			   		         </div>
+			   		         <div class="form-group">
+						         <label class="col-md-4 control-label">SBU :</label>
+					             <div class="col-md-8">
+					                <select class="form-control" name="SBU" ng-model="data.sbu" required validType="select" ng-selected="{{data.sbu}}">
+					               		<option>CHENNAI ADMIN</option>
+					               		<option>CHENNAI CONSULTING</option>
+									</select>
+					             </div>
+			   		         </div>
+		   		         </div>
 	   		         </div>
 			    </div>
 			    <div class="modal-footer">

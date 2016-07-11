@@ -8,7 +8,6 @@ mainApp.controller('reportsJobtitleController', function($scope, reportJobtitleA
     $scope.stDate = {
         opened: false
     };
-
     $scope.endDate = {
         opened: false
     };
@@ -73,7 +72,7 @@ mainApp.controller('reportsJobtitleController', function($scope, reportJobtitleA
         reportJobtitleAPIservice.reportsLoadBySbu(scope.startsAt.getTime(), scope.endsAt.getTime(),
                 $scope.sbu, $scope.designation).success(function (response) {
             repJb.dtInstance.DataTable.clear().draw();
-            repJb.dtInstance.DataTable.rows.add(response).draw();
+            repJb.dtInstance.DataTable.rows.add(response.entity).draw();
         }).error(function(){
             $scope.msg="An error occurred!";
         });
@@ -82,7 +81,7 @@ mainApp.controller('reportsJobtitleController', function($scope, reportJobtitleA
     $scope.loadEmployeeByDesHistory = function(){
         employeeAPIservice.loadEmployeeByDesHistory(scope.startsAt.getTime(), scope.endsAt.getTime(),
                 $scope.designation).success(function (response) {
-            $scope.employees = response;
+            $scope.employees = response.entity;
             em.dtInstance.DataTable.clear().draw();
             em.dtInstance.DataTable.rows.add($scope.employees).draw();
         });

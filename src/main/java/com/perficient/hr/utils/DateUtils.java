@@ -17,6 +17,11 @@ public class DateUtils {
 		return new SimpleDateFormat("yyyyMMdd'T'HHmm'00'");
 	}
 	
+	public static Date getDateByddMMMyyyy(String date) throws ParseException{
+		SimpleDateFormat ddMMMyyyyFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		return ddMMMyyyyFormat.parse(date);
+	}
+	
 	/**
 	 * 
 	 * @param date

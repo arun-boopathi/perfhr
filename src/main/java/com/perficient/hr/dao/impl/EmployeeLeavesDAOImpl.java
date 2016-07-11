@@ -1,6 +1,6 @@
 package com.perficient.hr.dao.impl;
 
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +32,9 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 
 	protected Logger logger = LoggerFactory.getLogger(EmployeeLeavesDAOImpl.class);
 
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+	private String employeeId = "employeeId";
+	private String dateBetween = " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
+	private String startDate = "-01-01";
 	
 	@Resource(name="sessionFactory")
     protected SessionFactory sessionFactory;
@@ -49,14 +51,14 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     }
     
 	@Override
-	public void saveLeave(Session session, Row row) throws Exception{
+	public void saveLeave(Session session, Row row) throws ParseException{
 		String leaveType = row.getCell(11).toString();
         String hours = row.getCell(31).toString();
         if((leaveType.equals(LeaveType.PTO.getLeaveType()) 
         		|| leaveType.equals(LeaveType.UNPLANNED_PTO.getLeaveType())) && !"0".equals(hours)){
     		String sqlQuery =" from Employee as o where o.employeeId=:employeeId";
     		Query query = session.createQuery(sqlQuery);
-    		query.setParameter("employeeId", row.getCell(17).toString());
+    		query.setParameter(employeeId, row.getCell(17).toString());
     		Employee employee = (Employee) query.uniqueResult();
     		if(employee != null) {
     			EmployeeLeaves employeeLeaves = new EmployeeLeaves();
@@ -64,10 +66,9 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
     			employeeLeaves.setAppliedById(employee.getPk());
     			employeeLeaves.setRequestType(row.getCell(11).toString());
         		employeeLeaves.setComments(row.getCell(35).toString());
-        		Date dt = sdf.parse(row.getCell(28).toString());
         		employeeLeaves.setTitle(row.getCell(18).toString()+" - "+leaveType);
-        		employeeLeaves.setStartsAt(dt);
-        		employeeLeaves.setEndsAt(dt);
+        		employeeLeaves.setStartsAt(DateUtils.getDateByddMMMyyyy(row.getCell(28).toString()));
+        		employeeLeaves.setEndsAt(DateUtils.getDateByddMMMyyyy(row.getCell(28).toString()));
         		employeeLeaves.setHours((Math.round(Float.parseFloat(hours)) < 4) ? 4:8);
         		employeeLeaves.setDtCreated(new Date());
         		employeeLeaves.setDtModified(new Date());
@@ -94,8 +95,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	
 	@SuppressWarnings("unchecked")
 	private List<EmployeeLeaves> loadEmployeeLeaves(String sqlQuery, String leaveType, 
-			Date startsAt, Date endsAt, String employeeId, Session session) throws Exception
-	{
+			Date startsAt, Date endsAt, String employeeId, Session session) {
 		Query query = session.createQuery(sqlQuery);
 		List<String> leaveTypeList = new ArrayList<>();
 		if(leaveType.equals(LeaveType.PTO.getLeaveType()) 
@@ -107,7 +107,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 		}
 		query.setParameterList("requestTypes", leaveTypeList);
 		if(employeeId != null)
-			query.setParameter("employeeId", Long.parseLong(employeeId));
+			query.setParameter(employeeId, Long.parseLong(employeeId));
 		query.setParameter("active", PerfHrConstants.ACTIVE);
 		query.setParameter("startsAt", startsAt);
 		query.setParameter("endsAt", endsAt);
@@ -116,67 +116,60 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 	
 	
 	@Override
-	public List<EmployeeLeaves> loadAllLeaves(String leaveType, String calYear, Session session) throws Exception{
-		List<EmployeeLeaves> list = new ArrayList<>();
-		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active"
-				+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
-		list = loadEmployeeLeaves(sqlQuery, leaveType, new java.sql.Timestamp(DateUtils.getDate(calYear+"-01-01").getTime()), 
+	public List<EmployeeLeaves> loadAllLeaves(String leaveType, String calYear, Session session) throws ParseException{
+		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active"+ dateBetween;
+		return loadEmployeeLeaves(sqlQuery, leaveType, new java.sql.Timestamp(DateUtils.getDate(calYear+startDate).getTime()), 
 				new java.sql.Timestamp(DateUtils.getDate(calYear+"-12-31").getTime()), null, session);
-		return list;
 	}
 
 	@Override
-	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String calYear, String employeeId, Session session) throws Exception {
-		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"
-				+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
-		return loadEmployeeLeaves(sqlQuery, leaveType, new java.sql.Timestamp(DateUtils.getDate(calYear+"-01-01").getTime()), 
+	public List<EmployeeLeaves> loadMyLeaves(String leaveType, String calYear, String employeeId, Session session) throws ParseException{
+		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"+dateBetween;
+		return loadEmployeeLeaves(sqlQuery, leaveType, new java.sql.Timestamp(DateUtils.getDate(calYear+startDate).getTime()), 
 				new java.sql.Timestamp(DateUtils.getDate(calYear+"-12-31").getTime()), employeeId, session);
 	}
 
 	@Override
-	public List<EmployeeLeaves> loadLeaveReport(EmployeeLeaves employeeLeaves, Session session) throws Exception {
-		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"
-				+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
+	public List<EmployeeLeaves> loadLeaveReport(EmployeeLeaves employeeLeaves, Session session){
+		String sqlQuery = " from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"+dateBetween;
 		return loadEmployeeLeaves(sqlQuery, employeeLeaves.getRequestType(), new java.sql.Timestamp(employeeLeaves.getStartsAt().getTime()), 
 				new java.sql.Timestamp(employeeLeaves.getEndsAt().getTime()), employeeLeaves.getEmployeeId().toString(), session);
 	}
 	
 	@Override
 	public Long getLeaveBalance(String leaveType, String calYear, String calMonth,
-			String employeeId, int totalLeaves, Session session) throws Exception {
-			String sqlQuery = "SELECT SUM(el.hours) from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"
-					+ " AND el.startsAt>=:startsAt AND el.endsAt<=:endsAt";
-			Query query = session.createQuery(sqlQuery);
-			List<String> leaveTypeList = new ArrayList<>();
-			if(leaveType.equals(LeaveType.PTO.getLeaveType())){
-				leaveTypeList.add(LeaveType.PTO.getLeaveType());
-				leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
-			} else {
-				leaveTypeList.add(LeaveType.WFH.getLeaveType());
-			}
-			query.setParameterList("requestTypes", leaveTypeList);
-			query.setParameter("employeeId", Long.parseLong(employeeId));
-			query.setParameter("active", PerfHrConstants.ACTIVE);
-			query.setParameter("startsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-01-01").getTime()));
-			query.setParameter("endsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-"+(Integer.parseInt(calMonth))+"-30").getTime()));
-			return (Long) query.uniqueResult();
+		String employeeId, int totalLeaves, Session session) throws ParseException{
+		String sqlQuery = "SELECT SUM(el.hours) from EmployeeLeaves el WHERE el.requestType in (:requestTypes) AND el.active=:active AND el.employeeId=:employeeId"+dateBetween;
+		Query query = session.createQuery(sqlQuery);
+		List<String> leaveTypeList = new ArrayList<>();
+		if(leaveType.equals(LeaveType.PTO.getLeaveType())){
+			leaveTypeList.add(LeaveType.PTO.getLeaveType());
+			leaveTypeList.add(LeaveType.UNPLANNED_PTO.getLeaveType());
+		} else {
+			leaveTypeList.add(LeaveType.WFH.getLeaveType());
+		}
+		query.setParameterList("requestTypes", leaveTypeList);
+		query.setParameter(employeeId, Long.parseLong(employeeId));
+		query.setParameter("active", PerfHrConstants.ACTIVE);
+		query.setParameter("startsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+startDate).getTime()));
+		query.setParameter("endsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-"+(Integer.parseInt(calMonth))+"-30").getTime()));
+		return (Long) query.uniqueResult();
 	}
 	
 	@Override
-	public EmployeeLeaves saveLeave(EmployeeLeaves employeeLeaves, Session session) throws Exception {
+	public EmployeeLeaves saveLeave(EmployeeLeaves employeeLeaves, Session session){
 		session.save(employeeLeaves);
 		return employeeLeaves;
 	}
 
 	@Override
-	public boolean updateLeave(EmployeeLeaves employeeLeaves, Session session) throws Exception {
+	public boolean updateLeave(EmployeeLeaves employeeLeaves, Session session){
 		session.merge(employeeLeaves);
 		return true;
 	}
 	
 	@Override
-	public EmployeeLeaves loadLeaveById(String leaveId, Session session) throws Exception {
+	public EmployeeLeaves loadLeaveById(String leaveId, Session session){
 		return (EmployeeLeaves)session.get(EmployeeLeaves.class, Long.parseLong(leaveId));
 	}
-
 }

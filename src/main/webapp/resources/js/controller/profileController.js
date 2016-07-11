@@ -3,9 +3,9 @@ mainApp.controller('profileController', function($scope, $controller, profileAPI
      $scope.data = null;
 
      employeeAPIservice.loadAllEmployees().success(function (response) {
-        $scope.employees = response;
+        $scope.employees = response.entity;
         profileAPIservice.getProfileDetails().success(function (profileResponse) {
-            $scope.data = profileResponse;
+            $scope.data = profileResponse.entity;
         });
      });
 
@@ -49,6 +49,6 @@ mainApp.controller('empProfileController', function($scope, designationAPIservic
     };
 
     designationAPIservice.getDesignationDetails().success(function (response) {
-        $scope.designations = response;
+        $scope.designations = response.entity;
     });
 });

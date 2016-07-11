@@ -24,6 +24,9 @@ import com.perficient.hr.utils.LoggerUtil;
 public class EmployeeServiceImpl implements EmployeeService{
 
 	protected Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
+	
+	private String getError = "Unable to get employee: ";
+	private String updateError = "Unable to update employee: ";
 
     @Autowired
 	private EmployeeDAO employeeDAO;
@@ -48,10 +51,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 			session = sessionFactory.openSession();
 			employee = employeeDAO.loadByUserId(pk, session);
 		} catch (Exception e) {
-			LoggerUtil.errorLog(logger, "Unable to get employee: "+pk , e);
-			return ExceptionHandlingUtil.returnErrorObject("Unable to get employee: "+pk , e);
-		}
-		finally{
+			LoggerUtil.errorLog(logger, getError+pk , e);
+			return ExceptionHandlingUtil.returnErrorObject(getError+pk , e);
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return employee;
@@ -66,11 +68,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 			session = sessionFactory.openSession();
 			employee = employeeDAO.loadById(pk, session);;
 		} catch (Exception e) {
-			LoggerUtil.errorLog(logger, "Unable to get employee: "+pk , e);
-			return ExceptionHandlingUtil.returnErrorObject("Unable to get employee: "+pk , e);
-		}
-		finally
-		{
+			LoggerUtil.errorLog(logger, getError+pk , e);
+			return ExceptionHandlingUtil.returnErrorObject(getError+pk , e);
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return employee;
@@ -87,9 +87,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		} catch (Exception e) {
 			LoggerUtil.errorLog(logger, "Unable to load employee List ", e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to load employee List ", e); 
-		}
-		finally
-		{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return list;
@@ -97,7 +95,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public Object updateEmployee(Employee employee, String userId) {
-		LoggerUtil.infoLog(logger, "Update employee deatils for the Employee: "+userId);
+		LoggerUtil.infoLog(logger, "Update employee details for the Employee: "+userId);
 		Session session = null;
 		Transaction tx = null;
 		try{
@@ -108,9 +106,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 			employeeDAO.updateEmployee(employee, userId, session);
 			tx.commit();
 		} catch(Exception e){
-			LoggerUtil.errorLog(logger, "Unable to update employee: "+employee.getEmployeeId(), e);
+			LoggerUtil.errorLog(logger, updateError+employee.getEmployeeId(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
-			return ExceptionHandlingUtil.returnErrorObject("Unable to update employee: "+employee.getEmployeeId(), e);
+			return ExceptionHandlingUtil.returnErrorObject(updateError+employee.getEmployeeId(), e);
 		} finally{
 			ExceptionHandlingUtil.closeSession(session);	
 		}
@@ -130,8 +128,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 		} catch(Exception e){
 			LoggerUtil.errorLog(logger, "Unable to save employee: "+employee.getEmployeeId(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
-			return ExceptionHandlingUtil.returnErrorObject("Unable to update employee: "+employee.getEmployeeId(), e);
-		} finally{
+			return ExceptionHandlingUtil.returnErrorObject("Unable to save employee: "+employee.getEmployeeId(), e);
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);	
 		}
 		return true;
@@ -149,9 +147,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		} catch (Exception e) {
 			LoggerUtil.errorLog(logger, "Unable to employee List By Designation", e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to employee List By Designation", e);
-		}
-		finally
-		{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return list;

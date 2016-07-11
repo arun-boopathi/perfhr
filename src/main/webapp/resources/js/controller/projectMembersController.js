@@ -50,11 +50,11 @@ mainApp.controller('projectMembersController', function($scope, projectMemberAPI
     };
 
     projectAPIservice.loadProjects().success(function(response) {
-        $scope.projects = response;
+        $scope.projects = response.entity;
     });
 
     employeeAPIservice.loadAllEmployees().success(function(response) {
-        $scope.employees = response;
+        $scope.employees = response.entity;
     });
 });
 

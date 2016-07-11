@@ -35,12 +35,12 @@ mainApp.controller('leaveReportController', function($scope, moment, leaveAPIser
     $scope.searchLeave = function(){
         leaveAPIservice.loadLeaveReport($scope.data).success(function(response) {
             lr.dtInstance.DataTable.clear().draw();
-            lr.dtInstance.DataTable.rows.add(response).draw();
+            lr.dtInstance.DataTable.rows.add(response.entity).draw();
         });
     };
 
     employeeAPIservice.loadAllEmployees().success(function(response) {
-        $scope.employees = response;
+        $scope.employees = response.entity;
     });
 });
 

@@ -88,9 +88,9 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersServiceImpl.clas
 			projectMembers.setDtModified(new Date());
 			projectMembers.setCreatedBy(employee.getPk());
 			projectMembers.setModifiedBy(employee.getPk());
-			projectMembers = projectMembersDAO.saveProjectMember(projectMembers, session);
+			ProjectMembers projectMember = projectMembersDAO.saveProjectMember(projectMembers, session);
 			tx.commit();
-			return projectMembers;
+			return projectMember;
 		} catch(Exception e){
 			LoggerUtil.errorLog(logger, "Unable to Save Project member deatils: "+projectMembers.getEmployeeId(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);

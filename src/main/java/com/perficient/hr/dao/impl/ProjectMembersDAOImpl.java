@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.dao.ProjectMembersDAO;
+import com.perficient.hr.exception.GenericException;
 import com.perficient.hr.model.ProjectMembers;
 import com.perficient.hr.utils.PerfHrConstants;
 
@@ -24,7 +25,7 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersDAOImpl.class);
 
     @SuppressWarnings("unchecked")
 	@Override
-	public List<ProjectMembers> loadAllProjectMembers(Session session) throws Exception {
+	public List<ProjectMembers> loadAllProjectMembers(Session session) throws GenericException {
 		String sqlQuery = " from ProjectMembers pm where pm.active=:active";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("active", PerfHrConstants.ACTIVE);
@@ -33,7 +34,7 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersDAOImpl.class);
     
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProjectMembers> loadProjectMembersByProjectId(String projectPk, Session session) throws Exception {
+	public List<ProjectMembers> loadProjectMembersByProjectId(String projectPk, Session session) throws GenericException {
 		String sqlQuery = " from ProjectMembers as pm where pm.projectId.pk=:projectPk";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("projectPk", Long.parseLong(projectPk));
@@ -41,18 +42,18 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersDAOImpl.class);
 	}
 
 	@Override
-	public ProjectMembers saveProjectMember(ProjectMembers projectMembers, Session session) throws Exception {
+	public ProjectMembers saveProjectMember(ProjectMembers projectMembers, Session session) throws GenericException {
 		session.save(projectMembers);
 		return projectMembers;
 	}
 
 	@Override
-	public ProjectMembers loadProjectMemberById(String projectMemberId, Session session) throws Exception {
+	public ProjectMembers loadProjectMemberById(String projectMemberId, Session session) throws GenericException {
 		return  (ProjectMembers)session.get(ProjectMembers.class, Long.parseLong(projectMemberId));
 	}
 
 	@Override
-	public boolean updateProjectMember(ProjectMembers projectMembers, Session session) throws Exception {
+	public boolean updateProjectMember(ProjectMembers projectMembers, Session session) throws GenericException {
 		session.merge(projectMembers);
 		return true;
 	}

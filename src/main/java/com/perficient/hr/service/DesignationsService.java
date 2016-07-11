@@ -2,7 +2,7 @@ package com.perficient.hr.service;
 
 import com.perficient.hr.model.Designations;
 
-public interface DesignationsSevice {
+public interface DesignationsService {
 	
 	public Object loadDesignations();
 	

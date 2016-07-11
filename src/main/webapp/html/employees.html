@@ -28,14 +28,14 @@
                 <h4 class="modal-title" ng-show="!data.pk" id="myModalLabel">Add Employee</h4>
                 <h4 class="modal-title" ng-show="data.pk" id="myModalLabel">Update Employee</h4>
             </div>
-            <form role="form" ng-submit="submit()" ng-init="form={}; data={}" class="form-horizontal">
+            <form role="form" ng-init="form={}; data={}" class="form-horizontal" novalidate>
 	            <div class="modal-body">
 	            	<div ng-include src="'html/employee.html'"></div>
 	            </div>
 	            <div class="modal-footer">
 				   <button type="button" id="closeBtn" class="btn btn-close" data-dismiss="modal">Close</button>
-				   <button type="submit" ng-show="!data.pk" class="btn btn-save">Save</button>
-				   <button type="submit" ng-show="data.pk" class="btn btn-update">Update</button>
+				   <button type="submit" ng-show="!data.pk" class="btn btn-save" action="save">Save</button>
+				   <button type="submit" ng-show="data.pk" class="btn btn-update" action="update">Update</button>
 				</div>
 			</form>
         </div>

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.exception.RecordNotFoundException;
 import com.perficient.hr.model.Designations;
-import com.perficient.hr.service.DesignationsSevice;
+import com.perficient.hr.service.DesignationsService;
 import com.perficient.hr.utils.PerfUtils;
 import com.perficient.hr.utils.ResponseHandlingUtil;
 
@@ -28,7 +28,7 @@ public class DesignationController {
 	protected Logger logger = LoggerFactory.getLogger(DesignationController.class);
 	
 	@Autowired
-	private DesignationsSevice designationsService;
+	private DesignationsService designationsService;
 	
 	@RequestMapping(value="/loadDesignations",method=RequestMethod.GET)
 	@Produces("application/json")

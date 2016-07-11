@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.EmployeeDesignationDAO;
+import com.perficient.hr.exception.GenericException;
 import com.perficient.hr.form.JobTitle;
 import com.perficient.hr.utils.DateUtils;
 
@@ -21,7 +22,7 @@ protected Logger logger = LoggerFactory.getLogger(EmployeeDesignationDAOImpl.cla
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<JobTitle> loadBySbu(String stDate, String endDate,String sbu, String designation, Session session) throws Exception{
+	public List<JobTitle> loadBySbu(String stDate, String endDate,String sbu, String designation, Session session) throws GenericException{
 		String startDt = DateUtils.convertMilliSecondsToStringDate(stDate);
 		String endDt = DateUtils.convertMilliSecondsToStringDate(endDate);
 		String sqlQuery = "SELECT designation, pk as designationId, sbu, count(*) as employeeCount from"
@@ -52,8 +53,7 @@ protected Logger logger = LoggerFactory.getLogger(EmployeeDesignationDAOImpl.cla
 		query.addScalar("sbu", new StringType());
 		query.addScalar("employeeCount", new StringType());
 		query.setResultTransformer(Transformers.aliasToBean(JobTitle.class));
-		List<JobTitle> list = (List<JobTitle>)query.list();
-		return list;
+		return (List<JobTitle>)query.list();
 	}
 	
 }

@@ -13,10 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.NotificationDAO;
+import com.perficient.hr.exception.GenericException;
 import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.Notification;
+import com.perficient.hr.utils.ExceptionHandlingUtil;
+import com.perficient.hr.utils.LoggerUtil;
 import com.perficient.hr.utils.PerfHrConstants;
-import com.perficient.hr.utils.WsError;
 
 @Repository("notificationDAO")
 public class NotificationDAOImpl implements NotificationDAO{
@@ -44,15 +46,15 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
-			logger.error("Unable to save notification: "+notification.getPk()+" Exception is: "+e);
+			LoggerUtil.errorLog(logger, "Unable to save notification: "+notification.getPk() , e);
 		} finally{
-			session.close();	
+			ExceptionHandlingUtil.closeSession(session);
 		}
 		return returnVal;
 	}
 	
 	@Override
-	public boolean saveNotification(Notification notification, Session session) throws Exception {
+	public boolean saveNotification(Notification notification, Session session) throws GenericException {
 		session.save(notification);
 		return true;
 	}
@@ -67,9 +69,9 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 			tx.commit();
 			returnVal = true;
 		} catch(Exception e){
-			logger.error("Unable to update designation: "+notification.getPk()+" Exception is: "+e);
+			LoggerUtil.errorLog(logger, "Unable to update notification: "+notification.getPk() , e);
 		} finally{
-			session.close();	
+			ExceptionHandlingUtil.closeSession(session);	
 		}
 		return returnVal;
 	}
@@ -81,7 +83,7 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 	}
 
 	@Override
-	public long getNotificationCount(String employeeId, Session session) throws Exception {
+	public long getNotificationCount(String employeeId, Session session) throws GenericException {
 		String sqlQuery = "Select count(*) from Notification n where n.active=:active AND n.flag=:flag ";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
@@ -104,30 +106,27 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 
 	@Override
 	public Object loadNotificationsToByGenericId(long genericId) {
-		Session session = null;
+		Session session = sessionFactory.openSession();
 		List<Employee> notificationToList = null;
 		try {
-			session = sessionFactory.openSession();
 			notificationToList = loadNotificationsToByGenericId(genericId, session);
 		} catch (Exception e) {
-			logger.error("Unable to Load Notification: " + genericId + " Exception is: "+e);
-			return new WsError("Unable to Load Notification: " + genericId + " Exception is: "+e, e);
-		}
-		finally	{
-			session.close();
+			LoggerUtil.errorLog(logger, "Unable to Load Notification: "+genericId, e);
+			return ExceptionHandlingUtil.returnErrorObject("Unable to Load Notification: " + genericId, e);
+		} finally	{
+			ExceptionHandlingUtil.closeSession(session);
 		}
 		return notificationToList;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Employee> loadNotificationsToByGenericId(long genericId, Session session) throws Exception{
+	public List<Employee> loadNotificationsToByGenericId(long genericId, Session session) throws GenericException{
 		String sqlQuery = "SELECT n.notificationTo from Notification n WHERE n.active=:active AND n.idGeneric=:genericId";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
 		query.setParameter(PerfHrConstants.GENERIC_ID_COLUMN, genericId);
-		@SuppressWarnings("unchecked")
-		List<Employee> notificationToList = query.list();
-		return notificationToList;
+		return query.list();
 	}
 
 	@Override
@@ -142,5 +141,4 @@ protected Logger logger = LoggerFactory.getLogger(NotificationDAOImpl.class);
 		session.close();
 		return notification;
 	}
-
 }

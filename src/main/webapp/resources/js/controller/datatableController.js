@@ -15,6 +15,7 @@
         },
         loadDataTable: function(params){
             params.vm.dtOptions = params.DtOptionsBuilder.fromSource(params.url)
+            .withDataProp('entity')
             .withDisplayLength(7)
             .withDOM('pitrfl')
             .withBootstrap()

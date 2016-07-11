@@ -51,32 +51,44 @@
 	<div class="modal-dialog modal-lg">
 		<!-- Modal content-->
 		<div class="modal-content">
-			<div class="modal-header">
-  				<button type="button" class="close" data-dismiss="modal">&times;</button>
-  				<h4 class="modal-title">Apply {{title}}</h4>
-			</div>
-			<div class="modal-body">
-				<div class = "alert alert-info" ng-show="msg">
-			  	  {{msg}}
-			    </div>
-				<form role="form" class="form-horizontal">
+		    <form class="form-horizontal" novalidate>
+				<div class="modal-header">
+	  				<button type="button" class="close" data-dismiss="modal">&times;</button>
+	  				<h4 class="modal-title">Apply {{title}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class = "alert alert-info" ng-show="msg">
+				  	  {{msg}}
+				    </div>
+				    <div class="row">
+			   	  	  <div class="col-sm-12 col-md-12">
+			   	  	  	<div class="form-group">
+				      	    <div class="col-md-1"></div>
+				    	 	<div class="col-md-8">
+				    	 		<div class="help-block">
+							    </div>
+				    	 	</div>
+				    	 	<div class="col-md-1"></div>
+				    	</div>
+			   	  	  </div>
+			   	  	</div>
 			   	    <div class="row">
 			   	  	  <div class="col-sm-12 col-md-12">
 				         <div class="form-group">
 					         <label class="col-md-2 control-label">Title:</label>
 				             <div class="col-md-10 input-group">
-				               <input type="Text" class="form-control" required autofocus ng-model="data.title" value="{{data.title}}"/>
+				               <input type="text" name="Title" class="form-control" required validType="text-only" ng-minlength="3"
+                				ng-maxlength="100" autofocus ng-model="data.title" value="{{data.title}}"/>
 				             </div>
 				         </div>
 				       </div>
-				       
 			         </div>
 			         <div class="row">
 				       <div class="col-sm-6 col-lg-6">
 				         <div class="form-group">
 					        <label class="col-md-4 control-label">Employee :</label>
 							<div class="col-md-8 input-group">
-								<select ng-disabled="data.pk" name="supervisor" class="form-control" ng-model="data.employeeId">
+								<select ng-disabled="data.pk" name="Employee" required validType="select" class="form-control" ng-model="data.employeeId">
 									<option ng-repeat='employee in employeesList | orderBy: "firstName" track by employee.pk' 
 										ng-selected="employee.pk == data.employeeId" value="{{employee.pk}}">{{employee.firstName}} {{employee.lastName}}</option>
 								</select>
@@ -87,7 +99,7 @@
 				         <div class="form-group">
 					         <label class="col-md-4 control-label">Leave Type:</label>
 					         <div class="col-md-8 input-group">
-								 <select class="form-control" ng-disabled="!isPto" ng-model="data.requestType" ng-selected="{{data.requestType}}">
+								 <select class="form-control" name="Leave Type" required validType="select" ng-disabled="!isPto" ng-model="data.requestType" ng-selected="{{data.requestType}}">
 								 	<option value="WFH" ng-show="!isPto">WFH</option>
 						        	<option value="PTO">PTO</option>
 						        	<option value="Unplanned PTO">Unplanned PTO</option>
@@ -102,14 +114,14 @@
 					         <label class="col-md-4 control-label">Starts at:</label>
 					         <div class="col-md-8 input-group">
 				               <p class="input-group">
-				               	  <span class="input-group-addon  input-group-time">
-				               	  	<select ng-change="onDtChange()" ng-model="data.dtFromHalf" ng-selected="{{data.dtFromHalf}}">
+				               	  <span class="input-group-addon input-group-time">
+				               	  	<select ng-change="onDtChange()" ng-model="data.dtFromHalf" required ng-selected="{{data.dtFromHalf}}">
 							        	<option value="FIRST">9:00 A.M</option>
 							        	<option value="SECOND">1:30 P.M</option>
 							        </select>
 				               	  </span>
-						          <input type="text" class="form-control" readonly ng-change="onDtChange()" uib-datepicker-popup="dd-MM-yyyy hh:mm a"
-						           ng-model="data.startsAt" value="{{data.startsAt}}" is-open="scope.startOpen" close-text="Close">
+						          <input type="text" class="form-control" name="Starts at" readonly ng-change="onDtChange()" uib-datepicker-popup="dd-MM-yyyy hh:mm a"
+						           ng-model="data.startsAt" value="{{data.startsAt}}" required is-open="scope.startOpen" close-text="Close">
 						          <span class="input-group-btn">
 						            <button type="button" class="btn btn-default" ng-click="scope.toggle($event, 'startOpen', scope)">
 						              <i class="glyphicon glyphicon-calendar"></i>
@@ -125,12 +137,12 @@
 				             <div class="col-md-8 input-group">
 				               <p class="input-group">
 				               	  <span class="input-group-addon input-group-time">
-				               	  	<select ng-change="onDtChange()" ng-model="data.dtEndHalf" ng-selected="{{data.dtEndHalf}}">
+				               	  	<select ng-change="onDtChange()" required ng-model="data.dtEndHalf" ng-selected="{{data.dtEndHalf}}">
 							        	<option value="FIRST">1:30 P.M</option>
 							        	<option value="SECOND">5:30 P.M</option>
 						          	</select>
 				               	  </span>
-						          <input type="text" class="form-control" readonly ng-change="onDtChange()" uib-datepicker-popup="dd-MM-yyyy hh:mm a" 
+						          <input type="text" class="form-control" name="Ends at" required readonly ng-change="onDtChange()" uib-datepicker-popup="dd-MM-yyyy hh:mm a" 
 						          	ng-model="data.endsAt" value="{{data.endsAt}}" is-open="scope.endOpen" close-text="Close" >
 						          <span class="input-group-btn">
 						            <button type="button" class="btn btn-default" ng-click="scope.toggle($event, 'endOpen', scope)">
@@ -141,51 +153,13 @@
 				             </div>
 				         </div>
 					  </div>
-					</div>
-					<!-- <div class="row">
-					  <div class="col-sm-6 col-lg-6">			      
-				         <div class="form-group">
-					         <label class="col-md-4 control-label">Starts at:</label>
-				             <div class="col-md-8 input-group">
-						      <p class="input-group">
-						      	  <span class="input-group-addon">
-							        <input type="checkbox">Full Day
-							        <select class="" ng-change="onDtChange()" ng-model="data.dtEndHalf" ng-selected="{{data.dtEndHalf}}">
-							        	<option value="FIRST">1:00 P.M</option>
-							        	<option value="SECOND">5:00 P.M</option>
-						          	</select>
-							      </span>
-						          <input type="text" class="form-control" readonly ng-change="onDtChange()" uib-datepicker-popup="dd-MM-yyyy hh:mm a"
-						           ng-model="data.startsAt" value="{{data.startsAt}}" is-open="scope.startOpen" close-text="Close">
-						          <span class="input-group-btn">
-						            <button type="button" class="btn btn-default" ng-click="scope.toggle($event, 'startOpen', scope)">
-						              <i class="glyphicon glyphicon-calendar"></i>
-						            </button>
-						          </span>
-						        </p>
-				             </div>
-				         </div>
-				      </div>
-					  <div class="col-sm-6 col-lg-6">			      
-				         <div class="form-group">
-				         	 <label class="col-md-3 control-label">To:</label>
-				             <div class="col-md-7 input-group">
-						        <select class="form-control" ng-change="onDtChange()" ng-model="data.dtEndHalf" ng-selected="{{data.dtEndHalf}}">
-						        	<option value="FIRST">First Half</option>
-						        	<option value="SECOND">Second Half</option>
-						        </select>
-						        <div class="col-md-6"><input type="checkbox" name="" ng-model>9:00 A.M</div>
-						        <div class="col-md-6"><input type="checkbox" name="" ng-model>1:30 P.M</div>
-				             </div>
-				         </div>
-				      </div>
-				   </div> -->
+				   </div>
 				   <div class="row">
 				      <div class="col-sm-12 col-lg-12">
 				         <div class="form-group">
 					         <label class="col-md-2 control-label">Comment:</label>
 					         <div class="col-md-10 input-group">
-					         	<textarea class="form-control" ng-model="data.comments" value="{{data.comments}}" rows="4" cols="45" id="comment"></textarea>
+					         	<textarea class="form-control" required name="Comment" ng-minlength="3"	ng-maxlength="100" ng-model="data.comments" value="{{data.comments}}" rows="4" cols="45" id="comment"></textarea>
 					         </div>
 				         </div>
 				       </div>
@@ -208,14 +182,14 @@
 				         </div>
 				      </div>
 				   </div>
-				</form>
-			</div>
-			<div class="modal-footer">
-			  <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-			  <button type="button" class="btn btn-save" ng-show="!data.pk" ng-click="saveLeave()">Save</button>
-			  <button type="button" class="btn btn-update" ng-show="data.pk" ng-click="updateLeave()">Update</button>
-			  <button type="button" class="btn btn-delete" ng-show="data.pk" data-toggle="modal" data-target="#deleteLeave">Delete</button>
-			</div>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+				  <button type="submit" class="btn btn-save" ng-show="!data.pk" action="saveLeave">Save</button>
+				  <button type="submit" class="btn btn-update" ng-show="data.pk" action="updateLeave">Update</button>
+				  <button type="button" class="btn btn-delete" ng-show="data.pk" data-toggle="modal" data-target="#deleteLeave">Delete</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

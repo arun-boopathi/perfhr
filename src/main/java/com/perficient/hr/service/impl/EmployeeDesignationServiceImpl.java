@@ -43,15 +43,13 @@ protected Logger logger = LoggerFactory.getLogger(EmployeeDesignationServiceImpl
 		List<JobTitle> list = null;
 		try {
 			session = sessionFactory.openSession();
-			list = employeeDesignationDAOImplDAO.loadBySbu(stDate, endDate, sbu, designation, session);session = sessionFactory.openSession();
+			list = employeeDesignationDAOImplDAO.loadBySbu(stDate, endDate, sbu, designation, session);
 		} catch (Exception e) {
 			LoggerUtil.errorLog(logger, "Unable to load employee List and Designation with the Date Range : "+ sbu , e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to load employee List and Designation with the Date Range : "+ sbu , e);
-		}
-		finally{
+		} finally{
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return list;
 	}
-	
 }

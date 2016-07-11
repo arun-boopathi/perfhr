@@ -65,7 +65,7 @@ public class EmployeeController {
 	@RequestMapping(value="/addEmployee", method=RequestMethod.POST)
 	@Produces("application/json")
 	@ResponseBody
-	public Response addEmployee(@RequestBody Employee employee, HttpServletResponse response) throws RecordExistsException{
+	public Response addEmployee(@RequestBody Employee employee) throws RecordExistsException{
 		return ResponseHandlingUtil.prepareResponse(employeeService.addEmployee(employee));
 	}
 	

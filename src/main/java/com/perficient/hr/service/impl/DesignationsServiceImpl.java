@@ -17,13 +17,13 @@ import com.perficient.hr.dao.DesignationsDAO;
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.model.Designations;
 import com.perficient.hr.model.Employee;
-import com.perficient.hr.service.DesignationsSevice;
+import com.perficient.hr.service.DesignationsService;
 import com.perficient.hr.utils.ExceptionHandlingUtil;
 import com.perficient.hr.utils.LoggerUtil;
 import com.perficient.hr.utils.PerfHrConstants;
 
 @Repository("designationsService")
-public class DesignationsServiceImpl implements DesignationsSevice {
+public class DesignationsServiceImpl implements DesignationsService {
 
 	protected Logger logger = LoggerFactory.getLogger(DesignationsServiceImpl.class);
 	
@@ -55,8 +55,7 @@ public class DesignationsServiceImpl implements DesignationsSevice {
 		} catch (Exception e) {
 			LoggerUtil.errorLog(logger, "Unable to Load Designations List" , e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to Load Designations List" , e);
-		}
-		finally{
+		} finally{
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return list;
@@ -123,7 +122,7 @@ public class DesignationsServiceImpl implements DesignationsSevice {
 		}
 	}
 	
-	private boolean updateDesignation(Designations designation, String userId, Session session) throws Exception {
+	private boolean updateDesignation(Designations designation, String userId, Session session){
 		designation.setDtModified(new Date());
 		designation.setModifiedBy(employeeDAO.loadById(userId, session).getPk());
 		return designationsDAO.updateDesignation(designation, session);

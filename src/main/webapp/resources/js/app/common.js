@@ -5,7 +5,7 @@ perfHrApp.factory('perfInterceptor', ['$q', '$rootScope', function($q, $rootScop
   var loadingCount = 0;
   return {
     'request': function(config) {
-        if(++loadingCount === 1) 
+        if(++loadingCount === 1)
             $rootScope.$broadcast('loading:progress');
         if(timeoutHandle){
             window.clearTimeout(timeoutHandle);
@@ -19,12 +19,12 @@ perfHrApp.factory('perfInterceptor', ['$q', '$rootScope', function($q, $rootScop
         return $q.reject(rejection);
     },
     'response': function(response) {
-        if(--loadingCount === 0) 
+        if(--loadingCount === 0)
             $rootScope.$broadcast('loading:finish');
         return response;
     },
     'responseError': function(rejection) {
-        if(--loadingCount === 0) 
+        if(--loadingCount === 0)
            $rootScope.$broadcast('loading:finish');
         if (rejection.status === 401) {
            window.location.href = "logout";

@@ -32,7 +32,7 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 	}
 
 	@Override
-	public Designations addDesignation(Designations designation , Session session) throws Exception {
+	public Designations addDesignation(Designations designation , Session session){
 		return (Designations) session.save(designation);
 	}
 
@@ -42,23 +42,11 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 	}
 
 	@Override
-	public boolean updateDesignation(Designations designation, Session session) throws Exception {
+	public boolean updateDesignation(Designations designation, Session session) {
 		session.merge(designation);
 		return true;
 	}
 	
-	/*@Override
-	public boolean deleteDesignation(Designations designation, String userId, Session session) {
-		boolean returnVal = false;
-		try{
-			designation.setActive(PerfHrConstants.INACTIVE);
-			returnVal = updateDesignation(designation, userId);
-		} catch(Exception e){
-			logger.error("Unable to update designation: "+designation.getDesignation()+" Exception is: "+e);
-		}
-		return returnVal;
-	}*/
-
 	@Override
 	public Designations loadDesignationByName(String designationName, Session session) {
 		String sqlQuery = " FROM Designations d where d.active=:active and d.designation=:designationName";

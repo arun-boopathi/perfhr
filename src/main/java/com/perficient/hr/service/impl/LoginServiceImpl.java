@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.LoginDAO;
+import com.perficient.hr.exception.RecordNotFoundException;
 import com.perficient.hr.model.User;
 import com.perficient.hr.service.LoginService;
 import com.perficient.hr.utils.ExceptionHandlingUtil;
@@ -35,18 +36,16 @@ public class LoginServiceImpl implements LoginService {
     }
 
 	@Override
-    public User checkLogin(String userName, String userPwd) throws Exception{
+    public User checkLogin(String userName, String userPwd) throws RecordNotFoundException{
 		LoggerUtil.infoLog(logger, "Service to Check Login for the User : "+userName);
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			return loginDAO.checkLogin(userName, userPwd, session);
-		} catch (Exception e) {
+		} catch (RecordNotFoundException e) {
 			LoggerUtil.errorLog(logger, "Unable to check user login credentials for the User: "+userName , e);
 			throw e;
-//			return ExceptionHandlingUtil.returnErrorObject("Unable to check user login credentials for the User: "+userName , e);
-		}
-		finally{
+		} finally{
 			ExceptionHandlingUtil.closeSession(session);
 		}
     }

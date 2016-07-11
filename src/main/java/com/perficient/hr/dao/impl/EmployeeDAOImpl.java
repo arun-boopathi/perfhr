@@ -26,54 +26,50 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter("pk", Long.parseLong(pk));
 		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
-		EmployeeView employee = (EmployeeView)query.uniqueResult();
-		return employee;
+		return (EmployeeView)query.uniqueResult();
 	}
 
     @Override
-   	public Employee loadById(String pk, Session session) throws Exception{
+   	public Employee loadById(String pk, Session session){
    		logger.info("Loading employee record for: "+pk);
    		String sqlQuery =" from Employee as o where o.pk=:pk and o.active=:active";
    		Query query = session.createQuery(sqlQuery);
    		query.setParameter("pk", Long.parseLong(pk));
    		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
-   		Employee employee = (Employee)query.uniqueResult();
-   		return employee;
+   		return (Employee)query.uniqueResult();
    	}
     
     @SuppressWarnings("unchecked")
 	@Override
-	public List<EmployeeView> loadEmployees(Session session) throws Exception{
+	public List<EmployeeView> loadEmployees(Session session){
 		String sqlQuery =" from EmployeeView e where e.active=:active order by e.firstName asc";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
-		List<EmployeeView> list = query.list();
-		return list;
+		return query.list();
 	}
 
 	@Override
-	public boolean updateEmployee(Employee employee, String userId, Session session) throws Exception {
+	public boolean updateEmployee(Employee employee, String userId, Session session) {
 		session.merge(employee);
 		return true;
 	}
 
 	@Override
-	public boolean addEmployee(Employee employee, Session session) throws Exception{
+	public boolean addEmployee(Employee employee, Session session){
 		session.save(employee);
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<EmployeeView> loadEmployeeByDesHistory(String stDate,
-			String endDate, String designationName, Session session) throws Exception {
+			String endDate, String designationName, Session session){
 		Query query = session.createSQLQuery(
 				"CALL getEmployeeDesignationByRange(:stDate, :endDate, :designationName)")
 				.addEntity(EmployeeView.class)
 				.setParameter("stDate", DateUtils.convertMilliSecondsToDate(stDate))
 				.setParameter("endDate", DateUtils.convertMilliSecondsToDate(endDate))
 				.setParameter("designationName", designationName);
-		@SuppressWarnings("unchecked")
-		List<EmployeeView> list = query.list();
-		return list;
+		return query.list();
 	}
 }
