@@ -171,3 +171,94 @@ INSERT INTO designations (pk, designation,sbu,dt_created,dt_modified,created_by,
  insert into employee_login(pk, employee_pk, email_id, pwd, emp_lock,dt_created,dt_modified,created_by, modified_by) values 
  (1, 1, 'admin', 'admin', 0,'2016-03-15 00:00:00','2016-03-15 00:00:00',1,1);
  
+ 
+INSERT INTO `perficient`.`employee_designation_history`
+(`employee_pk`,`designation_pk`,`start_date`,`end_date`,`active`,`dt_created`,`dt_modified`,`created_by`,`modified_by`)
+VALUES (162,4,'2010-06-01 00:00:00','2011-08-20 00:00:00',1,'2016-06-10 00:00:00','2016-06-10 00:00:00',1,1);
+INSERT INTO `perficient`.`employee_designation_history`
+(`employee_pk`,`designation_pk`,`start_date`,`end_date`,`active`,`dt_created`,`dt_modified`,`created_by`,`modified_by`)
+VALUES (162,1,'2011-08-21 00:00:00','2012-05-15 00:00:00',1,'2016-06-10 00:00:00','2016-06-10 00:00:00',1,1);
+INSERT INTO `perficient`.`employee_designation_history`
+(`employee_pk`,`designation_pk`,`start_date`,`end_date`,`active`,`dt_created`,`dt_modified`,`created_by`,`modified_by`)
+VALUES (162,2,'2012-05-16 00:00:00','2013-11-01 00:00:00',1,'2016-06-10 00:00:00','2016-06-10 00:00:00',1,1);
+INSERT INTO `perficient`.`employee_designation_history`
+(`employee_pk`,`designation_pk`,`start_date`,`end_date`,`active`,`dt_created`,`dt_modified`,`created_by`,`modified_by`)
+VALUES (162,3,'2013-11-02 00:00:00','2015-05-31 00:00:00',1,'2016-06-10 00:00:00','2016-06-10 00:00:00',1,1);
+INSERT INTO `perficient`.`employee_designation_history`
+(`employee_pk`,`designation_pk`,`start_date`,`active`,`dt_created`,`dt_modified`,`created_by`,`modified_by`)
+VALUES (162,5,'2015-06-01 00:00:00',1,'2016-06-10 00:00:00','2016-06-10 00:00:00',1,1);
+
+INSERT INTO `perficient`.`employee_designation_history`
+(`employee_pk`,`designation_pk`,`start_date`,`end_date`,`active`,`dt_created`,`dt_modified`,`created_by`,`modified_by`)
+VALUES (171,4,'2010-02-01 00:00:00','2011-06-20 00:00:00',1,'2016-06-10 00:00:00','2016-06-10 00:00:00',1,1);
+INSERT INTO `perficient`.`employee_designation_history`
+(`employee_pk`,`designation_pk`,`start_date`,`end_date`,`active`,`dt_created`,`dt_modified`,`created_by`,`modified_by`)
+VALUES (171,1,'2011-06-21 00:00:00','2012-01-15 00:00:00',1,'2016-06-10 00:00:00','2016-06-10 00:00:00',1,1);
+INSERT INTO `perficient`.`employee_designation_history`
+(`employee_pk`,`designation_pk`,`start_date`,`end_date`,`active`,`dt_created`,`dt_modified`,`created_by`,`modified_by`)
+VALUES (171,2,'2012-01-16 00:00:00','2013-07-01 00:00:00',1,'2016-06-10 00:00:00','2016-06-10 00:00:00',1,1);
+INSERT INTO `perficient`.`employee_designation_history`
+(`employee_pk`,`designation_pk`,`start_date`,`end_date`,`active`,`dt_created`,`dt_modified`,`created_by`,`modified_by`)
+VALUES (171,3,'2013-07-02 00:00:00','2015-01-31 00:00:00',1,'2016-06-10 00:00:00','2016-06-10 00:00:00',1,1);
+INSERT INTO `perficient`.`employee_designation_history`
+(`employee_pk`,`designation_pk`,`start_date`,`active`,`dt_created`,`dt_modified`,`created_by`,`modified_by`)
+VALUES (171,5,'2015-02-01 00:00:00',1,'2016-06-10 00:00:00','2016-06-10 00:00:00',1,1);
+
+
+INSERT INTO `perficient`.`roles`
+(`pk`,`rolename`,`active`,`dt_created`,`created_by`,`dt_modified`,`modified_by`) VALUES
+(1,'admin',1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(2,'manager',1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(3,'team lead',1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(4, 'team member',1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
+
+INSERT INTO `perficient`.`roles_access`
+(`pk`, `accessname`, `active`, `dt_created`, `created_by`, `dt_modified`, `modified_by`) VALUES
+(1, 'superadmin', 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(2, 'readandwrite', 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(3, 'read', 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
+
+INSERT INTO `perficient`.`menu`
+(`pk`,`menuname`, `menu_display_name`, `active`, `dt_created`, `created_by`, `dt_modified`, `modified_by`) VALUES
+(1, 'dashboard', 'DashBoard',  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
+
+INSERT INTO `perficient`.`menu`
+(`pk`,`menuname`, `menu_display_name`, `parent_menu_pk`, `active`, `dt_created`, `created_by`, `dt_modified`, `modified_by`) VALUES
+(2,'menu1', 'menu1', 1,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(3,'menu2', 'menu2', 1,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(4,'menu3', 'menu3', 1,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(5,'menu4', 'menu4', 1,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(6,'menu5', 'menu5', 1,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
+
+
+INSERT INTO `perficient`.`menu_page`
+(`pk`, `pagename`, `page_display_name`, `parent_menu_pk`, `active`, `dt_created`,`created_by`, `dt_modified`, `modified_by`) VALUES
+(1, 'page1', 'page1', 2,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(2, 'page2', 'page2', 2,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(3, 'page3', 'page3', 3,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(4, 'page4', 'page4', 3,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
+
+INSERT INTO `perficient`.`role_page_access`
+(`roles_pk`, `roles_access_pk`, `menu_page_pk`, `active`, `dt_created`, `created_by`, `dt_modified`, `modified_by`) VALUES
+(1, 1 ,1 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(1, 1 ,2 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(1, 1 ,3 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(1, 1 ,4 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(2, 2 ,1 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(2, 2 ,2 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(3, 2 ,1 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(3, 3 ,2 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(4, 3 ,1 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(4, 3 ,2 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
+
+
+INSERT INTO `perficient`.`employee_roles`
+(`employee_pk`, `role_pk`,`active`, `dt_created`, `created_by`, `dt_modified`, `modified_by`) VALUES
+(139, 2, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(139, 4, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(141, 1, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(141, 2, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(141, 4, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(250, 3, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(250, 4, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(239, 4, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
