@@ -2,7 +2,7 @@ package com.perficient.hr.utils;
 
 public class WsError {
 	
-	private final String errorMessage;
+	private String errorMessage;
 	private Object exceptionObj;
 	private Integer errorCode;
 	

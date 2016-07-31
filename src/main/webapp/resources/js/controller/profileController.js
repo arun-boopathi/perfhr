@@ -3,7 +3,7 @@ mainApp.controller('profileController', function($scope, $controller, profileAPI
      $scope.data = null;
 
      employeeAPIservice.loadAllEmployees().success(function (response) {
-        $scope.employees = response.entity;
+        //$scope.employees = response.entity;
         profileAPIservice.getProfileDetails().success(function (profileResponse) {
             $scope.data = profileResponse.entity;
         });

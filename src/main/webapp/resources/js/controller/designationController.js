@@ -3,7 +3,7 @@ var dc, scope, data;
 mainApp.controller('designationController', function($scope, designationAPIservice) {
     $scope.msg='';
     scope = $scope;
-
+    
     $scope.save = function(){
         designationAPIservice.addDesignation($scope.data).success(function () {
             $scope.closeModal();
@@ -12,10 +12,12 @@ mainApp.controller('designationController', function($scope, designationAPIservi
         });
     };
     $scope.addDesignation = function(){
-        $scope.msg='';
+        $scope.msg = '';
         $scope.data = {};
+        perfUtils.getInstance().resetForm('designationForm');
         $('#designationForm').modal();
     };
+    
     $scope.closeModal = function(){
         $('#designationForm').modal('hide');
     };

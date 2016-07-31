@@ -62,7 +62,7 @@
 		    <ul class="nav-right pull-right list-inline">
                <li class="dropdown nav-profile">
                    <a data-toggle="dropdown" class="dropdown-toggle rightheader" href="" aria-expanded="true">
-  				   	   <figure class="user-image"><img src="images/user.jpg"></figure>
+  				   	   <figure class="user-image"><img src="images/{{user.gender}}-user.png"/></figure>
 				   	   <label>{{user.firstName}}, {{user.lastName}}<i class="fa fa-angle-down"></i></label>
                    </a>
                    <ul role="menu" class="dropdown-menu animated littleFadeInRight">

@@ -115,7 +115,7 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
 
     employeeAPIservice.loadAllEmployees().success(function(response) {
         $scope.employeesList = response.entity;
-        $.each(response, function(i, val){
+        $.each(response.entity, function(i, val){
             $scope.employees[val.pk] = val;
         });
         $scope.toggleLeave(obj.checkLeaves);

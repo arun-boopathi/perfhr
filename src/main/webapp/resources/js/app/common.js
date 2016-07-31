@@ -10,7 +10,7 @@ perfHrApp.factory('perfInterceptor', ['$q', '$rootScope', function($q, $rootScop
         if(timeoutHandle){
             window.clearTimeout(timeoutHandle);
         }
-        perfConcurrentActivity.getInstance().init();
+        perfUtils.getInstance().init();
         lastRequestTime = new Date().getTime();
         config.headers = config.headers || {};
         return config;
@@ -38,21 +38,34 @@ perfHrApp.config(['$httpProvider', function($httpProvider){
     $httpProvider.interceptors.push('perfInterceptor');
 }]);
 
-function perfConcurrentActivity(){};
+/*
+ * Reset the form whenever its closed.
+ */
+$(document).on('hidden.bs.modal', 'div[role="dialog"]', function (event) {
+	$('#'+$(this).attr('id')+' .help-block').empty();
+	$('#'+$(this).attr('id')+' p.text-danger').remove();
+	$('#'+$(this).attr('id')+' .has-error').removeClass('has-error');
+});
 
-perfConcurrentActivity.getInstance = function(){
+function perfUtils(){};
+
+perfUtils.getInstance = function(){
     var obj = PerfWidgetCache['perfIns'];
     if(!obj)
-        obj = PerfWidgetCache['perfIns'] = new perfConcurrentActivity();
+        obj = PerfWidgetCache['perfIns'] = new perfUtils();
     return obj;
 };
 
-perfConcurrentActivity.prototype = {
+perfUtils.prototype = {
     init: function(){
         if((new Date().getTime()-lastRequestTime)/(1000*60) > 30){
             window.location.href = "logout";
         } else {
-            timeoutHandle = window.setTimeout('perfConcurrentActivity.getInstance().init()', 10000);
+            timeoutHandle = window.setTimeout('perfUtils.getInstance().init()', 10000);
         }
+    },
+    resetForm: function(formId){
+    	$('#'+formId+' .help-block').empty();
+        $('#'+formId+' div').removeClass('has-error');
     }
 };
