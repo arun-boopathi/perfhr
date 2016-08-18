@@ -173,38 +173,16 @@ CREATE TABLE `roles_access` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Definition of table `menu`
+-- Definition of table `component`
 --
 
-DROP TABLE IF EXISTS `menu`;
-CREATE TABLE `menu` (
-  `pk` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `menuname` varchar(45) NOT NULL,
-  `menu_display_name` varchar(45),
-  `parent_menu_pk` int(10) unsigned,
-  `active` BOOLEAN default true NOT NULL,
-  `dt_created` datetime NOT NULL,
-  `created_by` int(10) unsigned NOT NULL,
-  `dt_modified` datetime NOT NULL,
-  `modified_by` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`pk`),
-  KEY `FK_created_by_menu` (`created_by`),
-  KEY `FK_modified_by_menu` (`modified_by`),
-  CONSTRAINT `FK_created_by_menu` FOREIGN KEY (`created_by`) REFERENCES `employee` (`pk`),
-  CONSTRAINT `FK_modified_by_menu` FOREIGN KEY (`modified_by`) REFERENCES `employee` (`pk`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
---
--- Definition of table `menu_page`
---
-
-DROP TABLE IF EXISTS `menu_page`;
-CREATE TABLE `menu_page` (
+DROP TABLE IF EXISTS `component`;
+CREATE TABLE `component` (
   `pk` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pagename` varchar(45) NOT NULL,
   `page_display_name` varchar(45),
-  `parent_menu_pk` int(10) unsigned,
+  `menuname` varchar(45) NOT NULL,
+  `menu_display_name` varchar(45),
   `active` BOOLEAN default true NOT NULL,
   `dt_created` datetime NOT NULL,
   `created_by` int(10) unsigned NOT NULL,
@@ -213,8 +191,6 @@ CREATE TABLE `menu_page` (
   PRIMARY KEY (`pk`),
   KEY `FK_created_by_menu_page` (`created_by`),
   KEY `FK_modified_by_menu_page` (`modified_by`),
-  KEY `FK_menu_by_menu_page` (`parent_menu_pk`),
-  CONSTRAINT `FK_menu_by_menu_page` FOREIGN KEY (`parent_menu_pk`) REFERENCES `menu` (`pk`),
   CONSTRAINT `FK_created_by_menu_page` FOREIGN KEY (`created_by`) REFERENCES `employee` (`pk`),
   CONSTRAINT `FK_modified_by_menu_page` FOREIGN KEY (`modified_by`) REFERENCES `employee` (`pk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -228,7 +204,7 @@ CREATE TABLE `role_page_access` (
   `pk` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `roles_pk` int(10) unsigned NOT NULL,
   `roles_access_pk` int(10) unsigned NOT NULL,
-  `menu_page_pk` int(10) unsigned NOT NULL,
+  `component_pk` int(10) unsigned NOT NULL,
   `active` BOOLEAN default true NOT NULL,
   `dt_created` datetime NOT NULL,
   `created_by` int(10) unsigned NOT NULL,
@@ -239,9 +215,9 @@ CREATE TABLE `role_page_access` (
   KEY `FK_modified_by_role_page_access` (`modified_by`),
   KEY `FK_roles_pk_roles_page_access` (`roles_pk`),
   CONSTRAINT `roles_pk_roles_page_access` FOREIGN KEY (`roles_pk`) REFERENCES `roles` (`pk`),
-  KEY `FK_page_by_role_page_access` (`menu_page_pk`),
-  CONSTRAINT `FK_page_by_role_page_access` FOREIGN KEY (`menu_page_pk`) REFERENCES `menu_page` (`pk`),
-  KEY `FK_roles_access_pk_roles_page_access` (`roles_access_pk`),
+  KEY `FK_page_by_role_page_access` (`component_pk`),
+  CONSTRAINT `FK_component_by_role_page_access` FOREIGN KEY (`component_pk`) REFERENCES `component` (`pk`),
+  KEY `FK_component_access_pk_roles_page_access` (`roles_access_pk`),
   CONSTRAINT `roles_access_pk_roles_page_access` FOREIGN KEY (`roles_access_pk`) REFERENCES `roles_access` (`pk`),
   CONSTRAINT `FK_created_by_role_page_access` FOREIGN KEY (`created_by`) REFERENCES `employee` (`pk`),
   CONSTRAINT `FK_modified_by_role_page_access` FOREIGN KEY (`modified_by`) REFERENCES `employee` (`pk`)

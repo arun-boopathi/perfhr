@@ -218,28 +218,15 @@ INSERT INTO `perficient`.`roles_access`
 (2, 'readandwrite', 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
 (3, 'read', 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
 
-INSERT INTO `perficient`.`menu`
-(`pk`,`menuname`, `menu_display_name`, `active`, `dt_created`, `created_by`, `dt_modified`, `modified_by`) VALUES
-(1, 'dashboard', 'DashBoard',  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
-
-INSERT INTO `perficient`.`menu`
-(`pk`,`menuname`, `menu_display_name`, `parent_menu_pk`, `active`, `dt_created`, `created_by`, `dt_modified`, `modified_by`) VALUES
-(2,'menu1', 'menu1', 1,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
-(3,'menu2', 'menu2', 1,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
-(4,'menu3', 'menu3', 1,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
-(5,'menu4', 'menu4', 1,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
-(6,'menu5', 'menu5', 1,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
-
-
-INSERT INTO `perficient`.`menu_page`
-(`pk`, `pagename`, `page_display_name`, `parent_menu_pk`, `active`, `dt_created`,`created_by`, `dt_modified`, `modified_by`) VALUES
-(1, 'page1', 'page1', 2,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
-(2, 'page2', 'page2', 2,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
-(3, 'page3', 'page3', 3,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
-(4, 'page4', 'page4', 3,  1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
+INSERT INTO `perficient`.`component`
+(`pk`, `pagename`,`page_display_name`, `menuname`, `menu_display_name`, `active`, `dt_created`, `created_by`, `dt_modified`, `modified_by`) VALUES
+(1, 'page1', 'page1', 'menu1', 'menu1', 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(2, 'page2', 'page2', 'menu1', 'menu1', 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(3, 'page3', 'page3', 'menu1', 'menu1', 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
+(4, 'page4', 'page4', 'menu1', 'menu1', 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
 
 INSERT INTO `perficient`.`role_page_access`
-(`roles_pk`, `roles_access_pk`, `menu_page_pk`, `active`, `dt_created`, `created_by`, `dt_modified`, `modified_by`) VALUES
+(`roles_pk`, `roles_access_pk`, `component_pk`, `active`, `dt_created`,`created_by`, `dt_modified`, `modified_by`) VALUES
 (1, 1 ,1 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
 (1, 1 ,2 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
 (1, 1 ,3 , 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
