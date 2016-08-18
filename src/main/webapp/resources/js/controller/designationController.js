@@ -18,14 +18,14 @@ mainApp.controller('designationController', function($scope, designationAPIservi
         $('#designationForm').modal();
     };
     
-    $scope.closeModal = function(){
+    /*$scope.closeModal = function(){
         $('#designationForm').modal('hide');
-    };
+    };*/
 
     $scope.update = function(){
         designationAPIservice.updateDesignation($scope.data).success(function () {
             dc.dtInstance.dataTable.fnUpdate($scope.data, dc.dtInstance.DataTable.$('tr.selected'), undefined, false);
-            $scope.closeModal();
+            //$scope.closeModal();
             $scope.msg="Designation Updated Successfully!";
         });
     };

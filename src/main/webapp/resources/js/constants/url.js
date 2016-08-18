@@ -32,5 +32,10 @@ var perfUrl = {
     'getLeaveBalance' : urlPrefix+'leave/getLeaveBalance/{leaveType}/{calYear}/{calMonth}',
     'loadLeaveReport': urlPrefix+'leave/loadLeaveReport',
     'loadNotificationCount' : urlPrefix+'notification/loadNotificationCount',
-    'reportsLoadBySbu' : urlPrefix+'reportJobTitle/loadBySbu/{fromDate}/{toDate}/{sbu}/{designation}'
+    'reportsLoadBySbu' : urlPrefix+'reportJobTitle/loadBySbu/{fromDate}/{toDate}/{sbu}/{designation}',
+    'loadRoles' : urlPrefix+'roles/loadRoles',
+    'loadRolesById' : urlPrefix+'roles/loadRolesById?id=',
+    'addRoles'   : urlPrefix+'roles/addRoles',
+    'updateRoles': urlPrefix+'roles/updateRoles',
+    'deleteRoles' : urlPrefix+'roles/deleteRoles'
 };

@@ -41,10 +41,13 @@ perfHrApp.config(['$httpProvider', function($httpProvider){
 /*
  * Reset the form whenever its closed.
  */
-$(document).on('hidden.bs.modal', 'div[role="dialog"]', function (event) {
-	$('#'+$(this).attr('id')+' .help-block').empty();
-	$('#'+$(this).attr('id')+' p.text-danger').remove();
-	$('#'+$(this).attr('id')+' .has-error').removeClass('has-error');
+$(document).on('hidden.bs.modal', 'div[role="dialog"]', function () {
+	var formId=$(this).attr('id');
+	$('#'+formId+' .help-block').empty();
+	$('#'+formId+' p.text-danger').remove();
+	$('#'+formId+' .has-error').removeClass('has-error');
+	$("#"+formId).find('input:text, input:password, input:file, select, textarea').val('');
+    $("#"+formId).find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
 });
 
 function perfUtils(){};

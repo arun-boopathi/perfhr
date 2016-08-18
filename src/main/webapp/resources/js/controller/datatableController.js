@@ -1,7 +1,9 @@
 (function(root){
     var perfDatatable = root.perfDatatable || {};
+    this.params = null;
     perfDatatable.loadTable = {
         init: function(params){
+            this.params = params;
             var editRow = true, deleteRow = true, actions = true;
             params.vm.message = '';
             params.vm.dtInstance = {};
@@ -22,7 +24,6 @@
             .withOption('responsive', params.responsive)
             .withOption('createdRow', createdRow)
             .withOption('aaSorting', [params.sortCol === undefined? 0: params.sortCol, 'asc'])
-            .withOption('rowCallback', rowCallback)
             .withPaginationType('full_numbers')
             .withOption("oLanguage", {"sEmptyTable": params.vm.sEmptyTable === undefined?"No Records Found.": params.vm.sEmptyTable})
             .withColumnFilter()
@@ -43,16 +44,6 @@
             if(params.actions)
                 params.vm.dtColumns.push(params.DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable().renderWith(actionsHtml));
 
-            function rowCallback(nRow, aData) {
-                $('td', nRow).unbind('click');
-                $('td:last button', nRow).bind('click', function() {
-                    params.vm.dtInstance.DataTable.$('tr.selected').removeClass('selected');
-                    $(nRow).addClass('selected');
-                    scope.data = aData;
-                    scope.$apply();
-                });
-                return nRow;
-            }
             function createdRow(row) {
                 // Recompiling so we can bind Angular directive to the DT
                 params.compile(angular.element(row).contents())(params.scope);
@@ -61,17 +52,24 @@
                 params.vm.datalist[data.pk] = data;
                 var editRecord='', deleteRecord ='';
                 if(params.editRow){
-                    editRecord = '<button class="btn btn-edit" data-toggle="modal" data-target="#'+params.editFormId+'">' +
+                    editRecord = '<button class="btn btn-edit" data-toggle="modal" onclick="perfDatatable.loadTable.popRecord(this, '+data.pk+', '+params.editFormId+')">' +
                     '   <i class="fa fa-pencil"></i>' +
                     '</button>&nbsp;';
                 }
                 if(params.deleteRow){
-                    deleteRecord = '<button class="btn btn-danger" data-toggle="modal" data-target="#'+params.deleteFormId+'">' +
+                    deleteRecord = '<button class="btn btn-danger" data-toggle="modal" onclick="perfDatatable.loadTable.popRecord(this, '+data.pk+', '+params.deleteFormId+')">' +
                     '   <i class="fa fa-trash-o"></i>' +
                     '</button>';
                 }
                 return  editRecord+deleteRecord;
             };
+        },
+        popRecord: function(ele, id, formId){
+            this.params.vm.dtInstance.DataTable.$('tr.selected').removeClass('selected');
+            $(ele).parents('tr').addClass('selected');
+            scope.data = this.params.vm.datalist[id];
+            scope.$apply();
+            $(formId).modal('show');
         }
     };
     root.perfDatatable = perfDatatable;
