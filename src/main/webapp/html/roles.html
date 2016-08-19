@@ -1,28 +1,28 @@
 <div class="panel panel-success perfhr-panel">
 	<div class="panel-heading">
-		<h1 class="section-title">Job Title</h1>
+		<h1 class="section-title">Roles</h1>
 		<ul class="rightsided-element">
         	<li>
-        		<button data-toggle="modal" ng-click="addDesignation()" ><i class="fa fa-plus"></i>Add</button>
+        		<button data-toggle="modal" ng-click="addRoles()" ><i class="fa fa-plus"></i>Add</button>
         	</li>
         </ul>
 	</div>
-	<div ng-controller="designationTableController as designationTable">
+	<div ng-controller="rolesTableController as rolesTable">
 	    <p class="text-info"><strong>{{msg}}</strong></p>
-	    <table datatable="" dt-options="designationTable.dtOptions" dt-columns="designationTable.dtColumns" dt-instance="designationTable.dtInstance" class="table perfhr-table">
+	    <table datatable="" dt-options="rolesTable.dtOptions" dt-columns="rolesTable.dtColumns" dt-instance="rolesTable.dtInstance" class="table perfhr-table">
 	    </table>
 	</div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="designationForm" role="dialog">
+<div class="modal fade" id="rolesForm" role="dialog">
 	<div class="modal-dialog">
 		<!-- Modal content-->
 		<div class="modal-content">
 			<form role="form" class="form-horizontal" novalidate>
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" ng-show="!data.pk" id="myModalLabel">Save Designation</h4>
-					<h4 class="modal-title" ng-show="data.pk" id="myModalLabel">Update Designation</h4>
+					<h4 class="modal-title" ng-show="!data.pk" id="myModalLabel">Save Roles</h4>
+					<h4 class="modal-title" ng-show="data.pk" id="myModalLabel">Update Roles</h4>
 				</div>
 			    <div class="modal-body">
 			    	<div class="row">
@@ -36,19 +36,10 @@
 					    	 	<div class="col-md-1"></div>
 					    	 </div>
 					         <div class="form-group">
-						         <label class="col-md-4 control-label">Designation :</label>
+						         <label class="col-md-4 control-label">Roles :</label>
 					             <div class="col-md-8">
-					               <input type="text" name="Designation" class="form-control" required validType="text-only" ng-minlength="3"
-		                				ng-maxlength="45" ng-model="data.designation"/>
-					             </div>
-			   		         </div>
-			   		         <div class="form-group">
-						         <label class="col-md-4 control-label">SBU :</label>
-					             <div class="col-md-8">
-					                <select class="form-control" name="SBU" ng-model="data.sbu" required validType="select" ng-selected="{{data.sbu}}">
-					               		<option>CHENNAI ADMIN</option>
-					               		<option>CHENNAI CONSULTING</option>
-									</select>
+					               <input type="text" name="Roles" class="form-control" required validType="text-only" ng-minlength="3"
+		                				ng-maxlength="45" ng-model="data.roleName"/>
 					             </div>
 			   		         </div>
 		   		         </div>
@@ -65,20 +56,20 @@
 </div>
 <div>
 	<!-- Modal -->
-	<div class="modal fade" id="deleteDesignation" role="dialog">
+	<div class="modal fade" id="deleteRoles" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Delete Designation</h4>
+					<h4 class="modal-title">Delete Roles</h4>
 				</div>
 				<div class="modal-body">
-					Are you sure you want to delete - <b>{{data.designation}}</b>?
+					Are you sure you want to delete - <b>{{data.roles}}</b>?
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
-					<button type="button" class="btn btn-danger" ng-click="deleteDesignation()">Yes</button>
+					<button type="button" class="btn btn-danger" ng-click="deleteRoles()">Yes</button>
 				</div>
 			</div>
 		</div>

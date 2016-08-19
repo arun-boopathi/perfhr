@@ -19,8 +19,9 @@
             <li>
             	<a href="#">Administration</a>
             	<ul>
-            		<li><a href="#/designations">Job Title</a></li>
             		<li><a href="#/importpto">Import PTO</a></li>
+            		<li><a href="#/designations">Job Title</a></li>
+            		<li><a href="#/roles">Roles</a></li>
             		<li><a href="#/projects">Projects</a></li>
             		<li><a href="#/projectmembers">Project Members</a></li>
             		<li>
@@ -35,7 +36,7 @@
             </li>
             <li><a href="#/employees">Employees</a></li>
             <li><a href="#/profile">Profile</a></li>
-            <li>
+            <!-- <li>
             	<a href="#">Referral</a>
             	<ul>
             		<li><a href="#/candidate">Candidate</a></li>
@@ -46,7 +47,7 @@
             	<ul>
             		<li><a href="#/interview">L1</a></li>
             	</ul>
-             </li>
+             </li> -->
             <li><a href="#/pto">PTO</a></li>
             <li><a href="#/wfh">WFH</a></li>
             <li><a href="#/notifications">Notifications - <span class="badge">{{notificationCount}}</span></a></li>
@@ -62,7 +63,7 @@
 		    <ul class="nav-right pull-right list-inline">
                <li class="dropdown nav-profile">
                    <a data-toggle="dropdown" class="dropdown-toggle rightheader" href="" aria-expanded="true">
-  				   	   <figure class="user-image"><img src="images/user.jpg"></figure>
+  				   	   <figure class="user-image"><img src="images/{{user.gender}}-user.png"/></figure>
 				   	   <label>{{user.firstName}}, {{user.lastName}}<i class="fa fa-angle-down"></i></label>
                    </a>
                    <ul role="menu" class="dropdown-menu animated littleFadeInRight">
@@ -156,6 +157,8 @@
 <script src="js/service/designationServices.js"></script>
 <script src="js/controller/projectController.js"></script>
 <script src="js/service/projectServices.js"></script>
+<script src="js/controller/rolesController.js"></script>
+<script src="js/service/rolesServices.js"></script>
 <script src="js/controller/projectMembersController.js"></script>
 <script src="js/service/projectMembersServices.js"></script>
 <script src="js/controller/importPtoController.js"></script>

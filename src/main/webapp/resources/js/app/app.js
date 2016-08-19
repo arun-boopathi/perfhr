@@ -1,7 +1,7 @@
 var mainApp = angular.module("perficientHr",
         ['profile.services','employee.services','dashboard.services',
          'designation.services','project.services', 'projectmember.services', 'pto.services', 'leave.services',
-         'reportJobtitle.services', 'notification.services', 'reportJobtitle.services',
+         'reportJobtitle.services', 'notification.services', 'reportJobtitle.services', 'roles.services',
          'ngRoute', 'ngResource', 'ngAnimate', 'ngMessages',
          'mwl.calendar', 'ui.bootstrap',
          'datatables', 'datatables.bootstrap', 'datatables.buttons', 'datatables.columnfilter',
@@ -20,7 +20,7 @@ var rand = Math.floor(Math.random()*(3-1+1)+1);
 mainApp.config(function($routeProvider) {
   $routeProvider
     .when('/home', {
-        templateUrl: 'html/dashboard1.html',
+        templateUrl: 'html/dashboard2.html',
         controller: 'dashboardController'
     })
     .when('/employees', {
@@ -71,6 +71,10 @@ mainApp.config(function($routeProvider) {
     })
     .when('/report/reports_wfh', {
         templateUrl: 'html/reports_wfh.html'
+    })
+    .when('/roles', {
+        templateUrl: 'html/roles.html',
+        controller: 'rolesController'
     })
     .otherwise({
         redirectTo: '/home'

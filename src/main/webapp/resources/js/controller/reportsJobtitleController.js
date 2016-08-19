@@ -73,8 +73,6 @@ mainApp.controller('reportsJobtitleController', function($scope, reportJobtitleA
                 $scope.sbu, $scope.designation).success(function (response) {
             repJb.dtInstance.DataTable.clear().draw();
             repJb.dtInstance.DataTable.rows.add(response.entity).draw();
-        }).error(function(){
-            $scope.msg="An error occurred!";
         });
     };
 

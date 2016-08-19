@@ -25,8 +25,6 @@ mainApp.controller('projectMembersController', function($scope, projectMemberAPI
         projectMemberAPIservice.saveProjectMember($scope.data).success(function() {
             pm.dtInstance.reloadData();
             $scope.msg="Project Saved Successfully!";
-        }).error(function(){
-            $scope.msg="An error occurred during save!";
         });
     };
 
@@ -34,8 +32,6 @@ mainApp.controller('projectMembersController', function($scope, projectMemberAPI
         projectMemberAPIservice.updateProjectMember($scope.data).success(function() {
             pm.dtInstance.dataTable.fnUpdate($scope.data, pm.dtInstance.DataTable.$('tr.selected'), undefined, false);
             $scope.msg="Project Updated Successfully!";
-        }).error(function(){
-            $scope.msg="An error occurred during update!";
         });
     };
 
@@ -44,8 +40,6 @@ mainApp.controller('projectMembersController', function($scope, projectMemberAPI
             pm.dtInstance.reloadData();
             $('#deleteProjectMember').modal('hide');
             $scope.msg="Project Deleted Successfully!";
-        }).error(function(){
-            $scope.msg="An error occurred during delete!";
         });
     };
 

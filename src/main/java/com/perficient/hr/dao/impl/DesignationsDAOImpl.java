@@ -33,7 +33,8 @@ public class DesignationsDAOImpl implements DesignationsDAO {
 
 	@Override
 	public Designations addDesignation(Designations designation , Session session){
-		return (Designations) session.save(designation);
+		session.save(designation);
+		return designation;
 	}
 
 	@Override
