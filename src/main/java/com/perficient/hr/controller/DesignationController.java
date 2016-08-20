@@ -64,15 +64,13 @@ public class DesignationController {
 	@RequestMapping(value = "/addDesignation", method = RequestMethod.POST)
 	@Produces("application/json")
 	@ResponseBody
-	public Response addDesignation(@Validated @RequestBody Designations designations,Errors errors, HttpServletRequest request)
-			throws RecordExistsException {
-		if(errors.hasErrors()){
-			System.out.println(errors.toString());
-			return ResponseHandlingUtil.prepareResponse(
-					ExceptionHandlingUtil.returnErrorObject("Unable to Load Designation By designationName: ",new Exception(), HttpStatus.PRECONDITION_FAILED.value()));
+	public Response addDesignation(@Validated @RequestBody Designations designations, Errors errors,
+			HttpServletRequest request) throws RecordExistsException {
+		if (errors.hasErrors()) {
+			return ResponseHandlingUtil.prepareResponse(ExceptionHandlingUtil.returnErrorObject(
+					errors.getAllErrors().toString(), new Exception(), HttpStatus.PRECONDITION_FAILED.value()));
 		}
-		
-		
+
 		return ResponseHandlingUtil.prepareResponse(
 				designationsService.addDesignation(designations, PerfUtils.getUserId(request.getSession())));
 	}

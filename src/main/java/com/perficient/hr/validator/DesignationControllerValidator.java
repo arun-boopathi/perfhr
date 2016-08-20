@@ -15,14 +15,14 @@ public class DesignationControllerValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "designation", "designation.required");
+		// ValidationUtils.rejectIfEmptyOrWhitespace(errors, "designation",
+		// "designation.required");
 		Designations designations = (Designations) target;
-		if (designations == null) {
-			errors.rejectValue("Designation", "negativeValue", new Object[] { "'designation'" }, " cant be empty");
-		}
 		if (designations.getDesignation() == null || designations.getDesignation().trim().length() == 0) {
-			System.out.println("TEST");
-			errors.rejectValue("designation", "designation.required", "Designation field is missing");
+			errors.rejectValue("designation", "designation.required", "Designation is required");
+		}
+		if (designations.getSbu() == null || designations.getSbu().trim().length() == 0) {
+			errors.rejectValue("sbu", "sbu.required", "SBU is required");
 		}
 	}
 

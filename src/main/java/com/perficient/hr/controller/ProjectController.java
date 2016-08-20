@@ -7,7 +7,14 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,8 +25,10 @@ import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.exception.RecordNotFoundException;
 import com.perficient.hr.model.Projects;
 import com.perficient.hr.service.ProjectService;
+import com.perficient.hr.utils.ExceptionHandlingUtil;
 import com.perficient.hr.utils.PerfUtils;
 import com.perficient.hr.utils.ResponseHandlingUtil;
+import com.perficient.hr.validator.ProjectControllerValidator;
 
 @Controller
 @RequestMapping("/v-projects")
@@ -29,6 +38,14 @@ protected Logger logger = LoggerFactory.getLogger(ProjectController.class);
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Qualifier("ProjectControllerValidator")
+	private Validator validator;
+
+	@InitBinder
+	private void initBinder(WebDataBinder binder) {
+		binder.setValidator(new ProjectControllerValidator());
+	}
 	
 	@RequestMapping(value="/loadProjects",method=RequestMethod.GET)
 	@Produces("application/json")
@@ -47,8 +64,14 @@ protected Logger logger = LoggerFactory.getLogger(ProjectController.class);
 	@RequestMapping(value="/addProject", method=RequestMethod.POST)
 	@Produces("application/json")
 	@ResponseBody
-	public Response addProject(@RequestBody Projects project, HttpServletRequest request) throws RecordExistsException{
-		return ResponseHandlingUtil.prepareResponse(projectService.addProject(project, PerfUtils.getUserId(request.getSession())));
+	public Response addProject(@Validated @RequestBody Projects project, Errors errors, HttpServletRequest request) throws RecordExistsException{
+		if (errors.hasErrors()) {
+			return ResponseHandlingUtil.prepareResponse(ExceptionHandlingUtil.returnErrorObject(
+					errors.getAllErrors().toString(), new Exception(), HttpStatus.PRECONDITION_FAILED.value()));
+		}
+		
+		return ResponseHandlingUtil
+				.prepareResponse(projectService.addProject(project, PerfUtils.getUserId(request.getSession())));
 	}
 	
 	@RequestMapping(value="/updateProject", method=RequestMethod.PUT)

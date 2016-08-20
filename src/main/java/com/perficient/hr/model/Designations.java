@@ -9,19 +9,19 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "designations")
 @SuppressWarnings("serial")
-public class Designations  extends AbstractModel {
+public class Designations extends AbstractModel {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "pk", length = 11 )
+	@Column(name = "pk", length = 11)
 	private Long pk;
-	
+
 	@Column(name = "designation")
 	private String designation;
-	
+
 	@Column(name = "sbu")
 	private String sbu;
-			
+
 	/**
 	 * @return the pk
 	 */
@@ -30,7 +30,8 @@ public class Designations  extends AbstractModel {
 	}
 
 	/**
-	 * @param pk the pk to set
+	 * @param pk
+	 *            the pk to set
 	 */
 	public void setPk(Long pk) {
 		this.pk = pk;
@@ -44,7 +45,8 @@ public class Designations  extends AbstractModel {
 	}
 
 	/**
-	 * @param designation to set
+	 * @param designation
+	 *            to set
 	 */
 	public void setDesignation(String designation) {
 		this.designation = designation;
@@ -58,10 +60,16 @@ public class Designations  extends AbstractModel {
 	}
 
 	/**
-	 * @param sbu the sbu to set
+	 * @param sbu
+	 *            the sbu to set
 	 */
 	public void setSbu(String sbu) {
 		this.sbu = sbu;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Designations [pk=" + pk + ", designation=" + designation + ", sbu=" + sbu + "]";
+	}
+
 }

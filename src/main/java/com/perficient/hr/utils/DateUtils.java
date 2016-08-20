@@ -8,7 +8,7 @@ import java.util.Date;
 public class DateUtils {
 
 	public static final String SQL_DATE_FORMAT = "yyyy-MM-dd";
-	public static final String DATE_FORMAT = "yyyy-MM-dd";
+	public static final String DATE_FORMAT = "dd-MM-yyyy";
 
 	private DateUtils() {
 
