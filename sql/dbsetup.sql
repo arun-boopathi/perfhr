@@ -152,27 +152,6 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Definition of table `roles`
---
-
-DROP TABLE IF EXISTS `roles_access`;
-CREATE TABLE `roles_access` (
-  `pk` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `accessname` varchar(45) NOT NULL,
-  `active` BOOLEAN default true NOT NULL,
-  `dt_created` datetime NOT NULL,
-  `created_by` int(10) unsigned NOT NULL,
-  `dt_modified` datetime NOT NULL,
-  `modified_by` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`pk`),
-  KEY `FK_created_by_roles_access` (`created_by`),
-  KEY `FK_modified_by_roles_access` (`modified_by`),
-  CONSTRAINT `FK_created_by_roles_access` FOREIGN KEY (`created_by`) REFERENCES `employee` (`pk`),
-  CONSTRAINT `FK_modified_by_roles_access` FOREIGN KEY (`modified_by`) REFERENCES `employee` (`pk`)
-
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
 -- Definition of table `component`
 --
 
@@ -203,7 +182,7 @@ DROP TABLE IF EXISTS `role_page_access`;
 CREATE TABLE `role_page_access` (
   `pk` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `roles_pk` int(10) unsigned NOT NULL,
-  `roles_access_pk` int(10) unsigned NOT NULL,
+  `roles_access` BOOLEAN default true NOT NULL,
   `component_pk` int(10) unsigned NOT NULL,
   `active` BOOLEAN default true NOT NULL,
   `dt_created` datetime NOT NULL,
