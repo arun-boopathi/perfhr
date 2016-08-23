@@ -68,7 +68,7 @@
             this.params.vm.dtInstance.DataTable.$('tr.selected').removeClass('selected');
             $(ele).parents('tr').addClass('selected');
             scope.data = this.params.vm.datalist[id];
-            scope.$apply();
+            this.params.scope.$apply();
             $(formId).modal('show');
         }
     };

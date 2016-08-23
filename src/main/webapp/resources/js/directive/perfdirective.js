@@ -8,12 +8,12 @@ function validateField(ele, eleValue, regEx, errBlock){
             &&($.trim(eleValue).length === 0)){
     	error = reqEr;
     } else if(eleValue.length > 0){
-        if((typeof minLen !== typeof undefined) && $.trim(eleValue).length < minLen){
+    	if(regEx !== '' && !regEx.test(eleValue)){
+         	error = invalidErr;
+        } else if((typeof minLen !== typeof undefined) && $.trim(eleValue).length < minLen){
             error = shortErr;
         } else if((typeof maxLen !== typeof undefined) && $.trim(eleValue).length > maxLen){
         	error = longErr;
-        } else if(regEx !== '' && !regEx.test(eleValue)){
-        	error = invalidErr;
         }
     }
     if($.trim(error).length !== 0){

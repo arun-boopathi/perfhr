@@ -37,5 +37,10 @@ var perfUrl = {
     'loadRolesById' : urlPrefix+'roles/loadRolesById?id=',
     'addRoles'   : urlPrefix+'roles/addRoles',
     'updateRoles': urlPrefix+'roles/updateRoles',
-    'deleteRoles' : urlPrefix+'roles/deleteRoles'
+    'deleteRoles' : urlPrefix+'roles/deleteRoles',
+    'loadComponents' : urlPrefix+'components/loadComponents',
+    'loadComponentsById' : urlPrefix+'components/loadComponentsById?id=',
+    'addComponent'   : urlPrefix+'components/addComponent',
+    'updateComponent': urlPrefix+'components/updateComponent',
+    'deleteComponent' : urlPrefix+'components/deleteComponent'
 };

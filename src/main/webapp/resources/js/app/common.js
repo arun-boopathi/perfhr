@@ -43,11 +43,10 @@ perfHrApp.config(['$httpProvider', function($httpProvider){
  */
 $(document).on('hidden.bs.modal', 'div[role="dialog"]', function () {
 	var formId=$(this).attr('id');
+	scope.data = {};
 	$('#'+formId+' .help-block').empty();
 	$('#'+formId+' p.text-danger').remove();
 	$('#'+formId+' .has-error').removeClass('has-error');
-	$("#"+formId).find('input:text, input:password, input:file, select, textarea').val('');
-    $("#"+formId).find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
 });
 
 function perfUtils(){};

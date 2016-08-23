@@ -2,6 +2,7 @@ var mainApp = angular.module("perficientHr",
         ['profile.services','employee.services','dashboard.services',
          'designation.services','project.services', 'projectmember.services', 'pto.services', 'leave.services',
          'reportJobtitle.services', 'notification.services', 'reportJobtitle.services', 'roles.services',
+         'components.services',
          'ngRoute', 'ngResource', 'ngAnimate', 'ngMessages',
          'mwl.calendar', 'ui.bootstrap',
          'datatables', 'datatables.bootstrap', 'datatables.buttons', 'datatables.columnfilter',
@@ -75,6 +76,10 @@ mainApp.config(function($routeProvider) {
     .when('/roles', {
         templateUrl: 'html/roles.html',
         controller: 'rolesController'
+    })
+    .when('/components', {
+        templateUrl: 'html/components.html',
+        controller: 'componentsController'
     })
     .otherwise({
         redirectTo: '/home'

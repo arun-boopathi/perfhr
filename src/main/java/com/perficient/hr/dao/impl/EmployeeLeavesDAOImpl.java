@@ -107,7 +107,7 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 		}
 		query.setParameterList("requestTypes", leaveTypeList);
 		if(employeeId != null)
-			query.setParameter(employeeId, Long.parseLong(employeeId));
+			query.setParameter("employeeId", Long.parseLong(employeeId));
 		query.setParameter("active", PerfHrConstants.ACTIVE);
 		query.setParameter("startsAt", startsAt);
 		query.setParameter("endsAt", endsAt);
@@ -149,11 +149,15 @@ public class EmployeeLeavesDAOImpl implements EmployeeLeavesDAO {
 			leaveTypeList.add(LeaveType.WFH.getLeaveType());
 		}
 		query.setParameterList("requestTypes", leaveTypeList);
-		query.setParameter(employeeId, Long.parseLong(employeeId));
+		query.setParameter("employeeId", Long.parseLong(employeeId));
 		query.setParameter("active", PerfHrConstants.ACTIVE);
 		query.setParameter("startsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+startDate).getTime()));
 		query.setParameter("endsAt", new java.sql.Timestamp(DateUtils.getDate(calYear+"-"+(Integer.parseInt(calMonth))+"-30").getTime()));
-		return (Long) query.uniqueResult();
+		long returnVal = 0;
+		if(query.uniqueResult() != null){
+			returnVal = (Long)query.uniqueResult();
+		}
+		return returnVal;
 	}
 	
 	@Override

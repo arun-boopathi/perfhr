@@ -22,6 +22,7 @@
             		<li><a href="#/importpto">Import PTO</a></li>
             		<li><a href="#/designations">Job Title</a></li>
             		<li><a href="#/roles">Roles</a></li>
+            		<li><a href="#/components">Components</a></li>
             		<li><a href="#/projects">Projects</a></li>
             		<li><a href="#/projectmembers">Project Members</a></li>
             		<li>
@@ -159,6 +160,8 @@
 <script src="js/service/projectServices.js"></script>
 <script src="js/controller/rolesController.js"></script>
 <script src="js/service/rolesServices.js"></script>
+<script src="js/controller/componentsController.js"></script>
+<script src="js/service/componentsServices.js"></script>
 <script src="js/controller/projectMembersController.js"></script>
 <script src="js/service/projectMembersServices.js"></script>
 <script src="js/controller/importPtoController.js"></script>
