@@ -1,13 +1,12 @@
 package com.perficient.hr.validator;
 
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.perficient.hr.model.Projects;
-import com.perficient.hr.utils.DateUtils;
+import com.perficient.hr.utils.ValidationUtil;
 
-public class ProjectControllerValidator implements Validator {
+public class ProjectValidator implements Validator {
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return Projects.class.equals(clazz);
@@ -17,10 +16,11 @@ public class ProjectControllerValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		Projects projects = (Projects) target;
 		if (projects.getProjectName() == null || projects.getProjectName().trim().length() == 0) {
-			errors.rejectValue("projectName", "projectName.required", "Project Name is required");
+			errors.rejectValue("projectName", "Project Name is required");
 		}
+//		ValidationUtil.validateDate(projects.getStartDate());
 		if (projects.getStartDate() == null || projects.getStartDate().toString().trim().length() == 0) {
-			errors.rejectValue("startDate", "startDate.required", "Start Date is required");
+			errors.rejectValue("startDate", "Start Date is required");
 		}
 
 		if (projects.getEndDate() == null || projects.getEndDate().toString().trim().length() == 0) {

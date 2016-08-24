@@ -28,7 +28,7 @@ import com.perficient.hr.service.ProjectService;
 import com.perficient.hr.utils.ExceptionHandlingUtil;
 import com.perficient.hr.utils.PerfUtils;
 import com.perficient.hr.utils.ResponseHandlingUtil;
-import com.perficient.hr.validator.ProjectControllerValidator;
+import com.perficient.hr.validator.ProjectValidator;
 
 @Controller
 @RequestMapping("/v-projects")
@@ -39,12 +39,12 @@ protected Logger logger = LoggerFactory.getLogger(ProjectController.class);
 	@Autowired
 	private ProjectService projectService;
 	
-	@Qualifier("ProjectControllerValidator")
+	@Qualifier("ProjectValidator")
 	private Validator validator;
 
 	@InitBinder
 	private void initBinder(WebDataBinder binder) {
-		binder.setValidator(new ProjectControllerValidator());
+		binder.setValidator(new ProjectValidator());
 	}
 	
 	@RequestMapping(value="/loadProjects",method=RequestMethod.GET)

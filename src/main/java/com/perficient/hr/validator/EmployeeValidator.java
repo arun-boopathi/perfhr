@@ -5,7 +5,7 @@ import org.springframework.validation.Validator;
 
 import com.perficient.hr.model.EmployeeModel;
 
-public class EmployeeControllerValidator implements Validator {
+public class EmployeeValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {

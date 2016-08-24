@@ -47,7 +47,7 @@ public class DateUtils {
 		return new Date(Long.parseLong(milliSeconds));
 	}
 
-	public static boolean isValidDate(String value) {
+	public static boolean isValidFormat(String value) {
 		Date date = null;
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
@@ -58,10 +58,6 @@ public class DateUtils {
 		} catch (ParseException ex) {
 			ex.printStackTrace();
 		}
-		if (date == null) {
-			return false;
-		} else {
-			return true;
-		}
+		return date != null;
 	}
 }

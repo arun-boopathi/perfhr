@@ -1,12 +1,12 @@
 package com.perficient.hr.validator;
 
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.perficient.hr.model.Designations;
+import com.perficient.hr.utils.ValidationUtil;
 
-public class DesignationControllerValidator implements Validator {
+public class DesignationValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -18,6 +18,12 @@ public class DesignationControllerValidator implements Validator {
 		// ValidationUtils.rejectIfEmptyOrWhitespace(errors, "designation",
 		// "designation.required");
 		Designations designations = (Designations) target;
+		
+		ValidationUtil.validateText(designations.getDesignation());
+		
+		ValidationUtil.validateText(designations.getSbu());
+		
+
 		if (designations.getDesignation() == null || designations.getDesignation().trim().length() == 0) {
 			errors.rejectValue("designation", "designation.required", "Designation is required");
 		}

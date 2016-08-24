@@ -28,7 +28,7 @@ import com.perficient.hr.service.DesignationsService;
 import com.perficient.hr.utils.ExceptionHandlingUtil;
 import com.perficient.hr.utils.PerfUtils;
 import com.perficient.hr.utils.ResponseHandlingUtil;
-import com.perficient.hr.validator.DesignationControllerValidator;
+import com.perficient.hr.validator.DesignationValidator;
 
 @Controller
 @RequestMapping("/v-designation")
@@ -39,12 +39,12 @@ public class DesignationController {
 	@Autowired
 	private DesignationsService designationsService;
 
-	@Qualifier("DesignationControllerValidator")
+	@Qualifier("DesignationValidator")
 	private Validator validator;
 
 	@InitBinder
 	private void initBinder(WebDataBinder binder) {
-		binder.setValidator(new DesignationControllerValidator());
+		binder.setValidator(new DesignationValidator());
 	}
 
 	@RequestMapping(value = "/loadDesignations", method = RequestMethod.GET)
