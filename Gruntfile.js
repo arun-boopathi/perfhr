@@ -31,7 +31,8 @@ module.exports = function(grunt) {
 			  'src/main/webapp/resources/sass_compiled/theme2.css': 'src/main/webapp/resources/sass/themes/theme2.scss',
 			  'src/main/webapp/resources/sass_compiled/theme1.css': 'src/main/webapp/resources/sass/themes/theme1.scss',
 			  'src/main/webapp/resources/sass_compiled/theme3.css': 'src/main/webapp/resources/sass/themes/theme3.scss',
-			  'src/main/webapp/resources/sass_compiled/theme4.css': 'src/main/webapp/resources/sass/themes/theme4.scss'
+			  'src/main/webapp/resources/sass_compiled/theme4.css': 'src/main/webapp/resources/sass/themes/theme4.scss',
+			  'src/main/webapp/resources/sass_compiled/responsive.css': 'src/main/webapp/resources/sass/responsive/responsive.scss'
 	      }
 	    }
 	},
@@ -54,7 +55,8 @@ module.exports = function(grunt) {
 				'src/main/webapp/resources/css/theme2.css' : grunt_uriSrc+'sass_compiled/theme2.css',
 				'src/main/webapp/resources/css/theme1.css' : grunt_uriSrc+'sass_compiled/theme1.css',
 				'src/main/webapp/resources/css/theme3.css' : grunt_uriSrc+'sass_compiled/theme3.css',
-				'src/main/webapp/resources/css/theme4.css' : grunt_uriSrc+'sass_compiled/theme4.css'
+				'src/main/webapp/resources/css/theme4.css' : grunt_uriSrc+'sass_compiled/theme4.css',
+				'src/main/webapp/resources/css/responsive.css' : grunt_uriSrc+'sass_compiled/responsive.css'
         	}
         }
     },

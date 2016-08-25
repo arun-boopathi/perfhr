@@ -11,11 +11,12 @@
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css/perf.css">
 <link rel="stylesheet" href="css/theme4.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
 	<nav id="menu" class="mm-menu" style="display: none;" ng-controller="menuController">
         <ul>
-            <li><a href="#/dashboard">Dashboard</a></li>
+            <li><a href="#/home">Dashboard</a></li>
             <li>
             	<a href="#">Administration</a>
             	<ul>

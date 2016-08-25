@@ -2,7 +2,7 @@
 	<div class="perfhr-widget-header">
 		<h3 class="section-title">Reports - Job Title</h3>
 	</div>
-	<form class="form-vertical" novalidate>
+	<form class="form-vertical " novalidate>
 		<div class="perfhr-widget-content">
 			<div class="row">
 				<div class="form-group col-md-8">
@@ -14,16 +14,15 @@
 			</div>
 			<div class="row">
 			    <div class="col-md-12">
-			      	<div class="row perfhr-filter">
-			      		<div class="col-md-1"></div>
-			      		<div class="col-md-4">
+			      	<div class="perfhr-filter row">
+			      		<div class="col-md-3 col-sm-4">
 			    			<ol id="jobTitleBreadCrumb" class="breadcrumb">
 							  <li index="0">SBU</li>
 							</ol>
 						</div>
-			      		<div class="col-md-3">
+			      		<div class="col-md-4 col-sm-4">
 							<div class="form-group">
-							    <label class="control-label">From Date:</label>
+							    <label class="control-label required">From Date:</label>
 							    <p class="input-group">
 						            <input type="text" name="From Date" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{startsAt}} ng-model="startsAt" is-open="stDate.opened" 
 					          			datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
@@ -33,9 +32,9 @@
 						        </p>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-4 col-sm-4">
 						    <div class="form-group">
-						    	<label class="control-label">To Date:</label>
+						    	<label class="control-label required">To Date:</label>
 						    	<p class="input-group date">
 						          	<input type="text" name="To Date" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{endsAt}} ng-model="endsAt" is-open="endDate.opened" 
 						          		datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
@@ -45,7 +44,7 @@
 					            </p>
 						    </div>
 					    </div>
-					    <div class="col-md-1">
+					    <div class="col-md-1 col-sm-12">
 						    <div class="form-group">
 						    	<label class="control-label"></label>
 						    	<div> 

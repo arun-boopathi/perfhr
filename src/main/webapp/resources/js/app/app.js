@@ -90,6 +90,9 @@ var $menu = $('#menu');
 var $btnMenu = $('.btn-menu');
 var $img = $('img');
 
+//set home li selected on login
+$('#menu li a[href="#/home"]').parent().addClass('mm-selected');
+
 // mmenu customization
 $menu.mmenu({
   navbars: [{
@@ -108,9 +111,12 @@ $menu.mmenu({
   },
   searchfield: true
 }).on('click', 'a[href^="#/"]', function() {
+	$('#menu li.mm-selected').removeClass('mm-selected');
+	$(this).parents().addClass('mm-selected');
     window.location.href=$(this).attr('href');
     return false;
 });
+
 // toggle menu
 var api = $menu.data("mmenu");
 

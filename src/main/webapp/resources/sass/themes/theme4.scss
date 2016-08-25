@@ -298,3 +298,17 @@ option {
 .fixedsubmenu .submenu.fixed{
   overflow:visible;
 }
+
+/*mmenu*/
+.mm-menu.mm-theme-dark .mm-listview > li.mm-selected > a:not(.mm-next), 
+.mm-menu.mm-theme-dark .mm-listview > li.mm-selected > span {
+	background: #828188;
+}
+
+.mm-menu.mm-hoverselected.mm-theme-dark .mm-listview > li > a.mm-fullsubopen:hover + span, 
+.mm-menu.mm-hoverselected.mm-theme-dark .mm-listview > li > a:not(.mm-fullsubopen):hover, 
+.mm-menu.mm-parentselected.mm-theme-dark .mm-listview > li > a.mm-selected.mm-fullsubopen + a, 
+.mm-menu.mm-parentselected.mm-theme-dark .mm-listview > li > a.mm-selected.mm-fullsubopen + span, 
+.mm-menu.mm-parentselected.mm-theme-dark .mm-listview > li > a.mm-selected:not(.mm-fullsubopen){
+	background: #676571;
+}

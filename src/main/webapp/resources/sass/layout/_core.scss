@@ -3,6 +3,10 @@ body {
     font-family: $body-font-family;
 }
 
+.row {
+    margin-left: -15px;
+    }
+
 .divContainer {
 	margin: 75px 10px 0px 10px;
 	padding: $divContainer-padding;
@@ -267,9 +271,6 @@ h1 {
 		display: none;
 	}
 	#sidePanel {
-		border-bottom: 1px solid rgba( 255, 255, 255, 0.5 );
-		opacity: 0.95;
-		width: 100%;
 		top: 0px;
 		left: 0;
 	}
@@ -918,4 +919,57 @@ option {
 
 .help-block{
     text-align: left;
+}
+
+/*----------------------------------------------*/
+
+.errorinfo {
+    background: #ccc none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    color: #000;
+    font-size: 12px;
+    padding: 6px 4px 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 3;
+}
+.errorinfo::before {
+    border-color: transparent #ccc transparent transparent;
+    border-style: dashed solid;
+    border-width: 10px;
+    content: "";
+    display: inline-block;
+    height: 0;
+    margin-left: -23px;
+    margin-right: 6px;
+    vertical-align: middle;
+    width: 0;
+}
+
+
+.required:after{
+	content:"*";
+	display:inline-block;
+}
+
+.required:after {
+    content: "*";
+    display: inline-block;
+    color: red;
+    font-size: 25px;
+    float: right;
+}
+
+.input-group[class*="col-"] {
+    float: none;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.input-group.splinnputs {
+	input.form-control , select.form-control{
+		width:100%;
+		border-radius:4px;
+	}
 }

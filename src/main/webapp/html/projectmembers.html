@@ -36,36 +36,38 @@
 					    	 	<div class="col-md-1"></div>
 					    	</div>
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="name">Project Name :</label>
-								<div class="col-md-8 input-group">
+								<label class="col-md-4 control-label required" for="name">Project Name :</label>
+								<div class="col-md-8 input-group splinnputs col-xs-12">
 									<select name="Project Name" class="form-control" required validType="select" ng-model="data.projectId"  ng-selected="{{data.projectId}}"
 										ng-options="project.projectName for project in projects track by project.pk">
 									</select>
+									
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="email">Members :</label>
-								<div class="col-md-8 input-group">
+								<label class="col-md-4 control-label required">Members :</label>
+								<div class="col-md-8 input-group splinnputs  col-xs-12">
 									<select name="Member" class="form-control" validType="select" ng-model="data.employeeId" required ng-selected="{{data.employeeId}}"
 										ng-options='(employee.firstName + ", " + employee.lastName) for employee in employees | orderBy: "firstName" track by employee.pk'>
 									</select>
 								</div>
 							</div>
 							<div class="form-group date">
-								<label class="col-md-4 control-label" for="startDate">Member Start Date :</label>
-								<p class="input-group">
+								<label class="col-md-4 control-label required" for="startDate">Member Start Date :</label>
+								<p class="input-group splinnputs col-md-8  col-xs-12">
 						          <input type="text" name="Member Start Date" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.dtStarted}} ng-model="data.dtStarted" is-open="pmStDate.opened" 
-						          		datepicker-options="dateOptions" ng-required="true" required validType="date" ng-minlength="10" ng-maxlength="10" close-text="Close"/>
+						          		datepicker-options="dateOptions" required validType="date" ng-minlength="10" ng-maxlength="10" close-text="Close"/>
 						          <span class="input-group-btn">
 						            <button type="button" class="btn btn-default" ng-click="pmStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
 						          </span>
+						          
 						        </p>
 							</div>
 							<div class="form-group date">
-								<label class="col-md-4 control-label" for="startDate">Member End Date :</label>
-				                <p class="input-group">
+								<label class="col-md-4 control-label required">Member End Date :</label>
+				                <p class="input-group splinnputs  col-md-8  col-xs-12">
 						          <input type="text" name="Member End Date" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.dtEnded}} ng-model="data.dtEnded" is-open="pmEndDate.opened" 
-						          		datepicker-options="dateOptions" ng-required="true" required validType="date" ng-minlength="10" ng-maxlength="10" close-text="Close"/>
+						          		datepicker-options="dateOptions" required validType="date" ng-minlength="10" ng-maxlength="10" close-text="Close"/>
 						          <span class="input-group-btn">
 						            <button type="button" class="btn btn-default" ng-click="pmEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
 						          </span>
