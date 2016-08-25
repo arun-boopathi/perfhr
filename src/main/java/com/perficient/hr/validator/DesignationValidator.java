@@ -15,21 +15,14 @@ public class DesignationValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		// ValidationUtils.rejectIfEmptyOrWhitespace(errors, "designation",
-		// "designation.required");
 		Designations designations = (Designations) target;
-		
-		ValidationUtil.validateText(designations.getDesignation());
-		
-		ValidationUtil.validateText(designations.getSbu());
-		
 
-		if (designations.getDesignation() == null || designations.getDesignation().trim().length() == 0) {
-			errors.rejectValue("designation", "designation.required", "Designation is required");
-		}
-		if (designations.getSbu() == null || designations.getSbu().trim().length() == 0) {
-			errors.rejectValue("sbu", "sbu.required", "SBU is required");
-		}
+		ValidationUtil validationUtil = new ValidationUtil();
+		validationUtil.setErrors(errors);
+		validationUtil.validateText("designation", designations.getDesignation());
+		validationUtil.validateText("sbu", designations.getSbu());
+		errors = validationUtil.getErrors();
+
 	}
 
 }

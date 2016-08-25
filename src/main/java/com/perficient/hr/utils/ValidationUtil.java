@@ -2,53 +2,40 @@ package com.perficient.hr.utils;
 
 import java.util.regex.Pattern;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+
 /**
  * 
  * @author d.venkatasubramanian
  *
  */
 public class ValidationUtil {
+	Errors errors;
 
-	public ValidationUtil() {
-
-	}
-
-	public static String validate(String value, String type) {
-		String errorMessage;
-		switch (type) {
-		case "text":
-			errorMessage = validateText(value);
-			break;
-		case "date":
-			errorMessage = validateDate(value);
-			break;
-		default:
-			// Send mail to Development team
-			errorMessage = "Some error occured";
-		}
-		return errorMessage;
-	}
-
-	public static String validateText(String value) {
-		if (value == null) {
-			return "Required";
-		} else if (value.trim().length() == 0) {
-			return "Length is undefined";
-		} else if (!Pattern.matches(PerfHrConstants.TEXT_ONLY, value)) {
-			return "Only text is allowed";
-		} else {
-			return null;
+	public void validateText(String field, String value) {
+		ValidationUtils.rejectIfEmptyOrWhitespace(this.errors, field, "Required");
+		if (this.errors.getFieldError(field) != null) {
+			if (!Pattern.matches(PerfHrConstants.TEXT_ONLY, value)) {
+				errors.rejectValue(field, "Only text is allowed");
+			}
 		}
 	}
 
-	public static String validateDate(String value) {
-		String validateText = validateText(value);
-		if (validateText != null) {
-			return validateText;
-		} else if (DateUtils.isValidFormat(value)) {
-			return value + " is not a valid date";
-		} else {
-			return null;
+	public void validateDate(String field, String value) {
+		validateText(field, value);
+		if (this.errors.getFieldError(field) != null) {
+			if (DateUtils.isValidDate(value)) {
+				errors.rejectValue(field, "Date is invalid");
+			}
 		}
+	}
+
+	public Errors getErrors() {
+		return errors;
+	}
+
+	public void setErrors(Errors errors) {
+		this.errors = errors;
 	}
 }

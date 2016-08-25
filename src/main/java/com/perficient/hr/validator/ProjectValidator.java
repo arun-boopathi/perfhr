@@ -4,7 +4,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.perficient.hr.model.Projects;
-import com.perficient.hr.utils.ValidationUtil;
 
 public class ProjectValidator implements Validator {
 	@Override
