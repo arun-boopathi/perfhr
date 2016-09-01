@@ -249,3 +249,6 @@ INSERT INTO `perficient`.`employee_roles`
 (250, 3, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
 (250, 4, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1),
 (239, 4, 1,'2016-07-30 00:00:00',1,'2016-07-30 00:00:00',1);
+
+update perficient.designations set active = 0 where pk > 0; 
+update perficient.employee set billable = 1 where pk >0;
