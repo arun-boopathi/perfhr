@@ -196,8 +196,6 @@ CREATE TABLE `role_page_access` (
   CONSTRAINT `roles_pk_roles_page_access` FOREIGN KEY (`roles_pk`) REFERENCES `roles` (`pk`),
   KEY `FK_page_by_role_page_access` (`component_pk`),
   CONSTRAINT `FK_component_by_role_page_access` FOREIGN KEY (`component_pk`) REFERENCES `component` (`pk`),
-  KEY `FK_component_access_pk_roles_page_access` (`roles_access_pk`),
-  CONSTRAINT `roles_access_pk_roles_page_access` FOREIGN KEY (`roles_access_pk`) REFERENCES `roles_access` (`pk`),
   CONSTRAINT `FK_created_by_role_page_access` FOREIGN KEY (`created_by`) REFERENCES `employee` (`pk`),
   CONSTRAINT `FK_modified_by_role_page_access` FOREIGN KEY (`modified_by`) REFERENCES `employee` (`pk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
