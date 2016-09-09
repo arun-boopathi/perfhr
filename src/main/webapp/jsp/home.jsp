@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/vendors.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css/perf.css">
-<link rel="stylesheet" href="css/theme4.css">
+<link rel="stylesheet" href="css/theme2.css">
 <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
@@ -20,6 +20,7 @@
             <li>
             	<a href="#">Administration</a>
             	<ul>
+            		<li><a href="#/emproles">Roles Management</a></li>
             		<li><a href="#/importpto">Import PTO</a></li>
             		<li><a href="#/designations">Job Title</a></li>
             		<li><a href="#/roles">Roles</a></li>
@@ -52,7 +53,7 @@
              </li> -->
             <li><a href="#/pto">PTO</a></li>
             <li><a href="#/wfh">WFH</a></li>
-            <li><a href="#/notifications">Notifications - <span class="badge">{{notificationCount}}</span></a></li>
+            <!-- <li><a href="#/notifications">Notifications - <span class="badge">{{notificationCount}}</span></a></li> -->
             <li><a href="logout">Logout</a></li>
         </ul>        
 	</nav>
@@ -139,6 +140,7 @@
 <script src="js/lib/bootstrap-calendar.min.js"></script>
 <script src="js/lib/angular-bootstrap-calendar-tpls.js"></script>
 <script src="js/lib/angular-sanitize.js"></script>
+<script src="js/lib/angularjs-dropdown-multiselect.js"></script>
 <script src="js/lib/ui-bootstrap-tpls-1.3.2.js"></script>
 <script src="js/lib/select.js"></script>
 <script src="js/app/app.js"></script>
@@ -174,6 +176,8 @@
 <script src="js/controller/notificationController.js"></script>
 <script src="js/service/notificationServices.js"></script>
 <script src="js/controller/leaveReportsController.js"></script>
+<script src="js/controller/emprolesController.js"></script>
+<script src="js/service/empRolesServices.js"></script>
 <!-- <script src="dist/js/dev/lib.js"></script> -->
 <!-- <script src="dist/js/dev/perf.js"></script> -->
 </html>

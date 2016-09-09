@@ -152,4 +152,21 @@ public class EmployeeServiceImpl implements EmployeeService{
 		}
 		return list;
 	}
+
+	@Override
+	public Object loadAllEmployees() {
+		LoggerUtil.infoLog(logger, "Load All employee list.");
+		Session session = null;
+		List<Employee> list = null;
+		try {
+			session = sessionFactory.openSession();
+			list = employeeDAO.loadAllEmployees(session);
+		} catch (Exception e) {
+			LoggerUtil.errorLog(logger, "Unable to load all employee List ", e);
+			return ExceptionHandlingUtil.returnErrorObject("Unable to load all employee List ", e); 
+		} finally {
+			ExceptionHandlingUtil.closeSession(session);
+		}
+		return list;
+	}
 }

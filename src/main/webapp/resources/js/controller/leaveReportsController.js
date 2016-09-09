@@ -39,7 +39,7 @@ mainApp.controller('leaveReportController', function($scope, moment, leaveAPIser
         });
     };
 
-    employeeAPIservice.loadAllEmployees().success(function(response) {
+    employeeAPIservice.loadEmployees().success(function(response) {
         $scope.employees = response.entity;
     });
 });

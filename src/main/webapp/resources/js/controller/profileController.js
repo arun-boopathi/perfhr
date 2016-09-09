@@ -2,8 +2,8 @@
 mainApp.controller('profileController', function($scope, $controller, profileAPIservice, employeeAPIservice) {
      $scope.data = null;
 
-     employeeAPIservice.loadAllEmployees().success(function (response) {
-        //$scope.employees = response.entity;
+     employeeAPIservice.loadEmployees().success(function (response) {
+        $scope.employees = response.entity;
         profileAPIservice.getProfileDetails().success(function (profileResponse) {
             $scope.data = profileResponse.entity;
         });

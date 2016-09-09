@@ -72,4 +72,13 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				.setParameter("designationName", designationName);
 		return query.list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Employee> loadAllEmployees(Session session) {
+		String sqlQuery =" from Employee e where e.active=:active order by e.firstName asc";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);
+		return query.list();
+	}
 }

@@ -113,7 +113,7 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
         $scope.openModal();
     };
 
-    employeeAPIservice.loadAllEmployees().success(function(response) {
+    employeeAPIservice.loadEmployees().success(function(response) {
         $scope.employeesList = response.entity;
         $.each(response.entity, function(i, val){
             $scope.employees[val.pk] = val;

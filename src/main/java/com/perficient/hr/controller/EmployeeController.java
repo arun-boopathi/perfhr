@@ -43,11 +43,18 @@ public class EmployeeController {
 		return ResponseHandlingUtil.prepareResponse(employeeService.loadById(employeeId));
 	}
 	
-	@RequestMapping(value="/loadAllEmployee",method=RequestMethod.GET)
+	@RequestMapping(value="/loadEmployees",method=RequestMethod.GET)
 	@Produces("application/json")
 	@ResponseBody
-	public Response loadAllEmployee(){
+	public Response loadEmployees(){
 		return ResponseHandlingUtil.prepareResponse(employeeService.loadEmployees());
+	}
+	
+	@RequestMapping(value="/loadAllEmployees",method=RequestMethod.GET)
+	@Produces("application/json")
+	@ResponseBody
+	public Response loadAllEmployees(){
+		return ResponseHandlingUtil.prepareResponse(employeeService.loadAllEmployees());
 	}
 	
 	@RequestMapping(value="/updateEmployee", method=RequestMethod.PUT)

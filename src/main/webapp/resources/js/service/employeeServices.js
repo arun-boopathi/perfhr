@@ -10,7 +10,13 @@ angular.module('employee.services', []).
     employeeAPI.loadAllEmployees = function() {
         return $http({
           method: 'get',
-          url: perfUrl['loadAllEmployee']
+          url: perfUrl['loadAllEmployees']
+        });
+    };
+    employeeAPI.loadEmployees = function() {
+        return $http({
+          method: 'get',
+          url: perfUrl['loadEmployees']
         });
     };
     employeeAPI.addEmployee = function(employee) {

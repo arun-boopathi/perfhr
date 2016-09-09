@@ -1,0 +1,55 @@
+<div class="perfhr-widget" style="height: 500px;">
+	<div class="perfhr-widget-header">
+		<h3 class="section-title">Roles Management</h3>
+	</div>
+	<div class="perfhr-widget-content">
+		<form class="form-vertical" novalidate>
+			<div class="row">
+				<div class="form-group col-md-8">
+			   	 	<div class="col-md-8">
+			   	 		<div class="help-block">
+					    </div>
+			   	 	</div>
+		   	 	</div>
+			</div>
+			<div class="row">
+			    <div class="col-md-12">
+			      	<div class="perfhr-filter row">
+			      		<div class="col-md-4 col-sm-4">
+							<div class="form-group">
+							    <label class="control-label">Roles:</label>
+							    <div class="col-md-8 input-group splinnputs  col-xs-12">
+									<select name="Member" ng-change="onRoleChange()" class="form-control" validType="select" ng-model="data.roleId"
+										ng-options='(role.roleName) for role in roles | orderBy: "roleName" track by role.pk'>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4">
+						    <div class="form-group">
+						    	<label class="control-label">Employee:</label>
+						    	<div class="col-md-8 input-group splinnputs  col-xs-12">
+									<multiselect class="input-xlarge" multiple="true"
+								        ng-model="data.employee"
+	       								options="(c.firstName+ ' ' + c.lastName) for c in employeeList"
+								        change="selected()" ></multiselect>
+								</div>
+						    </div>
+					    </div>
+					    <div class="col-md-1 col-sm-12">
+						    <div class="form-group">
+						    	<div> 
+						    		<button type="submit" class="btn btn-success" action="manageRoles">Manage Roles</button>
+						    	</div>
+						    </div>
+					    </div>
+		    		</div>
+			    </div>
+			</div>
+		</form>
+		<div ng-controller="employeeRoleTableCtrl as employeeRoleTable">
+		    <table datatable="" dt-options="employeeRoleTable.dtOptions" dt-columns="employeeRoleTable.dtColumns" 
+		    	dt-instance="employeeRoleTable.dtInstance"  width="100%" class="table perfhr-table"></table>
+    	</div>
+    </div>
+</div>

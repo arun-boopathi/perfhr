@@ -2,7 +2,7 @@ var em, data, scope;
 /* Employee controller */
 mainApp.controller('employeeController', function($scope, $controller, employeeAPIservice) {
     scope = $scope;
-    employeeAPIservice.loadAllEmployees().success(function (response) {
+    employeeAPIservice.loadEmployees().success(function (response) {
         $scope.employees = response.entity;
         em.dtInstance.DataTable.clear().draw();
         em.dtInstance.DataTable.rows.add($scope.employees).draw();

@@ -15,6 +15,8 @@ public interface EmployeeDAO {
 	
 	public List<EmployeeView> loadEmployees(Session session);
 	
+	public List<Employee> loadAllEmployees(Session session);
+	
 	public boolean updateEmployee(Employee employee, String userId, Session session);
 	
 	public boolean addEmployee(Employee employee, Session session);

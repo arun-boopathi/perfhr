@@ -1,6 +1,7 @@
 var perfUrl = {
     'validateSession'  : 'user/validateSession',
-    'loadAllEmployee'  : urlPrefix+'employee/loadAllEmployee',
+    'loadAllEmployees'  : urlPrefix+'employee/loadAllEmployees',
+    'loadEmployees'  : urlPrefix+'employee/loadEmployees',
     'loadEmployee'     : urlPrefix+'employee/loadEmployee',
     'loadEmployeeById' : urlPrefix+'employee/loadEmployeeById?employeeId=',
     'updateEmployee'   : urlPrefix+'employee/updateEmployee',
@@ -42,5 +43,7 @@ var perfUrl = {
     'loadComponentsById' : urlPrefix+'components/loadComponentsById?id=',
     'addComponent'   : urlPrefix+'components/addComponent',
     'updateComponent': urlPrefix+'components/updateComponent',
-    'deleteComponent' : urlPrefix+'components/deleteComponent'
+    'deleteComponent' : urlPrefix+'components/deleteComponent',
+    'saveEmpRoles' : urlPrefix+'emproles/saveEmpRoles',
+    'loadEmpByRoles' : urlPrefix+'emproles/loadEmpByRoles?roleId='
 };

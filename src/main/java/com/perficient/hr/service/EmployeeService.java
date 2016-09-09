@@ -10,6 +10,8 @@ public interface EmployeeService {
 	
 	public Object loadEmployees();
 	
+	public Object loadAllEmployees();
+	
 	public Object updateEmployee(Employee employee, String userId);
 	
 	public Object addEmployee(Employee employee);
