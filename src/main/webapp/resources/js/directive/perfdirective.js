@@ -4,6 +4,7 @@ var errorMsg = '<p class="text-danger"></p>';
 function validateField(ele, eleValue, regEx, errBlock){
     var eleName = $(ele).attr('name'), isReq = $(ele).attr('required'), minLen = $(ele).attr('ng-minlength'), maxLen = $(ele).attr('ng-maxlength');
     var error = '';
+    console.log('eleName ',eleName);
     if((typeof isReq !== typeof undefined)
             &&($.trim(eleValue).length === 0)){
     	error = reqEr;

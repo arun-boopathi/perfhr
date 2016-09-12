@@ -2,7 +2,7 @@
 	<div class="perfhr-widget-header">
 		<h3 class="section-title">Reports - Job Title</h3>
 	</div>
-	<form class="form-vertical " novalidate>
+	
 		<div class="perfhr-widget-content">
 			<div class="row">
 				<div class="form-group col-md-8">
@@ -14,45 +14,47 @@
 			</div>
 			<div class="row">
 			    <div class="col-md-12">
-			      	<div class="perfhr-filter row">
-			      		<div class="col-md-3 col-sm-4">
-			    			<ol id="jobTitleBreadCrumb" class="breadcrumb">
-							  <li index="0">SBU</li>
-							</ol>
-						</div>
-			      		<div class="col-md-4 col-sm-4">
-							<div class="form-group">
-							    <label class="control-label required">From Date:</label>
-							    <p class="input-group">
-						            <input type="text" name="From Date" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{startsAt}} ng-model="startsAt" is-open="stDate.opened" 
-					          			datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
-						          	<span class="input-group-btn">
-						            	<button type="button" class="btn btn-default" ng-click="reportStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-						          	</span>
-						        </p>
+			    	<form class="form-vertical " novalidate>
+				      	<div class="perfhr-filter row">
+				      		<div class="col-md-3 col-sm-4">
+				    			<ol id="jobTitleBreadCrumb" class="breadcrumb">
+								  <li index="0">SBU</li>
+								</ol>
 							</div>
-						</div>
-						<div class="col-md-4 col-sm-4">
-						    <div class="form-group">
-						    	<label class="control-label required">To Date:</label>
-						    	<p class="input-group date">
-						          	<input type="text" name="To Date" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{endsAt}} ng-model="endsAt" is-open="endDate.opened" 
-						          		datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
-						          	<span class="input-group-btn">
-						            	<button type="button" class="btn btn-default" ng-click="reportEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-						          	</span>
-					            </p>
+				      		<div class="col-md-4 col-sm-4">
+								<div class="form-group">
+								    <label class="control-label required">From Date:</label>
+								    <p class="input-group">
+							            <input type="text" name="From Date" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{startsAt}} ng-model="startsAt" is-open="stDate.opened" 
+						          			datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
+							          	<span class="input-group-btn">
+							            	<button type="button" class="btn btn-default" ng-click="reportStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+							          	</span>
+							        </p>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4">
+							    <div class="form-group">
+							    	<label class="control-label required">To Date:</label>
+							    	<p class="input-group date">
+							          	<input type="text" name="To Date" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{endsAt}} ng-model="endsAt" is-open="endDate.opened" 
+							          		datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
+							          	<span class="input-group-btn">
+							            	<button type="button" class="btn btn-default" ng-click="reportEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+							          	</span>
+						            </p>
+							    </div>
 						    </div>
-					    </div>
-					    <div class="col-md-1 col-sm-12">
-						    <div class="form-group">
-						    	<label class="control-label"></label>
-						    	<div> 
-						    		<button type="submit" class="btn btn-success" action="searchLeave">Search</button>
-						    	</div>
+						    <div class="col-md-1 col-sm-12">
+							    <div class="form-group">
+							    	<label class="control-label"></label>
+							    	<div> 
+							    		<button type="submit" class="btn btn-success" action="searchLeave">Search</button>
+							    	</div>
+							    </div>
 						    </div>
-					    </div>
-		    		</div>
+			    		</div>
+		    		</form>
 					<div id="reportJobTitleTable" ng-show="brIndex <= 1" ng-controller="reportJobTitleControllerTable as jobTitleReport">
 						<table datatable="" dt-options="jobTitleReport.dtOptions" dt-columns="jobTitleReport.dtColumns" dt-instance="jobTitleReport.dtInstance" class="table perfhr-table"></table>
 					</div>
@@ -63,7 +65,7 @@
 			    </div>
 			</div>
 	    </div>
-    </form>
+    
 </div>
 
 <div class="modal fade bs-example-modal-lg" id="employeeForm" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
