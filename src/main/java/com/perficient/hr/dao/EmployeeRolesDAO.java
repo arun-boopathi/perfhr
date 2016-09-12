@@ -14,4 +14,6 @@ public interface EmployeeRolesDAO {
 	public List<EmployeeRoles> loadEmpByRoles(String roleId, Session session);
 		
 	public int removeEmpRoles(Roles role, Session session);
+
+	public int removeEmpRolesByEmpIds(Roles role, Integer empId, Session session);
 }

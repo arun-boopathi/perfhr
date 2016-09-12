@@ -62,10 +62,14 @@ protected Logger logger = LoggerFactory.getLogger(EmployeeRolesServiceImpl.class
 			empRoles.setDtModified(new Date());
 			empRoles.setCreatedBy(employee.getPk());
 			empRoles.setModifiedBy(employee.getPk());
-			empRoles.setRoleId(empRolesForm.getRole());			
+			empRoles.setRoleId(empRolesForm.getRole());	
 			for(Employee emp: empRolesForm.getEmployee()){
 				empRoles.setEmployee(emp);
 				employeeRolesDAO.saveEmpRoles(empRoles, session);
+				/*if(employeeRolesDAO.saveEmpRoles(empRoles, session) != null)
+				{
+					employeeRolesDAO.removeEmpRolesByEmpIds(empRolesForm.getRole(), emp.getPk().intValue(), session);
+				}*/
 			}
 			tx.commit();
 			return empRolesForm;

@@ -27,12 +27,13 @@ public class EmployeeRolesDAOImpl implements EmployeeRolesDAO {
 	
 	@Override
 	public EmployeeRoles saveEmpRoles(EmployeeRoles employeeRoles, Session session) {
-		try{
-			getEmpRolesByRoleandEmployeeId(employeeRoles, session);
+		session.evict(employeeRoles);
+		/*EmployeeRoles employeeRoles2 = getEmpRolesByRoleandEmployeeId(employeeRoles, session);
+		if(getEmpRolesByRoleandEmployeeId(employeeRoles, session) == null)
+		{*/
+			employeeRoles.setActive(PerfHrConstants.ACTIVE);
 			session.merge(employeeRoles);
-		} catch(IndexOutOfBoundsException iobe){
-			session.save(employeeRoles);
-		}
+//		}
 		return employeeRoles;
 	}
 	
@@ -40,7 +41,13 @@ public class EmployeeRolesDAOImpl implements EmployeeRolesDAO {
 		Criteria criteria =  session.createCriteria(EmployeeRoles.class);
 		criteria.add(Restrictions.eq("employee.pk", employeeRoles.getEmployee().getPk()));
 		criteria.add(Restrictions.eq("roleId.pk", employeeRoles.getRoleId().getPk()));
-		return (EmployeeRoles)criteria.list().get(0);
+		criteria.add(Restrictions.eq(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE));
+		EmployeeRoles employeeRoles2 = null;
+		if(criteria.list() != null && criteria.list().size() > 0)
+		{
+			employeeRoles2 = (EmployeeRoles) criteria.list().get(0);
+		}
+		return employeeRoles2;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -58,6 +65,18 @@ public class EmployeeRolesDAOImpl implements EmployeeRolesDAO {
 		String sqlQuery =" UPDATE EmployeeRoles r set r.active=:active where r.roleId=:roleId";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.INACTIVE);
+		query.setParameter("roleId", rolesDAO.loadRolesById(String.valueOf(role.getPk()), session));
+		return query.executeUpdate();
+	}
+	
+	@Override
+	public int removeEmpRolesByEmpIds(Roles role, Integer empId, Session session) {
+		String sqlQuery =" UPDATE EmployeeRoles r set r.active=:active "
+				+ "where r.roleId=:roleId and r.employeePk = :empIds and r.active = :activeCondition";
+		Query query = session.createQuery(sqlQuery);
+		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.INACTIVE);
+		query.setParameter("activeCondition", PerfHrConstants.ACTIVE);
+		query.setParameter("empIds", empId);
 		query.setParameter("roleId", rolesDAO.loadRolesById(String.valueOf(role.getPk()), session));
 		return query.executeUpdate();
 	}
