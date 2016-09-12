@@ -23,17 +23,17 @@ mainApp.controller('empRolesController', function($scope, $timeout, rolesAPIserv
     };
     
     $scope.onRoleChange = function(){
+    	$scope.data.employee = [];
     	$timeout(function() {
     		angular.element(document.getElementsByClassName('btn-link')[1]).triggerHandler('click');
+    		emprolesAPIservice.loadEmpByRoles($scope.data.role.pk).success(function (response) {
+        		$.each(response.entity, function(i, val){
+        			$scope.data.employee.push(val.employee);
+        		});
+        		eR.dtInstance.DataTable.clear().draw();
+        		eR.dtInstance.DataTable.rows.add(response.entity).draw();
+            });
     	});
-    	$scope.data.employee = [];
-    	emprolesAPIservice.loadEmpByRoles($scope.data.role.pk).success(function (response) {
-    		$.each(response.entity, function(i, val){
-    			$scope.data.employee.push(val.employee);
-    		});
-    		eR.dtInstance.DataTable.clear().draw();
-    		eR.dtInstance.DataTable.rows.add(response.entity).draw();
-        });
     };
 });
 

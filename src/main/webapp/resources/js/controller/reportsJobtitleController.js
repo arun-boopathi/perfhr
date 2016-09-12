@@ -85,6 +85,10 @@ mainApp.controller('reportsJobtitleController', function($scope, reportJobtitleA
         });
     };
 
+    $scope.validate = function(){
+    	return scope.startsAt.getTime() < scope.endsAt.getTime();
+    };
+    
     configTable();
 
     $scope.searchLeave = function(){

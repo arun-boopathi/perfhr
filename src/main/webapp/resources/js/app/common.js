@@ -66,6 +66,9 @@ perfUtils.prototype = {
             timeoutHandle = window.setTimeout('perfUtils.getInstance().init()', 10000);
         }
     },
+    compareDate: function(fromDt, toDt){
+    	
+    },
     resetForm: function(formId){
     	$('#'+formId+' .help-block').empty();
         $('#'+formId+' div').removeClass('has-error');
