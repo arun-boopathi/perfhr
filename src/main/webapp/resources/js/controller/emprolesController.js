@@ -1,6 +1,6 @@
 var eR, columnBuilder, brIndex, data, scope, paramObj;
 /*Roles Management by employees Controller*/
-mainApp.controller('empRolesController', function($scope, rolesAPIservice, employeeAPIservice, emprolesAPIservice) {
+mainApp.controller('empRolesController', function($scope, $timeout, rolesAPIservice, employeeAPIservice, emprolesAPIservice) {
 	rolesAPIservice.getRolesDetails().success(function (response) {
         $scope.roles = response.entity;
     });
@@ -11,9 +11,11 @@ mainApp.controller('empRolesController', function($scope, rolesAPIservice, emplo
 	employeeAPIservice.loadAllEmployees().success(function (response) {
 		$scope.empList = response.entity;
         $scope.employeeList = $scope.empList;
+//        $scope.data.employee = $scope.empList;
     });
 	
     $scope.manageRoles = function(){
+    	console.log('data ', $scope.data);
         emprolesAPIservice.saveEmpRoles($scope.data).success(function () {
             $scope.closeModal();
             $scope.msg="Designation Saved Successfully!";
@@ -21,19 +23,17 @@ mainApp.controller('empRolesController', function($scope, rolesAPIservice, emplo
     };
     
     $scope.onRoleChange = function(){
-    	$scope.data.employee.splice(0, $scope.data.employee.length);
-    	$scope.employeeList = [];
+    	$timeout(function() {
+    		angular.element(document.getElementsByClassName('btn-link')[1]).triggerHandler('click');
+    	});
     	$scope.data.employee = [];
-    	//$scope.employeeList.splice(0, $scope.employeeList.length);
-    	$scope.employeeList = $scope.empList;
-    	emprolesAPIservice.loadEmpByRoles($scope.data.roleId.pk).success(function (response) {
+    	emprolesAPIservice.loadEmpByRoles($scope.data.role.pk).success(function (response) {
     		$.each(response.entity, function(i, val){
-    			//$scope.data.employee.push(val.employee);
+    			$scope.data.employee.push(val.employee);
     		});
     		eR.dtInstance.DataTable.clear().draw();
     		eR.dtInstance.DataTable.rows.add(response.entity).draw();
         });
-    	
     };
 });
 

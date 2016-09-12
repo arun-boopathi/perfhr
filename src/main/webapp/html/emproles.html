@@ -19,7 +19,7 @@
 							<div class="form-group">
 							    <label class="control-label">Roles:</label>
 							    <div class="col-md-8 input-group splinnputs  col-xs-12">
-									<select name="Member" ng-change="onRoleChange()" class="form-control" validType="select" ng-model="data.roleId"
+									<select name="Role" ng-change="onRoleChange()" class="form-control" required validType="select" ng-model="data.role"
 										ng-options='(role.roleName) for role in roles | orderBy: "roleName" track by role.pk'>
 									</select>
 								</div>
@@ -29,7 +29,7 @@
 						    <div class="form-group">
 						    	<label class="control-label">Employee:</label>
 						    	<div class="col-md-8 input-group splinnputs  col-xs-12">
-									<multiselect class="input-xlarge" multiple="true"
+									<multiselect class="input-xlarge" name="Employee" required multiple="true"
 								        ng-model="data.employee"
 	       								options="(c.firstName+ ' ' + c.lastName) for c in employeeList"
 								        change="selected()" ></multiselect>
@@ -39,7 +39,7 @@
 					    <div class="col-md-1 col-sm-12">
 						    <div class="form-group">
 						    	<div> 
-						    		<button type="submit" class="btn btn-success" action="manageRoles">Manage Roles</button>
+						    		<button type="submit" class="btn btn-success" action="manageRoles">Apply Role</button>
 						    	</div>
 						    </div>
 					    </div>

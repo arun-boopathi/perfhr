@@ -5,12 +5,13 @@ import java.util.List;
 import org.hibernate.Session;
 
 import com.perficient.hr.model.EmployeeRoles;
-import com.perficient.hr.model.EmployeeView;
+import com.perficient.hr.model.Roles;
 
 public interface EmployeeRolesDAO {
 
 	public EmployeeRoles saveEmpRoles(EmployeeRoles employeeRoles, Session session);
 	
 	public List<EmployeeRoles> loadEmpByRoles(String roleId, Session session);
-	
+		
+	public int removeEmpRoles(Roles role, Session session);
 }

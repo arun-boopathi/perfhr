@@ -18,7 +18,6 @@ import com.perficient.hr.dao.EmployeeRolesDAO;
 import com.perficient.hr.form.EmployeeRolesForm;
 import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.EmployeeRoles;
-import com.perficient.hr.model.EmployeeView;
 import com.perficient.hr.service.EmployeeRolesService;
 import com.perficient.hr.utils.ExceptionHandlingUtil;
 import com.perficient.hr.utils.LoggerUtil;
@@ -53,13 +52,17 @@ protected Logger logger = LoggerFactory.getLogger(EmployeeRolesServiceImpl.class
 		try {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
+			employeeRolesDAO.removeEmpRoles(empRolesForm.getRole(), session);
+			tx.commit();
+			session = sessionFactory.openSession();
+			tx = session.beginTransaction();
 			Employee employee = employeeDAO.loadById(userId, session);
 			EmployeeRoles empRoles = new EmployeeRoles();
 			empRoles.setDtCreated(new Date());
 			empRoles.setDtModified(new Date());
 			empRoles.setCreatedBy(employee.getPk());
 			empRoles.setModifiedBy(employee.getPk());
-			empRoles.setRoleId(empRolesForm.getRole());
+			empRoles.setRoleId(empRolesForm.getRole());			
 			for(Employee emp: empRolesForm.getEmployee()){
 				empRoles.setEmployee(emp);
 				employeeRolesDAO.saveEmpRoles(empRoles, session);
