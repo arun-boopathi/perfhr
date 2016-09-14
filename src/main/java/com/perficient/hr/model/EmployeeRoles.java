@@ -23,6 +23,9 @@ public class EmployeeRoles extends AbstractModel {
 	@JoinColumn(name = "employee_pk")
 	private Employee employee;
 	
+	@Column(name = "employee_pk", insertable = false , updatable = false)
+	private int employeePk;
+	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "role_pk")
 	private Roles roleId;
@@ -67,6 +70,14 @@ public class EmployeeRoles extends AbstractModel {
 	 */
 	public void setRoleId(Roles roleId) {
 		this.roleId = roleId;
+	}
+
+	public int getEmployeePk() {
+		return employeePk;
+	}
+
+	public void setEmployeePk(int employeePk) {
+		this.employeePk = employeePk;
 	}
 
 }
