@@ -43,7 +43,8 @@ perfHrApp.config(['$httpProvider', function($httpProvider){
  */
 $(document).on('hidden.bs.modal', 'div[role="dialog"]', function () {
 	var formId=$(this).attr('id');
-	scope.data = {};
+	//scope.data = {};
+	//$('form').find(':input[name]').val('');
 	$('#'+formId+' .help-block').empty();
 	$('#'+formId+' p.text-danger').remove();
 	$('#'+formId+' .has-error').removeClass('has-error');
@@ -66,8 +67,12 @@ perfUtils.prototype = {
             timeoutHandle = window.setTimeout('perfUtils.getInstance().init()', 10000);
         }
     },
-    compareDate: function(fromDt, toDt){
-    	
+    compareDate: function(){
+    	if(new Date(moment.utc($('#startDt').val(), "DD-MM-YYYY")).getTime() > new Date(moment.utc($('#endDt').val(), "DD-MM-YYYY")).getTime()){
+    		var errorMsg = '<p class="text-danger"></p>';
+    		$('#startDt').parent().addClass('has-error');
+        	$(errorMsg).html($('#startDt').attr('name')+' must be lesser than '+$('#endDt').attr('name')+'.').insertAfter($('#startDt'));
+    	}
     },
     resetForm: function(formId){
     	$('#'+formId+' .help-block').empty();

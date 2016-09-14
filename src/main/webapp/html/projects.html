@@ -46,7 +46,7 @@
 									<label class="col-md-4 control-label required" for="startDate">Project Start Date :</label>
 					                <p class="input-group col-md-8">
 							          <input type="text" class="form-control" name="Project Start Date" uib-datepicker-popup="dd-MM-yyyy" value={{data.startDate }} ng-model="data.startDate" is-open="stDate.opened" 
-							          		datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
+							          		id="startDt" datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
 							          <span class="input-group-btn">
 							            <button type="button" class="btn btn-default" ng-click="prStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
 							          </span>
@@ -56,7 +56,7 @@
 									<label class="col-md-4 control-label required" for="startDate">Project End Date :</label>
 									<p class="input-group col-md-8">
 							          <input type="text" class="form-control" name="Project End Date" uib-datepicker-popup="dd-MM-yyyy" value={{data.endDate}} ng-model="data.endDate" is-open="endDate.opened" 
-							          		datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
+							          		id="endDt" datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
 							          <span class="input-group-btn">
 							            <button type="button" class="btn btn-default" ng-click="prEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
 							          </span>

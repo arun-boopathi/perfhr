@@ -49,6 +49,10 @@ function validateForm(form){
         }
         validateField(ele, eleValue, regEx, errBlock);
     });
+    try{
+		scope.validate();
+	} catch(err){
+	}
     return $(form).find('p.text-danger').length === 0?true:false;
 }
 

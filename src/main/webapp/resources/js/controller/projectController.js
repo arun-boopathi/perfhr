@@ -41,6 +41,10 @@ mainApp.controller('projectController', function($scope, projectAPIservice) {
             $scope.msg="Project Deleted Successfully!";
         });
     };
+    
+    $scope.validate = function(){
+    	perfUtils.getInstance().compareDate();
+    };
 });
 
 mainApp.controller('projectsTableController', projectsTableController);

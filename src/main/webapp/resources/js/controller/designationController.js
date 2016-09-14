@@ -6,26 +6,18 @@ mainApp.controller('designationController', function($scope, designationAPIservi
     
     $scope.save = function(){
         designationAPIservice.addDesignation($scope.data).success(function () {
-            $scope.closeModal();
             dc.dtInstance.reloadData();
             $scope.msg="Designation Saved Successfully!";
         });
     };
+    
     $scope.addDesignation = function(){
-        $scope.msg = '';
-        $scope.data = {};
-        perfUtils.getInstance().resetForm('designationForm');
         $('#designationForm').modal();
     };
     
-    /*$scope.closeModal = function(){
-        $('#designationForm').modal('hide');
-    };*/
-
     $scope.update = function(){
         designationAPIservice.updateDesignation($scope.data).success(function () {
             dc.dtInstance.dataTable.fnUpdate($scope.data, dc.dtInstance.DataTable.$('tr.selected'), undefined, false);
-            //$scope.closeModal();
             $scope.msg="Designation Updated Successfully!";
         });
     };

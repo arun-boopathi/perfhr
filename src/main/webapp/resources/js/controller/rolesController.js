@@ -6,15 +6,13 @@ mainApp.controller('rolesController', function($scope, rolesAPIservice) {
     
     $scope.save = function(){
         rolesAPIservice.addRoles($scope.data).success(function () {
-            $scope.closeModal();
+        	$('.help-block').html("Roles Saved Successfully!");
             dc.dtInstance.reloadData();
-            $scope.msg="Roles Saved Successfully!";
         });
     };
+    
     $scope.addRoles = function(){
         $scope.msg = '';
-        $scope.data = {};
-        perfUtils.getInstance().resetForm('rolesForm');
         $('#rolesForm').modal();
     };
     
@@ -25,8 +23,7 @@ mainApp.controller('rolesController', function($scope, rolesAPIservice) {
     $scope.update = function(){
         rolesAPIservice.updateRoles($scope.data).success(function () {
             dc.dtInstance.dataTable.fnUpdate($scope.data, dc.dtInstance.DataTable.$('tr.selected'), undefined, false);
-            $scope.closeModal();
-            $scope.msg="Roles Updated Successfully!";
+            $('.help-block').html("Roles Updated Successfully!");
         });
     };
 

@@ -58,10 +58,10 @@ public class RolesController {
 		return ResponseHandlingUtil.prepareResponse(rolesService.updateRoles(role, PerfUtils.getUserId(request.getSession())));
 	}
 	
-	@RequestMapping(value="/deleteDesignation", method=RequestMethod.PUT)
+	@RequestMapping(value="/deleteRoles", method=RequestMethod.PUT)
 	@Produces("application/json")
 	@ResponseBody
-	public Response deleteDesignation(@RequestBody Roles role, HttpServletRequest request) throws RecordNotFoundException{
+	public Response deleteRoles(@RequestBody Roles role, HttpServletRequest request) throws RecordNotFoundException{
 		return ResponseHandlingUtil.prepareResponse(rolesService.deleteRoles(role, PerfUtils.getUserId(request.getSession())));
 	}
 }
