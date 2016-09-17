@@ -1,6 +1,7 @@
 mainApp.controller('importPtoController', function($scope, ptoAPIService){
     $scope.uploadFile = function(){
-        ptoAPIService.uploadFileToUrl($scope.newFileVal).success(function(data){
+    	var file = $scope.uploadPto;
+        ptoAPIService.uploadFileToUrl(file).success(function(data){
             $('input[type="file"]').val('');
             if(data)
                 $scope.msg = 'PTO document processed successfully!';

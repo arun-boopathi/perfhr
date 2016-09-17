@@ -43,8 +43,8 @@ perfHrApp.config(['$httpProvider', function($httpProvider){
  */
 $(document).on('hidden.bs.modal', 'div[role="dialog"]', function () {
 	var formId=$(this).attr('id');
-	//scope.data = {};
-	//$('form').find(':input[name]').val('');
+	scope.data = {};
+	scope.msg = '';
 	$('#'+formId+' .help-block').empty();
 	$('#'+formId+' p.text-danger').remove();
 	$('#'+formId+' .has-error').removeClass('has-error');
@@ -74,8 +74,7 @@ perfUtils.prototype = {
         	$(errorMsg).html($('#startDt').attr('name')+' must be lesser than '+$('#endDt').attr('name')+'.').insertAfter($('#startDt'));
     	}
     },
-    resetForm: function(formId){
-    	$('#'+formId+' .help-block').empty();
-        $('#'+formId+' div').removeClass('has-error');
+    resetForm: function(){
+    	$('form').find(':input[name]').val('');
     }
 };

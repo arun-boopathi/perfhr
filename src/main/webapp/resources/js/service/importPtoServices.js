@@ -7,6 +7,7 @@ angular.module('pto.services', []).factory('ptoAPIService', function ($http) {
              method: 'post',
              data : fd,
              url: perfUrl['importPto'],
+             transformRequest: angular.identity,
              headers: {'Content-Type': undefined}
          });
     };

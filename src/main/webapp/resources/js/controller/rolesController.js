@@ -6,13 +6,15 @@ mainApp.controller('rolesController', function($scope, rolesAPIservice) {
     
     $scope.save = function(){
         rolesAPIservice.addRoles($scope.data).success(function () {
-        	$('.help-block').html("Roles Saved Successfully!");
+        	$scope.msg= "Roles Saved Successfully!";
             dc.dtInstance.reloadData();
+            $scope.closeModal();
         });
     };
     
     $scope.addRoles = function(){
         $scope.msg = '';
+        perfUtils.getInstance().resetForm();
         $('#rolesForm').modal();
     };
     

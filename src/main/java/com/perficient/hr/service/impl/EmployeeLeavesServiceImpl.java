@@ -205,7 +205,7 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
     		empLeaves.setCreatedBy(employee.getPk());
     		empLeaves.setModifiedBy(employee.getPk());
     		
-    		employeeLeavesDAO.saveLeave(employeeLeaves, session);
+    		employeeLeavesDAO.saveLeave(empLeaves, session);
 			
 			List<String> recipientList = new ArrayList<>();
 			for(Employee notify: employeeLeaves.getNotificationToList()){
