@@ -92,7 +92,7 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 			LoggerUtil.errorLog(logger, "Unable to import PTO document." , e);
 			ExceptionHandlingUtil.transactionRollback(tx);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to import PTO document ", e);
-		} finally{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);	
 		}
 		return true;
@@ -111,13 +111,10 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 				empLeaves.setNotificationToList
 				(notificationDAO.loadNotificationsToByGenericId(empLeaves.getPk(), session));
 			}
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			LoggerUtil.errorLog(logger, "Unable to load all leaves. ", e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to load all leaves. ", e);
-		}
-		finally
-		{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return list;
@@ -130,13 +127,10 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 		try {
 			session = sessionFactory.openSession();
 			return employeeLeavesDAO.loadMyLeaves(leaveType, calYear, employeeId, session);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			LoggerUtil.errorLog(logger, "Unable to load leaves for employee: "+employeeId , e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to load leaves for employee: "+employeeId , e);
-		}
-		finally
-		{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 	}
@@ -151,9 +145,7 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 		} catch (Exception e){
 			LoggerUtil.errorLog(logger, "Unable to load leave report for employee: '"+employeeLeaves.getEmployeeId() , e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to load leave report for employee: '"+employeeLeaves.getEmployeeId() , e);
-		}
-		finally
-		{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 	}
@@ -171,9 +163,7 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 		} catch (Exception e){
 			LoggerUtil.errorLog(logger, "Unable to get leave balance for employee: "+employeeId , e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to get leave balance for employee: '"+employeeId , e);
-		}
-		finally
-		{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return leaveBalance;
@@ -204,7 +194,7 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
     		empLeaves.setDtModified(new Date());
     		empLeaves.setCreatedBy(employee.getPk());
     		empLeaves.setModifiedBy(employee.getPk());
-    		
+    		empLeaves.setEmployeeView(employeeDAO.loadByUserId(employeeLeaves.getEmployeeId().toString(), session));
     		employeeLeavesDAO.saveLeave(empLeaves, session);
 			
 			List<String> recipientList = new ArrayList<>();
@@ -240,9 +230,7 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 			LoggerUtil.errorLog(logger, "Unable to apply Leave: "+employeeLeaves.getTitle() , e);
 			ExceptionHandlingUtil.transactionRollback(tx);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to apply Leave: "+ employeeLeaves.getTitle() , e);
-		}
-		finally
-		{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return empLeaves;
@@ -336,9 +324,7 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 			LoggerUtil.errorLog(logger, "Unable to update leave: "+employeeLeaves.getTitle() , e);
 			ExceptionHandlingUtil.transactionRollback(tx);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to update leave: "+employeeLeaves.getTitle() , e);
-		}
-		finally
-		{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return true;
@@ -415,9 +401,7 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 			LoggerUtil.errorLog(logger, "Unable to delete employee Leaves: "+employeeLeaves.getTitle() , e);
 			ExceptionHandlingUtil.transactionRollback(tx);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to delete employee Leaves: "+employeeLeaves.getTitle() , e);
-		}
-		finally
-		{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 		return true;
@@ -428,18 +412,14 @@ public class EmployeeLeavesServiceImpl implements EmployeeLeavesService {
 		LoggerUtil.infoLog(logger, "Delete Employee Leave Service Started. ");
 		
 		Session session = null;
-		try
-		{
+		try {
 			session = sessionFactory.openSession();
 			return employeeLeavesDAO.loadLeaveById(leaveId, session);
 		} catch (Exception e){
 			LoggerUtil.errorLog(logger, "Unable to load leave Id:"+leaveId , e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to load leave Id:"+leaveId , e);
-		}
-		finally
-		{
+		} finally {
 			ExceptionHandlingUtil.closeSession(session);
 		}
 	}
-
 }

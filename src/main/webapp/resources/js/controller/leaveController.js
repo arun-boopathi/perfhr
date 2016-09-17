@@ -106,18 +106,23 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
         $scope.data = {};
         $scope.data.employeeId = user.loggedUser.pk;
         $scope.data.notificationToList = [];
-        $scope.data.notificationToList.push($scope.employees[user.loggedUser.pk], $scope.employees[user.loggedUser.supervisor]);
+        $scope.data.notificationToList.push($scope.employees[getIndex(user.loggedUser.pk)], $scope.employees[getIndex(user.loggedUser.supervisor)]);
         $scope.data.requestType = $scope.leaveType;
         $scope.data.dtEndHalf = "SECOND";
         $scope.data.dtFromHalf = "FIRST";
         $scope.openModal();
     };
 
+    getIndex = function(pk){
+    	var index = $scope.employees.findIndex(function(item, i){
+      	  return item.pk === pk;
+      	});
+    	return index;
+    };
+    
     employeeAPIservice.loadEmployees().success(function(response) {
         $scope.employeesList = response.entity;
-        $.each(response.entity, function(i, val){
-            $scope.employees[val.pk] = val;
-        });
+        $scope.employees = response.entity;
         $scope.toggleLeave(obj.checkLeaves);
         $scope.getLeaveBalance();
     });
@@ -159,7 +164,7 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
                  });
                  val.notificationToList.splice(0, val.notificationToList.length);
                  $.each(notifyListPk, function(i, item){
-                     val.notificationToList.push($scope.employees[item]);
+                     val.notificationToList.push($scope.employees[getIndex(item)]);
                  });
              }
              $scope.scope.events[val.pk] = val;
@@ -177,7 +182,7 @@ mainApp.controller('leaveController', function($scope, moment, user, leaveAPIser
         leaveAPIservice.applyLeave($scope.data).success(function (response) {
             response.startsAt = new Date(response.entity.startsAt);
             response.endsAt = new Date(response.entity.endsAt);
-            $scope.scope.events[response.pk] = response.entity;
+            $scope.scope.events[response.entity.pk] = response.entity;
             $scope.msg = $scope.title+" Saved Successfully!";
             $scope.getLeaveBalance();
         }).error(function(){

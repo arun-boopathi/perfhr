@@ -67,7 +67,7 @@
         popRecord: function(ele, id, formId){
             this.params.vm.dtInstance.DataTable.$('tr.selected').removeClass('selected');
             $(ele).parents('tr').addClass('selected');
-            scope.data = this.params.vm.datalist[id];
+            scope.data = angular.copy(this.params.vm.datalist[id]);            
             this.params.scope.$apply();
             $(formId).modal('show');
         }
