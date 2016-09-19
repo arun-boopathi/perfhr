@@ -3,27 +3,27 @@ package com.perficient.hr.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import com.perficient.hr.dao.DesignationsDAO;
 import com.perficient.hr.dao.EmployeeDAO;
+import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.model.Designations;
 import com.perficient.hr.model.Employee;
+import com.perficient.hr.orm.PrftDbObjectManager;
 import com.perficient.hr.service.DesignationsService;
 import com.perficient.hr.utils.ExceptionHandlingUtil;
 import com.perficient.hr.utils.LoggerUtil;
 import com.perficient.hr.utils.PerfHrConstants;
 
-@Repository("designationsService")
-public class DesignationsServiceImpl implements DesignationsService {
+@Service("designationsService")
+public class DesignationsServiceImpl extends PrftDbObjectManager<Designations> implements DesignationsService {
 
 	protected Logger logger = LoggerFactory.getLogger(DesignationsServiceImpl.class);
 	
@@ -32,17 +32,6 @@ public class DesignationsServiceImpl implements DesignationsService {
 	
 	@Autowired
     DesignationsDAO designationsDAO;
-	
-	@Resource(name="sessionFactory")
-    protected SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-       this.sessionFactory = sessionFactory;
-    }
-   
-    protected Session getSession(){
-       return sessionFactory.openSession();
-    }
 	
     @Override
 	public Object loadDesignations() {
@@ -66,7 +55,7 @@ public class DesignationsServiceImpl implements DesignationsService {
 		LoggerUtil.infoLog(logger, "Add Designation Service Started");
 		Session session = null;
 		Transaction tx = null;
-		try{
+		try {
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			Employee employee = employeeDAO.loadById(userId, session);
@@ -74,9 +63,17 @@ public class DesignationsServiceImpl implements DesignationsService {
 			designation.setDtModified(new Date());
 			designation.setCreatedBy(employee.getPk());
 			designation.setModifiedBy(employee.getPk());
-			designationsDAO.addDesignation(designation, session);
-			tx.commit();
-			return designation;
+			if(exists(designation, "designation", designation.getDesignation(), null)){
+				throw new RecordExistsException();
+			} else {
+				designationsDAO.addDesignation(designation, session);
+				tx.commit();
+				return designation;	
+			}
+		} catch(RecordExistsException e){
+			LoggerUtil.errorLog(logger, "Role Name already exists: "+designation.getDesignation(), e);
+			ExceptionHandlingUtil.transactionRollback(tx);
+			return ExceptionHandlingUtil.returnErrorObject("Role Name already exists: "+designation.getDesignation(), HttpStatus.CONFLICT.value());
 		} catch(Exception e){
 			LoggerUtil.errorLog(logger, "Unable to add designation: "+designation.getDesignation(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
@@ -93,11 +90,10 @@ public class DesignationsServiceImpl implements DesignationsService {
 		try {
 			session = sessionFactory.openSession();
 			return session.get(Designations.class, Long.parseLong(designationId));
-		}catch (Exception e) {
+		} catch (Exception e) {
 			LoggerUtil.errorLog(logger, "Unable to Load Designation By Id : " + designationId , e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to Load Designation By Id : " + designationId , e);
-		}
-		finally{
+		} finally{
 			ExceptionHandlingUtil.closeSession(session);
 		}
 	}
@@ -159,10 +155,8 @@ public class DesignationsServiceImpl implements DesignationsService {
 		} catch (Exception e) {
 			LoggerUtil.errorLog(logger, "Unable to Load Designation By designationName: " + designationName, e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to Load Designation By designationName: " + designationName, e);
-		}
-		finally{
+		} finally{
 			ExceptionHandlingUtil.closeSession(session);
 		}
 	}
-
 }

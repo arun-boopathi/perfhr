@@ -21,6 +21,10 @@ perfHrApp.factory('perfInterceptor', ['$q', '$rootScope', function($q, $rootScop
     'response': function(response) {
         if(--loadingCount === 0)
             $rootScope.$broadcast('loading:finish');
+    	if(response.data.status === 409){
+    		$('form .help-block').html('Error: '+response.data.entity.errorMessage);
+    		return $q.reject(response);
+    	}
         return response;
     },
     'responseError': function(rejection) {
@@ -75,6 +79,7 @@ perfUtils.prototype = {
     	}
     },
     resetForm: function(){
+    	$('form .help-block').html('');
     	$('form').find(':input[name]').val('');
     }
 };

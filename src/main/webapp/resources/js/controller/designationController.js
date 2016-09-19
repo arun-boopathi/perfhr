@@ -6,8 +6,9 @@ mainApp.controller('designationController', function($scope, designationAPIservi
     
     $scope.save = function(){
         designationAPIservice.addDesignation($scope.data).success(function () {
+        	$scope.msg="Designation Saved Successfully!";
             dc.dtInstance.reloadData();
-            $scope.msg="Designation Saved Successfully!";
+            $scope.closeModal();
         });
     };
     

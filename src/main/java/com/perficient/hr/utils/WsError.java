@@ -16,6 +16,11 @@ public class WsError {
 		this.errorMessage = errorMessage;
 		this.exceptionObj = exceptionObj;
 	}
+
+	public WsError(String errorMessage, Integer errorCode) {
+		this.errorMessage = errorMessage;
+		this.errorCode = errorCode;
+	}
 	
 	public WsError(String errorMessage) {
 		this.errorMessage = errorMessage;

@@ -3,27 +3,27 @@ package com.perficient.hr.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.dao.RolesDAO;
+import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.Roles;
+import com.perficient.hr.orm.PrftDbObjectManager;
 import com.perficient.hr.service.RolesService;
 import com.perficient.hr.utils.ExceptionHandlingUtil;
 import com.perficient.hr.utils.LoggerUtil;
 import com.perficient.hr.utils.PerfHrConstants;
 
-@Repository("rolesService")
-public class RolesServiceImpl implements RolesService{
+@Service("rolesService")
+public class RolesServiceImpl extends PrftDbObjectManager<Roles> implements RolesService{
 
 	protected Logger logger = LoggerFactory.getLogger(RolesServiceImpl.class);
 	
@@ -32,18 +32,7 @@ public class RolesServiceImpl implements RolesService{
 	
 	@Autowired
     RolesDAO rolesDAO;
-	
-	@Resource(name="sessionFactory")
-    protected SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-       this.sessionFactory = sessionFactory;
-    }
-   
-    protected Session getSession(){
-       return sessionFactory.openSession();
-    }
-	
+    
 	@Override
 	public Object loadRoles() {
 		LoggerUtil.infoLog(logger, "Load Roles List Service Started");
@@ -68,11 +57,10 @@ public class RolesServiceImpl implements RolesService{
 		try {
 			session = sessionFactory.openSession();
 			return session.get(Roles.class, Long.parseLong(roleId));
-		}catch (Exception e) {
+		} catch (Exception e) {
 			LoggerUtil.errorLog(logger, "Unable to Load Role By Id : " + roleId , e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to Load Role By Id : " + roleId , e);
-		}
-		finally{
+		} finally{
 			ExceptionHandlingUtil.closeSession(session);
 		}
 	}
@@ -90,9 +78,17 @@ public class RolesServiceImpl implements RolesService{
 			role.setDtModified(new Date());
 			role.setCreatedBy(employee.getPk());
 			role.setModifiedBy(employee.getPk());
-			rolesDAO.addRoles(role, session);
-			tx.commit();
-			return role;
+			if(exists(role, "roleName", role.getRoleName(), null)){
+				throw new RecordExistsException();
+			} else {
+				rolesDAO.addRoles(role, session);
+				tx.commit();
+				return role;
+			}
+		} catch(RecordExistsException e){
+			LoggerUtil.errorLog(logger, "Role Name already exists: "+role.getRoleName(), e);
+			ExceptionHandlingUtil.transactionRollback(tx);
+			return ExceptionHandlingUtil.returnErrorObject("Role Name already exists: "+role.getRoleName(), HttpStatus.CONFLICT.value());
 		} catch(Exception e){
 			LoggerUtil.errorLog(logger, "Unable to add role: "+role.getRoleName(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
@@ -110,9 +106,17 @@ public class RolesServiceImpl implements RolesService{
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			updateRole(role, userId, session);
-			tx.commit();
-			return true;
+			if(exists(role, "roleName", role.getRoleName(), role.getPk())){
+				throw new RecordExistsException();
+			} else {
+				updateRole(role, userId, session);
+				tx.commit();
+				return true;	
+			}			
+		} catch(RecordExistsException e){
+			LoggerUtil.errorLog(logger, "Role Name already exists: "+role.getRoleName(), e);
+			ExceptionHandlingUtil.transactionRollback(tx);
+			return ExceptionHandlingUtil.returnErrorObject("Role Name already exists: "+role.getRoleName(), HttpStatus.CONFLICT.value());
 		} catch(Exception e){
 			LoggerUtil.errorLog(logger, "Unable to update role: "+role.getRoleName(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
@@ -148,5 +152,4 @@ public class RolesServiceImpl implements RolesService{
 			ExceptionHandlingUtil.closeSession(session);	
 		}
 	}
-	
 }

@@ -17,6 +17,10 @@ public class ExceptionHandlingUtil {
 		return new WsError(logText +" Exception is: "+exception.getLocalizedMessage(), errorCode);
 	}
 	
+	public static WsError returnErrorObject(String logText, Integer errorCode) { 
+		return new WsError(logText , errorCode);
+	}
+	
 	public static void closeSession(Session session) {
 		if(session != null && session.isOpen()) {
 			session.close();
