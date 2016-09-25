@@ -22,7 +22,7 @@ perfHrApp.factory('perfInterceptor', ['$q', '$rootScope', function($q, $rootScop
         if(--loadingCount === 0)
             $rootScope.$broadcast('loading:finish');
     	if(response.data.status === 409){
-    		$('form .help-block').html('Error: '+response.data.entity.errorMessage);
+    		perfUtils.getInstance().errorMsg(response.data.entity.errorMessage);
     		return $q.reject(response);
     	}
         return response;
@@ -47,8 +47,8 @@ perfHrApp.config(['$httpProvider', function($httpProvider){
  */
 $(document).on('hidden.bs.modal', 'div[role="dialog"]', function () {
 	var formId=$(this).attr('id');
-	scope.data = {};
-	scope.msg = '';
+	if(scope)
+		scope.data = {};
 	$('#'+formId+' .help-block').empty();
 	$('#'+formId+' p.text-danger').remove();
 	$('#'+formId+' .has-error').removeClass('has-error');
@@ -81,5 +81,22 @@ perfUtils.prototype = {
     resetForm: function(){
     	$('form .help-block').html('');
     	$('form').find(':input[name]').val('');
+    },
+    successMsg: function(msg){
+    	$.alert({
+		    title: 'Message:',
+		    columnClass: 'col-md-6 col-md-offset-3',
+		    content: msg,
+		    confirmButtonClass: 'btn-success'
+		});
+    },
+    errorMsg: function(msg){
+    	$.alert({
+		    title: 'Error:',
+		    theme: 'black',
+		    columnClass: 'col-md-6 col-md-offset-3',
+		    content: msg,
+		    confirmButtonClass: 'btn-danger'
+		});
     }
 };

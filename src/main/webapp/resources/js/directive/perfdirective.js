@@ -75,7 +75,7 @@ mainApp.directive('ajaxLoading', function () {
             if(attr.type === 'submit'){
                 elem.on('click', function() {
             		if(validateForm($(elem).parents('form'))){
-                        scope[attr.action]();
+        				scope[attr.action]();
                     }
                 });
             }

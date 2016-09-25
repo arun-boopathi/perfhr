@@ -50,6 +50,19 @@ module.exports = function(grunt) {
     	dev: {
         	files: {
         		'src/main/webapp/resources/js/dev/login.js': [grunt_uriSrc+'/js/lib/jquery.js', grunt_uriSrc+'js/lib/bootstrap.js', grunt_uriSrc+'js/login/login.js'],
+        		'src/main/webapp/resources/js/dev/lib.js': [grunt_uriSrc+'/js/lib/jquery.js',grunt_uriSrc+'/js/lib/jquery-ui.js',grunt_uriSrc+'/js/lib/angular.js',
+        		                                            grunt_uriSrc+'/js/lib/bootstrap.js',grunt_uriSrc+'/js/lib/angular-route.js',grunt_uriSrc+'/js/lib/angular-resource.js',
+        		                                            grunt_uriSrc+'/js/lib/jquery.dataTables.js',grunt_uriSrc+'/js/lib/angular-datatables.js',grunt_uriSrc+'/js/lib/angular-datatables.util.js',
+        		                                            grunt_uriSrc+'/js/lib/angular-datatables.options.js',grunt_uriSrc+'/js/lib/angular-datatables.instances.js',grunt_uriSrc+'/js/lib/angular-datatables.factory.js',
+        		                                            grunt_uriSrc+'/js/lib/angular-datatables.renderer.js',grunt_uriSrc+'/js/lib/angular-datatables.directive.js',grunt_uriSrc+'/js/lib/jquery.mmenu.all.min.js',
+        		                                            grunt_uriSrc+'/js/lib/moment.min.js',grunt_uriSrc+'/js/lib/angular-bootstrap.js',grunt_uriSrc+'/js/lib/angular-animate.js',
+        		                                            grunt_uriSrc+'/js/lib/angular-messages.js',grunt_uriSrc+'/js/lib/angular-datatables.bootstrap.options.js',grunt_uriSrc+'/js/lib/angular-datatables.bootstrap.tabletools.js',
+        		                                            grunt_uriSrc+'/js/lib/angular-datatables.bootstrap.colvis.js',grunt_uriSrc+'/js/lib/datatables.columnfilter.js',grunt_uriSrc+'/js/lib/angular-datatables.columnfilter.js',
+        		                                            grunt_uriSrc+'/js/lib/angular-datatables.responsive.js',grunt_uriSrc+'/js/lib/angular-datatables.buttons.js',grunt_uriSrc+'/js/lib/datatables.buttons.js',
+        		                                            grunt_uriSrc+'/js/lib/dataTables.tableTools.js',grunt_uriSrc+'/js/lib/angular-datatables.buttons.html5.js',grunt_uriSrc+'/js/lib/angular-datatables.buttons.print.js',
+        		                                            grunt_uriSrc+'/js/lib/angular-datatables.buttons.colVis.js',grunt_uriSrc+'/js/lib/angular-datatables.buttons.flash.js',grunt_uriSrc+'/js/lib/bootstrap-calendar.min.js',
+        		                                            grunt_uriSrc+'/js/lib/angular-bootstrap-calendar-tpls.js',grunt_uriSrc+'/js/lib/angular-sanitize.js',grunt_uriSrc+'/js/lib/angularjs-dropdown-multiselect.js',
+        		                                            grunt_uriSrc+'/js/lib/ui-bootstrap-tpls-1.3.2.js',grunt_uriSrc+'/js/lib/select.js',grunt_uriSrc+'/js/lib/jquery-confirm.js'],
         		'src/main/webapp/resources/css/vendors.css' : grunt_uriSrc+'sass_compiled/vendors.css',
         		'src/main/webapp/resources/css/perf.css' : grunt_uriSrc+'sass_compiled/main.css',
 				'src/main/webapp/resources/css/theme2.css' : grunt_uriSrc+'sass_compiled/theme2.css',
@@ -66,7 +79,8 @@ module.exports = function(grunt) {
         }, 
         dev: { 
         	files: { 
-        		'src/main/webapp/resources/js/dev/login.min.js': [grunt_uriSrc+'/js/lib/jquery.js', grunt_uriSrc+'js/lib/bootstrap.js', grunt_uriSrc+'js/login/login.js']
+        		'src/main/webapp/resources/js/dev/login.min.js': [grunt_uriSrc+'/js/lib/jquery.js', grunt_uriSrc+'js/lib/bootstrap.js', grunt_uriSrc+'js/login/login.js'],
+        		'src/main/webapp/resources/js/dev/lib.min.js' : [grunt_uriSrc+'/js/dev/lib.js']
         	}
         }, 
         production: {

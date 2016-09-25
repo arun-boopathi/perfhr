@@ -35,15 +35,15 @@ public class DesignationsServiceImpl extends PrftDbObjectManager<Designations> i
 	
     @Override
 	public Object loadDesignations() {
-    	LoggerUtil.infoLog(logger, "Load Designations List Service Started");
+    	LoggerUtil.infoLog(logger, "Load Job Title List Service Started");
 	    List<Designations> list = null;
 	    Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			list = designationsDAO.loadDesignations(session);
 		} catch (Exception e) {
-			LoggerUtil.errorLog(logger, "Unable to Load Designations List" , e);
-			return ExceptionHandlingUtil.returnErrorObject("Unable to Load Designations List" , e);
+			LoggerUtil.errorLog(logger, "Unable to Load Job Title List" , e);
+			return ExceptionHandlingUtil.returnErrorObject("Unable to Load Job Title List" , e);
 		} finally{
 			ExceptionHandlingUtil.closeSession(session);
 		}
@@ -71,13 +71,13 @@ public class DesignationsServiceImpl extends PrftDbObjectManager<Designations> i
 				return designation;	
 			}
 		} catch(RecordExistsException e){
-			LoggerUtil.errorLog(logger, "Role Name already exists: "+designation.getDesignation(), e);
+			LoggerUtil.errorLog(logger, "Job Title already exists: "+designation.getDesignation(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
-			return ExceptionHandlingUtil.returnErrorObject("Role Name already exists: "+designation.getDesignation(), HttpStatus.CONFLICT.value());
+			return ExceptionHandlingUtil.returnErrorObject("Job Title already exists: "+designation.getDesignation(), HttpStatus.CONFLICT.value());
 		} catch(Exception e){
-			LoggerUtil.errorLog(logger, "Unable to add designation: "+designation.getDesignation(), e);
+			LoggerUtil.errorLog(logger, "Unable to add Job Title: "+designation.getDesignation(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
-			return ExceptionHandlingUtil.returnErrorObject("Unable to add designation: "+designation.getDesignation(), e);
+			return ExceptionHandlingUtil.returnErrorObject("Unable to add Job Title: "+designation.getDesignation(), e);
 		} finally{
 			ExceptionHandlingUtil.closeSession(session);	
 		}
@@ -85,14 +85,14 @@ public class DesignationsServiceImpl extends PrftDbObjectManager<Designations> i
 
 	@Override
 	public Object loadDesignationById(String designationId) {
-		LoggerUtil.infoLog(logger, "Load Designation By Id Service Started. designationId: " + designationId);
+		LoggerUtil.infoLog(logger, "Load Job Title By Id Service Started. designationId: " + designationId);
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			return session.get(Designations.class, Long.parseLong(designationId));
 		} catch (Exception e) {
-			LoggerUtil.errorLog(logger, "Unable to Load Designation By Id : " + designationId , e);
-			return ExceptionHandlingUtil.returnErrorObject("Unable to Load Designation By Id : " + designationId , e);
+			LoggerUtil.errorLog(logger, "Unable to Load Job Title By Id : " + designationId , e);
+			return ExceptionHandlingUtil.returnErrorObject("Unable to Load Job Title By Id : " + designationId , e);
 		} finally{
 			ExceptionHandlingUtil.closeSession(session);
 		}
@@ -100,19 +100,27 @@ public class DesignationsServiceImpl extends PrftDbObjectManager<Designations> i
 
 	@Override
 	public Object updateDesignation(Designations designation, String userId) {
-		LoggerUtil.infoLog(logger, "Update Designation Service Started");
+		LoggerUtil.infoLog(logger, "Update Job Title Service Started");
 		Session session = null ;
 		Transaction tx = null;
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			updateDesignation(designation, userId, session);
-			tx.commit();
-			return true;
-		} catch(Exception e){
-			LoggerUtil.errorLog(logger, "Unable to update designation: "+designation.getDesignation(), e);
+			if(exists(designation, "designation", designation.getDesignation(), designation.getPk())){
+				throw new RecordExistsException();
+			} else {
+				updateDesignation(designation, userId, session);
+				tx.commit();
+				return true;	
+			}
+		} catch(RecordExistsException e){
+			LoggerUtil.errorLog(logger, "Unable to Update Job Title: "+designation.getDesignation(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
-			return ExceptionHandlingUtil.returnErrorObject("Unable to update designation: "+designation.getDesignation(), e);
+			return ExceptionHandlingUtil.returnErrorObject("Job Title already exists: "+designation.getDesignation(), HttpStatus.CONFLICT.value());
+		} catch(Exception e){
+			LoggerUtil.errorLog(logger, "Unable to update Job Title: "+designation.getDesignation(), e);
+			ExceptionHandlingUtil.transactionRollback(tx);
+			return ExceptionHandlingUtil.returnErrorObject("Unable to update Job Title: "+designation.getDesignation(), e);
 		} finally{
 			ExceptionHandlingUtil.closeSession(session);	
 		}
@@ -132,14 +140,22 @@ public class DesignationsServiceImpl extends PrftDbObjectManager<Designations> i
 		try{
 			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			designation.setActive(PerfHrConstants.INACTIVE);
-			updateDesignation(designation, userId, session);
-			tx.commit();
-			return true;
+			if(exists(Employee.class, "designations", designation, null)){
+				throw new RecordExistsException();
+			} else {
+				designation.setActive(PerfHrConstants.INACTIVE);
+				updateDesignation(designation, userId, session);
+				//tx.commit();
+				return true;
+			}
+		} catch(RecordExistsException e){
+			LoggerUtil.errorLog(logger, "Unable to Delete Job Title: "+designation.getDesignation(), e);
+			ExceptionHandlingUtil.transactionRollback(tx);
+			return ExceptionHandlingUtil.returnErrorObject("Unable to Delete Job Title as its still assigned to Employees: "+designation.getDesignation(), HttpStatus.CONFLICT.value());
 		} catch(Exception e){
 			LoggerUtil.errorLog(logger, "Unable to Delete designation: "+designation.getDesignation(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
-			return ExceptionHandlingUtil.returnErrorObject("Unable to Delete designation: "+designation.getDesignation(), e);
+			return ExceptionHandlingUtil.returnErrorObject("Unable to Delete Job Title: "+designation.getDesignation(), e);
 		} finally{
 			ExceptionHandlingUtil.closeSession(session);	
 		}
@@ -147,7 +163,7 @@ public class DesignationsServiceImpl extends PrftDbObjectManager<Designations> i
 
 	@Override
 	public Object loadDesignationByName(String designationName) {
-		LoggerUtil.infoLog(logger, "Load Designation By Name Service Started. designationName: " + designationName);
+		LoggerUtil.infoLog(logger, "Load Job Title By Name Service Started. designationName: " + designationName);
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();

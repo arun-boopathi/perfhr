@@ -3,8 +3,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Perficient</title>
+	<title>Perficient Chennai - WFM</title>
 	<base href="${pageContext.request.contextPath}/">
+	<link rel="shortcut icon" type="image/x-icon" href="images/p.png" />
 	<link rel="stylesheet" href="css/login.min.css">
 	<!-- <script src="dist/js/dev/login.min.js"></script> -->
 	<script src="js/lib/jquery.js"></script>

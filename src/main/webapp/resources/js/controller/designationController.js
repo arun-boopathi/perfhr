@@ -1,25 +1,42 @@
-var dc, scope, data;
+var dc,  data;
 /* Designation controller */
-mainApp.controller('designationController', function($scope, designationAPIservice) {
-    $scope.msg='';
-    scope = $scope;
+mainApp.controller('designationController', function($scope, designationAPIservice, $compile, DTOptionsBuilder, DTColumnBuilder) {
+    dc = this;
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('designation').withTitle('Job Title'),
+        DTColumnBuilder.newColumn('sbu').withTitle('SBU')
+    ];
+    
+    var paramObj = {
+            "vm" : $scope,
+            "compile" : $compile,
+            "DtOptionsBuilder" : DTOptionsBuilder,
+            "DTColumnBuilder" : DTColumnBuilder,
+            "service" : designationAPIservice,
+            'loadListUrl' : perfUrl['loadDesignations'],
+            'editFormId' : 'designationForm',
+            'deleteFormId' : 'deleteDesignation'
+    };
+    perfDatatable.loadTable.init(paramObj);
     
     $scope.save = function(){
         designationAPIservice.addDesignation($scope.data).success(function () {
         	$scope.msg="Designation Saved Successfully!";
             dc.dtInstance.reloadData();
-            $scope.closeModal();
+            $('#designationForm').modal('hide');
         });
     };
     
     $scope.addDesignation = function(){
+    	perfUtils.getInstance().resetForm();
         $('#designationForm').modal();
     };
     
     $scope.update = function(){
         designationAPIservice.updateDesignation($scope.data).success(function () {
+        	console.log('dc in upd ', dc);
             dc.dtInstance.dataTable.fnUpdate($scope.data, dc.dtInstance.DataTable.$('tr.selected'), undefined, false);
-            $scope.msg="Designation Updated Successfully!";
+            $('#designationForm .help-block').html("Designation Updated Successfully!");            
         });
     };
 
@@ -31,25 +48,3 @@ mainApp.controller('designationController', function($scope, designationAPIservi
         });
     };
 });
-
-mainApp.controller('designationTableController', designationTableController);
-
-function designationTableController($scope, $compile, DTOptionsBuilder, DTColumnBuilder, designationAPIservice) {
-    dc = this;
-    dc.dtColumns = [
-        DTColumnBuilder.newColumn('designation').withTitle('Job Title'),
-        DTColumnBuilder.newColumn('sbu').withTitle('SBU')
-    ];
-    var paramObj = {
-            "vm" : dc,
-            "scope" : $scope,
-            "compile" : $compile,
-            "DtOptionsBuilder" : DTOptionsBuilder,
-            "DTColumnBuilder" : DTColumnBuilder,
-            "service" : designationAPIservice,
-            'loadListUrl' : perfUrl['loadDesignations'],
-            'editFormId' : 'designationForm',
-            'deleteFormId' : 'deleteDesignation'
-    };
-    perfDatatable.loadTable.init(paramObj);
-}

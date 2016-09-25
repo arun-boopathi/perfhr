@@ -1,5 +1,5 @@
 var mainApp = angular.module("perficientHr",
-        ['profile.services','employee.services','dashboard.services',
+        ['common.services','profile.services','employee.services','dashboard.services',
          'designation.services','project.services', 'projectmember.services', 'pto.services', 'leave.services',
          'reportJobtitle.services', 'notification.services', 'reportJobtitle.services', 'roles.services',
          'components.services', 'emproles.services',
@@ -75,7 +75,8 @@ mainApp.config(function($routeProvider) {
     })
     .when('/roles', {
         templateUrl: 'html/roles.html',
-        controller: 'rolesController'
+        controller: 'rolesController',
+        controllerAs: 'roles'
     })
     .when('/components', {
         templateUrl: 'html/components.html',
@@ -99,11 +100,19 @@ $('#menu li a[href="#/home"]').parent().addClass('mm-selected');
 
 // mmenu customization
 $menu.mmenu({
-  navbars: [{
-    position: "top",
-    content: [ "searchfield", "breadcrumbs" ],
-    height: 2
-  }],
+  navbars: [
+      {
+	    position: "top",
+	    content: [ "searchfield", "breadcrumbs" ],
+	    height: 2
+	  },
+	  {
+	      "position": "bottom",
+	      "content": [
+	         "<span id='version' class='fa' href='#/'>Version:</span>"
+	      ]
+	  }
+  ],
   extensions: ['widescreen', 'theme-dark', 'effect-menu-slide'],
   offCanvas: {
     position  : "left",

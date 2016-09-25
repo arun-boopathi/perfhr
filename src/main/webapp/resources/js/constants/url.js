@@ -1,5 +1,6 @@
 var perfUrl = {
     'validateSession'  : 'user/validateSession',
+    'getVersion' : 'version',
     'loadAllEmployees'  : urlPrefix+'employee/loadAllEmployees',
     'loadEmployees'  : urlPrefix+'employee/loadEmployees',
     'loadEmployee'     : urlPrefix+'employee/loadEmployee',

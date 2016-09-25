@@ -37,7 +37,18 @@ public abstract class PrftDbObjectManager<T> {
 		if(null != pk)
 			criteria.add(Restrictions.not(Restrictions.in("pk", new Long[] {pk})));
 		criteria.setProjection(Projections.property(idKey));
-		
+		if(criteria.list().size() > 0)
+				throw new RecordExistsException();
+		return false;
+	}
+	
+	public boolean exists(Class<? extends Object> clazz, String idKey, Object idValue, Long pk) throws RecordExistsException {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(clazz);
+		criteria.add(Restrictions.eq(idKey, idValue)).add(Restrictions.eq(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE));
+		if(null != pk)
+			criteria.add(Restrictions.not(Restrictions.in("pk", new Long[] {pk})));
+		criteria.setProjection(Projections.property(idKey));
 		if(criteria.list().size() > 0)
 				throw new RecordExistsException();
 		return false;

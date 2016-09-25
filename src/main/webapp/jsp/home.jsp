@@ -5,39 +5,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Perficient HR</title>
+<title>Perficient Chennai - WFM</title>
 <!-- Vendors CSS -->
+<link rel="shortcut icon" type="image/x-icon" href="images/p.png" />
 <link rel="stylesheet" href="css/vendors.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css/perf.css">
-<link rel="stylesheet" href="css/theme2.css">
+<link rel="stylesheet" href="css/theme4.css">
 </head>
 <body ng-app="perficientHr" class="fixedsubmenu">
 	<nav id="menu" class="mm-menu" style="display: none;" ng-controller="menuController">
         <ul>
-            <li><a href="#/home">Dashboard</a></li>
+            <li><a href="#/home"><i class="fa fa-home fa-lg" aria-hidden="true"></i>Dashboard</a></li>
             <li>
-            	<a href="#">Administration</a>
+            	<a href="#"><i class="fa fa-university fa-lg" aria-hidden="true"></i>Administration</a>
             	<ul>
-            		<li><a href="#/emproles">Roles Management</a></li>
-            		<li><a href="#/importpto">Import PTO</a></li>
-            		<li><a href="#/designations">Job Title</a></li>
-            		<li><a href="#/roles">Roles</a></li>
-            		<li><a href="#/components">Components</a></li>
-            		<li><a href="#/projects">Projects</a></li>
-            		<li><a href="#/projectmembers">Project Members</a></li>
+            		<li><a href="#/emproles"><i class="fa fa-user-plus fa-lg" aria-hidden="true"></i>Roles Management</a></li>
+            		<li><a href="#/importpto"><i class="fa fa-cloud-upload fa-lg" aria-hidden="true"></i>Import PTO</a></li>
+            		<li><a href="#/designations"><i class="fa fa-file-code-o fa-lg" aria-hidden="true"></i>Job Title</a></li>
+            		<li><a href="#/roles"><i class="fa fa-tags fa-lg" aria-hidden="true"></i>Roles</a></li>
+            		<li><a href="#/components"><i class="fa fa-file-excel-o fa-lg" aria-hidden="true"></i>Components</a></li>
+            		<li><a href="#/projects"><i class="fa fa-heartbeat fa-lg" aria-hidden="true"></i>Projects</a></li>
+            		<li><a href="#/projectmembers"><i class="fa fa-user-md fa-lg" aria-hidden="true"></i>Project Members</a></li>
             		<li>
             			<a href="#">Reports</a>
             			<ul>
-            				<li><a href="#/report/jobtitle">Job Title</a></li>
-            				<li><a href="#/report/reports_wfh">WFH Reports</a></li>
-            				<li><a href="#/report/reports_pto">PTO Reports</a></li>
+            				<li><a href="#/report/jobtitle"><i class="fa fa-code fa-lg" aria-hidden="true"></i>Job Title</a></li>
+            				<li><a href="#/report/reports_wfh"><i class="fa fa-table fa-lg" aria-hidden="true"></i>WFH Reports</a></li>
+            				<li><a href="#/report/reports_pto"><i class="fa fa-list fa-lg" aria-hidden="true"></i>PTO Reports</a></li>
             			</ul>	
             		</li>
             	</ul>
             </li>
-            <li><a href="#/employees">Employees</a></li>
-            <li><a href="#/profile">Profile</a></li>
+            <li><a href="#/employees"><i class="fa fa-users fa-lg" aria-hidden="true"></i>Employees</a></li>
+            <li><a href="#/profile"><i class="fa fa-street-view fa-lg" aria-hidden="true"></i>Profile</a></li>
             <!-- <li>
             	<a href="#">Referral</a>
             	<ul>
@@ -50,10 +51,10 @@
             		<li><a href="#/interview">L1</a></li>
             	</ul>
              </li> -->
-            <li><a href="#/pto">PTO</a></li>
-            <li><a href="#/wfh">WFH</a></li>
-            <!-- <li><a href="#/notifications">Notifications - <span class="badge">{{notificationCount}}</span></a></li> -->
-            <li><a href="logout">Logout</a></li>
+            <li><a href="#/pto"><i class="fa fa-plane fa-lg" aria-hidden="true"></i>PTO</a></li>
+            <li><a href="#/wfh"><i class="fa fa-wifi fa-lg" aria-hidden="true"></i>WFH</a></li>
+            <!-- <li><a href="#/notifications"><i class="fa fa-bomb fa-lg" aria-hidden="true"></i>Notifications - <span class="badge">{{notificationCount}}</span></a></li> -->
+            <li><a href="logout"><i class="fa fa-power-off fa-lg" aria-hidden="true"></i>Logout</a></li>
         </ul>        
 	</nav>
 	
@@ -104,7 +105,8 @@
 		</div>
 	</div>
 </body>
-<script src="js/lib/jquery.js"></script>
+<script src="js/dev/lib.js"></script>
+<!-- <script src="js/lib/jquery.js"></script>
 <script src="js/lib/jquery-ui.js"></script>
 <script src="js/lib/angular.js"></script>
 <script src="js/lib/bootstrap.js"></script>
@@ -141,12 +143,14 @@
 <script src="js/lib/angular-sanitize.js"></script>
 <script src="js/lib/angularjs-dropdown-multiselect.js"></script>
 <script src="js/lib/ui-bootstrap-tpls-1.3.2.js"></script>
-<script src="js/lib/select.js"></script>
+<script src="js/lib/select.js"></script> -->
 <script src="js/app/app.js"></script>
 <script src="js/app/common.js"></script>
 <script src="js/constants/constants.js"></script>
 <script src="js/constants/url.js"></script>
 <script src="js/directive/perfdirective.js"></script>
+<script src="js/controller/abstractController.js"></script>
+<script src="js/service/commonServices.js"></script>
 <script src="js/controller/headerController.js"></script>
 <script src="js/controller/menuController.js"></script>
 <script src="js/controller/datatableController.js"></script>
@@ -177,6 +181,6 @@
 <script src="js/controller/leaveReportsController.js"></script>
 <script src="js/controller/emprolesController.js"></script>
 <script src="js/service/empRolesServices.js"></script>
-<!-- <script src="dist/js/dev/lib.js"></script> -->
+
 <!-- <script src="dist/js/dev/perf.js"></script> -->
 </html>
