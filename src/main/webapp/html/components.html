@@ -3,13 +3,12 @@
 		<h1 class="section-title">Components</h1>
 		<ul class="rightsided-element">
         	<li>
-        		<button data-toggle="modal" ng-click="addComponents()" ><i class="fa fa-plus"></i>Add</button>
+        		<button data-toggle="modal" ng-click="add()" ><i class="fa fa-plus"></i>Add</button>
         	</li>
         </ul>
 	</div>
-	<div ng-controller="componentsTableController as componentsTable">
-	    <p class="text-info"><strong>{{msg}}</strong></p>
-	    <table datatable="" dt-options="componentsTable.dtOptions" dt-columns="componentsTable.dtColumns" dt-instance="componentsTable.dtInstance" class="table perfhr-table">
+	<div>
+	    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="table perfhr-table">
 	    </table>
 	</div>
 </div>
@@ -21,24 +20,16 @@
 			<form role="form" class="form-horizontal" novalidate>
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" ng-show="!data.pk" id="myModalLabel">Save Components</h4>
-					<h4 class="modal-title" ng-show="data.pk" id="myModalLabel">Update Components</h4>
+					<h4 class="modal-title" ng-show="!data.pk" id="myModalLabel">Save Component</h4>
+					<h4 class="modal-title" ng-show="data.pk" id="myModalLabel">Update Component</h4>
 				</div>
 			    <div class="modal-body">
 			    	<div class="row">
 					      <div class="col-md-11">
-					    	 <div class="form-group">
-					      	    <div class="col-md-1"></div>
-					    	 	<div class="col-md-8">
-					    	 		<div class="help-block">
-								    </div>
-					    	 	</div>
-					    	 	<div class="col-md-1"></div>
-					    	 </div>
 					         <div class="form-group">
-						         <label class="col-md-4 control-label required">Components :</label>
+						         <label class="col-md-4 control-label required">Component :</label>
 					             <div class="col-md-8">
-					               <input type="text" name="Components" class="form-control" required validType="text-only" ng-minlength="3"
+					               <input type="text" name="Component" class="form-control" required validType="text-only" ng-minlength="3"
 		                				ng-maxlength="45" ng-model="data.componentName"/>
 					             </div>
 			   		         </div>
@@ -54,24 +45,4 @@
 		</div>
 	</div>
 </div>
-<div>
-	<!-- Modal -->
-	<div class="modal fade" id="deleteComponents" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Delete Components</h4>
-				</div>
-				<div class="modal-body">
-					Are you sure you want to delete - <b>{{data.components}}</b>?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
-					<button type="button" class="btn btn-danger" ng-click="deleteComponents()">Yes</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<div ng-include src="'html/templates/deleteTemplate.html'"></div>

@@ -22,7 +22,7 @@ function validateField(ele, eleValue, regEx, errBlock){
     }
 }
 
-function validateForm(form){
+function validateForm(form, scope){
     var errBlock = $(form).find('.help-block');
     $(errBlock).empty();
     $(form).find('div').removeClass('has-error');
@@ -49,7 +49,7 @@ function validateForm(form){
         }
         validateField(ele, eleValue, regEx, errBlock);
     });
-    try{
+    try{console.log('before validate ', scope);
 		scope.validate();
 	} catch(err){
 	}
@@ -74,7 +74,7 @@ mainApp.directive('ajaxLoading', function () {
         link: function(scope, elem, attr) {
             if(attr.type === 'submit'){
                 elem.on('click', function() {
-            		if(validateForm($(elem).parents('form'))){
+            		if(validateForm($(elem).parents('form'), scope)){
         				scope[attr.action]();
                     }
                 });

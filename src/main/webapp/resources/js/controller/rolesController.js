@@ -1,6 +1,6 @@
 (function(angular) {
 	/* Roles controller */
-	var RolesController = function($scope, $controller, rolesAPIservice, DTColumnBuilder){
+	var RolesController = function($scope, $controller, DTColumnBuilder){
 		var _this = this;
 		$scope.dtColumns = [
             DTColumnBuilder.newColumn('roleName').withTitle('Roles')
@@ -17,6 +17,6 @@
 		};
 		angular.extend(this, $controller('AbstractController', {_this: _this, vm:vm}));
 	};
-	RolesController.$inject = ['$scope','$controller', 'rolesAPIservice', 'DTColumnBuilder'];
+	RolesController.$inject = ['$scope','$controller', 'DTColumnBuilder'];
 	mainApp.controller('rolesController', RolesController);
 })(angular);

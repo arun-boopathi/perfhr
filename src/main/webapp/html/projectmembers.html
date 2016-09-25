@@ -1,16 +1,15 @@
 <div class="panel panel-success perfhr-panel">
 	<div class="panel-heading">
-		<h1 class="section-title">Project Members</h1>
+		<h1 class="section-title">Project Member</h1>
 		<ul class="rightsided-element">
         	<li>
-        		<button data-toggle="modal" ng-click="addProjectMembers()" ><i class="fa fa-plus"></i>Add</button>
+        		<button data-toggle="modal" ng-click="add()" ><i class="fa fa-plus"></i>Add</button>
         	</li>
         </ul>
 	</div>
-	<div ng-controller="ProjectsUserController as projectUserTable">
-	    <p class="text-danger"><strong>{{msg}}</strong></p>
-	    <table datatable="" dt-options="projectUserTable.dtOptions" dt-columns="projectUserTable.dtColumns" 
-	    	dt-instance="projectUserTable.dtInstance" class="table perfhr-table"></table>
+	<div>
+	    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="table perfhr-table">
+	    </table>
 	</div>
 </div>
 <!-- Modal -->
@@ -21,20 +20,12 @@
 			<form role="form" class="form-horizontal" novalidate>
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" ng-show="!data.pk">Save Project</h4>
-					<h4 class="modal-title" ng-show="data.pk">Update Project</h4>
+					<h4 class="modal-title" ng-show="!data.pk">Save Project Member</h4>
+					<h4 class="modal-title" ng-show="data.pk">Update Project Member</h4>
 				</div>
 			    <div class="modal-body">
 				   	 <div class="row">
 					      <div class="col-md-11">
-					      	<div class="form-group">
-					      	    <div class="col-md-1"></div>
-					    	 	<div class="col-md-8">
-					    	 		<div class="help-block">
-								    </div>
-					    	 	</div>
-					    	 	<div class="col-md-1"></div>
-					    	</div>
 							<div class="form-group">
 								<label class="col-md-4 control-label required" for="name">Project Name :</label>
 								<div class="col-md-8 input-group splinnputs col-xs-12">
@@ -56,7 +47,7 @@
 								<label class="col-md-4 control-label required" for="startDate">Member Start Date :</label>
 								<p class="input-group splinnputs col-md-8  col-xs-12">
 						          <input type="text" name="Member Start Date" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.dtStarted}} ng-model="data.dtStarted" is-open="pmStDate.opened" 
-						          		datepicker-options="dateOptions" required validType="date" ng-minlength="10" ng-maxlength="10" close-text="Close"/>
+						          		id="startDt" datepicker-options="dateOptions" required validType="date" ng-minlength="10" ng-maxlength="10" close-text="Close"/>
 						          <span class="input-group-btn">
 						            <button type="button" class="btn btn-default" ng-click="pmStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
 						          </span>
@@ -67,7 +58,7 @@
 								<label class="col-md-4 control-label required">Member End Date :</label>
 				                <p class="input-group splinnputs  col-md-8  col-xs-12">
 						          <input type="text" name="Member End Date" class="form-control" uib-datepicker-popup="dd-MM-yyyy" value={{data.dtEnded}} ng-model="data.dtEnded" is-open="pmEndDate.opened" 
-						          		datepicker-options="dateOptions" required validType="date" ng-minlength="10" ng-maxlength="10" close-text="Close"/>
+						          		id="endDt" datepicker-options="dateOptions" required validType="date" ng-minlength="10" ng-maxlength="10" close-text="Close"/>
 						          <span class="input-group-btn">
 						            <button type="button" class="btn btn-default" ng-click="pmEndDate()"><i class="glyphicon glyphicon-calendar"></i></button>
 						          </span>
@@ -85,23 +76,4 @@
 		</div>
 	</div>
 </div>
-<div>
-	<div class="modal fade" id="deleteProjectMember" role="dialog" data-backdrop="static">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Delete Project</h4>
-				</div>
-				<div class="modal-body">
-					Are you sure you want to delete <b>{{data.projectId.projectName}}-{{data.employeeId.firstName}} {{data.employeeId.lastName}}</b>?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
-					<button type="button" class="btn btn-danger" ng-click="deleteProjectMember()">Yes</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<div ng-include src="'html/templates/deleteTemplate.html'"></div>

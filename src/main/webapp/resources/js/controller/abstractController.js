@@ -13,6 +13,7 @@
 	    vm.scope.del = function(){
 	        _this.del(vm.deleteUrl);
 	    };
+	    
 	    vm.scope.title = vm.title;
 	   
 	    var paramObj = {

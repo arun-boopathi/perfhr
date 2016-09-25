@@ -77,7 +77,7 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersServiceImpl.clas
 
 	@Override
 	public Object saveProjectMember(ProjectMembers projectMembers, String userId) {
-		LoggerUtil.infoLog(logger, "Service to Save Project member deatils: "+projectMembers.getEmployeeId());
+		LoggerUtil.infoLog(logger, "Service to Save Project member details: "+projectMembers.getEmployeeId());
 		Session session = null;
 		Transaction tx = null;
 		try{

@@ -1,50 +1,23 @@
-var dc,  data;
-/* Designation controller */
-mainApp.controller('designationController', function($scope, designationAPIservice, $compile, DTOptionsBuilder, DTColumnBuilder) {
-    dc = this;
-    $scope.dtColumns = [
-        DTColumnBuilder.newColumn('designation').withTitle('Job Title'),
-        DTColumnBuilder.newColumn('sbu').withTitle('SBU')
-    ];
-    
-    var paramObj = {
-            "vm" : $scope,
-            "compile" : $compile,
-            "DtOptionsBuilder" : DTOptionsBuilder,
-            "DTColumnBuilder" : DTColumnBuilder,
-            "service" : designationAPIservice,
-            'loadListUrl' : perfUrl['loadDesignations'],
-            'editFormId' : 'designationForm',
-            'deleteFormId' : 'deleteDesignation'
-    };
-    perfDatatable.loadTable.init(paramObj);
-    
-    $scope.save = function(){
-        designationAPIservice.addDesignation($scope.data).success(function () {
-        	$scope.msg="Designation Saved Successfully!";
-            dc.dtInstance.reloadData();
-            $('#designationForm').modal('hide');
-        });
-    };
-    
-    $scope.addDesignation = function(){
-    	perfUtils.getInstance().resetForm();
-        $('#designationForm').modal();
-    };
-    
-    $scope.update = function(){
-        designationAPIservice.updateDesignation($scope.data).success(function () {
-        	console.log('dc in upd ', dc);
-            dc.dtInstance.dataTable.fnUpdate($scope.data, dc.dtInstance.DataTable.$('tr.selected'), undefined, false);
-            $('#designationForm .help-block').html("Designation Updated Successfully!");            
-        });
-    };
-
-    $scope.deleteDesignation = function(){
-        designationAPIservice.deleteDesignation($scope.data).success(function () {
-            dc.dtInstance.DataTable.row('.selected').remove().draw(false);
-            $('#deleteDesignation').modal('hide');
-            $scope.msg="Designation Deleted Successfully!";
-        });
-    };
-});
+(function(angular) {
+	/* Designation Controller*/
+	var DesignationController = function($scope, $controller, DTColumnBuilder){
+		var _this = this;
+		$scope.dtColumns = [
+            DTColumnBuilder.newColumn('designation').withTitle('Job Title'),
+            DTColumnBuilder.newColumn('sbu').withTitle('SBU')
+        ];
+		
+		var vm = {
+			'title' : 'Job Title',
+		    'formId' : 'designationForm',
+		    'scope' : $scope,
+		    'addUrl' : perfUrl['addDesignation'],
+		    'updateUrl' : perfUrl['updateDesignation'],
+		    'deleteUrl' : perfUrl['deleteDesignation'],
+		    'loadListUrl': perfUrl['loadDesignations']
+		};
+		angular.extend(this, $controller('AbstractController', {_this: _this, vm:vm}));
+	};
+	DesignationController.$inject = ['$scope','$controller', 'DTColumnBuilder'];
+	mainApp.controller('designationController', DesignationController);
+})(angular);

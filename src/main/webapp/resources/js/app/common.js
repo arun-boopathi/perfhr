@@ -21,7 +21,10 @@ perfHrApp.factory('perfInterceptor', ['$q', '$rootScope', function($q, $rootScop
     'response': function(response) {
         if(--loadingCount === 0)
             $rootScope.$broadcast('loading:finish');
-    	if(response.data.status === 409){
+        if(response.data.status === 500){
+        	perfUtils.getInstance().errorMsg('An Error Occured!');
+    		return $q.reject(response);
+        } else if(response.data.status === 409){
     		perfUtils.getInstance().errorMsg(response.data.entity.errorMessage);
     		return $q.reject(response);
     	}

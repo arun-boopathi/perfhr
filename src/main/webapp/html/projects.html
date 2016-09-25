@@ -1,15 +1,15 @@
 <div class="panel panel-success perfhr-panel">
 	<div class="panel-heading">
-		<h1 class="section-title">Projects</h1>
+		<h1 class="section-title">Project</h1>
 		<ul class="rightsided-element">
         	<li>
-        		<button data-toggle="modal" ng-click="addProject()" ><i class="fa fa-plus"></i>Add</button>
+        		<button data-toggle="modal" ng-click="add()" ><i class="fa fa-plus"></i>Add</button>
         	</li>
         </ul>
 	</div>
-	<div ng-controller="projectsTableController as projectTable">
-	    <p class="text-danger"><strong>{{msg}}</strong></p>
-	    <table datatable="" dt-options="projectTable.dtOptions" dt-columns="projectTable.dtColumns" dt-instance="projectTable.dtInstance" class="table perfhr-table"></table>
+	<div>
+	    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="table perfhr-table">
+	    </table>
 	</div>
 </div>
 <!-- Modal -->
@@ -28,14 +28,6 @@
 					    <div class="col-md-12">
 							<div class="col-md-11">
 						         <div class="form-group">
-						      	    <div class="col-md-1"></div>
-						    	 	<div class="col-md-8">
-						    	 		<div class="help-block">
-									    </div>
-						    	 	</div>
-						    	 	<div class="col-md-1"></div>
-						    	 </div>
-						         <div class="form-group">
 							         <label class="col-md-4  control-label required">Project Name:</label>
 						             <div class="input-group col-md-8 col-sm-12 col-xs-12 splinnputs">
 						               <input type="text" class="form-control" name="Project Name" required ng-minlength="3" 
@@ -45,7 +37,7 @@
 						         <div class="form-group">
 									<label class="col-md-4 control-label required" for="startDate">Project Start Date :</label>
 					                <p class="input-group col-md-8">
-							          <input type="text" class="form-control" name="Project Start Date" uib-datepicker-popup="dd-MM-yyyy" value={{data.startDate }} ng-model="data.startDate" is-open="stDate.opened" 
+							          <input type="text" class="form-control" name="Project Start Date" uib-datepicker-popup="dd-MM-yyyy" value={{data.startDate}} ng-model="data.startDate" is-open="stDate.opened" 
 							          		id="startDt" datepicker-options="dateOptions" validType="date" required ng-minlength="10" ng-maxlength="10" close-text="Close"/>
 							          <span class="input-group-btn">
 							            <button type="button" class="btn btn-default" ng-click="prStartDate()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -75,23 +67,4 @@
 		</div>
 	</div>
 </div>
-<div>
-	<div class="modal fade" id="deleteProject" role="dialog" data-backdrop="static">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Delete Project</h4>
-				</div>
-				<div class="modal-body">
-					Are you sure you want to delete - <b>{{data.projectName}}</b>?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
-					<button type="button" class="btn btn-danger" ng-click="deleteProject()">Yes</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<div ng-include src="'html/templates/deleteTemplate.html'"></div>
