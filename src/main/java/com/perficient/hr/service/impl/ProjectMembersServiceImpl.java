@@ -1,6 +1,8 @@
 package com.perficient.hr.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -10,19 +12,22 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.dao.ProjectMembersDAO;
+import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.ProjectMembers;
+import com.perficient.hr.orm.PrftDbObjectManager;
 import com.perficient.hr.service.ProjectMembersService;
 import com.perficient.hr.utils.ExceptionHandlingUtil;
 import com.perficient.hr.utils.LoggerUtil;
 import com.perficient.hr.utils.PerfHrConstants;
 
 @Repository("projectMembersService")
-public class ProjectMembersServiceImpl implements ProjectMembersService{
+public class ProjectMembersServiceImpl extends PrftDbObjectManager<ProjectMembers> implements ProjectMembersService{
 
 protected Logger logger = LoggerFactory.getLogger(ProjectMembersServiceImpl.class);
 
@@ -88,9 +93,17 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersServiceImpl.clas
 			projectMembers.setDtModified(new Date());
 			projectMembers.setCreatedBy(employee.getPk());
 			projectMembers.setModifiedBy(employee.getPk());
-			ProjectMembers projectMember = projectMembersDAO.saveProjectMember(projectMembers, session);
-			tx.commit();
-			return projectMember;
+			if(validateMember(projectMembers)){
+				ProjectMembers projectMember = projectMembersDAO.saveProjectMember(projectMembers, session);
+				tx.commit();
+				return projectMember;	
+			}
+		} catch(RecordExistsException e){
+			LoggerUtil.errorLog(logger, "Project Member already exists within time range: "+projectMembers.getProjectId().getProjectName()+"/"
+					+projectMembers.getEmployeeId().getFirstName()+"-"+projectMembers.getEmployeeId().getLastName(), e);
+			ExceptionHandlingUtil.transactionRollback(tx);
+			return ExceptionHandlingUtil.returnErrorObject("Project Member already exists within time range: "+projectMembers.getProjectId().getProjectName()+"/"
+					+projectMembers.getEmployeeId().getFirstName()+"-"+projectMembers.getEmployeeId().getLastName(), HttpStatus.CONFLICT.value());
 		} catch(Exception e){
 			LoggerUtil.errorLog(logger, "Unable to Save Project member deatils: "+projectMembers.getEmployeeId(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
@@ -98,6 +111,7 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersServiceImpl.clas
 		} finally{
 			ExceptionHandlingUtil.closeSession(session);	
 		}
+		return true;
 	}
 
 	@Override
@@ -117,8 +131,7 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersServiceImpl.clas
 	}
 
 	@Override
-	public Object updateProjectMember(ProjectMembers projectMembers,
-			String userId) {
+	public Object updateProjectMember(ProjectMembers projectMembers, String userId) {
 		LoggerUtil.infoLog(logger, "Service to update Project member deatils : " + projectMembers.getEmployeeId());
 		Session session = null;
 		Transaction tx = null;
@@ -127,14 +140,43 @@ protected Logger logger = LoggerFactory.getLogger(ProjectMembersServiceImpl.clas
 			tx = session.beginTransaction();
 			projectMembers.setDtModified(new Date());
 			projectMembers.setModifiedBy(employeeDAO.loadById(userId, session).getPk());
-			projectMembersDAO.updateProjectMember(projectMembers, session);
-			tx.commit();
+			if(validateMember(projectMembers)){
+				projectMembersDAO.updateProjectMember(projectMembers, session);
+				tx.commit();
+			}
+		} catch(RecordExistsException e){
+			LoggerUtil.errorLog(logger, "Project Member already exists within time range: "+projectMembers.getProjectId().getProjectName()+"/"
+					+projectMembers.getEmployeeId().getFirstName()+"-"+projectMembers.getEmployeeId().getLastName(), e);
+			ExceptionHandlingUtil.transactionRollback(tx);
+			return ExceptionHandlingUtil.returnErrorObject("Project Member already exists within time range: "+projectMembers.getProjectId().getProjectName()+"/"
+					+projectMembers.getEmployeeId().getFirstName()+"-"+projectMembers.getEmployeeId().getLastName(), HttpStatus.CONFLICT.value());
 		} catch(Exception e){
 			LoggerUtil.errorLog(logger, "Unable to update Project member deatils : " + projectMembers.getEmployeeId(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to update Project member deatils : " + projectMembers.getEmployeeId(), e);
 		} finally{
 			ExceptionHandlingUtil.closeSession(session);	
+		}
+		return true;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private boolean validateMember(ProjectMembers projectMembers) throws RecordExistsException{
+		HashMap<Object, Object> map = new HashMap<>();
+		map.put("projectPk", projectMembers.getProjectId().getPk());
+		map.put("employeeId", projectMembers.getEmployeeId().getPk());
+		map.put("active", PerfHrConstants.ACTIVE);
+		String sql = " from ProjectMembers as pm where pm.projectId.pk=:projectPk and pm.employeeId.pk=:employeeId and pm.active=:active";
+		List<ProjectMembers> projectMembersList = executeQuery(sql, map);
+		if(projectMembersList.size() > 0){
+			for(ProjectMembers projMember: projectMembersList){
+				if((projectMembers.getDtStarted().getTime() > projMember.getDtStarted().getTime()
+						&& projectMembers.getDtStarted().getTime() < projMember.getDtEnded().getTime())
+						||(projectMembers.getDtEnded().getTime() > projMember.getDtStarted().getTime()
+								&& projectMembers.getDtEnded().getTime() < projMember.getDtEnded().getTime())){
+					throw new RecordExistsException();
+				}
+			}				
 		}
 		return true;
 	}

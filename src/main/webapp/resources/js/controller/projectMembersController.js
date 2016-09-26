@@ -25,7 +25,7 @@
 	    $scope.validate = function(){
     		perfUtils.getInstance().compareDate();
     	};
-	    
+    	
 		$scope.dtColumns = [
             DTColumnBuilder.newColumn('projectId.projectName').withTitle('Project Name'),
 	        DTColumnBuilder.newColumn('employeeId').withTitle('Employee Name').renderWith(function(full) {

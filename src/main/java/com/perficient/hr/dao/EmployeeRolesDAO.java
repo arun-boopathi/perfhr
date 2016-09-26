@@ -11,9 +11,10 @@ public interface EmployeeRolesDAO {
 
 	public EmployeeRoles saveEmpRoles(EmployeeRoles employeeRoles, Session session);
 	
-	public List<EmployeeRoles> loadEmpByRoles(String roleId, Session session);
+	public List<EmployeeRoles> loadEmpRolesByRoles(String roleId, Session session);
 		
 	public int removeEmpRoles(Roles role, Session session);
 
 	public int removeEmpRolesByEmpIds(Roles role, Integer empId, Session session);
+	
 }

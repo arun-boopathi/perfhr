@@ -23,7 +23,7 @@
             .withBootstrap()
             .withOption('responsive', params.responsive)
             .withOption('createdRow', createdRow)
-            //.withOption('aaSorting', [params.sortCol === undefined? 0: params.sortCol, 'asc'])
+            .withOption('aaSorting', [params.sortCol === undefined? 0: params.sortCol, 'asc'])
             .withPaginationType('full_numbers')
             .withOption("oLanguage", {"sEmptyTable": params.vm.sEmptyTable === undefined?"No Records Found.": params.vm.sEmptyTable})
             .withColumnFilter()
@@ -46,7 +46,10 @@
 
             function createdRow(row) {
                 // Recompiling so we can bind Angular directive to the DT
-                params.compile(angular.element(row).contents())(params.vm);
+                if(params.scope)
+	                params.compile(angular.element(row).contents())(params.scope);
+	            else
+		            params.compile(angular.element(row).contents())(params.vm);
             }
             function actionsHtml(data) {
                 params.vm.datalist[data.pk] = data;
@@ -67,8 +70,13 @@
         popRecord: function(ele, id, formId){
             this.params.vm.dtInstance.DataTable.$('tr.selected').removeClass('selected');
             $(ele).parents('tr').addClass('selected');
-            this.params.vm.data = angular.copy(this.params.vm.datalist[id]);        
-            this.params.vm.$apply();
+            if(scope){
+	            scope.data = angular.copy(this.params.vm.datalist[id]);            
+	            this.params.scope.$apply();
+            } else {
+            	this.params.vm.data = angular.copy(this.params.vm.datalist[id]);        
+                this.params.vm.$apply();	
+            }
             $(formId).modal('show');
         }
     };

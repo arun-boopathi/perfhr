@@ -89,7 +89,7 @@ protected Logger logger = LoggerFactory.getLogger(EmployeeRolesServiceImpl.class
 		List<EmployeeRoles> list = null;
 		try {
 			session = sessionFactory.openSession();
-			list = employeeRolesDAO.loadEmpByRoles(roleId, session);
+			list = employeeRolesDAO.loadEmpRolesByRoles(roleId, session);
 		} catch (Exception e) {
 			LoggerUtil.errorLog(logger, "Unable to load employee List ", e);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to load employee List ", e); 

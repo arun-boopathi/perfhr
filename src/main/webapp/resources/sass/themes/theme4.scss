@@ -17,8 +17,6 @@ body{
     color:$FontMain;
 }
 
-
-
 .header{
       background: $ThemeColor;
       width:100%;
@@ -197,6 +195,10 @@ div.dataTables_length label, div.dataTables_filter label{
     		}
 		}
  	}
+}
+
+.modal table.dataTable tbody td {
+	color: #000;
 }
 
 /*-----------------PAGNATION COMPONENT---------------------*/

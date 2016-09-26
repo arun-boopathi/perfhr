@@ -10,19 +10,22 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.EmployeeDAO;
 import com.perficient.hr.dao.ProjectDAO;
+import com.perficient.hr.exception.RecordExistsException;
 import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.Projects;
+import com.perficient.hr.orm.PrftDbObjectManager;
 import com.perficient.hr.service.ProjectService;
 import com.perficient.hr.utils.ExceptionHandlingUtil;
 import com.perficient.hr.utils.LoggerUtil;
 import com.perficient.hr.utils.PerfHrConstants;
 
 @Repository("projectService")
-public class ProjectServiceImpl implements ProjectService {
+public class ProjectServiceImpl extends PrftDbObjectManager<Projects> implements ProjectService {
 
 	protected Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
 	
@@ -89,9 +92,17 @@ public class ProjectServiceImpl implements ProjectService {
 			project.setDtModified(new Date());
 			project.setCreatedBy(employee.getPk());
 			project.setModifiedBy(employee.getPk());
-			projectDAO.addProject(project, session);
-			tx.commit();
-			return true;
+			if(exists(project, "projectName", project.getProjectName(), null)){
+				throw new RecordExistsException();
+			} else {
+				projectDAO.addProject(project, session);
+				tx.commit();
+				return true;
+			}			
+		} catch(RecordExistsException e){
+			LoggerUtil.errorLog(logger, "Project Name already exists: "+project.getProjectName(), e);
+			ExceptionHandlingUtil.transactionRollback(tx);
+			return ExceptionHandlingUtil.returnErrorObject("Project Name already exists: "+project.getProjectName(), HttpStatus.CONFLICT.value());
 		} catch(Exception e){
 			LoggerUtil.errorLog(logger, "Unable to Add New Project : "+project.getProjectName(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
@@ -112,10 +123,18 @@ public class ProjectServiceImpl implements ProjectService {
 			Employee employee = employeeDAO.loadById(userId, session);
 			project.setDtModified(new Date());
 			project.setModifiedBy(employee.getPk());
-			session.merge(project);
-			tx.commit();
-			return true;
-		} catch(Exception e){
+			if(exists(project, "projectName", project.getProjectName(), project.getPk())){
+				throw new RecordExistsException();
+			} else {
+				session.merge(project);
+				tx.commit();
+				return true;	
+			}			
+		} catch(RecordExistsException e){
+			LoggerUtil.errorLog(logger, "Project Name already exists: "+project.getProjectName(), e);
+			ExceptionHandlingUtil.transactionRollback(tx);
+			return ExceptionHandlingUtil.returnErrorObject("Project Name already exists: "+project.getProjectName(), HttpStatus.CONFLICT.value());
+		}  catch(Exception e){
 			LoggerUtil.errorLog(logger, "Unable to Update New Project : "+project.getProjectName(), e);
 			ExceptionHandlingUtil.transactionRollback(tx);
 			return ExceptionHandlingUtil.returnErrorObject("Unable to Update New Project : "+project.getProjectName(), e);
@@ -136,9 +155,7 @@ public class ProjectServiceImpl implements ProjectService {
 			project.setActive(PerfHrConstants.INACTIVE);
 			project.setDtModified(new Date());
 			project.setModifiedBy(employee.getPk());
-			
 			projectDAO.deleteProject(project, session);
-			
 			tx.commit();
 			return true;
 		} catch(Exception e){

@@ -145,7 +145,7 @@ public class DesignationsServiceImpl extends PrftDbObjectManager<Designations> i
 			} else {
 				designation.setActive(PerfHrConstants.INACTIVE);
 				updateDesignation(designation, userId, session);
-				//tx.commit();
+				tx.commit();
 				return true;
 			}
 		} catch(RecordExistsException e){

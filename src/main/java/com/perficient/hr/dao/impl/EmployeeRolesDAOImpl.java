@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.perficient.hr.dao.EmployeeRolesDAO;
 import com.perficient.hr.dao.RolesDAO;
+import com.perficient.hr.model.Employee;
 import com.perficient.hr.model.EmployeeRoles;
 import com.perficient.hr.model.Roles;
 import com.perficient.hr.utils.PerfHrConstants;
@@ -52,7 +53,7 @@ public class EmployeeRolesDAOImpl implements EmployeeRolesDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<EmployeeRoles> loadEmpByRoles(String roleId, Session session) {
+	public List<EmployeeRoles> loadEmpRolesByRoles(String roleId, Session session) {
 		String sqlQuery =" from EmployeeRoles r where r.active=:active and r.roleId=:roleId";
 		Query query = session.createQuery(sqlQuery);
 		query.setParameter(PerfHrConstants.ACTIVE_COLUMN, PerfHrConstants.ACTIVE);

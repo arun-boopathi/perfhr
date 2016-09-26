@@ -1,8 +1,12 @@
 package com.perficient.hr.orm;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -52,6 +56,30 @@ public abstract class PrftDbObjectManager<T> {
 		if(criteria.list().size() > 0)
 				throw new RecordExistsException();
 		return false;
+	}
+	
+	public boolean exists(T object, HashMap<Object, Object> mapCriteria, Long pk) throws RecordExistsException {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(object.getClass());
+		for(Object key : mapCriteria.keySet()){
+			criteria.add(Restrictions.eq(key.toString(), mapCriteria.get(key)));	
+		}
+		if(null != pk)
+			criteria.add(Restrictions.not(Restrictions.in("pk", new Long[] {pk})));
+		//criteria.setProjection(Projections.property(idKey));
+		if(criteria.list().size() > 0)
+				throw new RecordExistsException();
+		return false;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List executeQuery(String sqlQuery, HashMap<Object, Object> mapCriteria){
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery(sqlQuery);
+		for(Object key : mapCriteria.keySet()){
+			query.setParameter(key.toString(), mapCriteria.get(key));
+		}
+		return  query.list();
 	}
 	
 }
